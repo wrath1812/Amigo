@@ -3,7 +3,6 @@ import { View, FlatList } from 'react-native';
 import cardData from '../data';
 import Card from '../components/card';
 import * as LocalAuthentication from 'expo-local-authentication';
-import * as Notifications from 'expo-notifications';
 
 function CardList() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
