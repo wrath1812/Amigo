@@ -6,7 +6,20 @@ import * as Notifications from 'expo-notifications';
 
 function Card   ({ item }) {
 
-    // const [remainingTime, setRemainingTime] = useState(60);
+    const [remainingTime, setRemainingTime] = useState(60);
+
+    const handleClipboardPress = async () => {
+      Clipboard.setString(item.card_number);
+  
+      // Create and present the notification
+      await Notifications.scheduleNotificationAsync({
+        content: {
+          title: 'Your Notification Title',
+          body: `Remaining Time:  seconds`,
+          data: { type: 'dismiss_notification' },
+        }
+      });
+    };
 
     
     return (<View style={styles.card}>
@@ -14,7 +27,7 @@ function Card   ({ item }) {
       <Text style={styles.cardText}>{item.card_number}</Text>
       <Text style={styles.cardText}>{item.expiry}</Text>
       <Text style={styles.cardText}>{item.cvv}</Text>
-      <TouchableOpacity onPress={()=>Clipboard.setString(item.card_number)}>
+      <TouchableOpacity onPress={handleClipboardPress}>
       <Ionicons name="md-clipboard" size={32} color="green" />
     </TouchableOpacity>
     </View>
@@ -40,4 +53,6 @@ const styles = StyleSheet.create({
     },
   });
 
-  export default Card;
+const  renderItems = ({ item }) => <Card item={item} />;
+
+export default renderItems;

@@ -1,0 +1,66 @@
+{
+    "cli": {
+        "version": ">= 0.46.0",
+        "promptToConfigurePushNotifications": false
+    },
+    "build": {
+        "development": {
+            "releaseChannel": "staging",
+            "distribution": "internal",
+            "android": {
+                "gradleCommand": ":app:assembleDebug"
+            },
+            "ios": {
+                "cocoapods": "1.11.2",
+                "enterpriseProvisioning": "adhoc"
+            },
+            "env": {
+            }
+        },
+        "staging": {
+            "releaseChannel": "staging",
+            "distribution": "internal",
+            "android": {
+                "buildType": "apk"
+            },
+            "ios": {
+                "cocoapods": "1.11.2",
+                "enterpriseProvisioning": "adhoc"
+            },
+            "env": {
+            }
+        },
+        "productionTest": {
+            "releaseChannel": "staging",
+            "distribution": "internal",
+            "android": {
+                "buildType": "apk"
+            },
+            "ios": {
+                "cocoapods": "1.11.2",
+                "enterpriseProvisioning": "adhoc"
+            },
+            "env": {
+            }
+        },
+        "production": {
+            "distribution": "store",
+            "releaseChannel": "main",
+            "android": {
+                "buildType": "app-bundle"
+            },
+            "cache": {
+                "key": "Invalidate"
+            },
+            "ios": {
+                "cocoapods": "1.11.2",
+                "enterpriseProvisioning": "universal"
+            },
+            "env": {
+            }
+        }
+    },
+    "submit": {
+        "production": {}
+    }
+}

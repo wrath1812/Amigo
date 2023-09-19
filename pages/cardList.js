@@ -3,6 +3,7 @@ import { View, FlatList } from 'react-native';
 import cardData from '../data';
 import Card from '../components/card';
 import * as LocalAuthentication from 'expo-local-authentication';
+import * as Notifications from 'expo-notifications';
 
 function CardList() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -36,12 +37,11 @@ function CardList() {
 
   return (
     <View style={{ flex: 1 }}>
-      {/* <FlatList
+      <FlatList
         data={cardData}
         renderItem={Card}
         keyExtractor={(item) => item.card_number}
-      /> */}
-      <Card item={cardData[0]} />
+      />
     </View>
   );
 }
