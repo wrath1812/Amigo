@@ -1,12 +1,25 @@
-import { View, Text, StyleSheet } from 'react-native';
-const Card  = ({ item }) => (
-    <View style={styles.card}>
-      <Text style={styles.cardText}>Nickname: {item.nickname}</Text>
-      <Text style={styles.cardText}>Card Number: {item.card_number}</Text>
-      <Text style={styles.cardText}>Expiry: {item.expiry}</Text>
-      <Text style={styles.cardText}>CVV: {item.cvv}</Text>
+import { View, Text, StyleSheet, TouchableOpacity, Animated } from 'react-native';
+import * as Clipboard from 'expo-clipboard';
+import Ionicons from '@expo/vector-icons/Ionicons';
+import React,{useState} from 'react';
+import * as Notifications from 'expo-notifications';
+
+function Card   ({ item }) {
+
+    // const [remainingTime, setRemainingTime] = useState(60);
+
+    
+    return (<View style={styles.card}>
+      <Text style={styles.cardText}>{item.nickname}</Text>
+      <Text style={styles.cardText}>{item.card_number}</Text>
+      <Text style={styles.cardText}>{item.expiry}</Text>
+      <Text style={styles.cardText}>{item.cvv}</Text>
+      <TouchableOpacity onPress={()=>Clipboard.setString(item.card_number)}>
+      <Ionicons name="md-clipboard" size={32} color="green" />
+    </TouchableOpacity>
     </View>
-  );
+  )
+};
 
 const styles = StyleSheet.create({
     card: {
@@ -18,6 +31,8 @@ const styles = StyleSheet.create({
       shadowColor: 'rgba(0, 0, 0, 0.1)', // Shadow for iOS
       shadowOffset: { width: 0, height: 2 },
       shadowOpacity: 0.8,
+      height: 200,
+      width: 300,
     },
     cardText: {
       color: 'white', // Text color
