@@ -4,39 +4,34 @@
     "card_number": "378282246310005",
     "expiry": "12/24",
     "cvv": "123",
-    "color": "#004994",
-    "type": "Amex"
+    "type": "american-express"
   },
   {
     "nickname": "American Express",
     "card_number": "371449635398431",
     "expiry": "08/23", 
     "cvv": "123",
-    "color": "#004994",
-    "type": "Amex"
+    "type": "american-express"
   },
   {
-    "nickname": "MasterCard",
+    "nickname": "mastercard",
     "card_number": "5555555555554444",
     "expiry": "06/25", 
     "cvv": "123",
-    "color": "#DC0040",
-    "type": "MasterCard"
+    "type": "mastercard"
   },
   {
-    "nickname": "MasterCard",
+    "nickname": "mastercard",
     "card_number": "5105105105105100",
     "expiry": "09/26", 
     "cvv": "123",
-    "color": "#DC0040",
-    "type": "MasterCard"
+    "type": "mastercard"
   },
   {
     "nickname": "visa",
     "card_number": "4111111111111111",
     "expiry": "05/27", 
     "cvv": "123",
-    "color": "#00529B",
     "type": "visa"
   },
   {
@@ -44,7 +39,6 @@
     "card_number": "4012888888881881",
     "expiry": "02/28",
     "cvv": "123",
-    "color": "#00529B",
     "type": "visa"
   },
   {
@@ -52,7 +46,6 @@
     "card_number": "4222222222222",
     "expiry": "11/29",
     "cvv": "123",
-    "color": "#00529B",
     "type": "visa"
   }
 ]

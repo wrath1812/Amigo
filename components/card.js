@@ -2,17 +2,12 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Switch, Image } from 'react-native';
 import * as Clipboard from 'expo-clipboard';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import Amex from '../cardIcon/amex.png';
-import MasterCard from '../cardIcon/masterCard.png';
-import visa from '../cardIcon/visa.png';
+import CARD_ICON from '../contants/cardIcon';
+import CARD_COLOR from '../contants/cardColour';
 import Toast from 'react-native-root-toast';
 
 
-const icon={
-  MasterCard,
-  visa,
-  Amex
-};
+
 
 function formatCardNumber(cardNumber) {
   return cardNumber.replace(/(.{4})/g, '$1    ');
@@ -39,13 +34,14 @@ function Card({ item }) {
       duration: Toast.durations.LONG,
   });
 
-  };
+  }; 
+  console.log(CARD_COLOR[item.type] && item.color,"xdex")
 
   return (
-    <View style={{ ...styles.card, backgroundColor: item.color }}>
+    <View style={{ ...styles.card, backgroundColor: CARD_COLOR[item.type] || item.color}}>
       <View  style={{flexDirection: 'row', justifyContent: 'space-between'}}>
       <Text style={styles.cardText}>{item.nickname}</Text>
-      <Image source={icon[item.type] } style={{ width: 50, height: 50 }} />
+      <Image source={CARD_ICON[item.type] } style={{ width: 50, height: 50 }} />
       </View>
       <Text style={styles.cardNumber}>{getCardNumberDisplayValue(item.card_number,!showCVV)}</Text>
       <Text style={styles.cardText}>{item.expiry}</Text>

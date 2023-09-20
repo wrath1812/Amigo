@@ -9,10 +9,9 @@ function AddCard({ onAddCard }) {
     card_number: '',
     expiry: '', // Set the default value with the slash
     cvv: '',
-    color: '#00529B',
+    color: "black",
     type: '',
   });
-  const [cardType, setCardType] = useState('');
 
   // Function to format the card number with spaces every four digits
 // Function to format the card number with spaces every four digits
@@ -26,7 +25,6 @@ const formatCardNumber = (input) => {
 
   // Set the card type in the card state
   setCard((prevCard) => ({ ...prevCard, card_number: formattedInput, type: cardType }));
-  console.log(cardType);
 };
 
 
@@ -50,7 +48,7 @@ const formatAndValidateExpiry = (text) => {
 
   // Function to validate the CVV
   const validateCVV = (cvv) => {
-    const cvvValidation = CardValidator.cvv(cvv, cardType);
+    const cvvValidation = CardValidator.cvv(cvv, card.cardType);
     setIsCVVValid(cvvValidation.isValid);
   };
 
