@@ -104,7 +104,6 @@ const styles = StyleSheet.create({
     padding: 16,
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
-    height: 600
   },
   container: {
     flex: 1,

@@ -51,18 +51,18 @@ function Card({ item }) {
       <Text style={styles.cardNumber}>{getCardNumberDisplayValue(item.card_number,!showCVV)}</Text>
       <Text style={styles.cardText}>{item.expiry}</Text>
       <View style={styles.cvvContainer}>
-        <Text style={styles.cardText}>{showCVV?item.cvv:"XXX"}</Text>
+       {item.cvv&&( <Text style={styles.cardText}>{showCVV?item.cvv:"XXX"}</Text>)}
         {item.card_number&&(<TouchableOpacity onPress={handleClipboardPress}>
           <Ionicons name="md-clipboard" size={32} color="green" />
         </TouchableOpacity>)}
         <View>
-        <TouchableOpacity onPress={() => setShowCVV((prev) => !prev)}>
+        {item.cvv && (<TouchableOpacity onPress={() => setShowCVV((prev) => !prev)}>
         <Ionicons
           name={showCVV ? 'eye-off' : 'eye'}
           size={24}
           color="gray"
         />
-      </TouchableOpacity>
+      </TouchableOpacity>)}
         </View>
       </View>
     </View>
