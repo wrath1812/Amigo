@@ -15,7 +15,7 @@ const icon={
 };
 
 function formatCardNumber(cardNumber) {
-  return cardNumber.replace(/(.{4})/g, '$1 ');
+  return cardNumber.replace(/(.{4})/g, '$1    ');
 }
 
 function maskCardNumber(cardNumber) {
@@ -52,18 +52,17 @@ function Card({ item }) {
       <Text style={styles.cardText}>{item.expiry}</Text>
       <View style={styles.cvvContainer}>
         <Text style={styles.cardText}>{showCVV?item.cvv:"XXX"}</Text>
-        <TouchableOpacity onPress={handleClipboardPress}>
+        {item.card_number&&(<TouchableOpacity onPress={handleClipboardPress}>
           <Ionicons name="md-clipboard" size={32} color="green" />
-        </TouchableOpacity>
+        </TouchableOpacity>)}
         <View>
-        <Switch
-          style={{ transform: [{ scaleX: 1.2 }, { scaleY: 1.2 }] }}
-          trackColor={{ false: 'gray', true: 'green' }} // Customize track color
-          thumbColor={showCVV ? 'green' : 'gray'} // Customize thumb color
-          value={showCVV}
-          onValueChange={() => setShowCVV((prev) => !prev)}
+        <TouchableOpacity onPress={() => setShowCVV((prev) => !prev)}>
+        <Ionicons
+          name={showCVV ? 'eye-off' : 'eye'}
+          size={24}
+          color="gray"
         />
-        <Text style={{...styles.cardText,fontSize:10}}>{showCVV?"Hide":"Show"} CVV</Text>
+      </TouchableOpacity>
         </View>
       </View>
     </View>
