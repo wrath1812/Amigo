@@ -35,7 +35,6 @@ function Card({ item }) {
   });
 
   }; 
-  console.log(CARD_COLOR[item.type] && item.color,"xdex")
 
   return (
     <View style={{ ...styles.card, backgroundColor: CARD_COLOR[item.type] || item.color}}>
