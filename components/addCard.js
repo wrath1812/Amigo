@@ -7,7 +7,7 @@ function AddCard({ onAddCard }) {
   const [card, setCard] = useState({
     nickname: '',
     card_number: '',
-    expiry: '',
+    expiry: '', // Set the default value with the slash
     cvv: '',
     color: '#000000',
   });
@@ -23,6 +23,26 @@ function AddCard({ onAddCard }) {
     setIsCardNumberValid(cardNumberValidation.isValid);
     setCardType(cardNumberValidation.card ? cardNumberValidation.card.type : '');
   };
+
+  // Function to format and validate the expiry date
+const formatAndValidateExpiry = (text) => {
+  // Remove any non-numeric characters
+  const formattedText = text.replace(/[^0-9]/g, '');
+
+  // Insert a slash ("/") between the month and year
+  let formattedExpiry = '';
+  if (formattedText.length > 2) {
+    formattedExpiry = formattedText.slice(0, 2) + '/' + formattedText.slice(2);
+  } else {
+    formattedExpiry = formattedText;
+  }
+
+  // Always set the state with the formatted expiry
+  setCard({ ...card, expiry: formattedExpiry });
+  console.log(formattedExpiry);
+};
+
+
 
   // Function to validate the CVV
   const validateCVV = (cvv) => {
@@ -43,6 +63,12 @@ function AddCard({ onAddCard }) {
         cvv: '',
       });
     }
+  };
+
+  const validateExpiry = (text) => {
+    // Use a regular expression to match the MM/YY format (e.g., 12/23)
+    const regex = /^(0[1-9]|1[0-2])\/\d{2}$/;
+    return regex.test(text);
   };
 
   const [isCardNumberValid, setIsCardNumberValid] = useState(true);
@@ -67,10 +93,12 @@ function AddCard({ onAddCard }) {
       />
       <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
         <TextInput
-          style={styles.input}
-          placeholder="Expiry Date"
+          style={[styles.input, !validateExpiry(card.expiry) && styles.invalidInput]}
+          placeholder="Expiry Date (MM/YY)"
           value={card.expiry}
-          onChangeText={(text) => setCard({ ...card, expiry: text })}
+          onChangeText={formatAndValidateExpiry}
+          maxLength={5}
+          keyboardType='numeric'
         />
         <TextInput
           style={[styles.input, !isCVVValid && styles.invalidInput]}
@@ -82,6 +110,7 @@ function AddCard({ onAddCard }) {
             // Validate the CVV in real-time
             validateCVV(text);
           }}
+          maxLength={4}
         />
       </View>
       <TouchableOpacity style={styles.addButton} onPress={handleAddCard}>
