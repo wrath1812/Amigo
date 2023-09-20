@@ -1,25 +1,19 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, SafeAreaView, Platform } from 'react-native'; // Import SafeAreaView
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { Platform } from 'react-native';
+import Constants from 'expo-constants';
+import LoginScreen from './pages/LoginScreen';
 import CardList from './pages/cardList';
-import Constants from 'expo-constants'; 
-
-
-
+import SignupScreen from './pages/SignUpScreen';
 export default function App() {
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaProvider style={{backgroundColor:"#000",paddingTop:Platform==='android' ? Constants.statusBarHeight:0}}>
       <StatusBar style="auto" />
-      <CardList />
-    </SafeAreaView>
+      {/* <LoginScreen /> */}
+      {/* <CardList /> */}
+      <SignupScreen />
+    </SafeAreaProvider>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#000',
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingTop: Platform.OS === 'android' ? Constants.statusBarHeight : 0,
-  },
-});
+

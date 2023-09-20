@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, FlatList, StyleSheet, TouchableOpacity, Text } from 'react-native';
+import { View, FlatList, StyleSheet, SafeAreaView } from 'react-native';
 import cardData from '../data';
 import {renderCard} from '../components/Card';
 import AddCard from '../components/addCard';
@@ -53,7 +53,7 @@ function CardList() {
   };
 
   return (
-    <View style={{ flex: 1 }}>
+    <SafeAreaView style={styles.container}>
       <FlatList
         data={cardData}
         renderItem={renderCard}
@@ -82,11 +82,16 @@ function CardList() {
           <AddCard onAddCard={handleAddCard} />
         </View>
       </Modal>
-    </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
   fabContainer: {
     position: 'absolute',
     bottom: 16,
