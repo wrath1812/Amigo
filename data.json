@@ -7,13 +7,6 @@
     "type": "american-express"
   },
   {
-    "nickname": "American Express",
-    "card_number": "371449635398431",
-    "expiry": "08/23", 
-    "cvv": "123",
-    "type": "american-express"
-  },
-  {
     "nickname": "mastercard",
     "card_number": "5555555555554444",
     "expiry": "06/25", 
@@ -36,13 +29,6 @@
   },
   {
     "nickname": "visa",
-    "card_number": "4012888888881881",
-    "expiry": "02/28",
-    "cvv": "123",
-    "type": "visa"
-  },
-  {
-    "nickname": "visa",
     "card_number": "4222222222222",
     "expiry": "11/29",
     "cvv": "123",
@@ -54,5 +40,26 @@
     "expiry": "11/43",
     "cvv": "123",
     "type": "rupay"
-  }
+  },
+  {
+    "nickname": "American Express",
+    "card_number": "371449635398431",
+    "expiry": "08/23", 
+    "cvv": "123",
+    "type": "american-express"
+  },
+  {
+    "nickname":"Discower",
+    "card_number":"6011111111111117",
+    "expiry":"11/43",
+    "cvv":"123",
+    "type":"Discover"
+  },
+{
+  "nickname": "visa",
+  "card_number": "4012888888881881",
+  "expiry": "02/28",
+  "cvv": "123",
+  "type": "visa"
+}
 ]
