@@ -47,5 +47,12 @@
     "expiry": "11/29",
     "cvv": "123",
     "type": "visa"
+  },
+  {
+    "nickname": "rupay",
+    "card_number": "6528591234543575",
+    "expiry": "11/43",
+    "cvv": "123",
+    "type": "rupay"
   }
 ]

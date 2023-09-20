@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
   },
   cardNumber: {
     color: 'white',
-    fontSize: 20, // Adjust the font size as needed for the card number
+    fontSize: 17, // Adjust the font size as needed for the card number
     margin: 5, 
     fontWeight: 'bold',
     // horizontally center

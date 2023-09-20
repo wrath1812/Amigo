@@ -13,19 +13,31 @@ function AddCard({ onAddCard }) {
     type: '',
   });
 
-  // Function to format the card number with spaces every four digits
-// Function to format the card number with spaces every four digits
-const formatCardNumber = (input) => {
-  const formattedInput = input.replace(/\s/g, '').replace(/(\d{4})/g, '$1 ').trim();
+  const formatCardNumber = (input) => {
+    const formattedInput = input.replace(/\s/g, '').replace(/(\d{4})/g, '$1 ').trim();
 
-  // Validate the card number in real-time
-  const cardNumberValidation = CardValidator.number(formattedInput);
-  setIsCardNumberValid(cardNumberValidation.isValid);
-  const cardType = cardNumberValidation.card ? cardNumberValidation.card.type : '';
+    // Validate the card number in real-time
+    const cardNumberValidation = CardValidator.number(formattedInput);
+    setIsCardNumberValid(cardNumberValidation.isValid);
 
-  // Set the card type in the card state
-  setCard((prevCard) => ({ ...prevCard, card_number: formattedInput, type: cardType }));
-};
+    // Update card type based on the validation result
+    let cardType = cardNumberValidation.card ? cardNumberValidation.card.type : '';
+
+    // Manually check for Discover card based on BIN range
+    const discoverBINPattern = /^6(?:011|5[0-9]{2})/; // Discover cards typically start with '6011' or '65'
+    if (discoverBINPattern.test(formattedInput)) {
+      cardType = 'Discover';
+    }
+
+    // Manually check for Rupay card based on BIN range
+    const rupayBINPattern = /^65/; // Rupay cards start with '65'
+    if (rupayBINPattern.test(formattedInput)) {
+      cardType = 'rupay';
+    }
+
+    // Set the card type in the card state
+    setCard((prevCard) => ({ ...prevCard, card_number: formattedInput, type: cardType }));
+  };
 
 
 
