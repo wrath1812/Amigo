@@ -4,7 +4,7 @@ const CARD_COLOR = {
     "american-express": "#004994",
     rupay: "#ec5d01",
     Discover: "#FF6F61",
-    dinersclub: "#FFC857",
+    "diners-club": "#FFC857",
     jcb: "#00798C",
     unionpay: "#FFD700", // Add UnionPay card color
     maestro: "#007A7C", // Add Maestro card color

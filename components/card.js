@@ -35,7 +35,6 @@ function Card({ item }) {
   });
 
   }; 
-  console.log(item.type);
 
   return (
     <View style={{ ...styles.card, backgroundColor: CARD_COLOR[item.type] || item.color}}>
