@@ -103,6 +103,6 @@ const styles = StyleSheet.create({
   },
 }); 
 
-const  renderItems = ({ item }) => <Card item={item} />;
+export const  renderCard = ({ item }) => <Card item={item} />;
 
-export default renderItems;
+export default Card;

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, FlatList } from 'react-native';
 import cardData from '../data';
-import Card from '../components/card';
+import {renderCard as Card} from '../components/card';
 import * as LocalAuthentication from 'expo-local-authentication';
 
 function CardList() {
