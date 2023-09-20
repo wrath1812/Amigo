@@ -4,13 +4,13 @@ import * as Clipboard from 'expo-clipboard';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import Amex from '../cardIcon/amex.png';
 import MasterCard from '../cardIcon/masterCard.png';
-import Visa from '../cardIcon/visa.png';
+import visa from '../cardIcon/visa.png';
 import Toast from 'react-native-root-toast';
 
 
 const icon={
   MasterCard,
-  Visa,
+  visa,
   Amex
 };
 
@@ -33,7 +33,6 @@ function getCardNumberDisplayValue(cardNumber, showFullNumber) {
 }
 function Card({ item }) {
   const [showCVV, setShowCVV] = useState(false);
-
   const handleClipboardPress = async () => {
     Clipboard.setString(item.card_number);
     Toast.show('Card Number Copied to Clipboard', {

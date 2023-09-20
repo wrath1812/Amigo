@@ -9,20 +9,27 @@ function AddCard({ onAddCard }) {
     card_number: '',
     expiry: '', // Set the default value with the slash
     cvv: '',
-    color: '#000000',
+    color: '#00529B',
+    type: '',
   });
   const [cardType, setCardType] = useState('');
 
   // Function to format the card number with spaces every four digits
-  const formatCardNumber = (input) => {
-    const formattedInput = input.replace(/\s/g, '').replace(/(\d{4})/g, '$1 ').trim();
-    setCard({ ...card, card_number: formattedInput });
+// Function to format the card number with spaces every four digits
+const formatCardNumber = (input) => {
+  const formattedInput = input.replace(/\s/g, '').replace(/(\d{4})/g, '$1 ').trim();
 
-    // Validate the card number in real-time
-    const cardNumberValidation = CardValidator.number(formattedInput);
-    setIsCardNumberValid(cardNumberValidation.isValid);
-    setCardType(cardNumberValidation.card ? cardNumberValidation.card.type : '');
-  };
+  // Validate the card number in real-time
+  const cardNumberValidation = CardValidator.number(formattedInput);
+  setIsCardNumberValid(cardNumberValidation.isValid);
+  const cardType = cardNumberValidation.card ? cardNumberValidation.card.type : '';
+
+  // Set the card type in the card state
+  setCard((prevCard) => ({ ...prevCard, card_number: formattedInput, type: cardType }));
+  console.log(cardType);
+};
+
+
 
   // Function to format and validate the expiry date
 const formatAndValidateExpiry = (text) => {
@@ -39,10 +46,7 @@ const formatAndValidateExpiry = (text) => {
 
   // Always set the state with the formatted expiry
   setCard({ ...card, expiry: formattedExpiry });
-  console.log(formattedExpiry);
 };
-
-
 
   // Function to validate the CVV
   const validateCVV = (cvv) => {

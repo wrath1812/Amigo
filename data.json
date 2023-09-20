@@ -32,27 +32,27 @@
     "type": "MasterCard"
   },
   {
-    "nickname": "Visa",
+    "nickname": "visa",
     "card_number": "4111111111111111",
     "expiry": "05/27", 
     "cvv": "123",
     "color": "#00529B",
-    "type": "Visa"
+    "type": "visa"
   },
   {
-    "nickname": "Visa",
+    "nickname": "visa",
     "card_number": "4012888888881881",
     "expiry": "02/28",
     "cvv": "123",
     "color": "#00529B",
-    "type": "Visa"
+    "type": "visa"
   },
   {
-    "nickname": "Visa",
+    "nickname": "visa",
     "card_number": "4222222222222",
     "expiry": "11/29",
     "cvv": "123",
     "color": "#00529B",
-    "type": "Visa"
+    "type": "visa"
   }
 ]
