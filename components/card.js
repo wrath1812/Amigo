@@ -53,7 +53,7 @@ function Card({ item }) {
       <View style={styles.cvvContainer}>
        {item.cvv&&( <Text style={styles.cardText}>{showCVV?item.cvv:"XXX"}</Text>)}
         {item.card_number&&(<TouchableOpacity onPress={handleClipboardPress}>
-          <Ionicons name="md-clipboard" size={32} color="green" />
+          <Ionicons name="md-clipboard" size={32} color="gray" />
         </TouchableOpacity>)}
         <View>
         {item.cvv && (<TouchableOpacity onPress={() => setShowCVV((prev) => !prev)}>
