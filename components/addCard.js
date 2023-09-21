@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, TextInput, ScrollView } from 'react-native';
-import Card from './Card';
+import Card from './card';
 import * as CardValidator from 'card-validator';
 
 function AddCard({ onAddCard }) {

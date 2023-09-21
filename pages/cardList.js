@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, FlatList, StyleSheet, SafeAreaView } from 'react-native';
 import cardData from '../data';
-import {renderCard} from '../components/Card';
+import {renderCard} from '../components/card';
 import AddCard from '../components/addCard';
 import * as LocalAuthentication from 'expo-local-authentication';
 import { FAB } from 'react-native-paper';

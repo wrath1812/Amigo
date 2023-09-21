@@ -10,8 +10,8 @@ export default function App() {
     <SafeAreaProvider style={{backgroundColor:"#000",paddingTop:Platform==='android' ? Constants.statusBarHeight:0}}>
       <StatusBar style="auto" />
       {/* <LoginScreen /> */}
-      {/* <CardList /> */}
-      <SignupScreen />
+      <CardList />
+      {/* <SignupScreen /> */}
     </SafeAreaProvider>
   );
 }
