@@ -1,7 +1,6 @@
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import PAGES from '../constants/pages';
-import AuthNavigator from './AuthNavigator';
 import AppNavigator from './AppNavigator';
 import { useAuth } from '../context/AuthContext';
 
@@ -14,7 +13,7 @@ function RootNavigator() {
     return (
         <NavigationContainer>
             <Stack.Navigator initialRouteName={PAGES.LOGIN}>
-                {isAuthenticated ? AppNavigator:AuthNavigator}
+                {isAuthenticated ? AppNavigator:AppNavigator}
             </Stack.Navigator>
         </NavigationContainer>
     );
