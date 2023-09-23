@@ -3,7 +3,6 @@ import * as SecureStore from 'expo-secure-store';
 async function storeSecret(key, secret) {
   try {
     await SecureStore.setItemAsync(key, secret);
-    console.log('Secret stored successfully.');
   } catch (error) {
     console.error('Error storing secret:', error);
   }

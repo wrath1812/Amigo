@@ -14,6 +14,7 @@
     "@react-navigation/native": "^6.1.7",
     "@react-navigation/native-stack": "^6.9.13",
     "card-validator": "^8.1.1",
+    "crypto": "^1.0.1",
     "eas-cli": "^5.2.0",
     "expo": "~49.0.11",
     "expo-clipboard": "~4.3.1",
