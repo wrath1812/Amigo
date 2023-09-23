@@ -10,7 +10,7 @@ import {
   KeyboardAvoidingView,
 } from 'react-native';
 
-import LoginImage from '../assets/images/icon.png';
+import LoginImage from '../assets/icon.png';
 import {useAuth} from '../context/AuthContext';
 
 const LoginScreen = ({navigation}) => {
