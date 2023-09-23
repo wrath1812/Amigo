@@ -57,7 +57,6 @@ const LoginScreen = ({navigation}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'black', // Set the background color to black
     alignItems: 'center',
     justifyContent: 'center',
   },

@@ -1,11 +1,11 @@
-import Amex from '../cardIcon/amex.png';
-import MasterCard from '../cardIcon/masterCard.png';
-import Visa from '../cardIcon/visa.png';
-import Rupay from '../cardIcon/rupay.png';
-import Discover from '../cardIcon/discover.webp';
-import JCB from '../cardIcon/jcb.png';
-import DinersClub from '../cardIcon/dinersClub.png';
-import GenericIcon from '../cardIcon/genericIcon.png';
+import Amex from '../assets/cardIcon/amex.png';
+import MasterCard from '../assets/cardIcon/masterCard.png';
+import Visa from '../assets/cardIcon/visa.png';
+import Rupay from '../assets/cardIcon/rupay.png';
+import Discover from '../assets/cardIcon/discover.webp';
+import JCB from '../assets/cardIcon/jcb.png';
+import DinersClub from '../assets/cardIcon/dinersClub.png';
+import GenericIcon from '../assets/cardIcon/genericIcon.png';
 
 
 const CARD_ICON={

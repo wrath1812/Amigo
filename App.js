@@ -8,7 +8,6 @@ export default function App() {
     return (
         <SafeAreaProvider
             style={{
-                backgroundColor: '#000',
                 paddingTop:
                     Platform === 'android' ? Constants.statusBarHeight : 0,
             }}
