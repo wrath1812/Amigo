@@ -5,6 +5,7 @@ import Rupay from '../assets/images/cardIcon/rupay.png';
 import Discover from '../assets/images/cardIcon/discover.webp';
 import JCB from '../assets/images/cardIcon/jcb.png';
 import GenericIcon from '../assets/images/cardIcon/genericIcon.png';
+import DinningClub from '../assets/images/cardIcon/dinersClub.png';
 
 const CARD_ICON = {
     mastercard: MasterCard,
@@ -12,7 +13,7 @@ const CARD_ICON = {
     'american-express': Amex,
     rupay: Rupay,
     Discover: Discover,
-    'diners-club': Amex,
+    'diners-club': DinningClub,
     jcb: JCB,
     unionpay: GenericIcon,
     maestro: GenericIcon,
