@@ -6,10 +6,13 @@ import AddCard from '../components/addCard';
 import * as LocalAuthentication from 'expo-local-authentication';
 import { FAB } from 'react-native-paper';
 import Modal from 'react-native-modal';
+import {useAuth} from '../context/AuthContext';
+import { Button } from 'react-native';
 
 function CardList() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isModalVisible, setModalVisible] = useState(false);
+  const {logout}=useAuth();
   const handleAddCard = (newCard) => {
     // Add the new card to your cardData or perform any other necessary action
     console.log('Adding new card:', newCard);
@@ -82,6 +85,7 @@ function CardList() {
           <AddCard onAddCard={handleAddCard} />
         </View>
       </Modal>
+      <Button title="Logout" onPress={logout} />
     </SafeAreaView>
   );
 }

@@ -1,17 +1,17 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import LoginScreen from '../pages/LoginScreen';
 import PAGES from '../constants/pages';
+import CardListScreen from '../pages/CardListScreen';
 
 const Stack = createNativeStackNavigator();
-const AuthNavigator = (
+const AppNavigator = (
     <Stack.Group>
         <Stack.Screen
-            name={PAGES.LOGIN}
+            name={PAGES.CARD_LIST}
             options={{ headerTitleAlign: 'center' }}
-            component={LoginScreen}
+            component={CardListScreen}
         />
     </Stack.Group>
 );
 
-export default AuthNavigator;
+export default AppNavigator;

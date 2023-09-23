@@ -11,15 +11,17 @@ import {
 } from 'react-native';
 
 import LoginImage from '../assets/login.png';
+import {useAuth} from '../context/AuthContext';
 
 const LoginScreen = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const {login}=useAuth();
 
   const handleLogin = () => {
     console.log('Email:', email);
     console.log('Password:', password);
-    // Add your login logic here (e.g., API call)
+    login();
   };
 
   return (
