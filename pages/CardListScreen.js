@@ -3,14 +3,12 @@ import { View, FlatList, StyleSheet, SafeAreaView } from 'react-native';
 import cardData from '../data';
 import {renderCard} from '../components/card';
 import AddCard from '../components/addCard';
-import * as LocalAuthentication from 'expo-local-authentication';
 import { FAB } from 'react-native-paper';
 import Modal from 'react-native-modal';
 import {useAuth} from '../context/AuthContext';
 import { Button } from 'react-native';
 
 function CardList() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isModalVisible, setModalVisible] = useState(false);
   const {logout}=useAuth();
   const handleAddCard = (newCard) => {
@@ -20,32 +18,6 @@ function CardList() {
     hideModal();
   };
 
-  useEffect(() => {
-    async function authenticateUser() {
-      try {
-        const result = await LocalAuthentication.authenticateAsync({
-          promptMessage: 'Authenticate using biometrics',
-          fallbackLabel: 'Enter PIN',
-        });
-
-        if (result.success) {
-          // Authentication successful
-          console.log('Authentication successful');
-          setIsAuthenticated(true);
-        } else {
-          // Authentication failed or was canceled
-          console.log('Authentication failed or canceled');
-        }
-      } catch (error) {
-        // Handle any errors that occur during authentication
-        console.error('Authentication error:', error);
-      }
-    }
-
-    if (!isAuthenticated) {
-      authenticateUser();
-    }
-  }, [isAuthenticated]);
 
   const showModal = () => {
     setModalVisible(true);

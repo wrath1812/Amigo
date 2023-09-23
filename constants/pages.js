@@ -1,6 +1,5 @@
 const PAGES = {
-    LOGIN: 'Login',
-    SIGNUP: 'Signup',
+    LOGGED_OUT: 'Logged Out',
     CARD_LIST: 'Cards'
 };
 
