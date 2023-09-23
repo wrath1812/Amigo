@@ -10,11 +10,11 @@ const AuthContext = createContext();
 
 async function getEncryptionKey()
 {
-    let key= retrieveSecret(ENCRYPTION_KEY);
+    let key= await retrieveSecret(ENCRYPTION_KEY);
     if(!key)
     {
-        const key= await generateEncryptionKey();
-        storeSecret(ENCRYPTION_KEY, key);
+        const key= generateEncryptionKey();
+        await storeSecret(ENCRYPTION_KEY, key);
     }
     return key;
 }
@@ -45,10 +45,11 @@ export const AuthProvider = ({ children }) => {
         if (!isAuthenticated) {
             authenticateUser();
         }
+        (async () => {
 
-        const key= getEncryptionKey();
-
+        const key=await getEncryptionKey();
         setEncryptionKey(key);
+        })();
 
     }, [isAuthenticated]);
 

@@ -21,4 +21,12 @@ async function retrieveSecret(key) {
     }
 }
 
+async function deleteSecret(key) {
+    try {
+        await SecureStore.deleteItemAsync(key);
+    } catch (error) {
+        console.error('Error deleting secret:', error);
+    }
+}
+
 export { storeSecret, retrieveSecret };

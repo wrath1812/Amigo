@@ -7,14 +7,24 @@ import { FAB } from 'react-native-paper';
 import Modal from 'react-native-modal';
 import { useAuth } from '../context/AuthContext';
 import { Button } from 'react-native';
-
+import { getLocalStoreData,setLocalStoreData } from '../helper/localStorage';
+import { CARDS } from '../constants/string';
+import { encryptData,decryptData } from '../helper/encryption';
 function CardList() {
     const [isModalVisible, setModalVisible] = useState(false);
-    const { logout } = useAuth();
-    const handleAddCard = (newCard) => {
-        // Add the new card to your cardData or perform any other necessary action
-        console.log('Adding new card:', newCard);
-        // Close the modal
+    const { logout, encryptionKey } = useAuth();
+    const [cards, setCards] = useState([]);
+
+    const handleAddCard = async (newCard) => {
+        const encryptedCard=encryptData(JSON.stringify(newCard), encryptionKey);
+        const cards=await getLocalStoreData(CARDS);
+        if (!cards) {
+            await setLocalStoreData(CARDS, [encryptedCard]);
+            hideModal();
+            return;
+        }
+        const newCards = [...cards, encryptedCard];
+        await setLocalStoreData(CARDS, newCards);
         hideModal();
     };
 
@@ -25,11 +35,25 @@ function CardList() {
     const hideModal = () => {
         setModalVisible(false);
     };
+    useEffect(() => {
+
+    const getCards = async () => {
+        const encryptedCards=await getLocalStoreData(CARDS);
+        const decryptedCards = encryptedCards.map((card) => {
+            const decryptedCard=decryptData(card, encryptionKey);
+            return decryptedCard;
+        }
+
+        );
+        setCards(decryptedCards);
+    }
+    getCards();
+    }, []);
 
     return (
         <SafeAreaView style={styles.container}>
             <FlatList
-                data={cardData}
+                data={cards}
                 renderItem={renderCard}
                 keyExtractor={(item) => item.card_number}
             />

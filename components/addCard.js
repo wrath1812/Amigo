@@ -20,6 +20,9 @@ function AddCard({ onAddCard }) {
         type: '',
     });
 
+    const [isCardNumberValid, setIsCardNumberValid] = useState(true);
+    const [isCVVValid, setIsCVVValid] = useState(true);
+
     const formatCardNumber = (input) => {
         const formattedInput = input
             .replace(/\s/g, '')
@@ -75,22 +78,26 @@ function AddCard({ onAddCard }) {
 
     // Function to validate the CVV
     const validateCVV = (cvv) => {
-        const cvvValidation = CardValidator.cvv(cvv, card.cardType);
+        const cvvValidation = CardValidator.cvv(cvv, card.type);
         setIsCVVValid(cvvValidation.isValid);
     };
 
     const handleAddCard = () => {
         // Validate and process the card data
-        if (card.nickname && isCardNumberValid && card.expiry && isCVVValid) {
+        if (card.nickname && isCardNumberValid && validateExpiry(card.expiry) && isCVVValid) {
             // Call the onAddCard function with the card data
             onAddCard(card);
             // Clear the form
             setCard({
                 nickname: '',
                 card_number: '',
-                expiry: '',
+                expiry: '', // Set the default value with the slash
                 cvv: '',
+                color: 'black',
+                type: '',
             });
+            setIsCardNumberValid(true);
+            setIsCVVValid(true);
         }
     };
 
@@ -99,9 +106,6 @@ function AddCard({ onAddCard }) {
         const regex = /^(0[1-9]|1[0-2])\/\d{2}$/;
         return regex.test(text);
     };
-
-    const [isCardNumberValid, setIsCardNumberValid] = useState(true);
-    const [isCVVValid, setIsCVVValid] = useState(true);
 
     return (
         <ScrollView>

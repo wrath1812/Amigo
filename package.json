@@ -11,6 +11,7 @@
     },
     "dependencies": {
         "@expo/config-plugins": "~7.2.2",
+        "@react-native-async-storage/async-storage": "^1.19.3",
         "@react-navigation/native": "^6.1.7",
         "@react-navigation/native-stack": "^6.9.13",
         "card-validator": "^8.1.1",

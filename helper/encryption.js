@@ -1,4 +1,4 @@
-import * as CryptoES from 'crypto-es';
+import  CryptoES from 'crypto-es';
 
 // Function to generate an encryption key
 function generateEncryptionKey() {
@@ -40,6 +40,5 @@ function decryptData(encryptedData, encryptionKey) {
     return decryptedData;
   }
 }
-
 
 export { generateEncryptionKey, encryptData, decryptData };
