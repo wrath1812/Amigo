@@ -12,7 +12,7 @@ import {
 
 import LoginImage from '../assets/login.png';
 
-const LoginScreen = () => {
+const LoginScreen = ({navigation}) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 

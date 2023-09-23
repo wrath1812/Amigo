@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Switch, Image } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity,  Image } from 'react-native';
 import * as Clipboard from 'expo-clipboard';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import CARD_ICON from '../contants/cardIcon';
-import CARD_COLOR from '../contants/cardColour';
+import CARD_ICON from '../constants/cardIcon';
+import CARD_COLOR from '../constants/cardColour';
 import Toast from 'react-native-root-toast';
 
 

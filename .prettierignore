@@ -1,0 +1,14 @@
+# Ignore artifacts:
+build
+coverage
+assets
+gen
+node_modules
+.expo-shared
+.expo
+package-lock.json
+
+# Ignore all HTML files:
+*.html
+
+

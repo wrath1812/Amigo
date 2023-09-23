@@ -6,10 +6,13 @@
     "start": "expo start",
     "android": "expo start --android",
     "ios": "expo start --ios",
-    "web": "expo start --web"
+    "web": "expo start --web",
+    "format": "prettier --ignore-path .gitignore --write \"**/*.+(js|ts|json)\""
   },
   "dependencies": {
     "@expo/config-plugins": "~7.2.2",
+    "@react-navigation/native": "^6.1.7",
+    "@react-navigation/native-stack": "^6.9.13",
     "card-validator": "^8.1.1",
     "eas-cli": "^5.2.0",
     "expo": "~49.0.11",
@@ -18,15 +21,22 @@
     "expo-local-authentication": "~13.4.1",
     "expo-notifications": "~0.20.1",
     "expo-status-bar": "~1.6.0",
+    "prettier": "^3.0.3",
     "react": "18.2.0",
     "react-native": "0.72.4",
     "react-native-modal": "^13.0.1",
     "react-native-paper": "^5.10.5",
+    "react-native-root-siblings": "^4.1.1",
     "react-native-root-toast": "^3.5.1",
-    "react-native-safe-area-context": "4.6.3"
+    "react-native-safe-area-context": "4.6.3",
+    "react-native-screens": "^3.25.0"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0"
   },
-  "private": true
+  "private": true,
+  "lint-staged": {
+    "**/*": "prettier --w . --ignore-unknown",
+    "*.{ts,tsx}": "eslint"
+  }
 }
