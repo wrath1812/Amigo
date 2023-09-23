@@ -6,20 +6,19 @@ import Discover from '../assets/images/cardIcon/discover.webp';
 import JCB from '../assets/images/cardIcon/jcb.png';
 import GenericIcon from '../assets/images/cardIcon/genericIcon.png';
 
-
-const CARD_ICON={
-  mastercard:MasterCard,
-  visa:Visa,
-  "american-express":Amex,
-  rupay:Rupay,
-  Discover: Discover,
-  "diners-club": Amex,
-  jcb: JCB,
-  unionpay: GenericIcon,
-  maestro: GenericIcon,
-  mir: GenericIcon,
-  elo: GenericIcon,
-  hipercard: GenericIcon,
+const CARD_ICON = {
+    mastercard: MasterCard,
+    visa: Visa,
+    'american-express': Amex,
+    rupay: Rupay,
+    Discover: Discover,
+    'diners-club': Amex,
+    jcb: JCB,
+    unionpay: GenericIcon,
+    maestro: GenericIcon,
+    mir: GenericIcon,
+    elo: GenericIcon,
+    hipercard: GenericIcon,
 };
 
 export default CARD_ICON;

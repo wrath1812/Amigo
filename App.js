@@ -3,7 +3,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { Platform } from 'react-native';
 import Constants from 'expo-constants';
 import RootNavigator from './navigator/RootNavigator';
-import {AuthProvider} from './context/AuthContext';
+import { AuthProvider } from './context/AuthContext';
 export default function App() {
     return (
         <SafeAreaProvider
@@ -13,12 +13,11 @@ export default function App() {
             }}
         >
             <StatusBar style="auto" />
-            <AuthProvider> 
-        <RootNavigator />
-      </AuthProvider>
+            <AuthProvider>
+                <RootNavigator />
+            </AuthProvider>
         </SafeAreaProvider>
     );
 }
-
 
 // https://stackoverflow.com/questions/72768/how-do-you-detect-credit-card-type-based-on-number

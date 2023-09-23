@@ -6,10 +6,10 @@ import { View, Text, StyleSheet } from 'react-native';
 function LoggedOutScreen() {
     return (
         <View style={styles.container}>
-        <Text style={styles.text}>You are logged out.</Text>
+            <Text style={styles.text}>You are logged out.</Text>
         </View>
     );
-    }
+}
 
 const styles = StyleSheet.create({
     container: {

@@ -1,9 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export const setLocalStoreData = async (
-    objKey,
-    value
-) => {
+export const setLocalStoreData = async (objKey, value) => {
     try {
         if (!objKey) {
             return { status: false };

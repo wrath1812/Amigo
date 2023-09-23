@@ -1,79 +1,79 @@
 [
-  {
-    "nickname": "American Express",
-    "card_number": "378282246310005",
-    "expiry": "12/24",
-    "cvv": "123",
-    "type": "american-express"
-  },
-  {
-    "nickname": "mastercard",
-    "card_number": "5555555555554444",
-    "expiry": "06/25", 
-    "cvv": "123",
-    "type": "mastercard"
-  },
-  {
-      "nickname": "jcb",
-      "card_number": "3530111333300000",
-      "expiry": "06/25", 
-      "cvv": "123",
-      "type": "jcb"
-  },
-  {
-    "nickname": "visa",
-    "card_number": "4222222222222",
-    "expiry": "11/29",
-    "cvv": "123",
-    "type": "visa"
-  },
-  {
-    "nickname": "mastercard",
-    "card_number": "5105105105105100",
-    "expiry": "09/26", 
-    "cvv": "123",
-    "type": "mastercard"
-  },
-  {
-    "nickname": "visa",
-    "card_number": "4111111111111111",
-    "expiry": "05/27", 
-    "cvv": "123",
-    "type": "visa"
-  },
-  {
-    "nickname": "rupay",
-    "card_number": "6528591234543575",
-    "expiry": "11/43",
-    "cvv": "123",
-    "type": "rupay"
-  },
-  {
-    "nickname": "Dinning Club",
-    "card_number": "30569309025904",
-    "expiry": "08/23", 
-    "cvv": "123",
-    "type": "diners-club"
-  },
-  {
-    "nickname": "American Express",
-    "card_number": "371449635398431",
-    "expiry": "08/23", 
-    "cvv": "123",
-    "type": "american-express"
-  },
-  {
-    "nickname":"Discower",
-    "card_number":"6011111111111117",
-    "expiry":"11/43",
-    "cvv":"123",
-    "type":"Discover"
-  },
-{
-  "nickname": "visa",
-  "card_number": "4012888888881881",
-  "expiry": "02/28",
-  "cvv": "123",
-  "type": "visa"
-}
+    {
+        "nickname": "American Express",
+        "card_number": "378282246310005",
+        "expiry": "12/24",
+        "cvv": "123",
+        "type": "american-express"
+    },
+    {
+        "nickname": "mastercard",
+        "card_number": "5555555555554444",
+        "expiry": "06/25",
+        "cvv": "123",
+        "type": "mastercard"
+    },
+    {
+        "nickname": "jcb",
+        "card_number": "3530111333300000",
+        "expiry": "06/25",
+        "cvv": "123",
+        "type": "jcb"
+    },
+    {
+        "nickname": "visa",
+        "card_number": "4222222222222",
+        "expiry": "11/29",
+        "cvv": "123",
+        "type": "visa"
+    },
+    {
+        "nickname": "mastercard",
+        "card_number": "5105105105105100",
+        "expiry": "09/26",
+        "cvv": "123",
+        "type": "mastercard"
+    },
+    {
+        "nickname": "visa",
+        "card_number": "4111111111111111",
+        "expiry": "05/27",
+        "cvv": "123",
+        "type": "visa"
+    },
+    {
+        "nickname": "rupay",
+        "card_number": "6528591234543575",
+        "expiry": "11/43",
+        "cvv": "123",
+        "type": "rupay"
+    },
+    {
+        "nickname": "Dinning Club",
+        "card_number": "30569309025904",
+        "expiry": "08/23",
+        "cvv": "123",
+        "type": "diners-club"
+    },
+    {
+        "nickname": "American Express",
+        "card_number": "371449635398431",
+        "expiry": "08/23",
+        "cvv": "123",
+        "type": "american-express"
+    },
+    {
+        "nickname": "Discower",
+        "card_number": "6011111111111117",
+        "expiry": "11/43",
+        "cvv": "123",
+        "type": "Discover"
+    },
+    {
+        "nickname": "visa",
+        "card_number": "4012888888881881",
+        "expiry": "02/28",
+        "cvv": "123",
+        "type": "visa"
+    }
 ]

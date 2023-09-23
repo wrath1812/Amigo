@@ -1,37 +1,35 @@
 {
-  "expo": {
-    "name": "cardvault",
-    "slug": "cardvault",
-    "version": "1.0.0",
-    "orientation": "portrait",
-    "icon": "./assets/icon.png",
-    "userInterfaceStyle": "light",
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#000"
-    },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
-    "ios": {
-      "supportsTablet": true
-    },
-    "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#000"
-      },
-      "package": "com.bhaumik.tandan.cardvault"
-    },
-    "web": {
-      "favicon": "./assets/favicon.png"
-    },
-    "extra": {
-      "eas": {
-        "projectId": "9c4c7365-8fd4-4064-9ec9-2c1313be186b"
-      }
-    },
-    "owner": "bhaumik.tandan"
-  }
+    "expo": {
+        "name": "cardvault",
+        "slug": "cardvault",
+        "version": "1.0.0",
+        "orientation": "portrait",
+        "icon": "./assets/icon.png",
+        "userInterfaceStyle": "light",
+        "splash": {
+            "image": "./assets/splash.png",
+            "resizeMode": "contain",
+            "backgroundColor": "#000"
+        },
+        "assetBundlePatterns": ["**/*"],
+        "ios": {
+            "supportsTablet": true
+        },
+        "android": {
+            "adaptiveIcon": {
+                "foregroundImage": "./assets/adaptive-icon.png",
+                "backgroundColor": "#000"
+            },
+            "package": "com.bhaumik.tandan.cardvault"
+        },
+        "web": {
+            "favicon": "./assets/favicon.png"
+        },
+        "extra": {
+            "eas": {
+                "projectId": "9c4c7365-8fd4-4064-9ec9-2c1313be186b"
+            }
+        },
+        "owner": "bhaumik.tandan"
+    }
 }

@@ -14,8 +14,7 @@
                 "cocoapods": "1.11.2",
                 "enterpriseProvisioning": "adhoc"
             },
-            "env": {
-            }
+            "env": {}
         },
         "staging": {
             "releaseChannel": "staging",
@@ -27,8 +26,7 @@
                 "cocoapods": "1.11.2",
                 "enterpriseProvisioning": "adhoc"
             },
-            "env": {
-            }
+            "env": {}
         },
         "productionTest": {
             "releaseChannel": "staging",
@@ -40,8 +38,7 @@
                 "cocoapods": "1.11.2",
                 "enterpriseProvisioning": "adhoc"
             },
-            "env": {
-            }
+            "env": {}
         },
         "production": {
             "distribution": "store",
@@ -56,8 +53,7 @@
                 "cocoapods": "1.11.2",
                 "enterpriseProvisioning": "universal"
             },
-            "env": {
-            }
+            "env": {}
         }
     },
     "submit": {

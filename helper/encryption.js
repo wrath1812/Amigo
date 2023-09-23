@@ -1,28 +1,45 @@
-import crypto from 'crypto';
+import * as CryptoES from 'crypto-es';
 
-function encryptPassword(secret, encryptionKey) {
-  const algorithm = 'aes-256-ecb'; // ECB mode does not use an IV
-  const cipher = crypto.createCipheriv(algorithm, Buffer.from(encryptionKey), Buffer.alloc(0)); // Empty buffer for IV
-  let encryptedSecret = cipher.update(secret, 'utf-8', 'hex');
-  encryptedSecret += cipher.final('hex');
-  return encryptedSecret;
-}
-
-function decryptPassword(encryptedSecret, encryptionKey) {
-    const algorithm = 'aes-256-ecb'; // Use the same algorithm as encryption
-    const decipher = crypto.createDecipheriv(algorithm, Buffer.from(encryptionKey), Buffer.alloc(0)); // Empty buffer for IV
-    let decryptedSecret = decipher.update(encryptedSecret, 'hex', 'utf-8');
-    decryptedSecret += decipher.final('utf-8');
-    return decryptedSecret;
-}
-
+// Function to generate an encryption key
 function generateEncryptionKey() {
-    const keyLengthInBytes = 128; 
-    return crypto.randomBytes(keyLengthInBytes).toString('hex');
+  // Key length in bytes (e.g., 32 bytes for a 256-bit key)
+  const keyLengthInBytes = 32;
+  
+  // Generate a random key
+  const key = CryptoES.lib.WordArray.random(keyLengthInBytes);
+  
+  // Convert the key to a hexadecimal string
+  const keyHex = key.toString();
+  
+  return keyHex;
 }
 
-return {
-    encryptPassword,
-    decryptPassword,
-    generateEncryptionKey,
-};
+// Function to encrypt data
+function encryptData(data, encryptionKey) {
+  // Convert the data to a string (assuming it's not already)
+  const dataString = typeof data === 'string' ? data : JSON.stringify(data);
+
+  // Encrypt the data using AES encryption
+  const encryptedData = CryptoES.AES.encrypt(dataString, encryptionKey).toString();
+
+  return encryptedData;
+}
+
+// Function to decrypt data
+function decryptData(encryptedData, encryptionKey) {
+  // Decrypt the data using AES decryption
+  const decryptedBytes = CryptoES.AES.decrypt(encryptedData, encryptionKey);
+  
+  // Convert the decrypted bytes to a string
+  const decryptedData = decryptedBytes.toString(CryptoES.enc.Utf8);
+
+  // Parse the JSON if needed
+  try {
+    return JSON.parse(decryptedData);
+  } catch (error) {
+    return decryptedData;
+  }
+}
+
+
+export { generateEncryptionKey, encryptData, decryptData };
