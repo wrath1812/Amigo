@@ -17,7 +17,7 @@ function CardList() {
     const handleAddCard = async (newCard) => {
         const encryptedCard=encryptData(JSON.stringify(newCard), encryptionKey);
         const cards=await getLocalStoreData(CARDS);
-        if (!cards) {
+        if (!cards || cards.length == 0) {
             await setLocalStoreData(CARDS, [encryptedCard]);
             hideModal();
             return;
