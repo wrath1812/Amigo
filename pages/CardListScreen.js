@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, FlatList, StyleSheet, SafeAreaView } from 'react-native';
-import cardData from '../data';
+import { View, FlatList, StyleSheet, SafeAreaView, Text } from 'react-native';
 import { renderCard } from '../components/card';
 import AddCard from '../components/addCard';
 import { FAB } from 'react-native-paper';
@@ -39,6 +38,8 @@ function CardList() {
 
     const getCards = async () => {
         const encryptedCards=await getLocalStoreData(CARDS);
+        if(!encryptedCards)
+        return;
         const decryptedCards = encryptedCards.map((card) => {
             const decryptedCard=decryptData(card, encryptionKey);
             return decryptedCard;
@@ -52,11 +53,13 @@ function CardList() {
 
     return (
         <SafeAreaView style={styles.container}>
+            {cards.length==0?
+            <Text>No cards Added</Text>:
             <FlatList
                 data={cards}
                 renderItem={renderCard}
                 keyExtractor={(item) => item.card_number}
-            />
+            />}
             <View style={styles.fabContainer}>
                 <FAB style={styles.fab} icon="plus" onPress={showModal} />
             </View>
