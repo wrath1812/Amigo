@@ -15,14 +15,21 @@ function CardList() {
     const [cards, setCards] = useState([]);
 
     const handleAddCard = async (newCard) => {
+        for (let i = 0; i < cards.length; i++) {
+            if (cards[i].card_number == newCard.card_number) {
+                alert('Card already exists');
+                return;
+            }
+        }
         const encryptedCard=encryptData(JSON.stringify(newCard), encryptionKey);
-        const cards=await getLocalStoreData(CARDS);
-        if (!cards || cards.length == 0) {
+        const savedCards=await getLocalStoreData(CARDS);
+        if (!savedCards || savedCards.length == 0) {
             await setLocalStoreData(CARDS, [encryptedCard]);
+            setCards((prev)=>[newCard,...prev]);
             hideModal();
             return;
         }
-        const newCards = [...cards, encryptedCard];
+        const newCards = [...savedCards, encryptedCard];
         await setLocalStoreData(CARDS, newCards);
         hideModal();
     };
