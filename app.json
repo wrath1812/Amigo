@@ -9,7 +9,7 @@
         "splash": {
             "image": "./assets/splash.png",
             "resizeMode": "contain",
-            "backgroundColor": "#fff"
+            "backgroundColor": "#000"
         },
         "assetBundlePatterns": ["**/*"],
         "ios": {
@@ -17,8 +17,8 @@
         },
         "android": {
             "adaptiveIcon": {
-                "foregroundImage": "./assets/adaptive-icon.png",
-                "backgroundColor": "#fff"
+                "foregroundImage": "./assets/icon.png",
+                "backgroundColor": "#000"
             },
             "package": "com.bhaumik.tandan.cardvault"
         },
