@@ -56,7 +56,7 @@ function CardList() {
         setCards(decryptedCards);
     }
     getCards();
-    }, []);
+    }, [cards]);
 
     return (
         <SafeAreaView style={{...styles.container,backgroundColor:'#1a1a1a'}}>

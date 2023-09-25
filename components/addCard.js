@@ -76,11 +76,19 @@ function AddCard({ onAddCard }) {
         setCard({ ...card, expiry: formattedExpiry });
     };
 
-    // Function to validate the CVV
     const validateCVV = (cvv) => {
-        const cvvValidation = CardValidator.cvv(cvv, card.type);
-        setIsCVVValid(cvvValidation.isValid);
+        // Check if the card type is Amex and adjust the CVV validation accordingly
+        const isAmex = card.type.toLowerCase() === 'american-express';
+        
+        // Define the CVV length based on the card type (Amex: 4 digits, others: 3 digits)
+        const expectedCVVLength = isAmex ? 4 : 3;
+    
+        // Validate the CVV length and whether it's numeric
+        const isValidCVV = cvv.length === expectedCVVLength && /^\d+$/.test(cvv);
+        
+        setIsCVVValid(isValidCVV);
     };
+    
 
     const handleAddCard = () => {
         // Validate and process the card data
