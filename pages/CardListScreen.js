@@ -86,7 +86,6 @@ function CardList() {
                     <AddCard onAddCard={handleAddCard} />
                 </View>
             </Modal>
-            <Button title="Logout" onPress={logout} />
         </SafeAreaView>
     );
 }
