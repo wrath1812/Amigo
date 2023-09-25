@@ -1,7 +1,7 @@
 const CARD_COLOR = {
     mastercard: '#DC0040',
-    visa: '#00529B',
-    'american-express': '#0066CC',
+    visa: '#0066CC',
+    'american-express': '#00529B',
     rupay: '#ec5d01',
     Discover: '#FF6F61',
     'diners-club': '#FFC857',
