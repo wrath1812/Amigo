@@ -32,6 +32,22 @@
         "projectId": "f26cf6f9-5809-4aa2-bf74-370cdbacf72e"
       }
     },
-    "owner": "pivotit"
+    "owner": "pivotit",
+    "plugins": [
+      "sentry-expo"
+    ],
+    "hooks": {
+      "postPublish": [
+          {
+              "file": "sentry-expo/upload-sourcemaps",
+              "config": {
+                  "organization": "Pivot IT Limited",
+                  "project": "cardvault",
+                  "authToken":"6060e8853a9b62593bff17f37e2d9e7a7fd634eef7869a6219a363b7551bcc4c",
+                  "setCommits": true
+              }
+          }
+      ]
+  }
   }
 }
