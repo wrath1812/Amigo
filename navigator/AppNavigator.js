@@ -8,7 +8,9 @@ const AppNavigator = (
     <Stack.Group>
         <Stack.Screen
             name={PAGES.CARD_LIST}
-            options={{ headerTitleAlign: 'center' }}
+            options={{ 
+                headerShown: false,
+             }}
             component={CardListScreen}
         />
     </Stack.Group>

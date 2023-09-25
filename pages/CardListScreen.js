@@ -59,7 +59,7 @@ function CardList() {
     }, []);
 
     return (
-        <SafeAreaView style={styles.container}>
+        <SafeAreaView style={{...styles.container,backgroundColor:'#1a1a1a'}}>
             {cards.length==0?
             <Text>No cards Added</Text>:
             <FlatList
