@@ -12,7 +12,7 @@ Sentry.init({
     enableAutoPerformanceTracking: true,
     enableAutoSessionTracking: true,
     environment: 'development',
-    debug: 'development',
+    debug: false
 });
 function App() {
     return (
