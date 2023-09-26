@@ -33,9 +33,10 @@ export const AuthProvider = ({ children }) => {
                     fallbackLabel: 'Enter PIN',
                 });
 
-                if (result.success) {
+                if (result.success || result.error=="not_enrolled") {
                     setIsAuthenticated(true);
                 }
+
             } catch (error) {
                 // Handle any errors that occur during authentication
                 console.error('Authentication error:', error);
