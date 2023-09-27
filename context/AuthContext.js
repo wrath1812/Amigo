@@ -1,19 +1,15 @@
-// AuthContext.js
 import React, { createContext, useContext, useEffect, useState } from 'react';
-
-import * as LocalAuthentication from 'expo-local-authentication';
 
 import { generateEncryptionKey } from '../helper/encryption';
 import { storeSecret, retrieveSecret } from '../helper/secureStorage';
 import { ENCRYPTION_KEY } from '../constants/string';
+import authenticateUser from '../helper/authenticate';
 const AuthContext = createContext();
 
-async function getEncryptionKey()
-{
-    let key= await retrieveSecret(ENCRYPTION_KEY);
-    if(!key)
-    {
-        const key= generateEncryptionKey();
+async function getEncryptionKey() {
+    let key = await retrieveSecret(ENCRYPTION_KEY);
+    if (!key) {
+        const key = generateEncryptionKey();
         await storeSecret(ENCRYPTION_KEY, key);
     }
     return key;
@@ -26,36 +22,23 @@ export const AuthProvider = ({ children }) => {
     const logout = () => setIsAuthenticated(false);
 
     useEffect(() => {
-        async function authenticateUser() {
-            try {
-                const result = await LocalAuthentication.authenticateAsync({
-                    promptMessage: 'Authenticate using biometrics',
-                    fallbackLabel: 'Enter PIN',
-                });
 
-                if (result.success || result.error=="not_enrolled") {
+        (async () => {
+            if (!isAuthenticated) {
+                const result = await authenticateUser();
+                if (result.success || result.error == 'not_enrolled') {
                     setIsAuthenticated(true);
                 }
-
-            } catch (error) {
-                // Handle any errors that occur during authentication
-                console.error('Authentication error:', error);
             }
-        }
-
-        if (!isAuthenticated) {
-            authenticateUser();
-        }
-        (async () => {
-
-        const key=await getEncryptionKey();
-        setEncryptionKey(key);
+            const key = await getEncryptionKey();
+            setEncryptionKey(key);
         })();
-
     }, [isAuthenticated]);
 
     return (
-        <AuthContext.Provider value={{ isAuthenticated, logout, encryptionKey }}>
+        <AuthContext.Provider
+            value={{ isAuthenticated, logout, encryptionKey }}
+        >
             {children}
         </AuthContext.Provider>
     );

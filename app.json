@@ -1,53 +1,49 @@
 {
-  "expo": {
-    "name": "cardvault",
-    "slug": "cardvault",
-    "version": "1.0.0",
-    "orientation": "portrait",
-    "icon": "./assets/icon.png",
-    "userInterfaceStyle": "automatic",
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#000"
-    },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
-    "ios": {
-      "supportsTablet": true
-    },
-    "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/icon.png",
-        "backgroundColor": "#000"
-      },
-      "package": "com.bhaumik.tandan.cardvault"
-    },
-    "web": {
-      "favicon": "./assets/favicon.png"
-    },
-    "extra": {
-      "eas": {
-        "projectId": "f26cf6f9-5809-4aa2-bf74-370cdbacf72e"
-      }
-    },
-    "owner": "pivotit",
-    "plugins": [
-      "sentry-expo"
-    ],
-    "hooks": {
-      "postPublish": [
-          {
-              "file": "sentry-expo/upload-sourcemaps",
-              "config": {
-                  "organization": "pivot-it-limited",
-                  "project": "cardvault",
-                  "authToken":"6060e8853a9b62593bff17f37e2d9e7a7fd634eef7869a6219a363b7551bcc4c",
-                  "setCommits": true
-              }
-          }
-      ]
-  }
-  }
+    "expo": {
+        "name": "cardvault",
+        "slug": "cardvault",
+        "version": "1.0.0",
+        "orientation": "portrait",
+        "icon": "./assets/icon.png",
+        "userInterfaceStyle": "automatic",
+        "splash": {
+            "image": "./assets/splash.png",
+            "resizeMode": "contain",
+            "backgroundColor": "#000"
+        },
+        "assetBundlePatterns": ["**/*"],
+        "ios": {
+            "supportsTablet": true
+        },
+        "android": {
+            "adaptiveIcon": {
+                "foregroundImage": "./assets/icon.png",
+                "backgroundColor": "#000"
+            },
+            "package": "com.bhaumik.tandan.cardvault"
+        },
+        "web": {
+            "favicon": "./assets/favicon.png"
+        },
+        "extra": {
+            "eas": {
+                "projectId": "f26cf6f9-5809-4aa2-bf74-370cdbacf72e"
+            }
+        },
+        "owner": "pivotit",
+        "plugins": ["sentry-expo"],
+        "hooks": {
+            "postPublish": [
+                {
+                    "file": "sentry-expo/upload-sourcemaps",
+                    "config": {
+                        "organization": "pivot-it-limited",
+                        "project": "cardvault",
+                        "authToken": "6060e8853a9b62593bff17f37e2d9e7a7fd634eef7869a6219a363b7551bcc4c",
+                        "setCommits": true
+                    }
+                }
+            ]
+        }
+    }
 }

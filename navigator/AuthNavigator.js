@@ -10,7 +10,7 @@ const AuthNavigator = (
             name={PAGES.LOGGED_OUT}
             options={{
                 headerShown: false,
-        }}
+            }}
             component={LoggedOutScreen}
         />
     </Stack.Group>

@@ -7,11 +7,11 @@ import CARD_COLOR from '../constants/cardColour';
 import Toast from 'react-native-root-toast';
 
 function formatCardNumber(cardNumber) {
-    return cardNumber.replace(/\s/g, '')
-    .replace(/(\d{4})/g, '$1     ')
-    .trim();
+    return cardNumber
+        .replace(/\s/g, '')
+        .replace(/(\d{4})/g, '$1     ')
+        .trim();
 }
-
 
 function maskCardNumber(cardNumber) {
     const visibleDigits = 4;
@@ -122,6 +122,10 @@ const styles = StyleSheet.create({
     },
 });
 
-export const renderCard = ({ item }) => <View style={styles.container}><Card item={item} /></View>;
+export const renderCard = ({ item }) => (
+    <View style={styles.container}>
+        <Card item={item} />
+    </View>
+);
 
 export default Card;

@@ -6,9 +6,9 @@ import { FAB } from 'react-native-paper';
 import Modal from 'react-native-modal';
 import { useAuth } from '../context/AuthContext';
 import { Button } from 'react-native';
-import { getLocalStoreData,setLocalStoreData } from '../helper/localStorage';
+import { getLocalStoreData, setLocalStoreData } from '../helper/localStorage';
 import { CARDS } from '../constants/string';
-import { encryptData,decryptData } from '../helper/encryption';
+import { encryptData, decryptData } from '../helper/encryption';
 function CardList() {
     const [isModalVisible, setModalVisible] = useState(false);
     const { logout, encryptionKey } = useAuth();
@@ -21,11 +21,14 @@ function CardList() {
                 return;
             }
         }
-        const encryptedCard=encryptData(JSON.stringify(newCard), encryptionKey);
-        const savedCards=await getLocalStoreData(CARDS);
+        const encryptedCard = encryptData(
+            JSON.stringify(newCard),
+            encryptionKey,
+        );
+        const savedCards = await getLocalStoreData(CARDS);
         if (!savedCards || savedCards.length == 0) {
             await setLocalStoreData(CARDS, [encryptedCard]);
-            setCards((prev)=>[newCard,...prev]);
+            setCards((prev) => [newCard, ...prev]);
             hideModal();
             return;
         }
@@ -42,31 +45,31 @@ function CardList() {
         setModalVisible(false);
     };
     useEffect(() => {
-
-    const getCards = async () => {
-        const encryptedCards=await getLocalStoreData(CARDS);
-        if(!encryptedCards)
-        return;
-        const decryptedCards = encryptedCards.map((card) => {
-            const decryptedCard=decryptData(card, encryptionKey);
-            return decryptedCard;
-        }
-
-        );
-        setCards(decryptedCards);
-    }
-    getCards();
+        const getCards = async () => {
+            const encryptedCards = await getLocalStoreData(CARDS);
+            if (!encryptedCards) return;
+            const decryptedCards = encryptedCards.map((card) => {
+                const decryptedCard = decryptData(card, encryptionKey);
+                return decryptedCard;
+            });
+            setCards(decryptedCards);
+        };
+        getCards();
     }, [cards]);
 
     return (
-        <SafeAreaView style={{...styles.container,backgroundColor:'#1a1a1a'}}>
-            {cards.length==0?
-            <Text>No cards Added</Text>:
-            <FlatList
-                data={cards}
-                renderItem={renderCard}
-                keyExtractor={(item) => item.card_number}
-            />}
+        <SafeAreaView
+            style={{ ...styles.container, backgroundColor: '#1a1a1a' }}
+        >
+            {cards.length == 0 ? (
+                <Text>No cards Added</Text>
+            ) : (
+                <FlatList
+                    data={cards}
+                    renderItem={renderCard}
+                    keyExtractor={(item) => item.card_number}
+                />
+            )}
             <View style={styles.fabContainer}>
                 <FAB style={styles.fab} icon="plus" onPress={showModal} />
             </View>

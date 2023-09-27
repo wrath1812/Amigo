@@ -7,12 +7,12 @@ import { AuthProvider } from './context/AuthContext';
 import * as Sentry from 'sentry-expo';
 
 Sentry.init({
-    dsn: "https://458aa34234bdfb742494c836127ddf3e@o4505941411495936.ingest.sentry.io/4505941423554560",
+    dsn: 'https://458aa34234bdfb742494c836127ddf3e@o4505941411495936.ingest.sentry.io/4505941423554560',
     enableInExpoDevelopment: true,
     enableAutoPerformanceTracking: true,
     enableAutoSessionTracking: true,
     environment: 'development',
-    debug: false
+    debug: false,
 });
 function App() {
     return (

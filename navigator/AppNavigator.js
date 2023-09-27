@@ -8,9 +8,9 @@ const AppNavigator = (
     <Stack.Group>
         <Stack.Screen
             name={PAGES.CARD_LIST}
-            options={{ 
+            options={{
                 headerShown: false,
-             }}
+            }}
             component={CardListScreen}
         />
     </Stack.Group>
