@@ -1,9 +1,10 @@
-import React,{useEffect} from 'react';
+import React, { useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { useAuth } from '../context/AuthContext';
+import { Button } from 'react-native-paper';
 
 function LoggedOutScreen() {
-    const {login,isAuthenticated}=useAuth();
+    const { login, isAuthenticated } = useAuth();
 
     useEffect(() => {
         login();
@@ -11,7 +12,16 @@ function LoggedOutScreen() {
 
     return (
         <View style={styles.container}>
-            {/* <Text style={styles.text}>You are logged out.</Text> */}
+            <Text style={styles.text}>You are logged out.</Text>
+            <Button
+                onPress={login}
+                style={styles.loginButton}
+                labelStyle={styles.loginButtonText}
+                mode="contained" // Use contained mode for a solid button
+                color="#007bff" // Set the button background color
+            >
+                Login
+            </Button>
         </View>
     );
 }
@@ -26,6 +36,14 @@ const styles = StyleSheet.create({
     text: {
         fontSize: 20,
         color: 'white', // Set text color to white
+    },
+    loginButton: {
+        marginTop: 20,
+        borderRadius: 10, // Add some border radius to round the corners
+    },
+    loginButtonText: {
+        fontSize: 16,
+        color: 'white', // Set the text color of the button
     },
 });
 
