@@ -19,24 +19,24 @@ export const AuthProvider = ({ children }) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [encryptionKey, setEncryptionKey] = useState(null);
 
-    const logout = () => setIsAuthenticated(false);
-
-    useEffect(() => {
-        (async () => {
-            if (!isAuthenticated) {
-                const result = await authenticateUser();
-                if (result.success || result.error == 'not_enrolled') {
-                    setIsAuthenticated(true);
-                }
+    const logout = () => {
+        setIsAuthenticated(false);
+        setEncryptionKey(null);
+    };
+    const login = async () => {
+        if (!isAuthenticated) {
+            const result = await authenticateUser();
+            if (result.success || result.error == 'not_enrolled') {
+                setIsAuthenticated(true);
             }
-            const key = await getEncryptionKey();
-            setEncryptionKey(key);
-        })();
-    }, [isAuthenticated]);
+        }
+        const key = await getEncryptionKey();
+        setEncryptionKey(key);
+    };
 
     return (
         <AuthContext.Provider
-            value={{ isAuthenticated, logout, encryptionKey }}
+            value={{ isAuthenticated, logout, encryptionKey,login }}
         >
             {children}
         </AuthContext.Provider>

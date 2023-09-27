@@ -1,7 +1,14 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import { View, Text, StyleSheet } from 'react-native';
+import { useAuth } from '../context/AuthContext';
 
 function LoggedOutScreen() {
+    const {login,isAuthenticated}=useAuth();
+
+    useEffect(() => {
+        login();
+    }, [isAuthenticated]);
+
     return (
         <View style={styles.container}>
             {/* <Text style={styles.text}>You are logged out.</Text> */}
