@@ -5,7 +5,7 @@ import AddCard from '../components/addCard';
 import { FAB } from 'react-native-paper';
 import Modal from 'react-native-modal';
 import { useAuth } from '../context/AuthContext';
-import { Button } from 'react-native';
+import AddCardBox from '../components/AddCardBox';
 import { getLocalStoreData, setLocalStoreData } from '../helper/localStorage';
 import { CARDS } from '../constants/string';
 import { encryptData, decryptData } from '../helper/encryption';
@@ -62,7 +62,7 @@ function CardList() {
             style={{ ...styles.container, backgroundColor: '#1a1a1a' }}
         >
             {cards.length == 0 ? (
-                <Text>No cards Added</Text>
+                <AddCardBox showModal={showModal} />
             ) : (
                 <FlatList
                     data={cards}
