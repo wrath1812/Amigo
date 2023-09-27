@@ -22,7 +22,6 @@ export const AuthProvider = ({ children }) => {
     const logout = () => setIsAuthenticated(false);
 
     useEffect(() => {
-
         (async () => {
             if (!isAuthenticated) {
                 const result = await authenticateUser();
