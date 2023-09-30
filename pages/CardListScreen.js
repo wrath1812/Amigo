@@ -48,9 +48,9 @@ function CardList() {
         const getCards = async () => {
             const encryptedCards = await getLocalStoreData(CARDS);
             if (!encryptedCards) return;
-            const decryptedCards = encryptedCards.map((card) => {
+            const decryptedCards = encryptedCards.map((card,index) => {
                 const decryptedCard = decryptData(card, encryptionKey);
-                return decryptedCard;
+                return {...decryptedCard,index};
             });
             setCards(decryptedCards);
         };
