@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 
 import { generateEncryptionKey } from '../helper/encryption';
 import { storeSecret, retrieveSecret } from '../helper/secureStorage';
@@ -18,7 +18,8 @@ async function getEncryptionKey() {
 export const AuthProvider = ({ children }) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [encryptionKey, setEncryptionKey] = useState(null);
-
+    const [loading,setLoading] = useState(false);
+    
     const logout = () => {
         setIsAuthenticated(false);
         setEncryptionKey(null);

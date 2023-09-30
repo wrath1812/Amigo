@@ -13,7 +13,6 @@ function CardList() {
     const [isModalVisible, setModalVisible] = useState(false);
     const { encryptionKey } = useAuth();
     const [cards, setCards] = useState([]);
-    const [loading, setLoading] = useState(true);
 
     const handleAddCard = async (newCard) => {
         for (let i = 0; i < cards.length; i++) {
@@ -56,7 +55,7 @@ function CardList() {
             setCards(decryptedCards);
         };
         getCards();
-    }, [cards]);
+    }, []);
 
     return (
         <SafeAreaView
