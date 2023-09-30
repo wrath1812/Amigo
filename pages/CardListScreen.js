@@ -9,7 +9,6 @@ import AddCardBox from '../components/AddCardBox';
 import { getLocalStoreData, setLocalStoreData } from '../helper/localStorage';
 import { CARDS } from '../constants/string';
 import { encryptData, decryptData } from '../helper/encryption';
-import Loader from '../components/Loader';
 function CardList() {
     const [isModalVisible, setModalVisible] = useState(false);
     const { encryptionKey } = useAuth();
@@ -55,7 +54,6 @@ function CardList() {
                 return {...decryptedCard,index};
             });
             setCards(decryptedCards);
-            setLoading(false);
         };
         getCards();
     }, [cards]);
@@ -64,8 +62,7 @@ function CardList() {
         <SafeAreaView
             style={{ ...styles.container, backgroundColor: '#1a1a1a' }}
         >
-            {cards.length == 0 ? (
-               loading? <Loader/>:(<AddCardBox showModal={showModal} />)
+            {cards.length == 0 ? (<AddCardBox showModal={showModal} />
             ) : (
                 <FlatList
                     data={cards}
