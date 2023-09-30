@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, FlatList, StyleSheet, SafeAreaView, Text } from 'react-native';
-import { renderCard } from '../components/card';
+import RenderCard from '../components/RenderCard';
 import AddCard from '../components/addCard';
 import { FAB } from 'react-native-paper';
 import Modal from 'react-native-modal';
@@ -11,7 +11,7 @@ import { CARDS } from '../constants/string';
 import { encryptData, decryptData } from '../helper/encryption';
 function CardList() {
     const [isModalVisible, setModalVisible] = useState(false);
-    const { logout, encryptionKey } = useAuth();
+    const { encryptionKey } = useAuth();
     const [cards, setCards] = useState([]);
 
     const handleAddCard = async (newCard) => {
@@ -66,7 +66,7 @@ function CardList() {
             ) : (
                 <FlatList
                     data={cards}
-                    renderItem={renderCard}
+                    renderItem={RenderCard}
                     keyExtractor={(item) => item.card_number}
                 />
             )}

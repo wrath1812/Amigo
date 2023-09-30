@@ -87,9 +87,6 @@ function Card({ item }) {
 }
 
 const styles = StyleSheet.create({
-    container: {
-        marginTop: 30,
-    },
     card: {
         padding: 16,
         borderRadius: 10, // Rounded corners
@@ -121,11 +118,5 @@ const styles = StyleSheet.create({
         textShadowColor: 'rgba(0, 0, 0, 0.75)',
     },
 });
-
-export const renderCard = ({ item }) => (
-    <View style={styles.container}>
-        <Card item={item} />
-    </View>
-);
 
 export default Card;

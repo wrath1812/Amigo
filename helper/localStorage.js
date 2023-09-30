@@ -32,4 +32,5 @@ export const getLocalStoreData = async (key) => {
     }
 };
 
+// removeLocalStoreData('cards');
 export default { setLocalStoreData, getLocalStoreData, removeLocalStoreData };
