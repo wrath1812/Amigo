@@ -1,11 +1,11 @@
-import { ActivityIndicator, View } from 'react-native';
+import { ActivityIndicator,SafeAreaView } from 'react-native';
 
 
 function Loader() {
     return (
-        <View>
+        <SafeAreaView style={{backgroundColor: '#1a1a1a' }}>
             <ActivityIndicator size="large"  />
-        </View>
+        </SafeAreaView>
     );
 }
 

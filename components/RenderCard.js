@@ -2,14 +2,18 @@ import Card from './card';
 import { View,StyleSheet,Button } from 'react-native';
 import { getLocalStoreData, setLocalStoreData } from '../helper/localStorage';
 import { CARDS } from '../constants/string';
+import { useAuth } from '../context/AuthContext';
 
-function RenderCard({item})
+function RenderCardComponent({item})
 {
+    const {setLoading}=useAuth();
     async function deleteCard()
     {
+        setLoading(true);
         const encryptedCards = await getLocalStoreData(CARDS);
         encryptedCards.splice(item.index,1);
         await setLocalStoreData(CARDS,encryptedCards);
+        setLoading(false);
     }
     
     return (
@@ -20,7 +24,8 @@ function RenderCard({item})
     )
 }
 
-export default RenderCard;
+
+export default ({item})=><RenderCardComponent item={item}/>;
 
 const styles = StyleSheet.create({
     container: {
