@@ -29,13 +29,13 @@ function CardList() {
         const savedCards = await getLocalStoreData(CARDS);
         if (!savedCards || savedCards.length == 0) {
             await setLocalStoreData(CARDS, [encryptedCard]);
-            setCards((prev) => [newCard, ...prev]);
+            setCards((prev) => [{index:prev.length,...newCard}, ...prev]);
             hideModal();
             return;
         }
         const newCards = [...savedCards, encryptedCard];
         await setLocalStoreData(CARDS, newCards);
-        setCards((prev) => [newCard,...prev]);
+        setCards((prev) => [{index:prev.length,...newCard}, ...prev]);
         hideModal();
     };
 
