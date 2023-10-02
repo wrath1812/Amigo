@@ -6,6 +6,15 @@ import CARD_ICON from '../constants/cardIcon';
 import CARD_COLOR from '../constants/cardColour';
 import Toast from 'react-native-root-toast';
 
+import {
+    deviceWidth,
+    deviceHeight,
+    getOrientation,
+    calcHeight,
+    getFontSizeByWindowWidth,
+    calcWidth,
+} from '../helper/res'; // Replace with the correct path
+
 function formatCardNumber(cardNumber) {
     return cardNumber
         .replace(/\s/g, '')
@@ -25,8 +34,10 @@ function getCardNumberDisplayValue(cardNumber, showFullNumber) {
 
     return formatCardNumber(cardNumber);
 }
+
 function Card({ item }) {
     const [showCVV, setShowCVV] = useState(false);
+
     const handleClipboardPress = async () => {
         Clipboard.setString(item.card_number);
         Toast.show('Card Number Copied to Clipboard', {
@@ -34,11 +45,14 @@ function Card({ item }) {
         });
     };
 
+    const cardWidth = calcWidth(90); // Adjust as needed for your design
+
     return (
         <View
             style={{
                 ...styles.card,
                 backgroundColor: CARD_COLOR[item.type] || item.color,
+                width: cardWidth,
             }}
         >
             <View
@@ -50,7 +64,7 @@ function Card({ item }) {
                 <Text style={styles.cardText}>{item.nickname}</Text>
                 <Image
                     source={CARD_ICON[item.type]}
-                    style={{ width: 50, height: 50 }}
+                    style={{ width: calcWidth(15), height: calcHeight(5) }}
                 />
             </View>
             <Text style={styles.cardNumber}>
@@ -60,27 +74,9 @@ function Card({ item }) {
             <View style={styles.cvvContainer}>
                 {item.cvv && (
                     <Text style={styles.cardText}>
-                        {showCVV ? item.cvv : 'XXX'}
+                        { item.cvv }
                     </Text>
                 )}
-                {item.card_number && (
-                    <TouchableOpacity onPress={handleClipboardPress}>
-                        <Ionicons name="md-clipboard" size={32} color="gray" />
-                    </TouchableOpacity>
-                )}
-                <View>
-                    {item.cvv && (
-                        <TouchableOpacity
-                            onPress={() => setShowCVV((prev) => !prev)}
-                        >
-                            <Ionicons
-                                name={showCVV ? 'eye-off' : 'eye'}
-                                size={24}
-                                color="gray"
-                            />
-                        </TouchableOpacity>
-                    )}
-                </View>
             </View>
         </View>
     );
@@ -88,19 +84,18 @@ function Card({ item }) {
 
 const styles = StyleSheet.create({
     card: {
-        padding: 16,
-        borderRadius: 10, // Rounded corners
-        margin: 5,
-        elevation: 3, // Shadow for Android
-        shadowColor: 'rgba(0, 0, 0, 0.1)', // Shadow for iOS
+        padding: calcHeight(2),
+        borderRadius: calcHeight(1),
+        margin: calcHeight(1),
+        elevation: 3,
+        shadowColor: 'rgba(0, 0, 0, 0.1)',
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.8,
-        height: 200,
-        width: 300,
+        height: calcHeight(30),
     },
     cardText: {
-        color: 'white', // Text color
-        fontSize: 16,
+        color: 'white',
+        fontSize: getFontSizeByWindowWidth(16),
     },
     cvvContainer: {
         flexDirection: 'row',
@@ -109,12 +104,10 @@ const styles = StyleSheet.create({
     },
     cardNumber: {
         color: 'white',
-        fontSize: 17, // Adjust the font size as needed for the card number
-        margin: 5,
+        fontSize: getFontSizeByWindowWidth(17),
+        margin: calcHeight(1),
         fontWeight: 'bold',
-        // horizontally center
         textAlign: 'center',
-        // add shadow to the bottom
         textShadowColor: 'rgba(0, 0, 0, 0.75)',
     },
 });
