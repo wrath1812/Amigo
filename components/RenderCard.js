@@ -5,7 +5,7 @@ import { CARDS } from '../constants/string';
 import { useAuth } from '../context/AuthContext';
 
 function RenderCardComponent({ item }) {
-    const { cards,setCards } = useAuth();
+    const { setCards } = useAuth();
 
     async function deleteCard() {
         const encryptedCards = await getLocalStoreData(CARDS);
