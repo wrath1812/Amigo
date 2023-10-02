@@ -35,6 +35,7 @@ function CardList() {
         }
         const newCards = [...savedCards, encryptedCard];
         await setLocalStoreData(CARDS, newCards);
+        setCards((prev) => [newCard,...prev]);
         hideModal();
     };
 
