@@ -6,13 +6,16 @@ import { FAB } from 'react-native-paper';
 import Modal from 'react-native-modal';
 import { useAuth } from '../context/AuthContext';
 import AddCardBox from '../components/AddCardBox';
-import { encryptData, decryptData } from '../helper/encryption';
-import Loader from '../components/Loader';
+import { encryptData } from '../helper/encryption';
+import { CARDS } from '../constants/string';
+import getEncryptionKey from '../util/getEncryptionKey';
+import { getLocalStoreData, setLocalStoreData } from '../helper/localStorage';
 function CardList() {
     const [isModalVisible, setModalVisible] = useState(false);
-    const { encryptionKey, loading, cards } = useAuth();
+    const { cards, setCards } = useAuth();
 
     const handleAddCard = async (newCard) => {
+        const encryptionKey = await getEncryptionKey();
         for (let i = 0; i < cards.length; i++) {
             if (cards[i].card_number == newCard.card_number) {
                 alert('Card already exists');
@@ -43,9 +46,7 @@ function CardList() {
         setModalVisible(false);
     };
 
-    return loading ? (
-        <Loader />
-    ) : (
+    return (
         <SafeAreaView
             style={{ ...styles.container, backgroundColor: '#1a1a1a' }}
         >
