@@ -15,29 +15,50 @@ function CardList() {
     const { cards, setCards } = useAuth();
 
     const handleAddCard = async (newCard) => {
-        const encryptionKey = await getEncryptionKey();
-        for (let i = 0; i < cards.length; i++) {
-            if (cards[i].card_number == newCard.card_number) {
+        try {
+            // Check if the card already exists
+            if (cardExists(newCard)) {
                 alert('Card already exists');
                 return;
             }
-        }
-        const encryptedCard = encryptData(
-            JSON.stringify(newCard),
-            encryptionKey,
-        );
-        const savedCards = await getLocalStoreData(CARDS);
-        if (!savedCards || savedCards.length == 0) {
-            await setLocalStoreData(CARDS, [encryptedCard]);
-            setCards((prev) => [{index:prev.length,...newCard}, ...prev]);
+    
+            const encryptionKey = await getEncryptionKey();
+            const encryptedCard = encryptCard(newCard, encryptionKey);
+            const savedCards = await getLocalStoreData(CARDS);
+    
+            if (!savedCards || savedCards.length === 0) {
+                await initializeCardStorage([encryptedCard]);
+            } else {
+                await updateCardStorage([...savedCards, encryptedCard]);
+            }
+    
+            updateCards(newCard);
             hideModal();
-            return;
+        } catch (error) {
+            console.error('An error occurred:', error);
         }
-        const newCards = [...savedCards, encryptedCard];
-        await setLocalStoreData(CARDS, newCards);
-        setCards((prev) => [{index:prev.length,...newCard}, ...prev]);
-        hideModal();
     };
+    
+    const cardExists = (newCard) => {
+        return cards.some((card) => card.card_number === newCard.card_number);
+    };
+    
+    const encryptCard = (newCard, encryptionKey) => {
+        return encryptData(JSON.stringify(newCard), encryptionKey);
+    };
+    
+    const initializeCardStorage = async (newCards) => {
+        await setLocalStoreData(CARDS, newCards);
+    };
+    
+    const updateCardStorage = async (newCards) => {
+        await setLocalStoreData(CARDS, newCards);
+    };
+    
+    const updateCards = (newCard) => {
+        setCards((prev) => [{ index: prev.length, ...newCard }, ...prev]);
+    };
+    
 
     const showModal = () => {
         setModalVisible(true);
