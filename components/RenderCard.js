@@ -5,13 +5,13 @@ import { CARDS } from '../constants/string';
 import { useAuth } from '../context/AuthContext';
 
 function RenderCardComponent({ item }) {
-    const { setLoading } = useAuth();
+    const { cards,setCards } = useAuth();
+
     async function deleteCard() {
-        setLoading(true);
         const encryptedCards = await getLocalStoreData(CARDS);
         encryptedCards.splice(item.index, 1);
         await setLocalStoreData(CARDS, encryptedCards);
-        setLoading(false);
+        setCards((prev) => prev.filter((card) => card.index != item.index));
     }
 
     return (
