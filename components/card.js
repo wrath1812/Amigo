@@ -1,19 +1,15 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { View, Text, StyleSheet, Image } from 'react-native';
 import * as Clipboard from 'expo-clipboard';
-import Ionicons from '@expo/vector-icons/Ionicons';
 import CARD_ICON from '../constants/cardIcon';
 import CARD_COLOR from '../constants/cardColour';
 import Toast from 'react-native-root-toast';
 
 import {
-    deviceWidth,
-    deviceHeight,
-    getOrientation,
     calcHeight,
     getFontSizeByWindowWidth,
     calcWidth,
-} from '../helper/res'; // Replace with the correct path
+} from '../helper/res'; 
 
 function formatCardNumber(cardNumber) {
     return cardNumber
