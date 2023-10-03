@@ -79,16 +79,13 @@ function Card({ item }) {
 const styles = StyleSheet.create({
     card: {
         padding: calcHeight(3),
-        borderRadius: calcHeight(1),
+        borderRadius: calcHeight(2),
         margin: calcHeight(1),
         elevation: 3,
-        shadowColor: 'rgba(0, 0, 0, 0.1)',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.8,
     },
     cardText: {
         color: 'white',
-        fontSize: getFontSizeByWindowWidth(16),
+        fontSize: getFontSizeByWindowWidth(10),
     },
     cvvContainer: {
         flexDirection: 'row',
@@ -97,7 +94,7 @@ const styles = StyleSheet.create({
     },
     cardNumber: {
         color: 'white',
-        fontSize: getFontSizeByWindowWidth(17),
+        fontSize: getFontSizeByWindowWidth(12),
         margin: calcHeight(1),
         fontWeight: 'bold',
         textAlign: 'center',
