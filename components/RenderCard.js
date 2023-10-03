@@ -24,13 +24,6 @@ function RenderCardComponent({ item }) {
         <View style={styles.container}>
             <Card item={item} />
             <View style={styles.menuBar}>
-                <TouchableOpacity style={{flex: 1, justifyContent: 'center'}} onPress={() => setShowConfirmDelete(true)}>
-                    <Ionicons
-                        name="trash-outline"
-                        size={calcHeight(4)}
-                        color="red"
-                    />
-                </TouchableOpacity>
                 <TouchableOpacity style={{flex: 1, justifyContent: 'center'}}
                     onPress={() =>
                         copyToClipBoard(
@@ -40,7 +33,7 @@ function RenderCardComponent({ item }) {
                     }
                 >
                     <Ionicons
-                        name="copy-outline"
+                        name="ellipsis-vertical-outline"
                         size={calcHeight(4)}
                         color="blue"
                     />
