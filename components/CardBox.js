@@ -21,6 +21,7 @@ function CardBox({ item }) {
         await setLocalStoreData(CARDS, encryptedCards);
         setCards((prev) => prev.filter((card) => card.index !== item.index));
         setShowConfirmDelete(false); // Close the modal after deletion
+        hideMenu();
     }
 
     const copyCardNumberToClipboard = () => {
@@ -55,7 +56,7 @@ function CardBox({ item }) {
             </View>
             <DeleteCardModal
                 onDelete={deleteCard}
-                onCancel={() => setShowConfirmDelete(false)}
+                onCancel={() => {setShowConfirmDelete(false);hideMenu()}}
                 visible={showConfirmDelete}
             />
             <Modal
