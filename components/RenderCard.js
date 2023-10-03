@@ -1,19 +1,16 @@
 import Card from './card';
-import { View, StyleSheet, Modal,TouchableOpacity, Text } from 'react-native';
+import { View, StyleSheet, Modal, TouchableOpacity, Text } from 'react-native';
 import { getLocalStoreData, setLocalStoreData } from '../helper/localStorage';
 import { CARDS } from '../constants/string';
 import { useAuth } from '../context/AuthContext';
-import {
-    calcHeight,
-    calcWidth
-} from '../helper/res'; 
+import { calcHeight, calcWidth } from '../helper/res';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import copyToClipBoard from '../helper/copyToClipBoard';
-import {useState} from 'react';
+import { useState } from 'react';
 
 function RenderCardComponent({ item }) {
     const { setCards } = useAuth();
-    const [showConfirmDelete,setShowConfirmDelete]=useState(false);
+    const [showConfirmDelete, setShowConfirmDelete] = useState(false);
 
     async function deleteCard() {
         const encryptedCards = await getLocalStoreData(CARDS);
@@ -23,17 +20,42 @@ function RenderCardComponent({ item }) {
         setShowConfirmDelete(false); // Close the modal after deletion
     }
 
-
     return (
         <View style={styles.container}>
             <Card item={item} />
             <View style={styles.menuBar}>
-            <TouchableOpacity onPress={()=>setShowConfirmDelete(true)}>
-            <Ionicons name="trash-outline" size={calcHeight(4)} color="red" />
-            </TouchableOpacity>
-            <TouchableOpacity onPress={()=>copyToClipBoard(item.card_number,'Card Number Copied to Clipboard')}>
-                    <Ionicons name="copy-outline" size={calcHeight(4)} color="blue" />
+                <TouchableOpacity style={{flex: 1, justifyContent: 'center'}} onPress={() => setShowConfirmDelete(true)}>
+                    <Ionicons
+                        name="trash-outline"
+                        size={calcHeight(4)}
+                        color="red"
+                    />
                 </TouchableOpacity>
+                <TouchableOpacity style={{flex: 1, justifyContent: 'center'}}
+                    onPress={() =>
+                        copyToClipBoard(
+                            item.card_number,
+                            'Card Number Copied to Clipboard',
+                        )
+                    }
+                >
+                    <Ionicons
+                        name="copy-outline"
+                        size={calcHeight(4)}
+                        color="blue"
+                    />
+                </TouchableOpacity>
+                <TouchableOpacity style={{flex: 1, justifyContent: 'center'}}
+                    onPress={() =>
+                        copyToClipBoard(
+                            item.card_number,
+                            'Card Number Copied to Clipboard',
+                        )
+                    }
+                >
+                    <Ionicons name="eye" size={calcHeight(4)} color="blue" />
+                </TouchableOpacity>
+                
             </View>
             <Modal
                 visible={showConfirmDelete}
@@ -46,7 +68,9 @@ function RenderCardComponent({ item }) {
                         <TouchableOpacity onPress={deleteCard}>
                             <Text>Delete</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={() => setShowConfirmDelete(false)}>
+                        <TouchableOpacity
+                            onPress={() => setShowConfirmDelete(false)}
+                        >
                             <Text>Cancel</Text>
                         </TouchableOpacity>
                     </View>
@@ -68,8 +92,8 @@ const styles = StyleSheet.create({
         borderRadius: calcWidth(2),
     },
     menuBar: {
-        flexDirection: 'column',
-        padding: calcWidth(3),
+        paddingHorizontal: calcHeight(1),
+        alignItems: 'center',
     },
     modalContainer: {
         flex: 1,

@@ -7,7 +7,6 @@ import getEncryptionKey from '../util/getEncryptionKey';
 
 const AuthContext = createContext();
 
-
 export const AuthProvider = ({ children }) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [cards, setCards] = useState([]);

@@ -21,44 +21,43 @@ function CardList() {
                 alert('Card already exists');
                 return;
             }
-    
+
             const encryptionKey = await getEncryptionKey();
             const encryptedCard = encryptCard(newCard, encryptionKey);
             const savedCards = await getLocalStoreData(CARDS);
-    
+
             if (!savedCards || savedCards.length === 0) {
                 await initializeCardStorage([encryptedCard]);
             } else {
                 await updateCardStorage([...savedCards, encryptedCard]);
             }
-    
+
             updateCards(newCard);
             hideModal();
         } catch (error) {
             console.error('An error occurred:', error);
         }
     };
-    
+
     const cardExists = (newCard) => {
         return cards.some((card) => card.card_number === newCard.card_number);
     };
-    
+
     const encryptCard = (newCard, encryptionKey) => {
         return encryptData(JSON.stringify(newCard), encryptionKey);
     };
-    
+
     const initializeCardStorage = async (newCards) => {
         await setLocalStoreData(CARDS, newCards);
     };
-    
+
     const updateCardStorage = async (newCards) => {
         await setLocalStoreData(CARDS, newCards);
     };
-    
+
     const updateCards = (newCard) => {
         setCards((prev) => [{ index: prev.length, ...newCard }, ...prev]);
     };
-    
 
     const showModal = () => {
         setModalVisible(true);

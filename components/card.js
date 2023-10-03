@@ -5,11 +5,7 @@ import CARD_ICON from '../constants/cardIcon';
 import CARD_COLOR from '../constants/cardColour';
 import Toast from 'react-native-root-toast';
 
-import {
-    calcHeight,
-    getFontSizeByWindowWidth,
-    calcWidth,
-} from '../helper/res'; 
+import { calcHeight, getFontSizeByWindowWidth, calcWidth } from '../helper/res';
 
 function formatCardNumber(cardNumber) {
     return cardNumber
@@ -34,13 +30,6 @@ function getCardNumberDisplayValue(cardNumber, showFullNumber) {
 function Card({ item }) {
     const [showCVV, setShowCVV] = useState(false);
 
-    const handleClipboardPress = async () => {
-        Clipboard.setString(item.card_number);
-        Toast.show('Card Number Copied to Clipboard', {
-            duration: Toast.durations.LONG,
-        });
-    };
-
     return (
         <View
             style={{
@@ -63,14 +52,10 @@ function Card({ item }) {
             <Text style={styles.cardNumber}>
                 {getCardNumberDisplayValue(item.card_number, !showCVV)}
             </Text>
-            <Text style={styles.cardText} >Bhaumik Tandan</Text>
+            <Text style={styles.cardText}>Bhaumik Tandan</Text>
             <Text style={styles.cardText}>{item.expiry}</Text>
             <View style={styles.cvvContainer}>
-                {item.cvv && (
-                    <Text style={styles.cardText}>
-                        { item.cvv }
-                    </Text>
-                )}
+                {item.cvv && <Text style={styles.cardText}>{item.cvv}</Text>}
             </View>
         </View>
     );
