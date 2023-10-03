@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Modal, TouchableOpacity, Text } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { useAuth } from '../context/AuthContext';
 import { getLocalStoreData, setLocalStoreData } from '../helper/localStorage';
@@ -8,7 +8,7 @@ import { calcHeight, calcWidth } from '../helper/res';
 import copyToClipBoard from '../helper/copyToClipBoard';
 import Card from './card';
 import DeleteCardModal from './DeleteCardModal';
-import * as Menu from 'react-native-modal';
+import Modal from 'react-native-modal';
 
 function CardBox({ item }) {
     const { setCards } = useAuth();
@@ -52,15 +52,9 @@ function CardBox({ item }) {
                     <Ionicons name="eye" size={calcHeight(4)} color="blue" />
                 </TouchableOpacity>
             </View>
+                <DeleteCardModal onDelete={deleteCard} onCancel={() => setShowConfirmDelete(false)} visible={showConfirmDelete} />
             <Modal
-                visible={showConfirmDelete}
-                transparent={true}
-                animationType="slide"
-            >
-                <DeleteCardModal onDelete={deleteCard} onCancel={() => setShowConfirmDelete(false)} />
-            </Modal>
-            <Modal
-                visible={showMenu}
+                isVisible={showMenu}
                 style={{
                     justifyContent: 'flex-end',
                     margin: 0,
@@ -75,6 +69,7 @@ function CardBox({ item }) {
                 onSwipeComplete={hideMenu}
             >
                 <View>
+                    <Text>Menu</Text>
                     <Text>Menu</Text>
                 </View>
             </Modal>

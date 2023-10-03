@@ -1,7 +1,12 @@
-import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
+import {View, Text, TouchableOpacity, StyleSheet, Modal} from 'react-native';
 
-function DeleteCardModal({ onDelete, onCancel }) {
+function DeleteCardModal({ onDelete, onCancel,visible }) {
     return (
+        <Modal
+                visible={visible}
+                transparent={true}
+                animationType="slide"
+            >
         <View style={styles.modalContainer}>
             <View style={styles.modalContent}>
                 <Text>Are you sure you want to delete this card?</Text>
@@ -13,6 +18,7 @@ function DeleteCardModal({ onDelete, onCancel }) {
                 </TouchableOpacity>
             </View>
         </View>
+        </Modal>
     );
 }
 
