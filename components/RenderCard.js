@@ -78,7 +78,7 @@ export default ({ item }) => <RenderCardComponent item={item} />;
 const styles = StyleSheet.create({
     container: {
         marginTop: calcHeight(7),
-        backgroundColor: '#fff',
+        backgroundColor: '#A9A9A9',
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
