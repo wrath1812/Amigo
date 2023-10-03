@@ -25,6 +25,7 @@ function CardBox({ item }) {
 
     const copyCardNumberToClipboard = () => {
         copyToClipBoard(item.card_number, 'Card Number Copied to Clipboard');
+        hideMenu();
     };
 
     const hideMenu = () => {
@@ -66,7 +67,18 @@ function CardBox({ item }) {
                 style={styles.modal}
             >
                 <View style={styles.modalContent} >
-                    <Text>Menu</Text>
+                <TouchableOpacity style={styles.menuItem} onPress={copyCardNumberToClipboard}>
+                <Ionicons
+                        name="copy-outline" size={calcWidth(8)} color="blue"
+                    />
+                    <Text style={styles.menuText}>Copy Card Number</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.menuItem} onPress={() => setShowConfirmDelete(true)}>
+                <Ionicons
+                        name="trash-outline" size={calcWidth(8)} color="red"
+                    />
+                    <Text style={styles.menuText}>Delete Card</Text>
+                    </TouchableOpacity>
                 </View>
             </Modal>
         </View>
@@ -87,6 +99,16 @@ const styles = StyleSheet.create({
     menuBar: {
         paddingHorizontal: calcHeight(1),
         alignItems: 'center',
+    },
+    menuItem:{
+        flexDirection: 'row',
+        paddingVertical: calcHeight(1),
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    menuText: {
+        fontSize: calcHeight(2),
+        paddingHorizontal: calcHeight(1),
     },
     modal: {
         justifyContent: 'flex-end',
