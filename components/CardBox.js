@@ -1,14 +1,31 @@
-import Card from './card';
+import React, { useState } from 'react';
 import { View, StyleSheet, Modal, TouchableOpacity, Text } from 'react-native';
+import Ionicons from '@expo/vector-icons/Ionicons';
+import { useAuth } from '../context/AuthContext';
 import { getLocalStoreData, setLocalStoreData } from '../helper/localStorage';
 import { CARDS } from '../constants/string';
-import { useAuth } from '../context/AuthContext';
 import { calcHeight, calcWidth } from '../helper/res';
-import Ionicons from '@expo/vector-icons/Ionicons';
 import copyToClipBoard from '../helper/copyToClipBoard';
-import { useState } from 'react';
+import Card from './card';
 
-function RenderCardComponent({ item }) {
+// Extract modal content into a separate component
+function DeleteCardModal({ onDelete, onCancel }) {
+    return (
+        <View style={styles.modalContainer}>
+            <View style={styles.modalContent}>
+                <Text>Are you sure you want to delete this card?</Text>
+                <TouchableOpacity onPress={onDelete}>
+                    <Text>Delete</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={onCancel}>
+                    <Text>Cancel</Text>
+                </TouchableOpacity>
+            </View>
+        </View>
+    );
+}
+
+function CardBox({ item }) {
     const { setCards } = useAuth();
     const [showConfirmDelete, setShowConfirmDelete] = useState(false);
 
@@ -20,17 +37,17 @@ function RenderCardComponent({ item }) {
         setShowConfirmDelete(false); // Close the modal after deletion
     }
 
+    const copyCardNumberToClipboard = () => {
+        copyToClipBoard(item.card_number, 'Card Number Copied to Clipboard');
+    };
+
     return (
         <View style={styles.container}>
             <Card item={item} />
             <View style={styles.menuBar}>
-                <TouchableOpacity style={{flex: 1, justifyContent: 'center'}}
-                    onPress={() =>
-                        copyToClipBoard(
-                            item.card_number,
-                            'Card Number Copied to Clipboard',
-                        )
-                    }
+                <TouchableOpacity
+                    style={{ flex: 1, justifyContent: 'center' }}
+                    onPress={copyCardNumberToClipboard}
                 >
                     <Ionicons
                         name="ellipsis-vertical-outline"
@@ -38,42 +55,25 @@ function RenderCardComponent({ item }) {
                         color="blue"
                     />
                 </TouchableOpacity>
-                <TouchableOpacity style={{flex: 1, justifyContent: 'center'}}
-                    onPress={() =>
-                        copyToClipBoard(
-                            item.card_number,
-                            'Card Number Copied to Clipboard',
-                        )
-                    }
+                <TouchableOpacity
+                    style={{ flex: 1, justifyContent: 'center' }}
+                    onPress={() => setShowConfirmDelete(true)}
                 >
                     <Ionicons name="eye" size={calcHeight(4)} color="blue" />
                 </TouchableOpacity>
-                
             </View>
             <Modal
                 visible={showConfirmDelete}
                 transparent={true}
                 animationType="slide"
             >
-                <View style={styles.modalContainer}>
-                    <View style={styles.modalContent}>
-                        <Text>Are you sure you want to delete this card?</Text>
-                        <TouchableOpacity onPress={deleteCard}>
-                            <Text>Delete</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            onPress={() => setShowConfirmDelete(false)}
-                        >
-                            <Text>Cancel</Text>
-                        </TouchableOpacity>
-                    </View>
-                </View>
+                <DeleteCardModal onDelete={deleteCard} onCancel={() => setShowConfirmDelete(false)} />
             </Modal>
         </View>
     );
 }
 
-export default ({ item }) => <RenderCardComponent item={item} />;
+export default ({ item }) => <CardBox item={item} />;
 
 const styles = StyleSheet.create({
     container: {

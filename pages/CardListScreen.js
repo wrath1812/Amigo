@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { View, FlatList, StyleSheet, SafeAreaView, Text } from 'react-native';
-import RenderCard from '../components/RenderCard';
+import CardBox from '../components/CardBox';
 import AddCard from '../components/addCard';
 import { FAB } from 'react-native-paper';
 import Modal from 'react-native-modal';
@@ -77,7 +77,7 @@ function CardList() {
                 ) : (
                     <FlatList
                         data={cards}
-                        renderItem={RenderCard}
+                        renderItem={CardBox}
                         keyExtractor={(item) => item.card_number}
                     />
                 )
