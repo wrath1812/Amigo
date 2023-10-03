@@ -9,8 +9,9 @@ import {
 } from 'react-native';
 import Card from './card';
 import * as CardValidator from 'card-validator';
+import Modal from 'react-native-modal';
 
-function AddCard({ onAddCard }) {
+function AddCard({ onAddCard,visible,hideModal }) {
     const [card, setCard] = useState({
         nickname: '',
         card_number: '',
@@ -121,6 +122,19 @@ function AddCard({ onAddCard }) {
     };
 
     return (
+        <Modal
+                isVisible={visible}
+                style={styles.modal}
+                animationIn="slideInUp"
+                animationOut="slideOutDown"
+                backdropOpacity={0.5}
+                onBackdropPress={hideModal}
+                onBackButtonPress={hideModal}
+                propagateSwipe={true}
+                swipeDirection={['down']}
+                onSwipeComplete={hideModal}
+            >
+                <View style={styles.modalContent}>
         <ScrollView>
             <Card item={card} />
             <TextInput
@@ -174,6 +188,8 @@ function AddCard({ onAddCard }) {
                 <Text style={styles.addButtonText}>Add Card</Text>
             </TouchableOpacity>
         </ScrollView>
+        </View>
+        </Modal>
     );
 }
 
@@ -200,6 +216,16 @@ const styles = StyleSheet.create({
         color: 'white',
         fontSize: 16,
         fontWeight: 'bold',
+    },
+    modal: {
+        justifyContent: 'flex-end',
+        margin: 0,
+    },
+    modalContent: {
+        backgroundColor: 'white',
+        padding: 16,
+        borderTopLeftRadius: 10,
+        borderTopRightRadius: 10,
     },
 });
 

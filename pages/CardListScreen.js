@@ -87,22 +87,7 @@ function CardList() {
             <View style={styles.fabContainer}>
                 <FAB style={styles.fab} icon="plus" onPress={showModal} />
             </View>
-            <Modal
-                isVisible={isModalVisible}
-                style={styles.modal}
-                animationIn="slideInUp"
-                animationOut="slideOutDown"
-                backdropOpacity={0.5}
-                onBackdropPress={hideModal}
-                onBackButtonPress={hideModal}
-                propagateSwipe={true}
-                swipeDirection={['down']}
-                onSwipeComplete={hideModal}
-            >
-                <View style={styles.modalContent}>
-                    <AddCard onAddCard={handleAddCard} />
-                </View>
-            </Modal>
+                    <AddCard onAddCard={handleAddCard} visible={isModalVisible} hideModal={hideModal}/>
         </SafeAreaView>
     );
 }
