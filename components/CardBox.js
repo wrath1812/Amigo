@@ -7,27 +7,13 @@ import { CARDS } from '../constants/string';
 import { calcHeight, calcWidth } from '../helper/res';
 import copyToClipBoard from '../helper/copyToClipBoard';
 import Card from './card';
-
-// Extract modal content into a separate component
-function DeleteCardModal({ onDelete, onCancel }) {
-    return (
-        <View style={styles.modalContainer}>
-            <View style={styles.modalContent}>
-                <Text>Are you sure you want to delete this card?</Text>
-                <TouchableOpacity onPress={onDelete}>
-                    <Text>Delete</Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={onCancel}>
-                    <Text>Cancel</Text>
-                </TouchableOpacity>
-            </View>
-        </View>
-    );
-}
+import DeleteCardModal from './DeleteCardModal';
+import * as Menu from 'react-native-modal';
 
 function CardBox({ item }) {
     const { setCards } = useAuth();
     const [showConfirmDelete, setShowConfirmDelete] = useState(false);
+    const [showMenu, setShowMenu] = useState(false);
 
     async function deleteCard() {
         const encryptedCards = await getLocalStoreData(CARDS);
@@ -41,13 +27,17 @@ function CardBox({ item }) {
         copyToClipBoard(item.card_number, 'Card Number Copied to Clipboard');
     };
 
+    const hideMenu = () => {
+        setShowMenu(false);
+    }
+
     return (
         <View style={styles.container}>
             <Card item={item} />
             <View style={styles.menuBar}>
                 <TouchableOpacity
                     style={{ flex: 1, justifyContent: 'center' }}
-                    onPress={copyCardNumberToClipboard}
+                    onPress={()=>setShowMenu(true)}
                 >
                     <Ionicons
                         name="ellipsis-vertical-outline"
@@ -69,6 +59,25 @@ function CardBox({ item }) {
             >
                 <DeleteCardModal onDelete={deleteCard} onCancel={() => setShowConfirmDelete(false)} />
             </Modal>
+            <Modal
+                visible={showMenu}
+                style={{
+                    justifyContent: 'flex-end',
+                    margin: 0,
+                }}
+                animationIn="slideInUp"
+                animationOut="slideOutDown"
+                backdropOpacity={0.5}
+                onBackdropPress={hideMenu}
+                onBackButtonPress={hideMenu}
+                propagateSwipe={true}
+                swipeDirection={['down']}
+                onSwipeComplete={hideMenu}
+            >
+                <View>
+                    <Text>Menu</Text>
+                </View>
+            </Modal>
         </View>
     );
 }
@@ -87,17 +96,5 @@ const styles = StyleSheet.create({
     menuBar: {
         paddingHorizontal: calcHeight(1),
         alignItems: 'center',
-    },
-    modalContainer: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    },
-    modalContent: {
-        backgroundColor: 'white',
-        padding: 20,
-        borderRadius: 10,
-        alignItems: 'center',
-    },
+    }
 });
