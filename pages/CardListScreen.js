@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { View, FlatList, StyleSheet, SafeAreaView, Text } from 'react-native';
 import CardBox from '../components/CardBox';
-import AddCard from '../components/addCard';
+import AddCardModal from '../components/AddCardModal';
 import { FAB } from 'react-native-paper';
-import Modal from 'react-native-modal';
 import { useAuth } from '../context/AuthContext';
 import AddCardBox from '../components/AddCardBox';
 import { encryptData } from '../helper/encryption';
 import { CARDS } from '../constants/string';
 import getEncryptionKey from '../util/getEncryptionKey';
 import { getLocalStoreData, setLocalStoreData } from '../helper/localStorage';
+import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
 function CardList() {
     const [isModalVisible, setModalVisible] = useState(false);
     const { cards, setCards } = useAuth();
@@ -87,7 +87,11 @@ function CardList() {
             <View style={styles.fabContainer}>
                 <FAB style={styles.fab} icon="plus" onPress={showModal} />
             </View>
-                    <AddCard onAddCard={handleAddCard} visible={isModalVisible} hideModal={hideModal}/>
+            <AddCardModal
+                onAddCard={handleAddCard}
+                visible={isModalVisible}
+                hideModal={hideModal}
+            />
         </SafeAreaView>
     );
 }
@@ -100,8 +104,8 @@ const styles = StyleSheet.create({
     },
     fabContainer: {
         position: 'absolute',
-        bottom: 16,
-        right: 16,
+        bottom: calcHeight(5), // 5% of the device height
+        right: calcWidth(5), // 5% of the device width
     },
     fab: {
         backgroundColor: 'white',
@@ -112,24 +116,19 @@ const styles = StyleSheet.create({
     },
     modalContent: {
         backgroundColor: 'white',
-        padding: 16,
+        padding: calcHeight(2), // 2% of the device height
         borderTopLeftRadius: 10,
         borderTopRightRadius: 10,
     },
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
     inputContainer: {
-        marginTop: 20,
+        marginTop: calcHeight(2), // 2% of the device height
         width: '100%',
     },
     inputField: {
         backgroundColor: 'white',
         borderRadius: 10,
-        marginBottom: 12,
-        padding: 12,
+        marginBottom: calcHeight(1.5), // 1.5% of the device height
+        padding: calcHeight(1.5), // 1.5% of the device height
     },
     inputRow: {
         flexDirection: 'row',
@@ -137,20 +136,20 @@ const styles = StyleSheet.create({
     },
     expiryField: {
         flex: 1,
-        marginRight: 10,
+        marginRight: calcWidth(2), // 2% of the device width
     },
     cvvField: {
         flex: 1,
     },
     addButton: {
-        backgroundColor: 'blue', // Button background color
+        backgroundColor: 'blue',
         borderRadius: 10,
-        padding: 12,
+        padding: calcHeight(1.5), // 1.5% of the device height
         alignItems: 'center',
     },
     addButtonText: {
         color: 'white',
-        fontSize: 16,
+        fontSize: getFontSizeByWindowWidth(16), // Font size based on device width
         fontWeight: 'bold',
     },
 });

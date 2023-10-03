@@ -1,23 +1,19 @@
-import {View, Text, TouchableOpacity, StyleSheet, Modal} from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, Modal } from 'react-native';
 
-function DeleteCardModal({ onDelete, onCancel,visible }) {
+function DeleteCardModal({ onDelete, onCancel, visible }) {
     return (
-        <Modal
-                visible={visible}
-                transparent={true}
-                animationType="slide"
-            >
-        <View style={styles.modalContainer}>
-            <View style={styles.modalContent}>
-                <Text>Are you sure you want to delete this card?</Text>
-                <TouchableOpacity onPress={onDelete}>
-                    <Text>Delete</Text>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={onCancel}>
-                    <Text>Cancel</Text>
-                </TouchableOpacity>
+        <Modal visible={visible} transparent={true} animationType="slide">
+            <View style={styles.modalContainer}>
+                <View style={styles.modalContent}>
+                    <Text>Are you sure you want to delete this card?</Text>
+                    <TouchableOpacity onPress={onDelete}>
+                        <Text>Delete</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={onCancel}>
+                        <Text>Cancel</Text>
+                    </TouchableOpacity>
+                </View>
             </View>
-        </View>
         </Modal>
     );
 }
@@ -36,5 +32,5 @@ const styles = StyleSheet.create({
         padding: 20,
         borderRadius: 10,
         alignItems: 'center',
-    }
+    },
 });

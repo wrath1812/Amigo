@@ -11,7 +11,7 @@ import Card from './card';
 import * as CardValidator from 'card-validator';
 import Modal from 'react-native-modal';
 
-function AddCard({ onAddCard,visible,hideModal }) {
+function AddCardModal({ onAddCard, visible, hideModal }) {
     const [card, setCard] = useState({
         nickname: '',
         card_number: '',
@@ -123,72 +123,81 @@ function AddCard({ onAddCard,visible,hideModal }) {
 
     return (
         <Modal
-                isVisible={visible}
-                style={styles.modal}
-                animationIn="slideInUp"
-                animationOut="slideOutDown"
-                backdropOpacity={0.5}
-                onBackdropPress={hideModal}
-                onBackButtonPress={hideModal}
-                propagateSwipe={true}
-                swipeDirection={['down']}
-                onSwipeComplete={hideModal}
-            >
-                <View style={styles.modalContent}>
-        <ScrollView>
-            <Card item={card} />
-            <TextInput
-                style={styles.input}
-                placeholder="Nickname"
-                value={card.nickname}
-                onChangeText={(text) => setCard({ ...card, nickname: text })}
-            />
-            <TextInput
-                style={[
-                    styles.input,
-                    !isCardNumberValid && styles.invalidInput,
-                ]}
-                placeholder="Card Number"
-                keyboardType="numeric"
-                value={card.card_number}
-                onChangeText={formatCardNumber}
-                maxLength={19}
-            />
-            <View
-                style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                }}
-            >
-                <TextInput
-                    style={[
-                        styles.input,
-                        !validateExpiry(card.expiry) && styles.invalidInput,
-                    ]}
-                    placeholder="Expiry Date (MM/YY)"
-                    value={card.expiry}
-                    onChangeText={formatAndValidateExpiry}
-                    maxLength={5}
-                    keyboardType="numeric"
-                />
-                <TextInput
-                    style={[styles.input, !isCVVValid && styles.invalidInput]}
-                    placeholder="CVV"
-                    keyboardType="numeric"
-                    value={card.cvv}
-                    onChangeText={(text) => {
-                        setCard({ ...card, cvv: text });
-                        // Validate the CVV in real-time
-                        validateCVV(text);
-                    }}
-                    maxLength={4}
-                />
+            isVisible={visible}
+            style={styles.modal}
+            animationIn="slideInUp"
+            animationOut="slideOutDown"
+            backdropOpacity={0.5}
+            onBackdropPress={hideModal}
+            onBackButtonPress={hideModal}
+            propagateSwipe={true}
+            swipeDirection={['down']}
+            onSwipeComplete={hideModal}
+        >
+            <View style={styles.modalContent}>
+                <ScrollView>
+                    <Card item={card} />
+                    <TextInput
+                        style={styles.input}
+                        placeholder="Nickname"
+                        value={card.nickname}
+                        onChangeText={(text) =>
+                            setCard({ ...card, nickname: text })
+                        }
+                    />
+                    <TextInput
+                        style={[
+                            styles.input,
+                            !isCardNumberValid && styles.invalidInput,
+                        ]}
+                        placeholder="Card Number"
+                        keyboardType="numeric"
+                        value={card.card_number}
+                        onChangeText={formatCardNumber}
+                        maxLength={19}
+                    />
+                    <View
+                        style={{
+                            flexDirection: 'row',
+                            justifyContent: 'space-between',
+                        }}
+                    >
+                        <TextInput
+                            style={[
+                                styles.input,
+                                !validateExpiry(card.expiry) &&
+                                    styles.invalidInput,
+                            ]}
+                            placeholder="Expiry Date (MM/YY)"
+                            value={card.expiry}
+                            onChangeText={formatAndValidateExpiry}
+                            maxLength={5}
+                            keyboardType="numeric"
+                        />
+                        <TextInput
+                            style={[
+                                styles.input,
+                                !isCVVValid && styles.invalidInput,
+                            ]}
+                            placeholder="CVV"
+                            keyboardType="numeric"
+                            value={card.cvv}
+                            onChangeText={(text) => {
+                                setCard({ ...card, cvv: text });
+                                // Validate the CVV in real-time
+                                validateCVV(text);
+                            }}
+                            maxLength={4}
+                        />
+                    </View>
+                    <TouchableOpacity
+                        style={styles.addButton}
+                        onPress={handleAddCard}
+                    >
+                        <Text style={styles.addButtonText}>Add Card</Text>
+                    </TouchableOpacity>
+                </ScrollView>
             </View>
-            <TouchableOpacity style={styles.addButton} onPress={handleAddCard}>
-                <Text style={styles.addButtonText}>Add Card</Text>
-            </TouchableOpacity>
-        </ScrollView>
-        </View>
         </Modal>
     );
 }
@@ -229,4 +238,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default AddCard;
+export default AddCardModal;

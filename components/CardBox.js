@@ -30,7 +30,7 @@ function CardBox({ item }) {
 
     const hideMenu = () => {
         setShowMenu(false);
-    }
+    };
 
     return (
         <View style={styles.container}>
@@ -38,7 +38,7 @@ function CardBox({ item }) {
             <View style={styles.menuBar}>
                 <TouchableOpacity
                     style={{ flex: 1, justifyContent: 'center' }}
-                    onPress={()=>setShowMenu(true)}
+                    onPress={() => setShowMenu(true)}
                 >
                     <Ionicons
                         name="ellipsis-vertical-outline"
@@ -53,7 +53,11 @@ function CardBox({ item }) {
                     <Ionicons name="eye" size={calcHeight(4)} color="blue" />
                 </TouchableOpacity>
             </View>
-                <DeleteCardModal onDelete={deleteCard} onCancel={() => setShowConfirmDelete(false)} visible={showConfirmDelete} />
+            <DeleteCardModal
+                onDelete={deleteCard}
+                onCancel={() => setShowConfirmDelete(false)}
+                visible={showConfirmDelete}
+            />
             <Modal
                 isVisible={showMenu}
                 animationIn="slideInUp"
@@ -66,18 +70,28 @@ function CardBox({ item }) {
                 onSwipeComplete={hideMenu}
                 style={styles.modal}
             >
-                <View style={styles.modalContent} >
-                <TouchableOpacity style={styles.menuItem} onPress={copyCardNumberToClipboard}>
-                <Ionicons
-                        name="copy-outline" size={calcWidth(8)} color="blue"
-                    />
-                    <Text style={styles.menuText}>Copy Card Number</Text>
+                <View style={styles.modalContent}>
+                    <TouchableOpacity
+                        style={styles.menuItem}
+                        onPress={copyCardNumberToClipboard}
+                    >
+                        <Ionicons
+                            name="copy-outline"
+                            size={calcWidth(8)}
+                            color="blue"
+                        />
+                        <Text style={styles.menuText}>Copy Card Number</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity style={styles.menuItem} onPress={() => setShowConfirmDelete(true)}>
-                <Ionicons
-                        name="trash-outline" size={calcWidth(8)} color="red"
-                    />
-                    <Text style={styles.menuText}>Delete Card</Text>
+                    <TouchableOpacity
+                        style={styles.menuItem}
+                        onPress={() => setShowConfirmDelete(true)}
+                    >
+                        <Ionicons
+                            name="trash-outline"
+                            size={calcWidth(8)}
+                            color="red"
+                        />
+                        <Text style={styles.menuText}>Delete Card</Text>
                     </TouchableOpacity>
                 </View>
             </Modal>
@@ -100,7 +114,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: calcHeight(1),
         alignItems: 'center',
     },
-    menuItem:{
+    menuItem: {
         flexDirection: 'row',
         paddingVertical: calcHeight(1),
         alignItems: 'center',
