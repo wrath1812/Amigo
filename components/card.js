@@ -41,14 +41,11 @@ function Card({ item }) {
         });
     };
 
-    const cardWidth = calcWidth(90); // Adjust as needed for your design
-
     return (
         <View
             style={{
                 ...styles.card,
                 backgroundColor: CARD_COLOR[item.type] || item.color,
-                width: cardWidth,
             }}
         >
             <View
@@ -66,6 +63,7 @@ function Card({ item }) {
             <Text style={styles.cardNumber}>
                 {getCardNumberDisplayValue(item.card_number, !showCVV)}
             </Text>
+            <Text style={styles.cardText} >Bhaumik Tandan</Text>
             <Text style={styles.cardText}>{item.expiry}</Text>
             <View style={styles.cvvContainer}>
                 {item.cvv && (
@@ -80,14 +78,13 @@ function Card({ item }) {
 
 const styles = StyleSheet.create({
     card: {
-        padding: calcHeight(2),
+        padding: calcHeight(3),
         borderRadius: calcHeight(1),
         margin: calcHeight(1),
         elevation: 3,
         shadowColor: 'rgba(0, 0, 0, 0.1)',
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.8,
-        height: calcHeight(30),
     },
     cardText: {
         color: 'white',

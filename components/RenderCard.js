@@ -3,6 +3,9 @@ import { View, StyleSheet, Button } from 'react-native';
 import { getLocalStoreData, setLocalStoreData } from '../helper/localStorage';
 import { CARDS } from '../constants/string';
 import { useAuth } from '../context/AuthContext';
+import {
+    calcHeight,
+} from '../helper/res'; 
 
 function RenderCardComponent({ item }) {
     const { setCards } = useAuth();
@@ -17,7 +20,9 @@ function RenderCardComponent({ item }) {
     return (
         <View style={styles.container}>
             <Card item={item} />
+            <View>
             <Button title="Delete" onPress={deleteCard} />
+            </View>
         </View>
     );
 }
@@ -28,5 +33,8 @@ const styles = StyleSheet.create({
     container: {
         marginTop: 30,
         backgroundColor: '#fff',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
     },
 });
