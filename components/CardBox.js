@@ -55,10 +55,6 @@ function CardBox({ item }) {
                 <DeleteCardModal onDelete={deleteCard} onCancel={() => setShowConfirmDelete(false)} visible={showConfirmDelete} />
             <Modal
                 isVisible={showMenu}
-                style={{
-                    justifyContent: 'flex-end',
-                    margin: 0,
-                }}
                 animationIn="slideInUp"
                 animationOut="slideOutDown"
                 backdropOpacity={0.5}
@@ -67,9 +63,9 @@ function CardBox({ item }) {
                 propagateSwipe={true}
                 swipeDirection={['down']}
                 onSwipeComplete={hideMenu}
+                style={styles.modal}
             >
-                <View>
-                    <Text>Menu</Text>
+                <View style={styles.modalContent} >
                     <Text>Menu</Text>
                 </View>
             </Modal>
@@ -91,5 +87,15 @@ const styles = StyleSheet.create({
     menuBar: {
         paddingHorizontal: calcHeight(1),
         alignItems: 'center',
-    }
+    },
+    modal: {
+        justifyContent: 'flex-end',
+        margin: 0,
+    },
+    modalContent: {
+        backgroundColor: 'white',
+        padding: 16,
+        borderTopLeftRadius: 10,
+        borderTopRightRadius: 10,
+    },
 });
