@@ -63,9 +63,7 @@ function Card({ item, showCard }) {
                 </View>
                 <View>
                     <Text style={styles.cardLabelText}>CVV</Text>
-                    <View style={styles.cvvContainer}>
-                        {item.cvv && <Text style={styles.cardText}>{item.cvv}</Text>}
-                    </View>
+                        {showCard?item.cvv && <Text style={styles.cardText}>{item.cvv}</Text>:<View style={styles.cvvMask}></View>}
                 </View>
             </View>
         </View>
@@ -84,6 +82,7 @@ const styles = StyleSheet.create({
     cardText: {
         color: 'white',
         fontSize: getFontSizeByWindowWidth(10),
+        textAlign: 'center',
     },
     cardDetailsContainer: {
         flexDirection: 'row',
@@ -94,13 +93,6 @@ const styles = StyleSheet.create({
         color: 'white',
         fontSize: getFontSizeByWindowWidth(8),
         opacity: 0.6,
-    },
-    cvvContainer: {
-        borderRadius: 5,
-        padding: calcWidth(1),
-        width: calcWidth(15),
-        alignItems: 'center',
-        justifyContent: 'center',
     },
     cardNumber: {
         color: 'white',
@@ -138,7 +130,13 @@ const styles = StyleSheet.create({
         height: calcHeight(1.5), 
         marginTop: calcHeight(3),
 
+    },
+    cvvMask:{
+        backgroundColor: 'grey', 
+        width: calcWidth(5), 
+        height: calcHeight(1.5), 
     }
+    
 });
 
 export default Card;
