@@ -7,28 +7,30 @@ import Toast from 'react-native-root-toast';
 
 import { calcHeight, getFontSizeByWindowWidth, calcWidth } from '../helper/res';
 
-function formatCardNumber(cardNumber) {
-    return cardNumber
-        .replace(/\s/g, '')
-        .replace(/(\d{4})/g, '$1     ')
-        .trim();
+function formatCardNumber(cardNumber, showCard) {
+    const formattedNumber = cardNumber.replace(/\s/g, ''); // Remove spaces
+    const numBoxes = Math.ceil(formattedNumber.length / 4); // Calculate the number of boxes needed
+    const boxes = [];
+
+    for (let i = 0; i < numBoxes; i++) {
+        const start = i * 4;
+        const end = start + 4;
+        const box = formattedNumber.slice(start, end);
+        boxes.push(
+            <View key={i} style={styles.cardNumberContainer}>
+                {showCard || i >= numBoxes - 1 ? (
+                    <Text style={styles.cardNumberBox}>{box}</Text>
+                ) : (
+                    <View style={styles.greyBox}></View>
+                )}
+            </View>,
+        );
+    }
+
+    return <View style={styles.cardNumberContainer}>{boxes}</View>;
 }
 
-function maskCardNumber(cardNumber) {
-    const visibleDigits = 4;
-    const maskedSection = cardNumber.slice(0, -visibleDigits);
-    const visibleSection = cardNumber.slice(-visibleDigits);
-    return maskedSection.replace(/./g, '*') + visibleSection;
-}
-
-function getCardNumberDisplayValue(cardNumber, showFullNumber) {
-    if (!showFullNumber) cardNumber = maskCardNumber(cardNumber);
-
-    return formatCardNumber(cardNumber);
-}
-
-function Card({ item,showCard }) {
-
+function Card({ item, showCard }) {
     return (
         <View
             style={{
@@ -49,12 +51,21 @@ function Card({ item,showCard }) {
                 />
             </View>
             <Text style={styles.cardNumber}>
-                {getCardNumberDisplayValue(item.card_number, !showCard)}
+                {formatCardNumber(item.card_number, showCard)}
             </Text>
+
             <Text style={styles.cardText}>Bhaumik Tandan</Text>
-            <Text style={styles.cardText}>{item.expiry}</Text>
-            <View style={styles.cvvContainer}>
-                {item.cvv && <Text style={styles.cardText}>{item.cvv}</Text>}
+            <View style={styles.cardDetailsContainer}>
+                <View>
+                    <Text style={styles.cardLabelText}>Valid Thru</Text>
+                    <Text style={styles.cardText}>{item.expiry}</Text>
+                </View>
+                <View>
+                    <Text style={styles.cardLabelText}>CVV</Text>
+                    <View style={styles.cvvContainer}>
+                        {item.cvv && <Text style={styles.cardText}>{item.cvv}</Text>}
+                    </View>
+                </View>
             </View>
         </View>
     );
@@ -71,10 +82,23 @@ const styles = StyleSheet.create({
         color: 'white',
         fontSize: getFontSizeByWindowWidth(10),
     },
-    cvvContainer: {
+    cardDetailsContainer: {
         flexDirection: 'row',
-        alignItems: 'center',
         justifyContent: 'space-between',
+        marginTop: calcHeight(1),
+    },
+    cardLabelText: {
+        color: 'white',
+        fontSize: getFontSizeByWindowWidth(8),
+        opacity: 0.6,
+    },
+    cvvContainer: {
+        backgroundColor: 'white',
+        borderRadius: 5,
+        padding: calcWidth(1),
+        width: calcWidth(15),
+        alignItems: 'center',
+        justifyContent: 'center',
     },
     cardNumber: {
         color: 'white',
@@ -83,6 +107,28 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         textAlign: 'center',
         textShadowColor: 'rgba(0, 0, 0, 0.75)',
+    },
+    cardNumberContainer: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+    },
+
+    cardNumberBox: {
+        color: 'white',
+        fontSize: getFontSizeByWindowWidth(12),
+        fontWeight: 'bold',
+        textShadowColor: 'rgba(0, 0, 0, 0.75)',
+        width: calcWidth(10),
+        textAlign: 'center',
+        marginHorizontal: calcWidth(3),
+        paddingVertical: calcHeight(1),
+    },
+    greyBox: {
+        backgroundColor: 'grey', // Adjust the color as needed
+        width: calcWidth(10), // Adjust the width as needed
+        height: calcHeight(4.6), // Adjust the height as needed
+        marginHorizontal: calcWidth(3), // Adjust the horizontal margin as needed
     },
 });
 

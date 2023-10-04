@@ -52,12 +52,19 @@ function CardBox({ item }) {
                     style={{ flex: 1, justifyContent: 'center' }}
                     onPress={() => setShowCard((prev) => !prev)}
                 >
-                    <Ionicons name={showCard?"eye":"eye-off"} size={calcHeight(4)} color="blue" />
+                    <Ionicons
+                        name={showCard ? 'eye' : 'eye-off'}
+                        size={calcHeight(4)}
+                        color="blue"
+                    />
                 </TouchableOpacity>
             </View>
             <DeleteCardModal
                 onDelete={deleteCard}
-                onCancel={() => {setShowConfirmDelete(false);hideMenu()}}
+                onCancel={() => {
+                    setShowConfirmDelete(false);
+                    hideMenu();
+                }}
                 visible={showConfirmDelete}
             />
             <Modal

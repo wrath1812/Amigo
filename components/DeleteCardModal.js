@@ -1,22 +1,26 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet, Modal } from 'react-native';
-import {
-    calcHeight,
-    calcWidth,
-    getFontSizeByWindowWidth,
-} from '../helper/res'; // Import your utility functions here
+import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res'; // Import your utility functions here
 
 function DeleteCardModal({ onDelete, onCancel, visible }) {
     return (
         <Modal visible={visible} transparent={true} animationType="slide">
             <View style={styles.modalContainer}>
                 <View style={styles.modalContent}>
-                    <Text style={styles.modalText}>Are you sure you want to delete this card?</Text>
+                    <Text style={styles.modalText}>
+                        Are you sure you want to delete this card?
+                    </Text>
                     <View style={styles.buttonContainer}>
-                        <TouchableOpacity onPress={onDelete} style={styles.deleteButton}>
+                        <TouchableOpacity
+                            onPress={onDelete}
+                            style={styles.deleteButton}
+                        >
                             <Text style={styles.buttonText}>Delete</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={onCancel} style={styles.cancelButton}>
+                        <TouchableOpacity
+                            onPress={onCancel}
+                            style={styles.cancelButton}
+                        >
                             <Text style={styles.buttonText}>Cancel</Text>
                         </TouchableOpacity>
                     </View>
