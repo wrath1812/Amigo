@@ -19,6 +19,7 @@ function AddCardModal({ onAddCard, visible, hideModal }) {
         cvv: '',
         color: 'black',
         type: '',
+        name_on_card: '',
     });
 
     const [isCardNumberValid, setIsCardNumberValid] = useState(true);
@@ -109,6 +110,7 @@ function AddCardModal({ onAddCard, visible, hideModal }) {
                 cvv: '',
                 color: 'black',
                 type: '',
+                name_on_card: '',
             });
             setIsCardNumberValid(true);
             setIsCVVValid(true);
@@ -155,6 +157,16 @@ function AddCardModal({ onAddCard, visible, hideModal }) {
                         value={card.card_number}
                         onChangeText={formatCardNumber}
                         maxLength={19}
+                    />
+                     <TextInput
+                        style={
+                            styles.input
+                        }
+                        placeholder="Name on the Card"
+                        value={card.name_on_card}
+                        onChangeText={(text) =>
+                            setCard({ ...card, name_on_card: text })
+                        }
                     />
                     <View
                         style={{

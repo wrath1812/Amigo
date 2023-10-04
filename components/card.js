@@ -44,7 +44,7 @@ function Card({ item, showCard }) {
                     justifyContent: 'space-between',
                 }}
             >
-                <Text style={styles.cardText}>{item.nickname}</Text>
+                <Text style={{...styles.cardText,textAlign:'auto',fontSize:getFontSizeByWindowWidth(12),fontWeight:"bold"}}>{item.nickname}</Text>
                 <Image
                     source={CARD_ICON[item.type]}
                     style={{ width: calcWidth(15), height: calcHeight(5) }}
@@ -54,7 +54,8 @@ function Card({ item, showCard }) {
                 {formatCardNumber(item.card_number, showCard)}
             </Text>
 
-            <Text style={styles.cardText}>{item.name}</Text>
+            <Text style={{...styles.cardText,textAlign:'auto',fontSize:getFontSizeByWindowWidth(12)}}>{item.name_on_card}</Text>
+            
             <View style={styles.cardDetailsContainer}>
                 <View>
                     <Text style={styles.cardLabelText}>Valid Thru</Text>
