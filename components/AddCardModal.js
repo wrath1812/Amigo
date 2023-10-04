@@ -136,7 +136,7 @@ function AddCardModal({ onAddCard, visible, hideModal }) {
         >
             <View style={styles.modalContent}>
                 <ScrollView>
-                    <Card item={card} />
+                    <Card item={card} showCard={true} />
                     <TextInput
                         style={styles.input}
                         placeholder="Nickname"

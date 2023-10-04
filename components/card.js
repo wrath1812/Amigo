@@ -54,11 +54,12 @@ function Card({ item, showCard }) {
                 {formatCardNumber(item.card_number, showCard)}
             </Text>
 
-            <Text style={styles.cardText}>Bhaumik Tandan</Text>
+            <Text style={styles.cardText}>{item.name}</Text>
             <View style={styles.cardDetailsContainer}>
                 <View>
                     <Text style={styles.cardLabelText}>Valid Thru</Text>
-                    <Text style={styles.cardText}>{item.expiry}</Text>
+                    <Text style={styles.cardText}>{showCard?item.expiry:<View style={styles.validityMask}></View>}</Text>
+                    
                 </View>
                 <View>
                     <Text style={styles.cardLabelText}>CVV</Text>
@@ -77,6 +78,8 @@ const styles = StyleSheet.create({
         borderRadius: calcHeight(2),
         margin: calcHeight(1),
         elevation: 3,
+        height: calcHeight(25),
+        width: calcWidth(75),
     },
     cardText: {
         color: 'white',
@@ -93,7 +96,6 @@ const styles = StyleSheet.create({
         opacity: 0.6,
     },
     cvvContainer: {
-        backgroundColor: 'white',
         borderRadius: 5,
         padding: calcWidth(1),
         width: calcWidth(15),
@@ -125,11 +127,18 @@ const styles = StyleSheet.create({
         paddingVertical: calcHeight(1),
     },
     greyBox: {
-        backgroundColor: 'grey', // Adjust the color as needed
-        width: calcWidth(10), // Adjust the width as needed
-        height: calcHeight(4.6), // Adjust the height as needed
-        marginHorizontal: calcWidth(3), // Adjust the horizontal margin as needed
+        backgroundColor: 'grey', 
+        width: calcWidth(10), 
+        height: calcHeight(2), 
+        marginHorizontal: calcWidth(3),
     },
+    validityMask:{
+        backgroundColor: 'grey', 
+        width: calcWidth(10), 
+        height: calcHeight(1.5), 
+        marginTop: calcHeight(3),
+
+    }
 });
 
 export default Card;
