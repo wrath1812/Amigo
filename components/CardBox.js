@@ -14,6 +14,7 @@ function CardBox({ item }) {
     const { setCards } = useAuth();
     const [showConfirmDelete, setShowConfirmDelete] = useState(false);
     const [showMenu, setShowMenu] = useState(false);
+    const [showCard, setShowCard] = useState(false);
 
     async function deleteCard() {
         const encryptedCards = await getLocalStoreData(CARDS);
@@ -35,7 +36,7 @@ function CardBox({ item }) {
 
     return (
         <View style={styles.container}>
-            <Card item={item} />
+            <Card item={item} showCard={showCard} />
             <View style={styles.menuBar}>
                 <TouchableOpacity
                     style={{ flex: 1, justifyContent: 'center' }}
@@ -49,9 +50,9 @@ function CardBox({ item }) {
                 </TouchableOpacity>
                 <TouchableOpacity
                     style={{ flex: 1, justifyContent: 'center' }}
-                    onPress={() => setShowConfirmDelete(true)}
+                    onPress={() => setShowCard((prev) => !prev)}
                 >
-                    <Ionicons name="eye" size={calcHeight(4)} color="blue" />
+                    <Ionicons name={showCard?"eye":"eye-off"} size={calcHeight(4)} color="blue" />
                 </TouchableOpacity>
             </View>
             <DeleteCardModal

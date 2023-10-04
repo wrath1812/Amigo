@@ -27,8 +27,7 @@ function getCardNumberDisplayValue(cardNumber, showFullNumber) {
     return formatCardNumber(cardNumber);
 }
 
-function Card({ item }) {
-    const [showCVV, setShowCVV] = useState(false);
+function Card({ item,showCard }) {
 
     return (
         <View
@@ -50,7 +49,7 @@ function Card({ item }) {
                 />
             </View>
             <Text style={styles.cardNumber}>
-                {getCardNumberDisplayValue(item.card_number, !showCVV)}
+                {getCardNumberDisplayValue(item.card_number, !showCard)}
             </Text>
             <Text style={styles.cardText}>Bhaumik Tandan</Text>
             <Text style={styles.cardText}>{item.expiry}</Text>
