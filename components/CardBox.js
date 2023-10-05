@@ -10,6 +10,7 @@ import Card from './card';
 import DeleteCardModal from './DeleteCardModal';
 import Modal from 'react-native-modal';
 import AddCardModal from './AddCardModal';
+import CardMenu from './CardMenu';
 
 import getEncryptionKey from '../util/getEncryptionKey';
 import { encryptData } from '../helper/encryption';
@@ -114,42 +115,11 @@ const handleEditCard = async (editedCard, index) => {
                 onSwipeComplete={hideMenu}
                 style={styles.modal}
             >
-                <View style={styles.modalContent}>
-                    <TouchableOpacity
-                        style={styles.menuItem}
-                        onPress={copyCardNumberToClipboard}
-                    >
-                        <Ionicons
-                            name="copy-outline"
-                            size={calcWidth(8)}
-                            color="blue"
-                        />
-                        <Text style={styles.menuText}>Copy Card Number</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        style={styles.menuItem}
-                        onPress={() => setShowEditCard(true)}
-                    >
-                        <Ionicons
-                            name="create-outline"
-                            size={calcWidth(8)}
-                            color="blue"
-                        />
-                        <Text style={styles.menuText}>Edit Card</Text>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity
-                        style={styles.menuItem}
-                        onPress={() => setShowConfirmDelete(true)}
-                    >
-                        <Ionicons
-                            name="trash-outline"
-                            size={calcWidth(8)}
-                            color="red"
-                        />
-                        <Text style={styles.menuText}>Delete Card</Text>
-                    </TouchableOpacity>
-                </View>
+                <CardMenu
+                    copyCardNumberToClipboard={copyCardNumberToClipboard}
+                    setShowEditCard={() => setShowEditCard(true)}
+                    setShowConfirmDelete={() => setShowConfirmDelete(true)}
+                />
             </Modal>
             <AddCardModal
                 onAddCard={(editedCard) => handleEditCard(editedCard,item.index)}
@@ -189,11 +159,5 @@ const styles = StyleSheet.create({
     modal: {
         justifyContent: 'flex-end',
         margin: 0,
-    },
-    modalContent: {
-        backgroundColor: 'white',
-        padding: 16,
-        borderTopLeftRadius: 10,
-        borderTopRightRadius: 10,
     },
 });
