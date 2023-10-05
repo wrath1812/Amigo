@@ -11,16 +11,18 @@ import Card from './card';
 import * as CardValidator from 'card-validator';
 import Modal from 'react-native-modal';
 
-function AddCardModal({ onAddCard, visible, hideModal }) {
-    const [card, setCard] = useState({
-        nickname: '',
-        card_number: '',
-        expiry: '', // Set the default value with the slash
-        cvv: '',
-        color: 'black',
-        type: '',
-        name_on_card: '',
-    });
+function AddCardModal({ onAddCard, visible, hideModal, cardData }) {
+    const [card, setCard] = useState(
+        cardData || {
+            nickname: '',
+            card_number: '',
+            expiry: '', // Set the default value with the slash
+            cvv: '',
+            color: 'black',
+            type: '',
+            name_on_card: '',
+        },
+    );
 
     const [isCardNumberValid, setIsCardNumberValid] = useState(true);
     const [isCVVValid, setIsCVVValid] = useState(true);
@@ -158,10 +160,8 @@ function AddCardModal({ onAddCard, visible, hideModal }) {
                         onChangeText={formatCardNumber}
                         maxLength={19}
                     />
-                     <TextInput
-                        style={
-                            styles.input
-                        }
+                    <TextInput
+                        style={styles.input}
                         placeholder="Name on the Card"
                         value={card.name_on_card}
                         onChangeText={(text) =>

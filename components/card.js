@@ -44,7 +44,16 @@ function Card({ item, showCard }) {
                     justifyContent: 'space-between',
                 }}
             >
-                <Text style={{...styles.cardText,textAlign:'auto',fontSize:getFontSizeByWindowWidth(12),fontWeight:"bold"}}>{item.nickname}</Text>
+                <Text
+                    style={{
+                        ...styles.cardText,
+                        textAlign: 'auto',
+                        fontSize: getFontSizeByWindowWidth(12),
+                        fontWeight: 'bold',
+                    }}
+                >
+                    {item.nickname}
+                </Text>
                 <Image
                     source={CARD_ICON[item.type]}
                     style={{ width: calcWidth(15), height: calcHeight(5) }}
@@ -54,17 +63,36 @@ function Card({ item, showCard }) {
                 {formatCardNumber(item.card_number, showCard)}
             </Text>
 
-            <Text style={{...styles.cardText,textAlign:'auto',fontSize:getFontSizeByWindowWidth(12)}}>{item.name_on_card}</Text>
-            
+            <Text
+                style={{
+                    ...styles.cardText,
+                    textAlign: 'auto',
+                    fontSize: getFontSizeByWindowWidth(12),
+                }}
+            >
+                {item.name_on_card}
+            </Text>
+
             <View style={styles.cardDetailsContainer}>
                 <View>
                     <Text style={styles.cardLabelText}>Valid Thru</Text>
-                    <Text style={styles.cardText}>{showCard?item.expiry:<View style={styles.validityMask}></View>}</Text>
-                    
+                    <Text style={styles.cardText}>
+                        {showCard ? (
+                            item.expiry
+                        ) : (
+                            <View style={styles.validityMask}></View>
+                        )}
+                    </Text>
                 </View>
                 <View>
                     <Text style={styles.cardLabelText}>CVV</Text>
-                        {showCard?item.cvv && <Text style={styles.cardText}>{item.cvv}</Text>:<View style={styles.cvvMask}></View>}
+                    {showCard ? (
+                        item.cvv && (
+                            <Text style={styles.cardText}>{item.cvv}</Text>
+                        )
+                    ) : (
+                        <View style={styles.cvvMask}></View>
+                    )}
                 </View>
             </View>
         </View>
@@ -120,24 +148,22 @@ const styles = StyleSheet.create({
         paddingVertical: calcHeight(1),
     },
     greyBox: {
-        backgroundColor: 'grey', 
-        width: calcWidth(10), 
-        height: calcHeight(2), 
+        backgroundColor: 'grey',
+        width: calcWidth(10),
+        height: calcHeight(2),
         marginHorizontal: calcWidth(3),
     },
-    validityMask:{
-        backgroundColor: 'grey', 
-        width: calcWidth(10), 
-        height: calcHeight(1.5), 
+    validityMask: {
+        backgroundColor: 'grey',
+        width: calcWidth(10),
+        height: calcHeight(1.5),
         marginTop: calcHeight(3),
-
     },
-    cvvMask:{
-        backgroundColor: 'grey', 
-        width: calcWidth(5), 
-        height: calcHeight(1.5), 
-    }
-    
+    cvvMask: {
+        backgroundColor: 'grey',
+        width: calcWidth(5),
+        height: calcHeight(1.5),
+    },
 });
 
 export default Card;

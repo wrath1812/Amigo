@@ -9,12 +9,14 @@ import copyToClipBoard from '../helper/copyToClipBoard';
 import Card from './card';
 import DeleteCardModal from './DeleteCardModal';
 import Modal from 'react-native-modal';
+import AddCardModal from './AddCardModal';
 
 function CardBox({ item }) {
     const { setCards } = useAuth();
     const [showConfirmDelete, setShowConfirmDelete] = useState(false);
     const [showMenu, setShowMenu] = useState(false);
     const [showCard, setShowCard] = useState(false);
+    const [showEditCard, setShowEditCard] = useState(false);
 
     async function deleteCard() {
         const encryptedCards = await getLocalStoreData(CARDS);
@@ -93,6 +95,18 @@ function CardBox({ item }) {
                     </TouchableOpacity>
                     <TouchableOpacity
                         style={styles.menuItem}
+                        onPress={() => setShowEditCard(true)}
+                    >
+                        <Ionicons
+                            name="create-outline"
+                            size={calcWidth(8)}
+                            color="blue"
+                        />
+                        <Text style={styles.menuText}>Edit Card</Text>
+                    </TouchableOpacity>
+
+                    <TouchableOpacity
+                        style={styles.menuItem}
                         onPress={() => setShowConfirmDelete(true)}
                     >
                         <Ionicons
@@ -104,6 +118,12 @@ function CardBox({ item }) {
                     </TouchableOpacity>
                 </View>
             </Modal>
+            <AddCardModal
+                onAddCard={(a) => console.log('Clicked',a)}
+                visible={showEditCard}
+                hideModal={() => setShowEditCard(false)}
+                cardData={item}
+            />
         </View>
     );
 }
