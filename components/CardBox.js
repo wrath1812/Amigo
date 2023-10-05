@@ -11,8 +11,11 @@ import DeleteCardModal from './DeleteCardModal';
 import Modal from 'react-native-modal';
 import AddCardModal from './AddCardModal';
 
+import getEncryptionKey from '../util/getEncryptionKey';
+import { encryptData } from '../helper/encryption';
+
 function CardBox({ item }) {
-    const { setCards } = useAuth();
+    const { cards,setCards } = useAuth();
     const [showConfirmDelete, setShowConfirmDelete] = useState(false);
     const [showMenu, setShowMenu] = useState(false);
     const [showCard, setShowCard] = useState(false);
@@ -35,6 +38,36 @@ function CardBox({ item }) {
     const hideMenu = () => {
         setShowMenu(false);
     };
+    const encryptCard = (newCard, encryptionKey) => {
+        return encryptData(JSON.stringify(newCard), encryptionKey);
+    };
+    const updateCardStorage = async (newCards) => {
+        await setLocalStoreData(CARDS, newCards);
+    };
+
+
+const handleEditCard = async (editedCard, index) => {
+    try {
+        // Check if the card already exists
+        if (!cards || index < 0 || index >= cards.length) {
+            alert('Invalid index or card does not exist');
+            return;
+        }
+
+        const encryptionKey = await getEncryptionKey();
+        const encryptedCard = encryptCard(editedCard, encryptionKey);
+        const updatedCards = [...cards];
+        updatedCards[index] = encryptedCard;
+
+        await updateCardStorage(updatedCards);
+        setCards(updatedCards);
+        setShowEditCard(false);
+        setShowMenu(false);
+    } catch (error) {
+        console.error('An error occurred:', error);
+    }
+};
+
 
     return (
         <View style={styles.container}>
@@ -119,7 +152,7 @@ function CardBox({ item }) {
                 </View>
             </Modal>
             <AddCardModal
-                onAddCard={(a) => console.log('Clicked',a)}
+                onAddCard={(editedCard) => handleEditCard(editedCard,item.index)}
                 visible={showEditCard}
                 hideModal={() => setShowEditCard(false)}
                 cardData={item}
