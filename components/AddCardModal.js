@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     View,
     Text,
@@ -12,17 +12,21 @@ import * as CardValidator from 'card-validator';
 import Modal from 'react-native-modal';
 
 function AddCardModal({ onAddCard, visible, hideModal, cardData }) {
-    const [card, setCard] = useState(
-        cardData || {
-            nickname: '',
-            card_number: '',
-            expiry: '', // Set the default value with the slash
-            cvv: '',
-            color: 'black',
-            type: '',
-            name_on_card: '',
-        },
-    );
+    const [card, setCard] = useState({
+        nickname: '',
+        card_number: '',
+        expiry: '', // Set the default value with the slash
+        cvv: '',
+        color: 'black',
+        type: '',
+        name_on_card: '',
+    });
+
+    useEffect(() => {
+        if (cardData) {
+            setCard(cardData);
+        }
+    }, [cardData]);
 
     const [isCardNumberValid, setIsCardNumberValid] = useState(true);
     const [isCVVValid, setIsCVVValid] = useState(true);

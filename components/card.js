@@ -8,6 +8,7 @@ import Toast from 'react-native-root-toast';
 import { calcHeight, getFontSizeByWindowWidth, calcWidth } from '../helper/res';
 
 function formatCardNumber(cardNumber, showCard) {
+    if (!cardNumber) return null;
     const formattedNumber = cardNumber.replace(/\s/g, ''); // Remove spaces
     const numBoxes = Math.ceil(formattedNumber.length / 4); // Calculate the number of boxes needed
     const boxes = [];

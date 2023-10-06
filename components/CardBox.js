@@ -16,7 +16,7 @@ import getEncryptionKey from '../util/getEncryptionKey';
 import { encryptData } from '../helper/encryption';
 
 function CardBox({ item }) {
-    const { cards,setCards } = useAuth();
+    const { cards, setCards } = useAuth();
     const [showConfirmDelete, setShowConfirmDelete] = useState(false);
     const [showMenu, setShowMenu] = useState(false);
     const [showCard, setShowCard] = useState(false);
@@ -46,29 +46,32 @@ function CardBox({ item }) {
         await setLocalStoreData(CARDS, newCards);
     };
 
+    const handleEditCard = async (editedCard, index) => {
+        try {
+            // Check if the card already exists
+            if (!cards || index < 0 || index >= cards.length) {
+                alert('Invalid index or card does not exist');
+                return;
+            }
 
-const handleEditCard = async (editedCard, index) => {
-    try {
-        // Check if the card already exists
-        if (!cards || index < 0 || index >= cards.length) {
-            alert('Invalid index or card does not exist');
-            return;
+            const encryptionKey = await getEncryptionKey();
+            const encryptedCard = encryptCard(editedCard, encryptionKey);
+            const encryptCards = await getLocalStoreData(CARDS);
+
+            encryptCards[index] = encryptedCard;
+
+            await updateCardStorage(encryptCards);
+
+            const updatedCards = [...cards];
+            updatedCards[index] = { ...editedCard };
+
+            setCards(updatedCards);
+            setShowEditCard(false);
+            setShowMenu(false);
+        } catch (error) {
+            console.error('An error occurred:', error);
         }
-
-        const encryptionKey = await getEncryptionKey();
-        const encryptedCard = encryptCard(editedCard, encryptionKey);
-        const updatedCards = [...cards];
-        updatedCards[index] = encryptedCard;
-
-        await updateCardStorage(updatedCards);
-        setCards(updatedCards);
-        setShowEditCard(false);
-        setShowMenu(false);
-    } catch (error) {
-        console.error('An error occurred:', error);
-    }
-};
-
+    };
 
     return (
         <View style={styles.container}>
@@ -122,7 +125,9 @@ const handleEditCard = async (editedCard, index) => {
                 />
             </Modal>
             <AddCardModal
-                onAddCard={(editedCard) => handleEditCard(editedCard,item.index)}
+                onAddCard={(editedCard) =>
+                    handleEditCard(editedCard, item.index)
+                }
                 visible={showEditCard}
                 hideModal={() => setShowEditCard(false)}
                 cardData={item}

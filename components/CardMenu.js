@@ -1,9 +1,13 @@
 import React from 'react';
 import { View, TouchableOpacity, Text } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import { calcWidth,calcHeight } from '../helper/res';
+import { calcWidth, calcHeight } from '../helper/res';
 
-const CardMenu = ({ copyCardNumberToClipboard, setShowEditCard, setShowConfirmDelete }) => {
+const CardMenu = ({
+    copyCardNumberToClipboard,
+    setShowEditCard,
+    setShowConfirmDelete,
+}) => {
     return (
         <View style={styles.modalContent}>
             <TouchableOpacity
@@ -59,7 +63,7 @@ const styles = {
         padding: 16,
         borderTopLeftRadius: 10,
         borderTopRightRadius: 10,
-    }
+    },
 };
 
 export default CardMenu;
