@@ -1,13 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
-import * as Clipboard from 'expo-clipboard';
 import CARD_ICON from '../constants/cardIcon';
 import CARD_COLOR from '../constants/cardColour';
-import Toast from 'react-native-root-toast';
+import MASK_COLORS from '../constants/maskColour';
 
 import { calcHeight, getFontSizeByWindowWidth, calcWidth } from '../helper/res';
 
-function formatCardNumber(cardNumber, showCard) {
+function formatCardNumber(cardNumber, showCard,maskColor) {
     if (!cardNumber) return null;
     const formattedNumber = cardNumber.replace(/\s/g, ''); // Remove spaces
     const numBoxes = Math.ceil(formattedNumber.length / 4); // Calculate the number of boxes needed
@@ -22,7 +21,7 @@ function formatCardNumber(cardNumber, showCard) {
                 {showCard || i >= numBoxes - 1 ? (
                     <Text style={styles.cardNumberBox}>{box}</Text>
                 ) : (
-                    <View style={styles.greyBox}></View>
+                    <View style={{...styles.cardMask,backgroundColor:maskColor}}></View>
                 )}
             </View>,
         );
@@ -61,7 +60,7 @@ function Card({ item, showCard }) {
                 />
             </View>
             <Text style={styles.cardNumber}>
-                {formatCardNumber(item.card_number, showCard)}
+                {formatCardNumber(item.card_number, showCard,MASK_COLORS[item.type])}
             </Text>
 
             <Text
@@ -81,7 +80,7 @@ function Card({ item, showCard }) {
                         {showCard ? (
                             item.expiry
                         ) : (
-                            <View style={styles.validityMask}></View>
+                            <View style={{...styles.validityMask,backgroundColor:MASK_COLORS[item.type]}}></View>
                         )}
                     </Text>
                 </View>
@@ -92,7 +91,7 @@ function Card({ item, showCard }) {
                             <Text style={styles.cardText}>{item.cvv}</Text>
                         )
                     ) : (
-                        <View style={styles.cvvMask}></View>
+                        <View style={{...styles.cvvMask,backgroundColor:MASK_COLORS[item.type]}}></View>
                     )}
                 </View>
             </View>
@@ -148,20 +147,17 @@ const styles = StyleSheet.create({
         marginHorizontal: calcWidth(3),
         paddingVertical: calcHeight(1),
     },
-    greyBox: {
-        backgroundColor: 'grey',
+    cardMask: {
         width: calcWidth(10),
         height: calcHeight(2),
         marginHorizontal: calcWidth(3),
     },
     validityMask: {
-        backgroundColor: 'grey',
         width: calcWidth(10),
         height: calcHeight(1.5),
         marginTop: calcHeight(3),
     },
     cvvMask: {
-        backgroundColor: 'grey',
         width: calcWidth(5),
         height: calcHeight(1.5),
     },
