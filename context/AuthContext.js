@@ -22,7 +22,9 @@ export const AuthProvider = ({ children }) => {
             return { ...decryptedCard, index };
         });
         setCards(decryptedCards);
+        setTimeout(() => {
         setLoading(false);
+        },900);
     };
 
     useEffect(() => {
