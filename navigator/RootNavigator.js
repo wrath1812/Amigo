@@ -4,13 +4,15 @@ import PAGES from '../constants/pages';
 import AppNavigator from './AppNavigator';
 import { useAuth } from '../context/AuthContext';
 import AuthNavigator from './AuthNavigator';
+import Loader from '../components/Loader';
 
 const Stack = createNativeStackNavigator();
 
 function RootNavigator() {
-    const { isAuthenticated } = useAuth();
+    const { isAuthenticated,loading } = useAuth();
 
-    return (
+    return loading?<Loader/>:(
+
         <NavigationContainer>
             <Stack.Navigator initialRouteName={PAGES.LOGIN}>
                 {isAuthenticated ? AppNavigator : AuthNavigator}

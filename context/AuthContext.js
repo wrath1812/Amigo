@@ -10,8 +10,10 @@ const AuthContext = createContext();
 export const AuthProvider = ({ children }) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false);
     const [cards, setCards] = useState([]);
+    const [loading, setLoading] = useState(false);
 
     const getCards = async () => {
+        setLoading(true);
         const encryptionKey = await getEncryptionKey();
         const encryptedCards = await getLocalStoreData(CARDS);
         if (!encryptedCards) return;
@@ -20,6 +22,7 @@ export const AuthProvider = ({ children }) => {
             return { ...decryptedCard, index };
         });
         setCards(decryptedCards);
+        setLoading(false);
     };
 
     useEffect(() => {
@@ -47,6 +50,7 @@ export const AuthProvider = ({ children }) => {
                 login,
                 cards,
                 setCards,
+                loading
             }}
         >
             {children}
