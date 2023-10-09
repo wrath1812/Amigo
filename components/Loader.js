@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { SafeAreaView, View, Image, StyleSheet, Animated, Easing } from 'react-native';
-import highResolutionIcon from '../assets/images/highResolutionIcon.png';
+import highResolutionIcon from '../assets/icon.png';
 
 function Loader() {
   const spinValue = useRef(new Animated.Value(0)).current;
