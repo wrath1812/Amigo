@@ -16,7 +16,11 @@ export const AuthProvider = ({ children }) => {
         setLoading(true);
         const encryptionKey = await getEncryptionKey();
         const encryptedCards = await getLocalStoreData(CARDS);
-        if (!encryptedCards) return;
+        if (!encryptedCards) {
+            setTimeout(() => {
+                setLoading(false);
+                },500);
+            return;}
         const decryptedCards = encryptedCards.map((card, index) => {
             const decryptedCard = decryptData(card, encryptionKey);
             return { ...decryptedCard, index };
@@ -24,7 +28,7 @@ export const AuthProvider = ({ children }) => {
         setCards(decryptedCards);
         setTimeout(() => {
         setLoading(false);
-        },900);
+        },500);
     };
 
     useEffect(() => {
