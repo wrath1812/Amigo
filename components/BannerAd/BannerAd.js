@@ -31,7 +31,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '100%', // Adjust the width as needed
     height: calcHeight(8),   // Adjust the height as needed
-    backgroundColor: 'lightgray', // Placeholder background color
   },
 });
 
