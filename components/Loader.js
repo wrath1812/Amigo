@@ -9,14 +9,14 @@ function Loader() {
   useEffect(() => {
     const spinAnimation = Animated.timing(spinValue, {
       toValue: 1,
-      duration: 1000, // Adjust the duration as needed
+      duration: 800, // Adjust the duration as needed
       easing: Easing.linear,
       useNativeDriver: true,
     });
 
     const scaleAnimation = Animated.timing(scaleValue, {
       toValue: 1,
-      duration: 1000, // Adjust the duration as needed
+      duration: 800, // Adjust the duration as needed
       easing: Easing.linear,
       useNativeDriver: true,
     });
@@ -61,8 +61,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   animationContainer: {
-    width: 1500, // Adjust the size of the container as needed
-    height: 1500,
+    width: 800, // Adjust the size of the container as needed
+    height: 800,
     alignItems: 'center',
     justifyContent: 'center',
   },

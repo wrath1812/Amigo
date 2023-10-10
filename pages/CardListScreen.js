@@ -10,7 +10,7 @@ import { CARDS } from '../constants/string';
 import getEncryptionKey from '../util/getEncryptionKey';
 import { getLocalStoreData, setLocalStoreData } from '../helper/localStorage';
 import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
-import BannerAdComponent from '../components/BannerAd';
+import BannerAd from '../components/BannerAd';
 
 function CardList() {
     const [isModalVisible, setModalVisible] = useState(false);
@@ -77,11 +77,14 @@ function CardList() {
                 cards.length == 0 ? (
                     <AddCardBox showModal={showModal} />
                 ) : (
+                    <>
                     <FlatList
                         data={cards}
                         renderItem={CardBox}
                         keyExtractor={(item) => item.card_number}
                     />
+                    <BannerAd/>
+                    </>
                 )
             ) : (
                 <Loader />
@@ -94,7 +97,6 @@ function CardList() {
                 visible={isModalVisible}
                 hideModal={hideModal}
             />
-            <BannerAdComponent />
         </SafeAreaView>
     );
 }

@@ -14,7 +14,10 @@
                 "cocoapods": "1.11.2",
                 "enterpriseProvisioning": "adhoc"
             },
-            "env": {}
+            "env": {
+                "ENV": "development",
+                "SENTRY_DSN":"https://458aa34234bdfb742494c836127ddf3e@o4505941411495936.ingest.sentry.io/4505941423554560"
+            }
         },
         "staging": {
             "releaseChannel": "staging",
@@ -26,7 +29,10 @@
                 "cocoapods": "1.11.2",
                 "enterpriseProvisioning": "adhoc"
             },
-            "env": {}
+            "env": {
+                "ENV": "staging",
+                "SENTRY_DSN":"https://458aa34234bdfb742494c836127ddf3e@o4505941411495936.ingest.sentry.io/4505941423554560"
+            }
         },
         "productionTest": {
             "releaseChannel": "staging",
@@ -38,7 +44,10 @@
                 "cocoapods": "1.11.2",
                 "enterpriseProvisioning": "adhoc"
             },
-            "env": {}
+            "env": {
+                "ENV": "productionTest",
+                "SENTRY_DSN":"https://458aa34234bdfb742494c836127ddf3e@o4505941411495936.ingest.sentry.io/4505941423554560"
+            }
         },
         "production": {
             "distribution": "store",
@@ -53,7 +62,10 @@
                 "cocoapods": "1.11.2",
                 "enterpriseProvisioning": "universal"
             },
-            "env": {}
+            "env": {
+                "ENV": "production",
+                "SENTRY_DSN":"https://458aa34234bdfb742494c836127ddf3e@o4505941411495936.ingest.sentry.io/4505941423554560"
+            }
         }
     },
     "submit": {
