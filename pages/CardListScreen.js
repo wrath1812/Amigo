@@ -10,6 +10,8 @@ import { CARDS } from '../constants/string';
 import getEncryptionKey from '../util/getEncryptionKey';
 import { getLocalStoreData, setLocalStoreData } from '../helper/localStorage';
 import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
+import BannerAdComponent from '../components/BannerAd';
+
 function CardList() {
     const [isModalVisible, setModalVisible] = useState(false);
     const { cards, setCards } = useAuth();
@@ -92,6 +94,7 @@ function CardList() {
                 visible={isModalVisible}
                 hideModal={hideModal}
             />
+            <BannerAdComponent />
         </SafeAreaView>
     );
 }

@@ -6,6 +6,7 @@ import RootNavigator from './navigator/RootNavigator';
 import { AuthProvider } from './context/AuthContext';
 import * as Sentry from 'sentry-expo';
 
+
 Sentry.init({
     dsn: 'https://458aa34234bdfb742494c836127ddf3e@o4505941411495936.ingest.sentry.io/4505941423554560',
     enableInExpoDevelopment: true,
