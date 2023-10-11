@@ -39,9 +39,11 @@ function CardBox({ item }) {
     const hideMenu = () => {
         setShowMenu(false);
     };
+
     const encryptCard = (newCard, encryptionKey) => {
         return encryptData(JSON.stringify(newCard), encryptionKey);
     };
+
     const updateCardStorage = async (newCards) => {
         await setLocalStoreData(CARDS, newCards);
     };
@@ -75,29 +77,43 @@ function CardBox({ item }) {
 
     return (
         <View style={styles.container}>
+            {/* Render the Card component directly with the showCard prop */}
             <Card item={item} showCard={showCard} />
-            <View style={styles.menuBar}>
+
+            {/* Add the three buttons */}
+            <View style={styles.buttonBar}>
                 <TouchableOpacity
-                    style={{ flex: 1, justifyContent: 'center' }}
+                    style={styles.button}
                     onPress={() => setShowMenu(true)}
                 >
                     <Ionicons
                         name="ellipsis-vertical-outline"
                         size={calcHeight(4)}
-                        color="blue"
+                        color="black"
                     />
                 </TouchableOpacity>
                 <TouchableOpacity
-                    style={{ flex: 1, justifyContent: 'center' }}
+                    style={styles.button}
                     onPress={() => setShowCard((prev) => !prev)}
                 >
                     <Ionicons
                         name={showCard ? 'eye' : 'eye-off'}
                         size={calcHeight(4)}
+                        color="black"
+                    />
+                </TouchableOpacity>
+                <TouchableOpacity
+                    style={styles.button}
+                    onPress={copyCardNumberToClipboard}
+                >
+                    <Ionicons
+                        name="copy"
+                        size={calcHeight(4)}
                         color="blue"
                     />
                 </TouchableOpacity>
             </View>
+
             <DeleteCardModal
                 onDelete={deleteCard}
                 onCancel={() => {
@@ -141,25 +157,15 @@ export default ({ item }) => <CardBox item={item} />;
 const styles = StyleSheet.create({
     container: {
         marginTop: calcHeight(7),
-        backgroundColor: '#A9A9A9',
+    },
+    buttonBar: {
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'space-between',
-        borderRadius: calcWidth(2),
     },
-    menuBar: {
-        paddingHorizontal: calcHeight(1),
-        alignItems: 'center',
-    },
-    menuItem: {
-        flexDirection: 'row',
-        paddingVertical: calcHeight(1),
-        alignItems: 'center',
+    button: {
+        padding: calcHeight(1),
         justifyContent: 'center',
-    },
-    menuText: {
-        fontSize: calcHeight(2),
-        paddingHorizontal: calcHeight(1),
+        alignItems: 'center',
     },
     modal: {
         justifyContent: 'flex-end',

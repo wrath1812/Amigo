@@ -1,36 +1,16 @@
-import React from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 import CARD_ICON from '../constants/cardIcon';
 import CARD_COLOR from '../constants/cardColour';
 import MASK_COLORS from '../constants/maskColour';
+import formatCardNumber from './formatCardNumber';
 
 import { calcHeight, getFontSizeByWindowWidth, calcWidth } from '../helper/res';
 
-function formatCardNumber(cardNumber, showCard, maskColor) {
-    if (!cardNumber) return null;
-    const formattedNumber = cardNumber.replace(/\s/g, ''); // Remove spaces
-    const numBoxes = Math.ceil(formattedNumber.length / 4); // Calculate the number of boxes needed
-    const boxes = [];
+function Card({ item }) {
+    const [showCVV, setShowCVV] = useState(false);
 
-    for (let i = 0; i < numBoxes; i++) {
-        const start = i * 4;
-        const end = start + 4;
-        const box = formattedNumber.slice(start, end);
-        boxes.push(
-            <View key={i} style={{...styles.cardNumberBoxContainer,marginLeft:i==0?0:calcWidth(3)}}>
-                {showCard || i >= numBoxes - 1 ? (
-                    <Text style={styles.cardNumberBox}>{box}</Text>
-                ) : (
-                    <View style={{ ...styles.cardMask, backgroundColor: maskColor }}></View>
-                )}
-            </View>,
-        );
-    }
-
-    return <View style={styles.cardNumberContainer}>{boxes}</View>;
-}
-
-function Card({ item, showCard }) {
     return (
         <View
             style={{
@@ -42,6 +22,7 @@ function Card({ item, showCard }) {
                 style={{
                     flexDirection: 'row',
                     justifyContent: 'space-between',
+                    alignItems: 'center',
                 }}
             >
                 <Text
@@ -54,13 +35,28 @@ function Card({ item, showCard }) {
                 >
                     {item.nickname}
                 </Text>
+                <TouchableOpacity onPress={() => {/* Add your menu logic here */}}>
+                    <Ionicons
+                        name="ellipsis-vertical-outline"
+                        size={calcHeight(4)}
+                        color="black"
+                    />
+                </TouchableOpacity>
+            </View>
+
+            <View style={{
+                alignItems: 'flex-end',
+                marginTop: calcHeight(1),
+                marginRight: calcWidth(1),
+            }}>
                 <Image
                     source={CARD_ICON[item.type]}
                     style={{ width: calcWidth(15), height: calcHeight(5) }}
                 />
             </View>
-            <View style={styles.cardNumber}>
-                {formatCardNumber(item.card_number, showCard, MASK_COLORS[item.type])}
+
+            <View>
+                {formatCardNumber(item.card_number, showCVV , MASK_COLORS[item.type])}
             </View>
 
             <Text
@@ -77,31 +73,34 @@ function Card({ item, showCard }) {
                 <View>
                     <Text style={styles.cardLabelText}>Valid Thru</Text>
                     <Text style={styles.cardText}>
-                        {showCard ? (
-                            item.expiry
-                        ) : (
-                            <View
-                                style={{
-                                    ...styles.validityMask,
-                                    backgroundColor: MASK_COLORS[item.type],
-                                }}
-                            ></View>
-                        )}
+                        {item.expiry}
                     </Text>
                 </View>
                 <View>
-                    <Text style={styles.cardLabelText}>CVV</Text>
-                    {showCard ? (
-                        item.cvv && (
-                            <Text style={styles.cardText}>{item.cvv}</Text>
-                        )
-                    ) : (
-                        <View
-                            style={{
-                                ...styles.cvvMask,
-                                backgroundColor: MASK_COLORS[item.type],
-                            }}
-                        ></View>
+                    <TouchableOpacity
+                        style={styles.button}
+                        onPress={() => setShowCVV((prev) => !prev)}
+                    >
+                        <Ionicons
+                            name={showCVV ? 'eye' : 'eye-off'}
+                            size={calcHeight(4)}
+                            color="black"
+                        />
+                    </TouchableOpacity>
+                </View>
+                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                    <View>
+                        <Text style={styles.cardLabelText}>CVV</Text>
+                        {item.cvv && (
+                            <Text style={styles.cardText}>
+                                {showCVV ? item.cvv : 'XXX'}
+                            </Text>
+                        )}
+                    </View>
+                    {!showCVV && (
+                        <View style={styles.cvvMaskOverlay}>
+                            <Text style={styles.cvvMaskText}>Tap to Reveal</Text>
+                        </View>
                     )}
                 </View>
             </View>
@@ -115,8 +114,7 @@ const styles = StyleSheet.create({
         borderRadius: calcHeight(2),
         margin: calcHeight(1),
         elevation: 3,
-        height: calcHeight(25),
-        width: calcWidth(75),
+        width: calcWidth(90),
     },
     cardText: {
         color: 'white',
@@ -133,34 +131,25 @@ const styles = StyleSheet.create({
         fontSize: getFontSizeByWindowWidth(8),
         opacity: 0.6,
     },
-    cardNumberContainer: {
-        flexDirection: 'row',
+    cvvMaskOverlay: {
+        backgroundColor: 'rgba(0, 0, 0, 0.6)', // Semi-transparent background
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        width: '100%',
+        height: '100%',
+        zIndex: 1,
+        alignItems: 'center',
         justifyContent: 'center',
-        alignItems: 'center',
     },
-    cardNumberBoxContainer: {
-        alignItems: 'center',
-    },
-    cardNumberBox: {
+    cvvMaskText: {
         color: 'white',
-        fontSize: (calcWidth(75) - calcWidth(6)) / 16, // Dynamically calculate font size
-        fontWeight: 'bold',
-        textShadowColor: 'rgba(0, 0, 0, 0.75)',
-        width: calcWidth(10),
-        textAlign: 'center',
+        fontSize: getFontSizeByWindowWidth(12),
     },
-    cardMask: {
-        width: calcWidth(10),
-        height: calcHeight(2),
-    },
-    validityMask: {
-        width: calcWidth(10),
-        height: calcHeight(1.5),
-        marginTop: calcHeight(3),
-    },
-    cvvMask: {
-        width: calcWidth(5),
-        height: calcHeight(1.5),
+    button: {
+        zIndex: 1,
+        position: 'absolute',
+        left: 0,
     },
 });
 
