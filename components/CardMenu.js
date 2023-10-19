@@ -23,7 +23,7 @@ const CardMenu = ({
             </TouchableOpacity>
             <TouchableOpacity
                 style={styles.menuItem}
-                onPress={() => setShowEditCard(true)}
+                onPress={setShowEditCard}
             >
                 <Ionicons
                     name="create-outline"
