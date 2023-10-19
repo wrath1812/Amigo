@@ -87,6 +87,7 @@ function CardBox({ item }) {
                 backgroundColor: CARD_COLOR[item.type] || item.color,
             }}
             onPress={copyCardNumberToClipboard}
+            onLongPress={() => setShowMenu(true)}
         >
             <View
                 style={{
@@ -114,16 +115,6 @@ function CardBox({ item }) {
                 </TouchableOpacity>
             </View>
 
-            <View style={{
-                alignItems: 'flex-end',
-                marginTop: calcHeight(1),
-                marginRight: calcWidth(1),
-            }}>
-                <Image
-                    source={CARD_ICON[item.type]}
-                    style={{ width: calcWidth(15), height: calcHeight(5) }}
-                />
-            </View>
 
             <View>
                 {formatCardNumber(item.card_number, showCard , MASK_COLORS[item.type])}
@@ -147,6 +138,14 @@ function CardBox({ item }) {
                     </Text>
                 </View>
                 <View>
+                        <Text style={styles.cardLabelText}>CVV</Text>
+                        {item.cvv && (
+                            <Text style={styles.cardText}>
+                                {showCard ? item.cvv : null}
+                            </Text>
+                        )}
+                    </View>
+                <View>
                     <TouchableOpacity
                         style={styles.button}
                         onPress={() => setShowCard((prev) => !prev)}
@@ -159,14 +158,16 @@ function CardBox({ item }) {
                     </TouchableOpacity>
                 </View>
                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                    <View>
-                        <Text style={styles.cardLabelText}>CVV</Text>
-                        {item.cvv && (
-                            <Text style={styles.cardText}>
-                                {showCard ? item.cvv : null}
-                            </Text>
-                        )}
-                    </View>
+                    <View style={{
+                alignItems: 'flex-end',
+                marginTop: calcHeight(1),
+                marginRight: calcWidth(1),
+            }}>
+                <Image
+                    source={CARD_ICON[item.type]}
+                    style={{ width: calcWidth(15), height: calcHeight(5) }}
+                />
+            </View>
                 </View>
             </View>
         </TouchableOpacity>

@@ -30,6 +30,8 @@ const styles = StyleSheet.create({
     elevation: 3,
     width: calcWidth(90),
     height: calcHeight(30),
+    alignContent: 'center',
+    justifyContent: 'center',
   },
   cardHeader: {
     flexDirection: 'row',
