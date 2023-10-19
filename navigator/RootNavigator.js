@@ -9,10 +9,11 @@ import Loader from '../components/Loader';
 const Stack = createNativeStackNavigator();
 
 function RootNavigator() {
-    const { isAuthenticated,loading } = useAuth();
+    const { isAuthenticated, loading } = useAuth();
 
-    return loading?<Loader/>:(
-
+    return loading ? (
+        <Loader />
+    ) : (
         <NavigationContainer>
             <Stack.Navigator initialRouteName={PAGES.LOGIN}>
                 {isAuthenticated ? AppNavigator : AuthNavigator}

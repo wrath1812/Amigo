@@ -10,7 +10,7 @@ const MASK_COLORS = {
     maestro: '#006364',
     mir: '#FF4500',
     elo: '#FF6633',
-    hipercard: '#FF5500'
+    hipercard: '#FF5500',
 };
 
 export default MASK_COLORS;

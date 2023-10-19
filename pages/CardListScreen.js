@@ -78,12 +78,12 @@ function CardList() {
                     <AddCardBox showModal={showModal} />
                 ) : (
                     <>
-                    <FlatList
-                        data={cards}
-                        renderItem={CardBox}
-                        keyExtractor={(item) => item.card_number}
-                    />
-                    <BannerAd/>
+                        <FlatList
+                            data={cards}
+                            renderItem={CardBox}
+                            keyExtractor={(item) => item.card_number}
+                        />
+                        <BannerAd />
                     </>
                 )
             ) : (

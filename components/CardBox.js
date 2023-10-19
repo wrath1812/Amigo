@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, TouchableOpacity, Text,Image } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, Text, Image } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { useAuth } from '../context/AuthContext';
 import { getLocalStoreData, setLocalStoreData } from '../helper/localStorage';
 import { CARDS } from '../constants/string';
-import { calcHeight, calcWidth,getFontSizeByWindowWidth } from '../helper/res';
+import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
 import copyToClipBoard from '../helper/copyToClipBoard';
 import DeleteCardModal from './DeleteCardModal';
 import Modal from 'react-native-modal';
@@ -81,72 +81,58 @@ function CardBox({ item }) {
     return (
         <View style={styles.container}>
             <TouchableOpacity
-            style={{
-                ...styles.card,
-                backgroundColor: CARD_COLOR[item.type] || item.color,
-            }}
-            onPress={copyCardNumberToClipboard}
-            onLongPress={() => setShowMenu(true)}
-        >
-            <View
                 style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
+                    ...styles.card,
+                    backgroundColor: CARD_COLOR[item.type] || item.color,
                 }}
+                onPress={copyCardNumberToClipboard}
+                onLongPress={() => setShowMenu(true)}
             >
-                <Text
+                <View
                     style={{
-                        ...styles.cardText,
-                        textAlign: 'auto',
-                        fontSize: getFontSizeByWindowWidth(12),
-                        fontWeight: 'bold',
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
                     }}
                 >
-                    {item.nickname}
-                </Text>
-                <TouchableOpacity onPress={() => setShowMenu(true)}>
-                    <Ionicons
-                        name="ellipsis-vertical-outline"
-                        size={calcHeight(4)}
-                        color="black"
-                    />
-                </TouchableOpacity>
-            </View>
-
-
-            <View>
-                {formatCardNumber(item.card_number, showCard , MASK_COLORS[item.type])}
-            </View>
-
-            <Text
-                style={{
-                    ...styles.cardText,
-                    textAlign: 'auto',
-                    fontSize: getFontSizeByWindowWidth(12),
-                }}
-            >
-                {item.name_on_card}
-            </Text>
-
-            <View style={styles.cardDetailsContainer}>
-                <View>
-                    <Text style={styles.cardLabelText}>Valid Thru</Text>
-                    <Text style={styles.cardText}>
-                        {showCard?item.expiry:null}
+                    <Text
+                        style={{
+                            ...styles.cardText,
+                            textAlign: 'auto',
+                            fontSize: getFontSizeByWindowWidth(12),
+                            fontWeight: 'bold',
+                        }}
+                    >
+                        {item.nickname}
                     </Text>
+                    <TouchableOpacity onPress={() => setShowMenu(true)}>
+                        <Ionicons
+                            name="ellipsis-vertical-outline"
+                            size={calcHeight(4)}
+                            color="black"
+                        />
+                    </TouchableOpacity>
+                </View>
+
+                <View style={{ marginVertical: calcHeight(2) }}>
+                    {formatCardNumber(
+                        item.card_number,
+                        showCard,
+                        MASK_COLORS[item.type],
+                    )}
                 </View>
                 <View>
-                        <Text style={styles.cardLabelText}>CVV</Text>
-                        {item.cvv && (
-                            <Text style={styles.cardText}>
-                                {showCard ? item.cvv : null}
-                            </Text>
-                        )}
-                    </View>
-                <View>
+                    <Text
+                        style={{
+                            ...styles.cardText,
+                            textAlign: 'auto',
+                            fontSize: getFontSizeByWindowWidth(12),
+                            marginBottom: calcHeight(2),
+                        }}
+                    >
+                        {item.name_on_card}
+                    </Text>
                     <TouchableOpacity
-                        style={styles.button}
                         onPress={() => setShowCard((prev) => !prev)}
                     >
                         <Ionicons
@@ -156,20 +142,44 @@ function CardBox({ item }) {
                         />
                     </TouchableOpacity>
                 </View>
-                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                    <View style={{
-                alignItems: 'flex-end',
-                marginTop: calcHeight(1),
-                marginRight: calcWidth(1),
-            }}>
-                <Image
-                    source={CARD_ICON[item.type]}
-                    style={{ width: calcWidth(15), height: calcHeight(5) }}
-                />
-            </View>
+
+                <View style={styles.cardDetailsContainer}>
+                    <View>
+                        <Text style={styles.cardLabelText}>Valid Thru</Text>
+                        <Text style={styles.cardText}>
+                            {showCard ? item.expiry : null}
+                        </Text>
+                    </View>
+                    <View>
+                        <Text style={styles.cardLabelText}>CVV</Text>
+                        {item.cvv && (
+                            <Text style={styles.cardText}>
+                                {showCard ? item.cvv : null}
+                            </Text>
+                        )}
+                    </View>
+                    <View></View>
+                    <View
+                        style={{ flexDirection: 'row', alignItems: 'center' }}
+                    >
+                        <View
+                            style={{
+                                alignItems: 'flex-end',
+                                marginTop: calcHeight(1),
+                                marginRight: calcWidth(1),
+                            }}
+                        >
+                            <Image
+                                source={CARD_ICON[item.type]}
+                                style={{
+                                    width: calcWidth(15),
+                                    height: calcHeight(5),
+                                }}
+                            />
+                        </View>
+                    </View>
                 </View>
-            </View>
-        </TouchableOpacity>
+            </TouchableOpacity>
 
             <DeleteCardModal
                 onDelete={deleteCard}
@@ -264,10 +274,5 @@ const styles = StyleSheet.create({
     cvvMaskText: {
         color: 'white',
         fontSize: getFontSizeByWindowWidth(12),
-    },
-    button: {
-        zIndex: 1,
-        position: 'absolute',
-        left: 0,
     },
 });

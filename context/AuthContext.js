@@ -19,16 +19,17 @@ export const AuthProvider = ({ children }) => {
         if (!encryptedCards) {
             setTimeout(() => {
                 setLoading(false);
-                },500);
-            return;}
+            }, 500);
+            return;
+        }
         const decryptedCards = encryptedCards.map((card, index) => {
             const decryptedCard = decryptData(card, encryptionKey);
             return { ...decryptedCard, index };
         });
         setCards(decryptedCards);
         setTimeout(() => {
-        setLoading(false);
-        },500);
+            setLoading(false);
+        }, 500);
     };
 
     useEffect(() => {
@@ -56,7 +57,7 @@ export const AuthProvider = ({ children }) => {
                 login,
                 cards,
                 setCards,
-                loading
+                loading,
             }}
         >
             {children}

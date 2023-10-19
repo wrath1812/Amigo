@@ -4,9 +4,8 @@ import { Platform } from 'react-native';
 import Constants from 'expo-constants';
 import RootNavigator from './navigator/RootNavigator';
 import { AuthProvider } from './context/AuthContext';
-import {ENV,SENTRY_DSN} from "@env";
+import { ENV, SENTRY_DSN } from '@env';
 import * as Sentry from 'sentry-expo';
-
 
 Sentry.init({
     dsn: SENTRY_DSN,

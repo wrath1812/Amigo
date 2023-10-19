@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet } from 'react-native';
-import { calcWidth,calcHeight,getFontSizeByWindowWidth } from '../helper/res';
+import { calcWidth, calcHeight, getFontSizeByWindowWidth } from '../helper/res';
 
-function formatCardNumber(cardNumber, showCard=true, maskColor=null) {
+function formatCardNumber(cardNumber, showCard = true, maskColor = null) {
     if (!cardNumber) return null;
     const formattedNumber = cardNumber.replace(/\s/g, ''); // Remove spaces
     const numBoxes = Math.ceil(formattedNumber.length / 4); // Calculate the number of boxes needed
@@ -12,11 +12,22 @@ function formatCardNumber(cardNumber, showCard=true, maskColor=null) {
         const end = start + 4;
         const box = formattedNumber.slice(start, end);
         boxes.push(
-            <View key={i} style={{ ...styles.cardNumberBoxContainer, marginLeft: i === 0 ? 0 : calcWidth(3) }}>
+            <View
+                key={i}
+                style={{
+                    ...styles.cardNumberBoxContainer,
+                    marginLeft: i === 0 ? 0 : calcWidth(3),
+                }}
+            >
                 {showCard || i >= numBoxes - 1 ? (
                     <Text style={styles.cardNumberBox}>{box}</Text>
                 ) : (
-                    <View style={{ ...styles.cardMask, backgroundColor: maskColor }}></View>
+                    <View
+                        style={{
+                            ...styles.cardMask,
+                            backgroundColor: maskColor,
+                        }}
+                    ></View>
                 )}
             </View>,
         );
@@ -25,7 +36,7 @@ function formatCardNumber(cardNumber, showCard=true, maskColor=null) {
     return <View style={styles.cardNumberContainer}>{boxes}</View>;
 }
 
-const styles= StyleSheet.create({
+const styles = StyleSheet.create({
     cardNumberBoxContainer: {
         alignItems: 'center',
     },
