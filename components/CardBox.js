@@ -6,7 +6,6 @@ import { getLocalStoreData, setLocalStoreData } from '../helper/localStorage';
 import { CARDS } from '../constants/string';
 import { calcHeight, calcWidth,getFontSizeByWindowWidth } from '../helper/res';
 import copyToClipBoard from '../helper/copyToClipBoard';
-import Card from './card';
 import DeleteCardModal from './DeleteCardModal';
 import Modal from 'react-native-modal';
 import AddCardModal from './AddCardModal';
@@ -23,9 +22,8 @@ function CardBox({ item }) {
     const { cards, setCards } = useAuth();
     const [showConfirmDelete, setShowConfirmDelete] = useState(false);
     const [showMenu, setShowMenu] = useState(false);
-    const [showCard, setShowCard] = useState(false);
     const [showEditCard, setShowEditCard] = useState(false);
-    const [showCVV, setShowCVV] = useState(false);
+    const [showCard, setShowCard] = useState(false);
 
     async function deleteCard() {
         const encryptedCards = await getLocalStoreData(CARDS);
@@ -83,11 +81,12 @@ function CardBox({ item }) {
     return (
         <View style={styles.container}>
             {/* Render the Card component directly with the showCard prop */}
-            <View
+            <TouchableOpacity
             style={{
                 ...styles.card,
                 backgroundColor: CARD_COLOR[item.type] || item.color,
             }}
+            onPress={copyCardNumberToClipboard}
         >
             <View
                 style={{
@@ -106,7 +105,7 @@ function CardBox({ item }) {
                 >
                     {item.nickname}
                 </Text>
-                <TouchableOpacity onPress={() => {/* Add your menu logic here */}}>
+                <TouchableOpacity onPress={() => setShowMenu(true)}>
                     <Ionicons
                         name="ellipsis-vertical-outline"
                         size={calcHeight(4)}
@@ -127,7 +126,7 @@ function CardBox({ item }) {
             </View>
 
             <View>
-                {formatCardNumber(item.card_number, showCVV , MASK_COLORS[item.type])}
+                {formatCardNumber(item.card_number, showCard , MASK_COLORS[item.type])}
             </View>
 
             <Text
@@ -144,16 +143,16 @@ function CardBox({ item }) {
                 <View>
                     <Text style={styles.cardLabelText}>Valid Thru</Text>
                     <Text style={styles.cardText}>
-                        {item.expiry}
+                        {showCard?item.expiry:null}
                     </Text>
                 </View>
                 <View>
                     <TouchableOpacity
                         style={styles.button}
-                        onPress={() => setShowCVV((prev) => !prev)}
+                        onPress={() => setShowCard((prev) => !prev)}
                     >
                         <Ionicons
-                            name={showCVV ? 'eye' : 'eye-off'}
+                            name={showCard ? 'eye' : 'eye-off'}
                             size={calcHeight(4)}
                             color="black"
                         />
@@ -164,52 +163,13 @@ function CardBox({ item }) {
                         <Text style={styles.cardLabelText}>CVV</Text>
                         {item.cvv && (
                             <Text style={styles.cardText}>
-                                {showCVV ? item.cvv : 'XXX'}
+                                {showCard ? item.cvv : null}
                             </Text>
                         )}
                     </View>
-                    {!showCVV && (
-                        <View style={styles.cvvMaskOverlay}>
-                            <Text style={styles.cvvMaskText}>Tap to Reveal</Text>
-                        </View>
-                    )}
                 </View>
             </View>
-        </View>
-
-            {/* Add the three buttons */}
-            <View style={styles.buttonBar}>
-                <TouchableOpacity
-                    style={styles.button}
-                    onPress={() => setShowMenu(true)}
-                >
-                    <Ionicons
-                        name="ellipsis-vertical-outline"
-                        size={calcHeight(4)}
-                        color="black"
-                    />
-                </TouchableOpacity>
-                <TouchableOpacity
-                    style={styles.button}
-                    onPress={() => setShowCard((prev) => !prev)}
-                >
-                    <Ionicons
-                        name={showCard ? 'eye' : 'eye-off'}
-                        size={calcHeight(4)}
-                        color="black"
-                    />
-                </TouchableOpacity>
-                <TouchableOpacity
-                    style={styles.button}
-                    onPress={copyCardNumberToClipboard}
-                >
-                    <Ionicons
-                        name="copy"
-                        size={calcHeight(4)}
-                        color="blue"
-                    />
-                </TouchableOpacity>
-            </View>
+        </TouchableOpacity>
 
             <DeleteCardModal
                 onDelete={deleteCard}
