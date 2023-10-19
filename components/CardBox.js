@@ -80,7 +80,6 @@ function CardBox({ item }) {
 
     return (
         <View style={styles.container}>
-            {/* Render the Card component directly with the showCard prop */}
             <TouchableOpacity
             style={{
                 ...styles.card,

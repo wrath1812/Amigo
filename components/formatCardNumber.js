@@ -1,5 +1,5 @@
 import { View, Text, StyleSheet } from 'react-native';
-import { calcWidth,calcHeight } from '../helper/res';
+import { calcWidth,calcHeight,getFontSizeByWindowWidth } from '../helper/res';
 
 function formatCardNumber(cardNumber, showCard=true, maskColor=null) {
     if (!cardNumber) return null;
@@ -31,7 +31,7 @@ const styles= StyleSheet.create({
     },
     cardNumberBox: {
         color: 'white',
-        fontSize: (calcWidth(75) - calcWidth(6)) / 16, // Dynamically calculate font size
+        fontSize: getFontSizeByWindowWidth(12), // Dynamically calculate font size
         fontWeight: 'bold',
         textShadowColor: 'rgba(0, 0, 0, 0.75)',
         width: calcWidth(10),
