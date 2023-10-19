@@ -121,7 +121,7 @@ function CardBox({ item }) {
                         MASK_COLORS[item.type],
                     )}
                 </View>
-                <View>
+                <View style={styles.cardDetailsContainer}>
                     <Text
                         style={{
                             ...styles.cardText,

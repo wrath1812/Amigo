@@ -14,35 +14,47 @@ function Card({ item }) {
                     (item.type && CARD_COLOR[item.type]) || item.color,
             }}
         >
+            <Text
+                style={{
+                    paddingBottom: calcWidth(5),
+                    ...styles.cardHeaderText,
+                }}
+            >
+                {item.nickname}
+            </Text>
+            <Text
+                style={{
+                    alignContent: 'center',
+                    alignItems: 'center',
+                }}
+            >
+                {formatCardNumber(item.card_number)}
+            </Text>
             <View style={styles.cardHeader}>
-                <Text style={styles.cardHeaderText}>{item.nickname}</Text>
+                <Text style={styles.cardHeaderText}>{item.name_on_card}</Text>
+            </View>
+            <View style={styles.cardHeader}>
+                <Text style={styles.cardText}>{item.expiry}</Text>
+                {item.cvv && <Text style={styles.cardText}>{item.cvv}</Text>}
                 <Image source={CARD_ICON[item.type]} style={styles.cardIcon} />
             </View>
-            <Text>{formatCardNumber(item.card_number)}</Text>
-            <Text style={styles.cardText}>{item.expiry}</Text>
-            {item.cvv && <Text style={styles.cardText}>{item.cvv}</Text>}
         </View>
     );
 }
 
 const styles = StyleSheet.create({
     cardContainer: {
-        padding: 16,
-        borderRadius: 10,
-        margin: 10,
-        shadowColor: 'rgba(0, 0, 0, 0.1)',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.8,
+        padding: calcHeight(3),
+        borderRadius: calcHeight(2),
+        margin: calcHeight(1),
         elevation: 3,
         width: calcWidth(90),
-        height: calcHeight(30),
-        alignContent: 'center',
-        justifyContent: 'center',
     },
     cardHeader: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
+        padding: calcHeight(1),
     },
     cardHeaderText: {
         color: 'white',
