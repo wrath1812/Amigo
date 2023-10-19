@@ -1,7 +1,7 @@
 import { View, Text, StyleSheet } from 'react-native';
 import { calcWidth,calcHeight } from '../helper/res';
 
-function formatCardNumber(cardNumber, showCard, maskColor) {
+function formatCardNumber(cardNumber, showCard=true, maskColor=null) {
     if (!cardNumber) return null;
     const formattedNumber = cardNumber.replace(/\s/g, ''); // Remove spaces
     const numBoxes = Math.ceil(formattedNumber.length / 4); // Calculate the number of boxes needed
