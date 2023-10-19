@@ -22,14 +22,7 @@ function Card({ item }) {
             >
                 {item.nickname}
             </Text>
-            <Text
-                style={{
-                    alignContent: 'center',
-                    alignItems: 'center',
-                }}
-            >
                 {formatCardNumber(item.card_number)}
-            </Text>
             <View style={styles.cardHeader}>
                 <Text style={styles.cardHeaderText}>{item.name_on_card}</Text>
             </View>
