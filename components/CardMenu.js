@@ -2,13 +2,28 @@ import React from 'react';
 import { View, TouchableOpacity, Text } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { calcWidth, calcHeight } from '../helper/res';
+import Modal from 'react-native-modal';
 
 const CardMenu = ({
     copyCardNumberToClipboard,
     setShowEditCard,
     setShowConfirmDelete,
+    visible,
+    hideMenu
 }) => {
     return (
+        <Modal
+                isVisible={visible}
+                animationIn="slideInUp"
+                animationOut="slideOutDown"
+                backdropOpacity={0.5}
+                onBackdropPress={hideMenu}
+                onBackButtonPress={hideMenu}
+                propagateSwipe={true}
+                swipeDirection={['down']}
+                onSwipeComplete={hideMenu}
+                style={styles.modal}
+            >
         <View style={styles.modalContent}>
             <TouchableOpacity
                 style={styles.menuItem}
@@ -44,6 +59,7 @@ const CardMenu = ({
                 <Text style={styles.menuText}>Delete Card</Text>
             </TouchableOpacity>
         </View>
+        </Modal>
     );
 };
 
@@ -63,6 +79,10 @@ const styles = {
         padding: 16,
         borderTopLeftRadius: 10,
         borderTopRightRadius: 10,
+    },
+    modal: {
+        justifyContent: 'flex-end',
+        margin: 0,
     },
 };
 

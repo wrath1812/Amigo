@@ -189,24 +189,13 @@ function CardBox({ item }) {
                 }}
                 visible={showConfirmDelete}
             />
-            <Modal
-                isVisible={showMenu}
-                animationIn="slideInUp"
-                animationOut="slideOutDown"
-                backdropOpacity={0.5}
-                onBackdropPress={hideMenu}
-                onBackButtonPress={hideMenu}
-                propagateSwipe={true}
-                swipeDirection={['down']}
-                onSwipeComplete={hideMenu}
-                style={styles.modal}
-            >
                 <CardMenu
                     copyCardNumberToClipboard={copyCardNumberToClipboard}
                     setShowEditCard={() => setShowEditCard(true)}
                     setShowConfirmDelete={() => setShowConfirmDelete(true)}
-                />
-            </Modal>
+                    visible={showMenu}
+                    hideMenu={hideMenu}
+                    />
             <AddCardModal
                 onAddCard={(editedCard) =>
                     handleEditCard(editedCard, item.index)
@@ -233,10 +222,6 @@ const styles = StyleSheet.create({
         padding: calcHeight(1),
         justifyContent: 'center',
         alignItems: 'center',
-    },
-    modal: {
-        justifyContent: 'flex-end',
-        margin: 0,
     },
     card: {
         padding: calcHeight(3),
