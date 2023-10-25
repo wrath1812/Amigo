@@ -189,13 +189,13 @@ function CardBox({ item }) {
                 }}
                 visible={showConfirmDelete}
             />
-                <CardMenu
-                    copyCardNumberToClipboard={copyCardNumberToClipboard}
-                    setShowEditCard={() => setShowEditCard(true)}
-                    setShowConfirmDelete={() => setShowConfirmDelete(true)}
-                    visible={showMenu}
-                    hideMenu={hideMenu}
-                    />
+            <CardMenu
+                copyCardNumberToClipboard={copyCardNumberToClipboard}
+                setShowEditCard={() => setShowEditCard(true)}
+                setShowConfirmDelete={() => setShowConfirmDelete(true)}
+                visible={showMenu}
+                hideMenu={hideMenu}
+            />
             <AddCardModal
                 onAddCard={(editedCard) =>
                     handleEditCard(editedCard, item.index)

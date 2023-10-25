@@ -22,7 +22,7 @@ function Card({ item }) {
             >
                 {item.nickname}
             </Text>
-                {formatCardNumber(item.card_number)}
+            {formatCardNumber(item.card_number)}
             <View style={styles.cardHeader}>
                 <Text style={styles.cardHeaderText}>{item.name_on_card}</Text>
             </View>

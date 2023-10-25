@@ -8,7 +8,7 @@ function App() {
     return (
         <SafeAreaProvider
             style={{
-                paddingTop:Constants.statusBarHeight,
+                paddingTop: Constants.statusBarHeight,
             }}
         >
             <StatusBar style="auto" />

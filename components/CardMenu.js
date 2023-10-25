@@ -9,56 +9,56 @@ const CardMenu = ({
     setShowEditCard,
     setShowConfirmDelete,
     visible,
-    hideMenu
+    hideMenu,
 }) => {
     return (
         <Modal
-                isVisible={visible}
-                animationIn="slideInUp"
-                animationOut="slideOutDown"
-                backdropOpacity={0.5}
-                onBackdropPress={hideMenu}
-                onBackButtonPress={hideMenu}
-                propagateSwipe={true}
-                swipeDirection={['down']}
-                onSwipeComplete={hideMenu}
-                style={styles.modal}
-            >
-        <View style={styles.modalContent}>
-            <TouchableOpacity
-                style={styles.menuItem}
-                onPress={copyCardNumberToClipboard}
-            >
-                <Ionicons
-                    name="copy-outline"
-                    size={calcWidth(8)}
-                    color="blue"
-                />
-                <Text style={styles.menuText}>Copy Card Number</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-                style={styles.menuItem}
-                onPress={setShowEditCard}
-            >
-                <Ionicons
-                    name="create-outline"
-                    size={calcWidth(8)}
-                    color="blue"
-                />
-                <Text style={styles.menuText}>Edit Card</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-                style={styles.menuItem}
-                onPress={() => setShowConfirmDelete(true)}
-            >
-                <Ionicons
-                    name="trash-outline"
-                    size={calcWidth(8)}
-                    color="red"
-                />
-                <Text style={styles.menuText}>Delete Card</Text>
-            </TouchableOpacity>
-        </View>
+            isVisible={visible}
+            animationIn="slideInUp"
+            animationOut="slideOutDown"
+            backdropOpacity={0.5}
+            onBackdropPress={hideMenu}
+            onBackButtonPress={hideMenu}
+            propagateSwipe={true}
+            swipeDirection={['down']}
+            onSwipeComplete={hideMenu}
+            style={styles.modal}
+        >
+            <View style={styles.modalContent}>
+                <TouchableOpacity
+                    style={styles.menuItem}
+                    onPress={copyCardNumberToClipboard}
+                >
+                    <Ionicons
+                        name="copy-outline"
+                        size={calcWidth(8)}
+                        color="blue"
+                    />
+                    <Text style={styles.menuText}>Copy Card Number</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    style={styles.menuItem}
+                    onPress={setShowEditCard}
+                >
+                    <Ionicons
+                        name="create-outline"
+                        size={calcWidth(8)}
+                        color="blue"
+                    />
+                    <Text style={styles.menuText}>Edit Card</Text>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    style={styles.menuItem}
+                    onPress={() => setShowConfirmDelete(true)}
+                >
+                    <Ionicons
+                        name="trash-outline"
+                        size={calcWidth(8)}
+                        color="red"
+                    />
+                    <Text style={styles.menuText}>Delete Card</Text>
+                </TouchableOpacity>
+            </View>
         </Modal>
     );
 };
