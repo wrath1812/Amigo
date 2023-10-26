@@ -9,11 +9,9 @@ import BannerAd from '../components/BannerAd';
 import PAGES from '../constants/pages';
 
 function CardList({ navigation }) {
-    const [isModalVisible, setModalVisible] = useState(false);
-    const { cards, setCards } = useAuth();
+    const { cards } = useAuth();
 
     const showModal = () => {
-        // setModalVisible(true);
         navigation.navigate(PAGES.ADD_CARD);
     };
 
