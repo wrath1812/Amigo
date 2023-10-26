@@ -7,8 +7,6 @@ import { CARDS } from '../constants/string';
 import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
 import copyToClipBoard from '../helper/copyToClipBoard';
 import DeleteCardModal from './DeleteCardModal';
-import Modal from 'react-native-modal';
-import AddCardModal from './AddCardModal';
 import CardMenu from './CardMenu';
 import CARD_ICON from '../constants/cardIcon';
 import CARD_COLOR from '../constants/cardColour';
@@ -195,14 +193,6 @@ function CardBox({ item }) {
                 setShowConfirmDelete={() => {hideMenu();setShowConfirmDelete(true);}}
                 visible={showMenu}
                 hideMenu={hideMenu}
-            />
-            <AddCardModal
-                onAddCard={(editedCard) =>
-                    handleEditCard(editedCard, item.index)
-                }
-                visible={showEditCard}
-                hideModal={() => setShowEditCard(false)}
-                cardData={item}
             />
         </View>
     );

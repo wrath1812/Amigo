@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
     View,
     Text,
@@ -7,11 +7,10 @@ import {
     TextInput,
     ScrollView,
 } from 'react-native';
-import Card from './card';
+import Card from '../components/card';
 import * as CardValidator from 'card-validator';
-import Modal from 'react-native-modal';
 
-function AddCardModal({ onAddCard, visible, hideModal, cardData }) {
+function AddCardModal({navigation}) {
     const [card, setCard] = useState({
         nickname: '',
         card_number: '',
@@ -22,14 +21,37 @@ function AddCardModal({ onAddCard, visible, hideModal, cardData }) {
         name_on_card: '',
     });
 
-    useEffect(() => {
-        if (cardData) {
-            setCard(cardData);
-        }
-    }, [cardData]);
+    const { cards, setCards } = useAuth();
+
+
 
     const [isCardNumberValid, setIsCardNumberValid] = useState(true);
     const [isCVVValid, setIsCVVValid] = useState(true);
+
+    const onAddCard = async (newCard) => {
+        try {
+            // Check if the card already exists
+            if (cardExists(newCard)) {
+                alert('Card already exists');
+                return;
+            }
+
+            const encryptionKey = await getEncryptionKey();
+            const encryptedCard = encryptCard(newCard, encryptionKey);
+            const savedCards = await getLocalStoreData(CARDS);
+
+            if (!savedCards || savedCards.length === 0) {
+                await initializeCardStorage([encryptedCard]);
+            } else {
+                await updateCardStorage([...savedCards, encryptedCard]);
+            }
+
+            updateCards(newCard);
+            hideModal();
+        } catch (error) {
+            console.error('An error occurred:', error);
+        }
+    };
 
     const formatCardNumber = (input) => {
         const formattedInput = input
@@ -130,18 +152,6 @@ function AddCardModal({ onAddCard, visible, hideModal, cardData }) {
     };
 
     return (
-        <Modal
-            isVisible={visible}
-            style={styles.modal}
-            animationIn="slideInUp"
-            animationOut="slideOutDown"
-            backdropOpacity={0.5}
-            onBackdropPress={hideModal}
-            onBackButtonPress={hideModal}
-            propagateSwipe={true}
-            swipeDirection={['down']}
-            onSwipeComplete={hideModal}
-        >
             <View style={styles.modalContent}>
                 <ScrollView>
                     <Card item={card} showCard={true} />
@@ -214,7 +224,6 @@ function AddCardModal({ onAddCard, visible, hideModal, cardData }) {
                     </TouchableOpacity>
                 </ScrollView>
             </View>
-        </Modal>
     );
 }
 
