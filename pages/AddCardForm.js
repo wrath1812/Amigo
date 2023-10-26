@@ -11,7 +11,12 @@ import Card from '../components/card';
 import * as CardValidator from 'card-validator';
 import { useAuth } from '../context/AuthContext';
 
-function AddCardModal({navigation}) {
+import { encryptData } from '../helper/encryption';
+import { CARDS } from '../constants/string';
+import getEncryptionKey from '../util/getEncryptionKey';
+import { getLocalStoreData, setLocalStoreData } from '../helper/localStorage';
+
+function AddCardModal({ navigation }) {
     const [card, setCard] = useState({
         nickname: '',
         card_number: '',
@@ -23,12 +28,12 @@ function AddCardModal({navigation}) {
     });
 
     const { cards, setCards } = useAuth();
-
-
+    const hideModal = () => {
+        navigation.goBack();
+    };
 
     const [isCardNumberValid, setIsCardNumberValid] = useState(true);
     const [isCVVValid, setIsCVVValid] = useState(true);
-
 
     const cardExists = (newCard) => {
         return cards.some((card) => card.card_number === newCard.card_number);
@@ -69,6 +74,7 @@ function AddCardModal({navigation}) {
 
             updateCards(newCard);
             hideModal();
+            return true;
         } catch (error) {
             console.error('An error occurred:', error);
         }
@@ -141,7 +147,7 @@ function AddCardModal({navigation}) {
         setIsCVVValid(isValidCVV);
     };
 
-    const handleAddCard = () => {
+    const handleAddCard = async () => {
         // Validate and process the card data
         if (
             card.nickname &&
@@ -150,7 +156,8 @@ function AddCardModal({navigation}) {
             isCVVValid
         ) {
             // Call the onAddCard function with the card data
-            onAddCard(card);
+            const cardAdded = await onAddCard(card);
+            if (!cardAdded) return;
             // Clear the form
             setCard({
                 nickname: '',
@@ -173,78 +180,77 @@ function AddCardModal({navigation}) {
     };
 
     return (
-            <View style={styles.modalContent}>
-                <ScrollView>
-                    <Card item={card} showCard={true} />
+        <View style={styles.modalContent}>
+            <ScrollView>
+                <Card item={card} showCard={true} />
+                <TextInput
+                    style={styles.input}
+                    placeholder="Nickname"
+                    value={card.nickname}
+                    onChangeText={(text) =>
+                        setCard({ ...card, nickname: text })
+                    }
+                />
+                <TextInput
+                    style={[
+                        styles.input,
+                        !isCardNumberValid && styles.invalidInput,
+                    ]}
+                    placeholder="Card Number"
+                    keyboardType="numeric"
+                    value={card.card_number}
+                    onChangeText={formatCardNumber}
+                    maxLength={19}
+                />
+                <TextInput
+                    style={styles.input}
+                    placeholder="Name on the Card"
+                    value={card.name_on_card}
+                    onChangeText={(text) =>
+                        setCard({ ...card, name_on_card: text })
+                    }
+                />
+                <View
+                    style={{
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                    }}
+                >
                     <TextInput
-                        style={styles.input}
-                        placeholder="Nickname"
-                        value={card.nickname}
-                        onChangeText={(text) =>
-                            setCard({ ...card, nickname: text })
-                        }
+                        style={[
+                            styles.input,
+                            !validateExpiry(card.expiry) && styles.invalidInput,
+                        ]}
+                        placeholder="Expiry Date (MM/YY)"
+                        value={card.expiry}
+                        onChangeText={formatAndValidateExpiry}
+                        maxLength={5}
+                        keyboardType="numeric"
                     />
                     <TextInput
                         style={[
                             styles.input,
-                            !isCardNumberValid && styles.invalidInput,
+                            !isCVVValid && styles.invalidInput,
                         ]}
-                        placeholder="Card Number"
+                        placeholder="CVV"
                         keyboardType="numeric"
-                        value={card.card_number}
-                        onChangeText={formatCardNumber}
-                        maxLength={19}
-                    />
-                    <TextInput
-                        style={styles.input}
-                        placeholder="Name on the Card"
-                        value={card.name_on_card}
-                        onChangeText={(text) =>
-                            setCard({ ...card, name_on_card: text })
-                        }
-                    />
-                    <View
-                        style={{
-                            flexDirection: 'row',
-                            justifyContent: 'space-between',
+                        value={card.cvv}
+                        onChangeText={(text) => {
+                            setCard({ ...card, cvv: text });
+                            // Validate the CVV in real-time
+                            validateCVV(text);
                         }}
-                    >
-                        <TextInput
-                            style={[
-                                styles.input,
-                                !validateExpiry(card.expiry) &&
-                                    styles.invalidInput,
-                            ]}
-                            placeholder="Expiry Date (MM/YY)"
-                            value={card.expiry}
-                            onChangeText={formatAndValidateExpiry}
-                            maxLength={5}
-                            keyboardType="numeric"
-                        />
-                        <TextInput
-                            style={[
-                                styles.input,
-                                !isCVVValid && styles.invalidInput,
-                            ]}
-                            placeholder="CVV"
-                            keyboardType="numeric"
-                            value={card.cvv}
-                            onChangeText={(text) => {
-                                setCard({ ...card, cvv: text });
-                                // Validate the CVV in real-time
-                                validateCVV(text);
-                            }}
-                            maxLength={4}
-                        />
-                    </View>
-                    <TouchableOpacity
-                        style={styles.addButton}
-                        onPress={handleAddCard}
-                    >
-                        <Text style={styles.addButtonText}>Add Card</Text>
-                    </TouchableOpacity>
-                </ScrollView>
-            </View>
+                        maxLength={4}
+                    />
+                </View>
+                <TouchableOpacity
+                    style={styles.addButton}
+                    onPress={handleAddCard}
+                >
+                    <Text style={styles.addButtonText}>Add Card</Text>
+                </TouchableOpacity>
+            </ScrollView>
+        </View>
     );
 }
 

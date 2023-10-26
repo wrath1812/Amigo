@@ -14,13 +14,7 @@ const AppNavigator = (
             }}
             component={CardListScreen}
         />
-        <Stack.Screen
-        name={PAGES.ADD_CARD}
-        options={{
-            headerShown: false,
-        }}
-        component={AddCardForm}
-        />
+        <Stack.Screen name={PAGES.ADD_CARD} component={AddCardForm} />
     </Stack.Group>
 );
 

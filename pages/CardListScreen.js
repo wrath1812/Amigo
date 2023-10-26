@@ -4,24 +4,18 @@ import CardBox from '../components/CardBox';
 import { FAB } from 'react-native-paper';
 import { useAuth } from '../context/AuthContext';
 import AddCardBox from '../components/AddCardBox';
-import { encryptData } from '../helper/encryption';
-import { CARDS } from '../constants/string';
-import getEncryptionKey from '../util/getEncryptionKey';
-import { getLocalStoreData, setLocalStoreData } from '../helper/localStorage';
 import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
 import BannerAd from '../components/BannerAd';
 import PAGES from '../constants/pages';
 
-function CardList({navigation}) {
+function CardList({ navigation }) {
     const [isModalVisible, setModalVisible] = useState(false);
     const { cards, setCards } = useAuth();
-
 
     const showModal = () => {
         // setModalVisible(true);
         navigation.navigate(PAGES.ADD_CARD);
     };
-
 
     return (
         <SafeAreaView

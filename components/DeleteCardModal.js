@@ -4,7 +4,8 @@ import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
 
 function DeleteCardModal({ onDelete, onCancel, visible }) {
     return (
-            visible && (<View style={styles.modalContainer}>
+        visible && (
+            <View style={styles.modalContainer}>
                 <View style={styles.modalContent}>
                     <Text style={styles.modalText}>
                         Are you sure you want to delete this card?
@@ -24,7 +25,8 @@ function DeleteCardModal({ onDelete, onCancel, visible }) {
                         </TouchableOpacity>
                     </View>
                 </View>
-            </View>)
+            </View>
+        )
     );
 }
 
