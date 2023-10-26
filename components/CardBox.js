@@ -155,7 +155,7 @@ function CardBox({ item }) {
             />
             <CardMenu
                 copyCardNumberToClipboard={copyCardNumberToClipboard}
-                setShowEditCard={() => navigation.navigate(PAGES.ADD_CARD, { item })}
+                setShowEditCard={() => {hideMenu(); navigation.navigate(PAGES.ADD_CARD, { item })}}
                 setShowConfirmDelete={() => {
                     hideMenu();
                     setShowConfirmDelete(true);

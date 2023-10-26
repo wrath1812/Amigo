@@ -40,6 +40,32 @@ function AddCardModal({ navigation,route }) {
     };
 
     const handleEditCard = async () => {
+        const editedCard=card;
+        const index=item.index;
+        try {
+            // Check if the card already exists
+            if (!cards || index < 0 || index >= cards.length) {
+                alert('Invalid index or card does not exist');
+                return;
+            }
+
+            const encryptionKey = await getEncryptionKey();
+            const encryptedCard = encryptCard(editedCard, encryptionKey);
+            const encryptCards = await getLocalStoreData(CARDS);
+
+            encryptCards[index] = encryptedCard;
+
+            await updateCardStorage(encryptCards);
+
+            const updatedCards = [...cards];
+            updatedCards[index] = { ...editedCard };
+
+            setCards(updatedCards);
+            navigation.navigate(PAGES.CARD_LIST);
+        } catch (error) {
+            console.error('An error occurred:', error);
+        }
+        
     };
 
     const [isCardNumberValid, setIsCardNumberValid] = useState(true);
