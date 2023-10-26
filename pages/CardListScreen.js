@@ -10,39 +10,18 @@ import getEncryptionKey from '../util/getEncryptionKey';
 import { getLocalStoreData, setLocalStoreData } from '../helper/localStorage';
 import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
 import BannerAd from '../components/BannerAd';
+import PAGES from '../constants/pages';
 
-function CardList() {
+function CardList({navigation}) {
     const [isModalVisible, setModalVisible] = useState(false);
     const { cards, setCards } = useAuth();
 
 
-    const cardExists = (newCard) => {
-        return cards.some((card) => card.card_number === newCard.card_number);
-    };
-
-    const encryptCard = (newCard, encryptionKey) => {
-        return encryptData(JSON.stringify(newCard), encryptionKey);
-    };
-
-    const initializeCardStorage = async (newCards) => {
-        await setLocalStoreData(CARDS, newCards);
-    };
-
-    const updateCardStorage = async (newCards) => {
-        await setLocalStoreData(CARDS, newCards);
-    };
-
-    const updateCards = (newCard) => {
-        setCards((prev) => [{ index: prev.length, ...newCard }, ...prev]);
-    };
-
     const showModal = () => {
-        setModalVisible(true);
+        // setModalVisible(true);
+        navigation.navigate(PAGES.ADD_CARD);
     };
 
-    const hideModal = () => {
-        setModalVisible(false);
-    };
 
     return (
         <SafeAreaView

@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import Card from '../components/card';
 import * as CardValidator from 'card-validator';
+import { useAuth } from '../context/AuthContext';
 
 function AddCardModal({navigation}) {
     const [card, setCard] = useState({
@@ -28,6 +29,26 @@ function AddCardModal({navigation}) {
     const [isCardNumberValid, setIsCardNumberValid] = useState(true);
     const [isCVVValid, setIsCVVValid] = useState(true);
 
+
+    const cardExists = (newCard) => {
+        return cards.some((card) => card.card_number === newCard.card_number);
+    };
+
+    const encryptCard = (newCard, encryptionKey) => {
+        return encryptData(JSON.stringify(newCard), encryptionKey);
+    };
+
+    const initializeCardStorage = async (newCards) => {
+        await setLocalStoreData(CARDS, newCards);
+    };
+
+    const updateCardStorage = async (newCards) => {
+        await setLocalStoreData(CARDS, newCards);
+    };
+
+    const updateCards = (newCard) => {
+        setCards((prev) => [{ index: prev.length, ...newCard }, ...prev]);
+    };
     const onAddCard = async (newCard) => {
         try {
             // Check if the card already exists
