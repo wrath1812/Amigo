@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     View,
     Text,
@@ -15,8 +15,15 @@ import { encryptData } from '../helper/encryption';
 import { CARDS } from '../constants/string';
 import getEncryptionKey from '../util/getEncryptionKey';
 import { getLocalStoreData, setLocalStoreData } from '../helper/localStorage';
+import PAGES from '../constants/pages';
 
-function AddCardModal({ navigation }) {
+function AddCardModal({ navigation,route }) {
+    const item=route?.params?.item;
+    useEffect   (() => {
+        if(item)
+        setCard(item);
+    }, [item]);
+
     const [card, setCard] = useState({
         nickname: '',
         card_number: '',
@@ -29,7 +36,10 @@ function AddCardModal({ navigation }) {
 
     const { cards, setCards } = useAuth();
     const hideModal = () => {
-        navigation.goBack();
+        navigation.navigate(PAGES.CARD_LIST);
+    };
+
+    const handleEditCard = async () => {
     };
 
     const [isCardNumberValid, setIsCardNumberValid] = useState(true);
@@ -245,9 +255,9 @@ function AddCardModal({ navigation }) {
                 </View>
                 <TouchableOpacity
                     style={styles.addButton}
-                    onPress={handleAddCard}
+                    onPress={item?handleEditCard:handleAddCard}
                 >
-                    <Text style={styles.addButtonText}>Add Card</Text>
+                    <Text style={styles.addButtonText}>{item?"Edit Card":"Add Card"}</Text>
                 </TouchableOpacity>
             </ScrollView>
         </View>

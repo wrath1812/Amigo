@@ -54,8 +54,8 @@ const styles = StyleSheet.create({
         fontSize: getFontSizeByWindowWidth(20),
     },
     cardIcon: {
-        width: calcWidth(30),
-        height: calcHeight(30),
+        width: calcWidth(15),
+        height: calcHeight(5),
     },
     cardNumber: {
         color: 'white',
