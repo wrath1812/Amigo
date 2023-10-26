@@ -45,7 +45,6 @@ const styles = StyleSheet.create({
         fontSize: getFontSizeByWindowWidth(12), // Dynamically calculate font size
         fontWeight: 'bold',
         textShadowColor: 'rgba(0, 0, 0, 0.75)',
-        width: calcWidth(10),
         textAlign: 'center',
     },
     cardMask: {
