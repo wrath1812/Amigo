@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
 
 function AddCardBox({ showModal }) {
     return (
@@ -16,13 +17,12 @@ function AddCardBox({ showModal }) {
 
 const styles = StyleSheet.create({
     container: {
-        borderWidth: 1,
-        borderColor: 'white',
+        borderRadius: 10, // Add some border radius for a rounded look
         padding: 20,
         alignItems: 'center',
     },
     addButton: {
-        backgroundColor: 'white',
+        backgroundColor: 'blue', // Set the button background to black
         width: 70,
         height: 70,
         borderRadius: 35,
@@ -30,17 +30,17 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     addButtonText: {
-        fontSize: 36, // Increase font size
+        fontSize: 36,
         fontWeight: 'bold',
-        color: 'black',
+        color: 'white', // Set the text color to white
     },
     textContainer: {
-        marginTop: 10, // Add gap between button and text
+        marginTop: 10,
     },
     addCardText: {
         fontSize: 24,
         fontWeight: 'bold',
-        color: 'white',
+        color: 'black', // Set the text color to black
     },
 });
 
