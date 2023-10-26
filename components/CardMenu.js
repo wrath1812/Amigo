@@ -7,7 +7,6 @@ import Modal from 'react-native-modal';
 const CardMenu = ({
     copyCardNumberToClipboard,
     setShowEditCard,
-    setShowConfirmDelete,
     visible,
     hideMenu,
     onCancel,

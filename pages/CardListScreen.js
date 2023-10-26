@@ -17,7 +17,7 @@ function CardList({ navigation }) {
 
     return (
         <SafeAreaView
-            style={{ ...styles.container, backgroundColor: '#1a1a1a' }}
+            style={styles.container}
         >
             {cards ? (
                 cards.length == 0 ? (
