@@ -192,7 +192,7 @@ function CardBox({ item }) {
             <CardMenu
                 copyCardNumberToClipboard={copyCardNumberToClipboard}
                 setShowEditCard={() => setShowEditCard(true)}
-                setShowConfirmDelete={() => setShowConfirmDelete(true)}
+                setShowConfirmDelete={() => {hideMenu();setShowConfirmDelete(true);}}
                 visible={showMenu}
                 hideMenu={hideMenu}
             />

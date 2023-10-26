@@ -1,11 +1,10 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, Modal } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res'; // Import your utility functions here
 
 function DeleteCardModal({ onDelete, onCancel, visible }) {
     return (
-        <Modal visible={visible} transparent={true} animationType="slide">
-            <View style={styles.modalContainer}>
+            visible && (<View style={styles.modalContainer}>
                 <View style={styles.modalContent}>
                     <Text style={styles.modalText}>
                         Are you sure you want to delete this card?
@@ -25,8 +24,7 @@ function DeleteCardModal({ onDelete, onCancel, visible }) {
                         </TouchableOpacity>
                     </View>
                 </View>
-            </View>
-        </Modal>
+            </View>)
     );
 }
 
