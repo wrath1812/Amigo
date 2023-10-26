@@ -6,7 +6,6 @@ import { getLocalStoreData, setLocalStoreData } from '../helper/localStorage';
 import { CARDS } from '../constants/string';
 import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
 import copyToClipBoard from '../helper/copyToClipBoard';
-import DeleteCardModal from './DeleteCardModal';
 import CardMenu from './CardMenu';
 import CARD_ICON from '../constants/cardIcon';
 import CARD_COLOR from '../constants/cardColour';
@@ -145,14 +144,6 @@ function CardBox({ item }) {
                 </View>
             </TouchableOpacity>
 
-            <DeleteCardModal
-                onDelete={deleteCard}
-                onCancel={() => {
-                    setShowConfirmDelete(false);
-                    hideMenu();
-                }}
-                visible={showConfirmDelete}
-            />
             <CardMenu
                 copyCardNumberToClipboard={copyCardNumberToClipboard}
                 setShowEditCard={() => {hideMenu(); navigation.navigate(PAGES.ADD_CARD, { item })}}
@@ -162,6 +153,11 @@ function CardBox({ item }) {
                 }}
                 visible={showMenu}
                 hideMenu={hideMenu}
+                onDelete={deleteCard}
+                onCancel={() => {
+                    setShowConfirmDelete(false);
+                    hideMenu();
+                }}
             />
         </View>
     );

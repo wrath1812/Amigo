@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, TouchableOpacity, Text } from 'react-native';
+import { Alert,View, TouchableOpacity, Text } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { calcWidth, calcHeight } from '../helper/res';
 import Modal from 'react-native-modal';
@@ -10,7 +10,28 @@ const CardMenu = ({
     setShowConfirmDelete,
     visible,
     hideMenu,
+    onCancel,
+    onDelete,
 }) => {
+    const deleteAlert = () => {
+        Alert.alert(
+            'Delete Card',
+            'Are you sure you want to delete this card?',
+            [
+                {
+                    text: 'Delete',
+                    onPress: onDelete,
+                    style: 'destructive',
+                },
+                {
+                    text: 'Cancel',
+                    onPress: onCancel,
+                    style: 'cancel',
+                },
+            ],
+            { cancelable: true }
+        );
+    };
     return (
         <Modal
             isVisible={visible}
@@ -49,7 +70,7 @@ const CardMenu = ({
                 </TouchableOpacity>
                 <TouchableOpacity
                     style={styles.menuItem}
-                    onPress={() => setShowConfirmDelete(true)}
+                    onPress={deleteAlert}
                 >
                     <Ionicons
                         name="trash-outline"
