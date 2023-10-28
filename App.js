@@ -3,22 +3,12 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import Constants from 'expo-constants';
 import RootNavigator from './navigator/RootNavigator';
 import { AuthProvider } from './context/AuthContext';
-import { ENV, SENTRY_DSN } from '@env';
-import * as Sentry from 'sentry-expo';
-
-Sentry.init({
-    dsn: SENTRY_DSN,
-    enableInExpoDevelopment: true,
-    enableAutoPerformanceTracking: true,
-    enableAutoSessionTracking: true,
-    environment: ENV,
-    debug: false,
-});
+import { ENV } from '@env';
 function App() {
     return (
         <SafeAreaProvider
             style={{
-                paddingTop:Constants.statusBarHeight,
+                paddingTop: Constants.statusBarHeight,
             }}
         >
             <StatusBar style="auto" />

@@ -6,24 +6,22 @@ import { getLocalStoreData, setLocalStoreData } from '../helper/localStorage';
 import { CARDS } from '../constants/string';
 import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
 import copyToClipBoard from '../helper/copyToClipBoard';
-import DeleteCardModal from './DeleteCardModal';
-import Modal from 'react-native-modal';
-import AddCardModal from './AddCardModal';
 import CardMenu from './CardMenu';
 import CARD_ICON from '../constants/cardIcon';
 import CARD_COLOR from '../constants/cardColour';
 import MASK_COLORS from '../constants/maskColour';
 import formatCardNumber from './formatCardNumber';
-
-import getEncryptionKey from '../util/getEncryptionKey';
-import { encryptData } from '../helper/encryption';
+import { useNavigation } from '@react-navigation/native';
+import PAGES from '../constants/pages';
 
 function CardBox({ item }) {
-    const { cards, setCards } = useAuth();
+    const { setCards } = useAuth();
     const [showConfirmDelete, setShowConfirmDelete] = useState(false);
     const [showMenu, setShowMenu] = useState(false);
-    const [showEditCard, setShowEditCard] = useState(false);
     const [showCard, setShowCard] = useState(false);
+    const navigation = useNavigation();
+
+
 
     async function deleteCard() {
         const encryptedCards = await getLocalStoreData(CARDS);
@@ -43,40 +41,6 @@ function CardBox({ item }) {
         setShowMenu(false);
     };
 
-    const encryptCard = (newCard, encryptionKey) => {
-        return encryptData(JSON.stringify(newCard), encryptionKey);
-    };
-
-    const updateCardStorage = async (newCards) => {
-        await setLocalStoreData(CARDS, newCards);
-    };
-
-    const handleEditCard = async (editedCard, index) => {
-        try {
-            // Check if the card already exists
-            if (!cards || index < 0 || index >= cards.length) {
-                alert('Invalid index or card does not exist');
-                return;
-            }
-
-            const encryptionKey = await getEncryptionKey();
-            const encryptedCard = encryptCard(editedCard, encryptionKey);
-            const encryptCards = await getLocalStoreData(CARDS);
-
-            encryptCards[index] = encryptedCard;
-
-            await updateCardStorage(encryptCards);
-
-            const updatedCards = [...cards];
-            updatedCards[index] = { ...editedCard };
-
-            setCards(updatedCards);
-            setShowEditCard(false);
-            setShowMenu(false);
-        } catch (error) {
-            console.error('An error occurred:', error);
-        }
-    };
 
     return (
         <View style={styles.container}>
@@ -158,7 +122,6 @@ function CardBox({ item }) {
                             </Text>
                         )}
                     </View>
-                    <View></View>
                     <View
                         style={{ flexDirection: 'row', alignItems: 'center' }}
                     >
@@ -181,39 +144,20 @@ function CardBox({ item }) {
                 </View>
             </TouchableOpacity>
 
-            <DeleteCardModal
+            <CardMenu
+                copyCardNumberToClipboard={copyCardNumberToClipboard}
+                setShowEditCard={() => {hideMenu(); navigation.navigate(PAGES.ADD_CARD, { item })}}
+                setShowConfirmDelete={() => {
+                    hideMenu();
+                    setShowConfirmDelete(true);
+                }}
+                visible={showMenu}
+                hideMenu={hideMenu}
                 onDelete={deleteCard}
                 onCancel={() => {
                     setShowConfirmDelete(false);
                     hideMenu();
                 }}
-                visible={showConfirmDelete}
-            />
-            <Modal
-                isVisible={showMenu}
-                animationIn="slideInUp"
-                animationOut="slideOutDown"
-                backdropOpacity={0.5}
-                onBackdropPress={hideMenu}
-                onBackButtonPress={hideMenu}
-                propagateSwipe={true}
-                swipeDirection={['down']}
-                onSwipeComplete={hideMenu}
-                style={styles.modal}
-            >
-                <CardMenu
-                    copyCardNumberToClipboard={copyCardNumberToClipboard}
-                    setShowEditCard={() => setShowEditCard(true)}
-                    setShowConfirmDelete={() => setShowConfirmDelete(true)}
-                />
-            </Modal>
-            <AddCardModal
-                onAddCard={(editedCard) =>
-                    handleEditCard(editedCard, item.index)
-                }
-                visible={showEditCard}
-                hideModal={() => setShowEditCard(false)}
-                cardData={item}
             />
         </View>
     );
@@ -233,10 +177,6 @@ const styles = StyleSheet.create({
         padding: calcHeight(1),
         justifyContent: 'center',
         alignItems: 'center',
-    },
-    modal: {
-        justifyContent: 'flex-end',
-        margin: 0,
     },
     card: {
         padding: calcHeight(3),

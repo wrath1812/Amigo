@@ -1,15 +1,37 @@
 {
-  "expo": {
-    "name": "CardVault",
-    "slug": "cardvault",
-    "version": "1.3.3",
-    "orientation": "portrait",
-    "icon": "./assets/icon.png",
-    "userInterfaceStyle": "automatic",
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#000"
+    "expo": {
+        "name": "CardVault",
+        "slug": "cardvault",
+        "version": "1.4.0",
+        "orientation": "portrait",
+        "icon": "./assets/icon.png",
+        "userInterfaceStyle": "automatic",
+        "splash": {
+            "image": "./assets/splash.png",
+            "resizeMode": "contain"
+        },
+        "assetBundlePatterns": ["**/*"],
+        "ios": {
+            "supportsTablet": true,
+            "bundleIdentifier": "com.bhaumik.tandan.cardvault",
+            "buildNumber": "9"
+        },
+        "android": {
+            "adaptiveIcon": {
+                "foregroundImage": "./assets/icon.png"
+            },
+            "package": "com.bhaumik.tandan.cardvault",
+            "versionCode": 9
+        },
+        "web": {
+            "favicon": "./assets/favicon.png"
+        },
+        "extra": {
+            "eas": {
+                "projectId": "f26cf6f9-5809-4aa2-bf74-370cdbacf72e"
+            }
+        },
+        "owner": "cardvault"
     },
     "assetBundlePatterns": [
       "**/*"
@@ -51,9 +73,4 @@
         }
       ]
     }
-  },
-  "react-native-google-mobile-ads": {
-    "android_app_id": "ca-app-pub-5499479031752321~2533055801",
-    "ios_app_id": "ca-app-pub-5499479031752321~1051983983"
-  }
 }

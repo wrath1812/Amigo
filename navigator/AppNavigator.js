@@ -2,6 +2,7 @@ import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import PAGES from '../constants/pages';
 import CardListScreen from '../pages/CardListScreen';
+import AddCardForm from '../pages/AddCardForm';
 
 const Stack = createNativeStackNavigator();
 const AppNavigator = (
@@ -13,6 +14,7 @@ const AppNavigator = (
             }}
             component={CardListScreen}
         />
+        <Stack.Screen name={PAGES.ADD_CARD} component={AddCardForm} />
     </Stack.Group>
 );
 

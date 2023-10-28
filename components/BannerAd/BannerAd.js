@@ -1,9 +1,12 @@
 import React from 'react';
-import { View, StyleSheet,Platform } from 'react-native';
+import { View, StyleSheet, Platform } from 'react-native';
 import { calcHeight } from '../../helper/res';
 
 function BannerAdComponent() {
-    const adUnitId = Platform.OS==="android"?'ca-app-pub-5499479031752321/9692031539':'ca-app-pub-5499479031752321/6052991239';
+    const adUnitId =
+        Platform.OS === 'android'
+            ? 'ca-app-pub-5499479031752321/9692031539'
+            : 'ca-app-pub-5499479031752321/6052991239';
     const {
         BannerAd,
         BannerAdSize,

@@ -18,7 +18,6 @@ function LoggedOutScreen() {
                 style={styles.loginButton}
                 labelStyle={styles.loginButtonText}
                 mode="contained" // Use contained mode for a solid button
-                color="#007bff" // Set the button background color
             >
                 Login
             </Button>
@@ -30,16 +29,16 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#1a1a1a', // Set the background color to blackish
+        alignItems: 'center'
     },
     text: {
         fontSize: 20,
-        color: 'white', // Set text color to white
+        color: 'black', // Set text color to white
     },
     loginButton: {
         marginTop: 20,
         borderRadius: 10, // Add some border radius to round the corners
+        backgroundColor: 'blue', // Semi-transparent background for the button
     },
     loginButtonText: {
         fontSize: 16,

@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Image } from 'react-native';
 import CARD_ICON from '../constants/cardIcon';
 import CARD_COLOR from '../constants/cardColour';
 import formatCardNumber from './formatCardNumber';
-import { calcHeight, calcWidth } from '../helper/res';
+import { calcHeight, calcWidth,getFontSizeByWindowWidth } from '../helper/res';
 
 function Card({ item }) {
     return (
@@ -22,7 +22,7 @@ function Card({ item }) {
             >
                 {item.nickname}
             </Text>
-                {formatCardNumber(item.card_number)}
+            {formatCardNumber(item.card_number)}
             <View style={styles.cardHeader}>
                 <Text style={styles.cardHeaderText}>{item.name_on_card}</Text>
             </View>
@@ -51,23 +51,23 @@ const styles = StyleSheet.create({
     },
     cardHeaderText: {
         color: 'white',
-        fontSize: 18,
+        fontSize: getFontSizeByWindowWidth(20),
     },
     cardIcon: {
-        width: 50,
-        height: 50,
+        width: calcWidth(15),
+        height: calcHeight(5),
     },
     cardNumber: {
         color: 'white',
-        fontSize: 16,
+        fontSize: getFontSizeByWindowWidth(20),
         fontWeight: 'bold',
         textAlign: 'center',
         textShadowColor: 'rgba(0, 0, 0, 0.75)',
-        marginVertical: 10,
+        marginVertical: calcHeight(2),
     },
     cardText: {
         color: 'white',
-        fontSize: 16,
+        fontSize: getFontSizeByWindowWidth(15),
     },
 });
 
