@@ -33,8 +33,44 @@
         },
         "owner": "cardvault"
     },
-    "react-native-google-mobile-ads": {
-        "android_app_id": "ca-app-pub-5499479031752321~2533055801",
-        "ios_app_id": "ca-app-pub-5499479031752321~1051983983"
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.bhaumik.tandan.cardvault"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/icon.png",
+        "backgroundColor": "#000"
+      },
+      "package": "com.bhaumik.tandan.cardvault",
+      "versionCode": 8
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "f26cf6f9-5809-4aa2-bf74-370cdbacf72e"
+      }
+    },
+    "owner": "cardvault",
+    "plugins": [
+      "sentry-expo"
+    ],
+    "hooks": {
+      "postPublish": [
+        {
+          "file": "sentry-expo/upload-sourcemaps",
+          "config": {
+            "organization": "pivot-it-limited",
+            "project": "cardvault",
+            "authToken": "6060e8853a9b62593bff17f37e2d9e7a7fd634eef7869a6219a363b7551bcc4c",
+            "setCommits": true
+          }
+        }
+      ]
     }
 }
