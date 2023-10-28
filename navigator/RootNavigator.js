@@ -15,9 +15,7 @@ function RootNavigator() {
         <Loader />
     ) : (
         <NavigationContainer>
-            <Stack.Navigator initialRouteName={PAGES.LOGIN}>
                 {isAuthenticated ? AppNavigator : AuthNavigator}
-            </Stack.Navigator>
         </NavigationContainer>
     );
 }

@@ -167,7 +167,7 @@ export default ({ item }) => <CardBox item={item} />;
 
 const styles = StyleSheet.create({
     container: {
-        marginTop: calcHeight(7),
+        marginBottom: calcHeight(7),
     },
     buttonBar: {
         flexDirection: 'row',

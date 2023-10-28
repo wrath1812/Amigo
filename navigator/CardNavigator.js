@@ -1,21 +1,23 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import PAGES from '../constants/pages';
-import LoggedOutScreen from '../pages/LoggedOutScreen';
+import CardListScreen from '../pages/CardListScreen';
+import AddCardForm from '../pages/AddCardForm';
 
 const Stack = createNativeStackNavigator();
-const AuthNavigator = (
+function CardNavigator() {
+  return (
     <Stack.Navigator>
-    <Stack.Group>
         <Stack.Screen
-            name={PAGES.LOGGED_OUT}
+            name={PAGES.CARD_LIST}
             options={{
                 headerShown: false,
             }}
-            component={LoggedOutScreen}
+            component={CardListScreen}
         />
-    </Stack.Group>
+        <Stack.Screen name={PAGES.ADD_CARD} component={AddCardForm} />
     </Stack.Navigator>
-);
+  );
+}
 
-export default AuthNavigator;
+export default CardNavigator;

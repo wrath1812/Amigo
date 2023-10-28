@@ -3,7 +3,7 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 import Constants from 'expo-constants';
 import RootNavigator from './navigator/RootNavigator';
 import { AuthProvider } from './context/AuthContext';
-import { ENV } from '@env';
+
 function App() {
     return (
         <SafeAreaProvider

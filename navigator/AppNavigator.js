@@ -1,21 +1,23 @@
 import React from 'react';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import PAGES from '../constants/pages';
-import CardListScreen from '../pages/CardListScreen';
-import AddCardForm from '../pages/AddCardForm';
+import CardNavigator from './CardNavigator';
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { Text } from 'react-native';
 
-const Stack = createNativeStackNavigator();
+const Tab = createBottomTabNavigator();
 const AppNavigator = (
-    <Stack.Group>
-        <Stack.Screen
-            name={PAGES.CARD_LIST}
+    <Tab.Navigator>
+    <Tab.Group>
+        <Tab.Screen
+            name={PAGES.CARD_NAVIGATOR}
             options={{
                 headerShown: false,
             }}
-            component={CardListScreen}
+            component={CardNavigator}
         />
-        <Stack.Screen name={PAGES.ADD_CARD} component={AddCardForm} />
-    </Stack.Group>
+        <Tab.Screen name={PAGES.LOGGED_OUT} component={()=><Text>rgeg</Text>} />
+    </Tab.Group>
+    </Tab.Navigator>
 );
 
 export default AppNavigator;
