@@ -4,6 +4,7 @@ import PAGES from '../constants/pages';
 import Settings from '../pages/Settings';
 import Export from '../pages/Export';
 import Import from '../pages/Import';
+import BannerAd from '../components/BannerAd';
 
 const Stack = createNativeStackNavigator();
 function SettingsNavigator() {
@@ -12,6 +13,9 @@ function SettingsNavigator() {
         <Stack.Screen
             name={PAGES.SETTINGS}
             component={Settings}
+            options={{ 
+                headerRight: () => <BannerAd />,
+            }}
         />
         <Stack.Screen name={PAGES.EXPORT} component={Export} />
         <Stack.Screen name={PAGES.IMPORT} component={Import} />
