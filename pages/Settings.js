@@ -74,7 +74,7 @@ function Settings({ navigation }) {
                 ref={ref}
                 style={{ backgroundColor: '#fff' }}
             >
-                <Card item={{ type: 'american-express' }} />
+                <Card item={{ type: cards[0].type }} />
             </ViewShot>
         </View>
     );
