@@ -20,6 +20,9 @@ function Settings({ navigation}) {
     navigation.navigate(PAGES.EXPORT);
   };
 
+  const handleImport = () => {
+    navigation.navigate(PAGES.IMPORT);
+  }
  
 
   return (
@@ -28,7 +31,7 @@ function Settings({ navigation}) {
         <Text style={styles.optionText}>Export</Text>
         <AntDesign name="upload" size={calcHeight(3)} color="black" />
       </TouchableOpacity>
-      <TouchableOpacity style={styles.option}>
+      <TouchableOpacity style={styles.option} onPress={handleImport}>
         <Text style={styles.optionText}>Import</Text>
         <AntDesign name="download" size={calcHeight(3)} color="black" />
       </TouchableOpacity>
