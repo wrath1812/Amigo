@@ -27,6 +27,10 @@ function Settings({ navigation}) {
 
   return (
     <View>
+      <TouchableOpacity style={styles.option} onPress={() => navigation.navigate(PAGES.ADD_CARD)}>
+        <Text style={styles.optionText}>Add Card</Text>
+        <AntDesign name="plus" size={calcHeight(3)} color="black" />
+      </TouchableOpacity>
       <TouchableOpacity style={styles.option} onPress={handleExport}>
         <Text style={styles.optionText}>Export</Text>
         <AntDesign name="upload" size={calcHeight(3)} color="black" />
