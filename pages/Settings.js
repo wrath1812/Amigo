@@ -7,10 +7,10 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { getFontSizeByWindowWidth } from '../helper/res';
 import * as FileSystem from 'expo-file-system';
 import * as Sharing from 'expo-sharing';
-import { encryptData } from '../helper/encryption';
+import PAGES from '../constants/pages';
 
 
-function Settings() {
+function Settings({ navigation}) {
   const [modalVisible, setModalVisible] = useState(false);
   const { cards } = useAuth();
   const [selectedIndices, setSelectedIndices] = useState([]);
@@ -56,7 +56,7 @@ function Settings() {
       alert('No cards to export');
       return;
     }
-    setModalVisible(true);
+    navigation.navigate(PAGES.EXPORT);
   };
 
   const toggleCardSelection = (index) => {
