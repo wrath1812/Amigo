@@ -8,6 +8,7 @@ import { CARDS } from '../constants/string';
 import { encryptData } from '../helper/encryption';
 import {  getLocalStoreData, setLocalStoreData } from '../helper/localStorage';
 import getEncryptionKey from '../util/getEncryptionKey';
+import PAGES from '../constants/pages';
 
 function Import ({navigation})
 {
@@ -86,6 +87,7 @@ function Import ({navigation})
             return;
         }
         navigation.goBack();
+        navigation.navigate(PAGES.CARD_LIST);
     };
 
     const pickFile = async () => {
