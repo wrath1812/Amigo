@@ -72,7 +72,7 @@ function Settings({ navigation }) {
             <ViewShot
                 options={{ format: 'jpg', quality: 0.9 }}
                 ref={ref}
-                style={{ backgroundColor: '#fff' }}
+                style={{ backgroundColor: '#fff' ,zIndex: -1, position: 'absolute',top:-1000}}
             >
                 <Card item={{ type: cards[0].type }} />
             </ViewShot>
