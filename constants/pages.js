@@ -4,6 +4,9 @@ const PAGES = {
     ADD_CARD: 'Add Card',
     CARD_NAVIGATOR: 'Card Navigator',
     SETTINGS: 'Settings',
+    SETTINGS_NAVIGATOR: 'Settings Navigator',
+    EXPORT: 'Export',
+    IMPORT: 'Import'
 };
 
 export default PAGES;
