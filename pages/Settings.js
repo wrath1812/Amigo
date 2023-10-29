@@ -4,6 +4,9 @@ import { calcHeight } from '../helper/res';
 import { AntDesign } from '@expo/vector-icons';
 import { useAuth } from '../context/AuthContext';
 import PAGES from '../constants/pages';
+import CardHtml from '../components/CardHtml';
+import * as Print from 'expo-print';
+import { shareAsync } from 'expo-sharing';
 
 
 function Settings({ navigation}) {
@@ -23,7 +26,12 @@ function Settings({ navigation}) {
   const handleImport = () => {
     navigation.navigate(PAGES.IMPORT);
   }
- 
+
+  const handleShare = async () => {
+    const html = CardHtml(cards[0]);
+    const { uri } = await Print.printToFileAsync({ html,backgroundColor: 'green' });
+    await shareAsync(uri, { UTI: '.pdf', mimeType: 'application/pdf' });
+  }
 
   return (
     <View>
@@ -37,6 +45,10 @@ function Settings({ navigation}) {
       </TouchableOpacity>
       <TouchableOpacity style={styles.option} onPress={handleImport}>
         <Text style={styles.optionText}>Import</Text>
+        <AntDesign name="download" size={calcHeight(3)} color="black" />
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.option} onPress={handleShare}>
+        <Text style={styles.optionText}>Share Cards</Text>
         <AntDesign name="download" size={calcHeight(3)} color="black" />
       </TouchableOpacity>
     </View>
