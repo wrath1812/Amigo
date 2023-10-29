@@ -27,7 +27,7 @@ const AppNavigator = (
                     <EvilIcons name="gear" size={size} color={color} />
                 ),
                 tabBarLabel: PAGES.SETTINGS,
-                headerShown: false
+                header: () => <BannerAd />
             }}
          />
     </Tab.Group>

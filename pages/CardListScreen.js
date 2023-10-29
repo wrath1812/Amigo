@@ -35,6 +35,7 @@ function CardList({ navigation }) {
             ) : (
                 <Loader />
             )}
+          
             <View style={styles.fabContainer}>
                 <FAB style={styles.fab} icon="plus" onPress={showModal} />
             </View>
