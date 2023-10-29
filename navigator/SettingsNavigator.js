@@ -10,9 +10,6 @@ function SettingsNavigator() {
     <Stack.Navigator>
         <Stack.Screen
             name={PAGES.SETTINGS}
-            options={{
-                headerShown: false,
-            }}
             component={Settings}
         />
         <Stack.Screen name={PAGES.EXPORT} component={Export} />

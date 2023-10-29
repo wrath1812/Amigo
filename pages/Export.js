@@ -89,19 +89,6 @@ function Export() {
 }
 
 const styles = {
-  option: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    padding: calcHeight(2),
-    backgroundColor: '#fff',
-    margin: calcHeight(1),
-  },
-  optionText: {
-    marginLeft: 10,
-    fontSize: 18,
-    color: '#333',
-  },
   modalContainer: {
     flex: 1,
     justifyContent: 'center',
