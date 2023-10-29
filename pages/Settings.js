@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
-import { Text, View, TouchableOpacity, Modal, FlatList,Alert } from 'react-native';
+import { Text, View, TouchableOpacity, Modal, FlatList,Alert, Platform } from 'react-native';
 import { calcHeight } from '../helper/res';
 import { AntDesign } from '@expo/vector-icons';
 import { useAuth } from '../context/AuthContext';
 import { MaterialIcons } from '@expo/vector-icons';
 import { getFontSizeByWindowWidth } from '../helper/res';
-import Cards from '../components/card';
+import * as FileSystem from 'expo-file-system';
+import * as Sharing from 'expo-sharing';
+import { encryptData } from '../helper/encryption';
 
 
 function Settings() {
@@ -13,14 +15,38 @@ function Settings() {
   const { cards } = useAuth();
   const [selectedIndices, setSelectedIndices] = useState([]);
 
-  const exportCards = () => {
+  const saveFile = async (uri, filename, mimetype) => {
+    if (Platform.OS === "android") {
+      const permissions = await FileSystem.StorageAccessFramework.requestDirectoryPermissionsAsync();
+      if (permissions.granted) {
+        const base64 = await FileSystem.readAsStringAsync(uri, { encoding: FileSystem.EncodingType.Base64 });
+        await FileSystem.StorageAccessFramework.createFileAsync(permissions.directoryUri, filename, mimetype)
+          .then(async (uri) => {
+            await FileSystem.writeAsStringAsync(uri, base64, { encoding: FileSystem.EncodingType.Base64 });
+          })
+          .catch(e => console.log(e));
+      } else {
+        Sharing.shareAsync(uri);
+      }
+    } else {
+      Sharing.shareAsync(uri);
+    }
+  };
+
+  const exportCards = async () => {
     if (selectedIndices.length === 0) {
       alert('No cards selected');
       return;
     }
     const selectedCards = selectedIndices.map((index) => cards[index]);
-    console.log(selectedCards);
-    const exportableComponent = <Cards cards={selectedCards[0]} />;
+    const fileUri = FileSystem.documentDirectory + 'cardVault_export.json';
+    await FileSystem.writeAsStringAsync(
+      fileUri,
+      JSON.stringify(selectedCards)
+    );
+
+    await saveFile(fileUri,'cardVault_export.json','application/json');
+    closeModal();
   
   }
   
