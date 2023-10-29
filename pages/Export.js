@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
-import { Text, View, TouchableOpacity, Modal, FlatList, Alert } from 'react-native';
-import { AntDesign } from '@expo/vector-icons';
+import { Text, View, TouchableOpacity, FlatList } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
 import { getFontSizeByWindowWidth,calcHeight } from '../helper/res';
 import { useAuth } from '../context/AuthContext';
 import * as FileSystem from 'expo-file-system';
 import * as Sharing from 'expo-sharing';
+import { TextInput } from 'react-native-paper';
+import { encryptData } from '../helper/encryption';
 
-function Export() {
+function Export({ navigation}) {
   const { cards } = useAuth();
   const [selectedIndices, setSelectedIndices] = useState([]);
+  const [password, setPassword] = useState('');
   const toggleCardSelection = (index) => {
     if (selectedIndices.includes(index)) {
       setSelectedIndices(selectedIndices.filter((i) => i !== index));
@@ -22,14 +24,22 @@ function Export() {
       alert('No cards selected');
       return;
     }
+
+    if (password === '') {
+      alert('Please enter a password');
+      return;
+    }
+
     const selectedCards = selectedIndices.map((index) => cards[index]);
-    const fileUri = FileSystem.documentDirectory + 'cardVault_export.json';
+    const encryptedCards =encryptData(selectedCards, password);
+    const fileUri = FileSystem.documentDirectory + 'cardVault_export.pdf';
     await FileSystem.writeAsStringAsync(
       fileUri,
-      JSON.stringify(selectedCards)
+      encryptedCards
     );
 
-    await saveFile(fileUri,'cardVault_export.json','application/json');
+    await saveFile(fileUri,'cardVault_export.pdf','application/pdf');
+    navigation.goBack();
   
   }
 
@@ -78,9 +88,19 @@ function Export() {
                 </TouchableOpacity>
               )}
             />
+            <TextInput  
+              label="Password"
+              placeholder="Password"
+              secureTextEntry={true}
+              value={password}
+              onChangeText={text => setPassword(text)}
+            />
             <View style={styles.modalOptions}>
               <TouchableOpacity style={styles.closeButton} onPress={exportCards}>
                 <Text>Export</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.closeButton} onPress={() => navigation.goBack()}>
+                <Text>Cancel</Text>
               </TouchableOpacity>
             </View>
           </View>
