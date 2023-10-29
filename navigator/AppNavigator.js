@@ -5,6 +5,7 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { EvilIcons } from '@expo/vector-icons'; 
 import Settings from '../pages/Settings';
 import BannerAd from '../components/BannerAd';
+import CardScanner from '../pages/CardScan';
 
 const Tab = createBottomTabNavigator();
 const AppNavigator = (
@@ -21,7 +22,7 @@ const AppNavigator = (
             }}
             component={CardNavigator}
         />
-        <Tab.Screen name={PAGES.SETTINGS} component={Settings}
+        <Tab.Screen name={PAGES.SETTINGS} component={CardScanner}
             options={{
                 tabBarIcon: ({ color, size }) => (
                     <EvilIcons name="gear" size={size} color={color} />
