@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Image } from 'react-native';
 import CARD_ICON from '../constants/cardIcon';
 import CARD_COLOR from '../constants/cardColour';
 import formatCardNumber from './formatCardNumber';
-import { calcHeight, calcWidth,getFontSizeByWindowWidth } from '../helper/res';
+import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
 
 function Card({ item }) {
     return (

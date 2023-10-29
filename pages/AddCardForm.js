@@ -17,11 +17,10 @@ import getEncryptionKey from '../util/getEncryptionKey';
 import { getLocalStoreData, setLocalStoreData } from '../helper/localStorage';
 import PAGES from '../constants/pages';
 
-function AddCardModal({ navigation,route }) {
-    const item=route?.params?.item;
-    useEffect   (() => {
-        if(item)
-        setCard(item);
+function AddCardModal({ navigation, route }) {
+    const item = route?.params?.item;
+    useEffect(() => {
+        if (item) setCard(item);
     }, [item]);
 
     const [card, setCard] = useState({
@@ -40,8 +39,8 @@ function AddCardModal({ navigation,route }) {
     };
 
     const handleEditCard = async () => {
-        const editedCard=card;
-        const index=item.index;
+        const editedCard = card;
+        const index = item.index;
         try {
             // Check if the card already exists
             if (!cards || index < 0 || index >= cards.length) {
@@ -65,7 +64,6 @@ function AddCardModal({ navigation,route }) {
         } catch (error) {
             console.error('An error occurred:', error);
         }
-        
     };
 
     const [isCardNumberValid, setIsCardNumberValid] = useState(true);
@@ -281,9 +279,11 @@ function AddCardModal({ navigation,route }) {
                 </View>
                 <TouchableOpacity
                     style={styles.addButton}
-                    onPress={item?handleEditCard:handleAddCard}
+                    onPress={item ? handleEditCard : handleAddCard}
                 >
-                    <Text style={styles.addButtonText}>{item?"Edit Card":"Add Card"}</Text>
+                    <Text style={styles.addButtonText}>
+                        {item ? 'Edit Card' : 'Add Card'}
+                    </Text>
                 </TouchableOpacity>
             </ScrollView>
         </View>

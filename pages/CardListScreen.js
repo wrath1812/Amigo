@@ -16,9 +16,7 @@ function CardList({ navigation }) {
     };
 
     return (
-        <SafeAreaView
-            style={styles.container}
-        >
+        <SafeAreaView style={styles.container}>
             {cards ? (
                 cards.length == 0 ? (
                     <AddCardBox showModal={showModal} />
@@ -35,7 +33,7 @@ function CardList({ navigation }) {
             ) : (
                 <Loader />
             )}
-          
+
             <View style={styles.fabContainer}>
                 <FAB style={styles.fab} icon="plus" onPress={showModal} />
             </View>
@@ -56,7 +54,7 @@ const styles = StyleSheet.create({
     },
     fab: {
         backgroundColor: 'white',
-    }
+    },
 });
 
 export default CardList;

@@ -7,19 +7,19 @@ import Import from '../pages/Import';
 
 const Stack = createNativeStackNavigator();
 function SettingsNavigator() {
-  return (
-    <Stack.Navigator>
-        <Stack.Screen
-            name={PAGES.SETTINGS}
-            component={Settings}
-            options={{ 
-                headerShown: false,
-            }}
-        />
-        <Stack.Screen name={PAGES.EXPORT} component={Export} />
-        <Stack.Screen name={PAGES.IMPORT} component={Import} />
-    </Stack.Navigator>
-  );
+    return (
+        <Stack.Navigator>
+            <Stack.Screen
+                name={PAGES.SETTINGS}
+                component={Settings}
+                options={{
+                    headerShown: false,
+                }}
+            />
+            <Stack.Screen name={PAGES.EXPORT} component={Export} />
+            <Stack.Screen name={PAGES.IMPORT} component={Import} />
+        </Stack.Navigator>
+    );
 }
 
 export default SettingsNavigator;

@@ -21,8 +21,6 @@ function CardBox({ item }) {
     const [showCard, setShowCard] = useState(false);
     const navigation = useNavigation();
 
-
-
     async function deleteCard() {
         const encryptedCards = await getLocalStoreData(CARDS);
         encryptedCards.splice(item.index, 1);
@@ -40,7 +38,6 @@ function CardBox({ item }) {
     const hideMenu = () => {
         setShowMenu(false);
     };
-
 
     return (
         <View style={styles.container}>
@@ -146,7 +143,10 @@ function CardBox({ item }) {
 
             <CardMenu
                 copyCardNumberToClipboard={copyCardNumberToClipboard}
-                setShowEditCard={() => {hideMenu(); navigation.navigate(PAGES.ADD_CARD, { item })}}
+                setShowEditCard={() => {
+                    hideMenu();
+                    navigation.navigate(PAGES.ADD_CARD, { item });
+                }}
                 setShowConfirmDelete={() => {
                     hideMenu();
                     setShowConfirmDelete(true);

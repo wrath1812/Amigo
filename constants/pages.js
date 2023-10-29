@@ -6,7 +6,7 @@ const PAGES = {
     SETTINGS: 'Settings',
     SETTINGS_NAVIGATOR: 'Settings Navigator',
     EXPORT: 'Export',
-    IMPORT: 'Import'
+    IMPORT: 'Import',
 };
 
 export default PAGES;

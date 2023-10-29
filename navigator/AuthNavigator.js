@@ -6,15 +6,15 @@ import LoggedOutScreen from '../pages/LoggedOutScreen';
 const Stack = createNativeStackNavigator();
 const AuthNavigator = (
     <Stack.Navigator>
-    <Stack.Group>
-        <Stack.Screen
-            name={PAGES.LOGGED_OUT}
-            options={{
-                headerShown: false,
-            }}
-            component={LoggedOutScreen}
-        />
-    </Stack.Group>
+        <Stack.Group>
+            <Stack.Screen
+                name={PAGES.LOGGED_OUT}
+                options={{
+                    headerShown: false,
+                }}
+                component={LoggedOutScreen}
+            />
+        </Stack.Group>
     </Stack.Navigator>
 );
 

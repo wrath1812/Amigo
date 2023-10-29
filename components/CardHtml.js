@@ -4,11 +4,14 @@ import CARD_COLOR from '../constants/cardColour';
 import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
 
 const formatCardNumber = (cardNumber) => {
-    const cardNumberWithSpaces = cardNumber.replace(/\s?/g, '').replace(/(\d{4})/g, '$1 ').trim();
+    const cardNumberWithSpaces = cardNumber
+        .replace(/\s?/g, '')
+        .replace(/(\d{4})/g, '$1 ')
+        .trim();
     return cardNumberWithSpaces;
 };
 
-function CardHtml(item) {
+function CardHtml(item, imageUri) {
     const cardHtml = `
     <!DOCTYPE html>
     <html lang="en">
@@ -63,11 +66,13 @@ function CardHtml(item) {
         </style>
     </head>
     <body>
-        <img src="https://img.freepik.com/premium-photo/image-colorful-galaxy-sky-generative-ai_791316-9864.jpg?w=1800" alt="Card Background" class="background-img">
+        <img src="${imageUri}" alt="Card Background" class="background-img">
         <div class="card-nickname">${item.nickname}</div>
         <table>
             <tr>
-                <td class="card-number">${formatCardNumber(item.card_number)}</td>
+                <td class="card-number">${formatCardNumber(
+                    item.card_number,
+                )}</td>
             </tr>
             <tr>
                 <td class="card-holder">${item.name_on_card}</td>
@@ -89,6 +94,5 @@ function CardHtml(item) {
 
     return cardHtml;
 }
-
 
 export default CardHtml;

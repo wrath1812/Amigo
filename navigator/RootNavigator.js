@@ -15,7 +15,7 @@ function RootNavigator() {
         <Loader />
     ) : (
         <NavigationContainer>
-                {isAuthenticated ? AppNavigator : AuthNavigator}
+            {isAuthenticated ? AppNavigator : AuthNavigator}
         </NavigationContainer>
     );
 }

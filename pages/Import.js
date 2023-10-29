@@ -1,18 +1,17 @@
-import React, {useState} from 'react';
-import {View, Text, StyleSheet, Button, TextInput} from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, Button, TextInput } from 'react-native';
 import * as DocumentPicker from 'expo-document-picker';
 import * as FileSystem from 'expo-file-system';
-import {decryptData} from '../helper/encryption';
-import {useAuth} from "../context/AuthContext";
+import { decryptData } from '../helper/encryption';
+import { useAuth } from '../context/AuthContext';
 import { CARDS } from '../constants/string';
 import { encryptData } from '../helper/encryption';
-import {  getLocalStoreData, setLocalStoreData } from '../helper/localStorage';
+import { getLocalStoreData, setLocalStoreData } from '../helper/localStorage';
 import getEncryptionKey from '../util/getEncryptionKey';
 import PAGES from '../constants/pages';
 
-function Import ({navigation})
-{
-    const {cards,setCards}=useAuth();
+function Import({ navigation }) {
+    const { cards, setCards } = useAuth();
     const [password, setPassword] = useState('');
     const cardExists = (newCard) => {
         return cards.some((card) => card.card_number === newCard.card_number);
@@ -70,19 +69,16 @@ function Import ({navigation})
 
         const encryptedCards = await FileSystem.readAsStringAsync(fileUri);
 
-        try{
-        const decryptedCards = decryptData(encryptedCards, password);
-        const addedCards=await Promise.all(
-            decryptedCards.map((card) => onAddCard(card))
-        );
-        console.log(addedCards);
-        if(addedCards.some((card)=>card!==undefined))
-        alert(`Added cards: ${addedCards.join('\n')}`);
-        else
-            alert('Cards already exist');
-
-        }
-        catch(error){
+        try {
+            const decryptedCards = decryptData(encryptedCards, password);
+            const addedCards = await Promise.all(
+                decryptedCards.map((card) => onAddCard(card)),
+            );
+            console.log(addedCards);
+            if (addedCards.some((card) => card !== undefined))
+                alert(`Added cards: ${addedCards.join('\n')}`);
+            else alert('Cards already exist');
+        } catch (error) {
             alert('Wrong password');
             return;
         }
@@ -101,13 +97,13 @@ function Import ({navigation})
         return result.assets[0].uri;
     };
 
-
     return (
         <View style={styles.modalContainer}>
             <View style={styles.modalContent}>
                 <Text style={styles.modalTitle}>Import Cards</Text>
                 <Text style={styles.modalText}>
-                    Select a password and the PDF file containing your encrypted cards.
+                    Select a password and the PDF file containing your encrypted
+                    cards.
                 </Text>
                 <TextInput
                     style={styles.input}
@@ -125,7 +121,6 @@ function Import ({navigation})
 export default Import;
 
 const styles = StyleSheet.create({
-
     modalContainer: {
         flex: 1,
         justifyContent: 'center',
@@ -141,7 +136,6 @@ const styles = StyleSheet.create({
     },
 
     modalTitle: {
-
         fontSize: 20,
         textAlign: 'center',
     },
