@@ -3,6 +3,7 @@ import { Alert, View, TouchableOpacity, Text } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { calcWidth, calcHeight } from '../helper/res';
 import Modal from 'react-native-modal';
+import {AntDesign} from '@expo/vector-icons';
 
 const CardMenu = ({
     copyCardNumberToClipboard,
@@ -11,6 +12,7 @@ const CardMenu = ({
     hideMenu,
     onCancel,
     onDelete,
+    handleShare,
 }) => {
     const deleteAlert = () => {
         Alert.alert(
@@ -31,6 +33,7 @@ const CardMenu = ({
             { cancelable: true },
         );
     };
+
     return (
         <Modal
             isVisible={visible}
@@ -75,6 +78,10 @@ const CardMenu = ({
                     />
                     <Text style={styles.menuText}>Delete Card</Text>
                 </TouchableOpacity>
+                <TouchableOpacity style={styles.menuItem} onPress={handleShare}>
+                <AntDesign name="sharealt" size={calcHeight(5)} color="blue" />
+                <Text style={styles.menuText}>Share Cards</Text>
+            </TouchableOpacity>
             </View>
         </Modal>
     );

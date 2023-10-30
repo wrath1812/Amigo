@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useRef } from 'react';
 import { View, StyleSheet, TouchableOpacity, Text, Image } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { useAuth } from '../context/AuthContext';
@@ -13,6 +13,13 @@ import MASK_COLORS from '../constants/maskColour';
 import formatCardNumber from './formatCardNumber';
 import { useNavigation } from '@react-navigation/native';
 import PAGES from '../constants/pages';
+import CardHtml from '../components/CardHtml';
+import * as Print from 'expo-print';
+import { shareAsync } from 'expo-sharing';
+import getBase64FromFile from '../helper/getBase64FromFile';
+import ViewShot from 'react-native-view-shot';
+import Card from './card';
+
 
 function CardBox({ item }) {
     const { setCards } = useAuth();
@@ -20,6 +27,7 @@ function CardBox({ item }) {
     const [showMenu, setShowMenu] = useState(false);
     const [showCard, setShowCard] = useState(false);
     const navigation = useNavigation();
+    const ref=useRef(null);
 
     async function deleteCard() {
         const encryptedCards = await getLocalStoreData(CARDS);
@@ -37,6 +45,28 @@ function CardBox({ item }) {
 
     const hideMenu = () => {
         setShowMenu(false);
+    };
+
+    const captureQrCode = async () => {
+        if (ref.current) {
+            try {
+                // Capture the image
+                const fileUri= await ref.current.capture();
+                const base64String = await getBase64FromFile(fileUri);
+                const imageUri = `data:image/jpg;base64,${base64String}`;
+                return imageUri;
+            } catch (error) {
+                console.error('Error capturing QR code:', error);
+            }
+        }
+    };
+    const handleShare = async () => {
+        alert('Please ensure the safety of the file while sharing. You can also export the card securely in settings');
+        const imageUri = await captureQrCode();
+        const html = CardHtml(item, imageUri);
+        const { uri } = await Print.printToFileAsync({ html });
+        await shareAsync(uri, { UTI: '.pdf', mimeType: 'application/pdf' });
+        hideMenu();
     };
 
     return (
@@ -158,7 +188,17 @@ function CardBox({ item }) {
                     setShowConfirmDelete(false);
                     hideMenu();
                 }}
+                cardType={item.type}
+                handleShare={handleShare}
             />
+
+<ViewShot
+                options={{ format: 'jpg', quality: 0.9 }}
+                ref={ref}
+                style={{ backgroundColor: '#fff' ,zIndex: -1, position: 'absolute',top:-1000}}
+            >
+                <Card item={{ type: item.type}} />
+            </ViewShot>
         </View>
     );
 }
