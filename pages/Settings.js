@@ -6,6 +6,7 @@ import { useAuth } from '../context/AuthContext';
 import PAGES from '../constants/pages';
 
 function Settings({ navigation }) {
+    const { cards } = useAuth();
 
     const handleExport = () => {
         if (cards.length === 0) {
