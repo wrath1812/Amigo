@@ -2,7 +2,7 @@
     "expo": {
         "name": "CardVault",
         "slug": "cardvault",
-        "version": "1.4.0",
+        "version": "1.5.0",
         "orientation": "portrait",
         "icon": "./assets/icon.png",
         "userInterfaceStyle": "automatic",
@@ -15,7 +15,7 @@
         "ios": {
             "supportsTablet": true,
             "bundleIdentifier": "com.bhaumik.tandan.cardvault",
-            "buildNumber": "9"
+            "buildNumber": "10"
         },
         "android": {
             "adaptiveIcon": {
@@ -23,7 +23,7 @@
                 "backgroundColor": "#000"
             },
             "package": "com.bhaumik.tandan.cardvault",
-            "versionCode": 9
+            "versionCode": 10
         },
         "web": {
             "favicon": "./assets/favicon.png"
