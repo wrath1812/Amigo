@@ -1,8 +1,3 @@
-import React from 'react';
-import CARD_ICON from '../constants/cardIcon';
-import CARD_COLOR from '../constants/cardColour';
-import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
-
 const formatCardNumber = (cardNumber) => {
     const cardNumberWithSpaces = cardNumber
         .replace(/\s?/g, '')

@@ -29,4 +29,4 @@ async function deleteSecret(key) {
     }
 }
 
-export { storeSecret, retrieveSecret };
+export { storeSecret, retrieveSecret, deleteSecret };

@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
-import { useAuth } from '../context/AuthContext';
 import { Button } from 'react-native-paper';
+
+import { useAuth } from '../context/AuthContext';
 
 function LoggedOutScreen() {
     const { login, isAuthenticated } = useAuth();

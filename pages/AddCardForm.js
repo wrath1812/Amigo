@@ -1,3 +1,4 @@
+import * as CardValidator from 'card-validator';
 import React, { useEffect, useState } from 'react';
 import {
     View,
@@ -7,16 +8,15 @@ import {
     TextInput,
     ScrollView,
 } from 'react-native';
-import Card from '../components/card';
-import * as CardValidator from 'card-validator';
-import { useAuth } from '../context/AuthContext';
-
-import { encryptData } from '../helper/encryption';
-import { CARDS } from '../constants/string';
-import getEncryptionKey from '../util/getEncryptionKey';
-import { getLocalStoreData, setLocalStoreData } from '../helper/localStorage';
-import PAGES from '../constants/pages';
 import Toast from 'react-native-root-toast';
+
+import Card from '../components/card';
+import PAGES from '../constants/pages';
+import { CARDS } from '../constants/string';
+import { useAuth } from '../context/AuthContext';
+import { encryptData } from '../helper/encryption';
+import { getLocalStoreData, setLocalStoreData } from '../helper/localStorage';
+import getEncryptionKey from '../util/getEncryptionKey';
 
 function AddCardModal({ navigation, route }) {
     const item = route?.params?.item;
@@ -243,7 +243,7 @@ function AddCardModal({ navigation, route }) {
     return (
         <View style={styles.modalContent}>
             <ScrollView>
-                <Card item={card} showCard={true} />
+                <Card item={card} showCard />
                 <TextInput
                     style={styles.input}
                     placeholder="Card Nickname (e.g. My Visa Card)"

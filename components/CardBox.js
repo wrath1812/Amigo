@@ -1,28 +1,28 @@
-import React, { useState, useRef } from 'react';
-import { View, StyleSheet, TouchableOpacity, Text, Image } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import { useAuth } from '../context/AuthContext';
-import { getLocalStoreData, setLocalStoreData } from '../helper/localStorage';
-import { CARDS } from '../constants/string';
-import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
-import copyToClipBoard from '../helper/copyToClipBoard';
-import CardMenu from './CardMenu';
-import CARD_ICON from '../constants/cardIcon';
-import CARD_COLOR from '../constants/cardColour';
-import MASK_COLORS from '../constants/maskColour';
-import formatCardNumber from './formatCardNumber';
 import { useNavigation } from '@react-navigation/native';
-import PAGES from '../constants/pages';
-import CardHtml from '../components/CardHtml';
 import * as Print from 'expo-print';
 import { shareAsync } from 'expo-sharing';
-import getBase64FromFile from '../helper/getBase64FromFile';
+import React, { useState, useRef } from 'react';
+import { View, StyleSheet, TouchableOpacity, Text, Image } from 'react-native';
 import ViewShot from 'react-native-view-shot';
+
+import CardMenu from './CardMenu';
 import Card from './card';
+import formatCardNumber from './formatCardNumber';
+import CardHtml from '../components/CardHtml';
+import CARD_COLOR from '../constants/cardColour';
+import CARD_ICON from '../constants/cardIcon';
+import MASK_COLORS from '../constants/maskColour';
+import PAGES from '../constants/pages';
+import { CARDS } from '../constants/string';
+import { useAuth } from '../context/AuthContext';
+import copyToClipBoard from '../helper/copyToClipBoard';
+import getBase64FromFile from '../helper/getBase64FromFile';
+import { getLocalStoreData, setLocalStoreData } from '../helper/localStorage';
+import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
 
 function CardBox({ item }) {
     const { setCards } = useAuth();
-    const [showConfirmDelete, setShowConfirmDelete] = useState(false);
     const [showMenu, setShowMenu] = useState(false);
     const [showCard, setShowCard] = useState(false);
     const navigation = useNavigation();
@@ -33,7 +33,6 @@ function CardBox({ item }) {
         encryptedCards.splice(item.index, 1);
         await setLocalStoreData(CARDS, encryptedCards);
         setCards((prev) => prev.filter((card) => card.index !== item.index));
-        setShowConfirmDelete(false); // Close the modal after deletion
         hideMenu();
     }
 
@@ -180,13 +179,11 @@ function CardBox({ item }) {
                 }}
                 setShowConfirmDelete={() => {
                     hideMenu();
-                    setShowConfirmDelete(true);
                 }}
                 visible={showMenu}
                 hideMenu={hideMenu}
                 onDelete={deleteCard}
                 onCancel={() => {
-                    setShowConfirmDelete(false);
                     hideMenu();
                 }}
                 cardType={item.type}

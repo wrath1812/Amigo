@@ -1,5 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, Platform } from 'react-native';
+
 import { calcHeight } from '../../helper/res';
 
 function BannerAdComponent() {

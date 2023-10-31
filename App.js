@@ -1,9 +1,9 @@
+import Constants from 'expo-constants';
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import RootNavigator from './navigator/RootNavigator';
+
 import { AuthProvider } from './context/AuthContext';
-import { Platform } from 'react-native';
-import Constants from 'expo-constants';
+import RootNavigator from './navigator/RootNavigator';
 function App() {
     return (
         <SafeAreaProvider

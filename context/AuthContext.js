@@ -1,8 +1,9 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import authenticateUser from '../helper/authenticate';
-import { getLocalStoreData } from '../helper/localStorage';
+
 import { CARDS } from '../constants/string';
+import authenticateUser from '../helper/authenticate';
 import { decryptData } from '../helper/encryption';
+import { getLocalStoreData } from '../helper/localStorage';
 import getEncryptionKey from '../util/getEncryptionKey';
 
 const AuthContext = createContext();
@@ -39,7 +40,7 @@ export const AuthProvider = ({ children }) => {
     const login = async () => {
         if (!isAuthenticated) {
             const result = await authenticateUser();
-            if (result.success || result.error == 'not_enrolled') {
+            if (result.success || result.error === 'not_enrolled') {
                 setIsAuthenticated(true);
             }
         }

@@ -1,8 +1,9 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
-import CARD_ICON from '../constants/cardIcon';
-import CARD_COLOR from '../constants/cardColour';
+
 import formatCardNumber from './formatCardNumber';
+import CARD_COLOR from '../constants/cardColour';
+import CARD_ICON from '../constants/cardIcon';
 import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
 
 function Card({ item }) {

@@ -1,8 +1,9 @@
-import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import React from 'react';
+
 import PAGES from '../constants/pages';
-import CardListScreen from '../pages/CardListScreen';
 import AddCardForm from '../pages/AddCardForm';
+import CardListScreen from '../pages/CardListScreen';
 
 const Stack = createNativeStackNavigator();
 function CardNavigator() {

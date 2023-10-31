@@ -1,12 +1,13 @@
-import React, { useState } from 'react';
-import { Text, View, TouchableOpacity, FlatList } from 'react-native';
 import { MaterialIcons } from '@expo/vector-icons';
-import { getFontSizeByWindowWidth, calcHeight } from '../helper/res';
-import { useAuth } from '../context/AuthContext';
 import * as FileSystem from 'expo-file-system';
 import * as Sharing from 'expo-sharing';
+import React, { useState } from 'react';
+import { Text, View, TouchableOpacity, FlatList, Platform } from 'react-native';
 import { TextInput } from 'react-native-paper';
+
+import { useAuth } from '../context/AuthContext';
 import { encryptData } from '../helper/encryption';
+import { getFontSizeByWindowWidth, calcHeight } from '../helper/res';
 
 function Export({ navigation }) {
     const { cards } = useAuth();
@@ -106,7 +107,7 @@ function Export({ navigation }) {
                 <TextInput
                     label="Password"
                     placeholder="Password"
-                    secureTextEntry={true}
+                    secureTextEntry
                     value={password}
                     onChangeText={(text) => setPassword(text)}
                 />

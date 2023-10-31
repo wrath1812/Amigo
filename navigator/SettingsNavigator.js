@@ -1,9 +1,10 @@
-import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import React from 'react';
+
 import PAGES from '../constants/pages';
-import Settings from '../pages/Settings';
 import Export from '../pages/Export';
 import Import from '../pages/Import';
+import Settings from '../pages/Settings';
 
 const Stack = createNativeStackNavigator();
 function SettingsNavigator() {

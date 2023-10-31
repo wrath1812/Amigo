@@ -1,10 +1,11 @@
-import React from 'react';
-import PAGES from '../constants/pages';
-import CardNavigator from './CardNavigator';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { EvilIcons } from '@expo/vector-icons';
-import BannerAd from '../components/BannerAd';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import React from 'react';
+
+import CardNavigator from './CardNavigator';
 import SettingsNavigator from './SettingsNavigator';
+import BannerAd from '../components/BannerAd';
+import PAGES from '../constants/pages';
 
 const Tab = createBottomTabNavigator();
 const AppNavigator = (

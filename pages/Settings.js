@@ -1,9 +1,10 @@
-import React, { useRef } from 'react';
-import { Text, View, TouchableOpacity } from 'react-native';
-import { calcHeight } from '../helper/res';
 import { AntDesign } from '@expo/vector-icons';
-import { useAuth } from '../context/AuthContext';
+import React from 'react';
+import { Text, View, TouchableOpacity } from 'react-native';
+
 import PAGES from '../constants/pages';
+import { useAuth } from '../context/AuthContext';
+import { calcHeight } from '../helper/res';
 
 function Settings({ navigation }) {
     const { cards } = useAuth();

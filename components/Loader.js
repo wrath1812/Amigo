@@ -1,12 +1,6 @@
 import React, { useEffect, useRef } from 'react';
-import {
-    SafeAreaView,
-    View,
-    Image,
-    StyleSheet,
-    Animated,
-    Easing,
-} from 'react-native';
+import { SafeAreaView, View, StyleSheet, Animated, Easing } from 'react-native';
+
 import highResolutionIcon from '../assets/icon.png';
 
 function Loader() {

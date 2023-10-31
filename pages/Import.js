@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, Button, TextInput } from 'react-native';
 import * as DocumentPicker from 'expo-document-picker';
 import * as FileSystem from 'expo-file-system';
-import { decryptData } from '../helper/encryption';
-import { useAuth } from '../context/AuthContext';
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, Button, TextInput } from 'react-native';
+
+import PAGES from '../constants/pages';
 import { CARDS } from '../constants/string';
-import { encryptData } from '../helper/encryption';
+import { useAuth } from '../context/AuthContext';
+import { decryptData, encryptData } from '../helper/encryption';
 import { getLocalStoreData, setLocalStoreData } from '../helper/localStorage';
 import getEncryptionKey from '../util/getEncryptionKey';
-import PAGES from '../constants/pages';
 
 function Import({ navigation }) {
     const { cards, setCards } = useAuth();
@@ -110,7 +110,7 @@ function Import({ navigation }) {
                     placeholder="Password"
                     onChangeText={(text) => setPassword(text)}
                     value={password}
-                    secureTextEntry={true}
+                    secureTextEntry
                 />
                 <Button title="Import Cards" onPress={importCards} />
             </View>

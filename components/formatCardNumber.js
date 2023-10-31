@@ -1,4 +1,5 @@
 import { View, Text, StyleSheet } from 'react-native';
+
 import { calcWidth, calcHeight, getFontSizeByWindowWidth } from '../helper/res';
 
 function formatCardNumber(cardNumber, showCard = true, maskColor = null) {
@@ -27,7 +28,7 @@ function formatCardNumber(cardNumber, showCard = true, maskColor = null) {
                             ...styles.cardMask,
                             backgroundColor: maskColor,
                         }}
-                    ></View>
+                    />
                 )}
             </View>,
         );

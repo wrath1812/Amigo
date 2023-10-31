@@ -1,9 +1,10 @@
+import { AntDesign } from '@expo/vector-icons';
+import Ionicons from '@expo/vector-icons/Ionicons';
 import React from 'react';
 import { Alert, View, TouchableOpacity, Text } from 'react-native';
-import Ionicons from '@expo/vector-icons/Ionicons';
-import { calcWidth, calcHeight } from '../helper/res';
 import Modal from 'react-native-modal';
-import { AntDesign } from '@expo/vector-icons';
+
+import { calcWidth, calcHeight } from '../helper/res';
 
 const CardMenu = ({
     copyCardNumberToClipboard,
@@ -42,7 +43,7 @@ const CardMenu = ({
             backdropOpacity={0.5}
             onBackdropPress={hideMenu}
             onBackButtonPress={hideMenu}
-            propagateSwipe={true}
+            propagateSwipe
             swipeDirection={['down']}
             onSwipeComplete={hideMenu}
             style={styles.modal}
