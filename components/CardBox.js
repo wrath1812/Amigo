@@ -1,4 +1,4 @@
-import React, { useState,useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import { View, StyleSheet, TouchableOpacity, Text, Image } from 'react-native';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { useAuth } from '../context/AuthContext';
@@ -20,14 +20,13 @@ import getBase64FromFile from '../helper/getBase64FromFile';
 import ViewShot from 'react-native-view-shot';
 import Card from './card';
 
-
 function CardBox({ item }) {
     const { setCards } = useAuth();
     const [showConfirmDelete, setShowConfirmDelete] = useState(false);
     const [showMenu, setShowMenu] = useState(false);
     const [showCard, setShowCard] = useState(false);
     const navigation = useNavigation();
-    const ref=useRef(null);
+    const ref = useRef(null);
 
     async function deleteCard() {
         const encryptedCards = await getLocalStoreData(CARDS);
@@ -51,7 +50,7 @@ function CardBox({ item }) {
         if (ref.current) {
             try {
                 // Capture the image
-                const fileUri= await ref.current.capture();
+                const fileUri = await ref.current.capture();
                 const base64String = await getBase64FromFile(fileUri);
                 const imageUri = `data:image/jpg;base64,${base64String}`;
                 return imageUri;
@@ -61,7 +60,9 @@ function CardBox({ item }) {
         }
     };
     const handleShare = async () => {
-        alert('Please ensure the safety of the file while sharing. You can also export the card securely in settings');
+        alert(
+            'Please ensure the safety of the file while sharing. You can also export the card securely in settings',
+        );
         const imageUri = await captureQrCode();
         const html = CardHtml(item, imageUri);
         const { uri } = await Print.printToFileAsync({ html });
@@ -192,12 +193,17 @@ function CardBox({ item }) {
                 handleShare={handleShare}
             />
 
-<ViewShot
+            <ViewShot
                 options={{ format: 'jpg', quality: 0.9 }}
                 ref={ref}
-                style={{ backgroundColor: '#fff' ,zIndex: -1, position: 'absolute',top:-1000}}
+                style={{
+                    backgroundColor: '#fff',
+                    zIndex: -1,
+                    position: 'absolute',
+                    top: -1000,
+                }}
             >
-                <Card item={{ type: item.type}} />
+                <Card item={{ type: item.type }} />
             </ViewShot>
         </View>
     );

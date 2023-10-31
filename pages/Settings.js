@@ -20,7 +20,6 @@ function Settings({ navigation }) {
         navigation.navigate(PAGES.IMPORT);
     };
 
- 
     return (
         <View>
             <TouchableOpacity

@@ -16,6 +16,7 @@ import { CARDS } from '../constants/string';
 import getEncryptionKey from '../util/getEncryptionKey';
 import { getLocalStoreData, setLocalStoreData } from '../helper/localStorage';
 import PAGES from '../constants/pages';
+import Toast from 'react-native-root-toast';
 
 function AddCardModal({ navigation, route }) {
     const item = route?.params?.item;
@@ -182,29 +183,55 @@ function AddCardModal({ navigation, route }) {
     };
 
     const handleAddCard = async () => {
-        // Validate and process the card data
-        if (
-            card.nickname &&
-            isCardNumberValid &&
-            validateExpiry(card.expiry) &&
-            isCVVValid
-        ) {
-            // Call the onAddCard function with the card data
-            const cardAdded = await onAddCard(card);
-            if (!cardAdded) return;
-            // Clear the form
-            setCard({
-                nickname: '',
-                card_number: '',
-                expiry: '', // Set the default value with the slash
-                cvv: '',
-                color: 'black',
-                type: '',
-                name_on_card: '',
+        if (!isCardNumberValid || !card.card_number) {
+            Toast.show('Invalid Card Number', {
+                duration: Toast.durations.LONG,
             });
-            setIsCardNumberValid(true);
-            setIsCVVValid(true);
+            return;
         }
+        if (!validateExpiry(card.expiry)) {
+            Toast.show('Invalid Expiry Date', {
+                duration: Toast.durations.LONG,
+            });
+            return;
+        }
+        if (!isCVVValid || !card.cvv) {
+            Toast.show('Invalid CVV', {
+                duration: Toast.durations.LONG,
+            });
+            return;
+        }
+
+        if (!card.name_on_card) {
+            Toast.show('Please enter a name on card', {
+                duration: Toast.durations.LONG,
+            });
+            return;
+        }
+
+        if (!card.nickname) {
+            Toast.show('Please enter a nickname', {
+                duration: Toast.durations.LONG,
+            });
+            return;
+        }
+        // Validate and process the card data
+
+        // Call the onAddCard function with the card data
+        const cardAdded = await onAddCard(card);
+        if (!cardAdded) return;
+        // Clear the form
+        setCard({
+            nickname: '',
+            card_number: '',
+            expiry: '', // Set the default value with the slash
+            cvv: '',
+            color: 'black',
+            type: '',
+            name_on_card: '',
+        });
+        setIsCardNumberValid(true);
+        setIsCVVValid(true);
     };
 
     const validateExpiry = (text) => {
@@ -219,7 +246,7 @@ function AddCardModal({ navigation, route }) {
                 <Card item={card} showCard={true} />
                 <TextInput
                     style={styles.input}
-                    placeholder="Nickname"
+                    placeholder="Card Nickname (e.g. My Visa Card)"
                     value={card.nickname}
                     onChangeText={(text) =>
                         setCard({ ...card, nickname: text })
