@@ -13,6 +13,7 @@ import { calcWidth, calcHeight } from '../helper/res';
 import PAGES from '../constants/pages';
 import FabIcon from '../components/FabIcon';
 import { useFocusEffect } from '@react-navigation/native';
+import {useAuth} from "../context/AuthContext";
 
 function TransactionScreen({
     navigation,
@@ -23,6 +24,7 @@ function TransactionScreen({
     const [transactions, setTransactions] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [balances,setBalances]=useState([]);
+    const {user}=useAuth();
 
     const fetchTransactions = useCallback(async () => {
         setIsLoading(true);
@@ -35,23 +37,11 @@ function TransactionScreen({
         setIsLoading(false);
     }, [group]);
 
-    function saveBalanceData(data) {
-        const restructuredData = [];
-        
-        data.forEach((userData) => {
-            Object.keys(userData.amountOwed).forEach((userId) => {
-                restructuredData.push(`${userData.user.name} owes ${userId} \t\t${userData.amountOwed[userId]*-1}`);
-            });
-        });
-    
-        setBalances(restructuredData);
-    }
-    
 
     const fetchBalances= useCallback(async () => {
         try {
             const { data } = await apiHelper(`/balance/${group._id}`);
-            saveBalanceData(data);
+            setBalances(data);
         } catch (error) {
             console.error('Error fetching transactions:', error);
         }
@@ -67,10 +57,23 @@ function TransactionScreen({
     return (
         <SafeAreaView style={styles.container}>
             <ScrollView style={styles.scrollView}>
-                {
-                    balances && balances.length>0 &&
-                    balances.map(balanceString=><Text>{balanceString}</Text>)
-                }
+{
+    balances && balances.length > 0 && balances.map((balance) => {
+        const isLender = user._id === balance.lender._id;
+        const isBorrower = user._id === balance.borrower._id;
+
+        const lenderName = isLender ? "You" : balance.lender.name;
+        const borrowerName = isBorrower ? "You" : balance.borrower.name;
+        const amountOwed = balance.amount;
+
+        return (
+            <Text>
+                {`${borrowerName} owe ${lenderName} ${amountOwed}`}
+            </Text>
+        );
+    })
+}
+
                 {transactions.map((transaction) => (
                     <Pressable
                         key={transaction._id}
