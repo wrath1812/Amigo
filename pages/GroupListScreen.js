@@ -59,7 +59,6 @@ function GroupListScreen({ navigation }) {
             <FabIcon onPress={() => navigation.navigate(PAGES.ADD_GROUP)} />
             <Pressable
                 onPress={() => {
-                    console.log('sfd');
                     navigation.navigate(PAGES.JOIN_GROUP);
                 }}
             >
