@@ -7,6 +7,7 @@ const PAGES = {
     SETTINGS_NAVIGATOR: 'Settings Navigator',
     EXPORT: 'Export',
     IMPORT: 'Import',
+    LOGIN:"Login"
 };
 
 export default PAGES;

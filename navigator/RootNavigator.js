@@ -6,13 +6,13 @@ import Loader from '../components/Loader';
 import { useAuth } from '../context/AuthContext';
 
 function RootNavigator() {
-    const { isAuthenticated, loading } = useAuth();
+    const { user, loading } = useAuth();
 
     return loading ? (
         <Loader />
     ) : (
         <NavigationContainer>
-            {isAuthenticated ? AppNavigator : AuthNavigator}
+            {user? AppNavigator : AuthNavigator}
         </NavigationContainer>
     );
 }

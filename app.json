@@ -1,8 +1,8 @@
 {
     "expo": {
-        "name": "CardVault",
-        "slug": "cardvault",
-        "version": "1.5.2",
+        "name": "Split Cash",
+        "slug": "Split Cash",
+        "version": "1.0.0",
         "orientation": "portrait",
         "icon": "./assets/icon.png",
         "userInterfaceStyle": "automatic",
@@ -15,7 +15,7 @@
         "ios": {
             "supportsTablet": true,
             "bundleIdentifier": "com.bhaumik.tandan.cardvault",
-            "buildNumber": "12"
+            "buildNumber": "1"
         },
         "android": {
             "adaptiveIcon": {
@@ -23,7 +23,7 @@
                 "backgroundColor": "#000"
             },
             "package": "com.bhaumik.tandan.cardvault",
-            "versionCode": 12
+            "versionCode": 1
         },
         "web": {
             "favicon": "./assets/favicon.png"

@@ -20,4 +20,3 @@ function App() {
 }
 
 export default App;
-// https://stackoverflow.com/questions/72768/how-do-you-detect-credit-card-type-based-on-number

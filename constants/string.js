@@ -1,4 +1,4 @@
 const ENCRYPTION_KEY = 'encryptionKey';
 const CARDS = 'cards';
-
-export { ENCRYPTION_KEY, CARDS };
+const TOKEN="token";
+export { ENCRYPTION_KEY, CARDS, TOKEN };

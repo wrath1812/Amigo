@@ -1,11 +1,5 @@
 import React from 'react';
-import { View, FlatList, StyleSheet, SafeAreaView } from 'react-native';
-import { FAB } from 'react-native-paper';
-
-import AddCardBox from '../components/AddCardBox';
-import BannerAd from '../components/BannerAd';
-import CardBox from '../components/CardBox';
-import Loader from '../components/Loader';
+import { Text, StyleSheet, SafeAreaView } from 'react-native';
 import PAGES from '../constants/pages';
 import { useAuth } from '../context/AuthContext';
 import { calcHeight, calcWidth } from '../helper/res';
@@ -19,26 +13,7 @@ function CardList({ navigation }) {
 
     return (
         <SafeAreaView style={styles.container}>
-            {cards ? (
-                cards.length === 0 ? (
-                    <AddCardBox showModal={showModal} />
-                ) : (
-                    <>
-                        <BannerAd />
-                        <FlatList
-                            data={cards}
-                            renderItem={CardBox}
-                            keyExtractor={(item) => item.card_number}
-                        />
-                    </>
-                )
-            ) : (
-                <Loader />
-            )}
-
-            <View style={styles.fabContainer}>
-                <FAB style={styles.fab} icon="plus" onPress={showModal} />
-            </View>
+            <Text>rc</Text>
         </SafeAreaView>
     );
 }
