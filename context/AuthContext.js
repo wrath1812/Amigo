@@ -44,7 +44,7 @@ export const AuthProvider = ({ children }) => {
     };
 
     const logout=()=>{
-        setUser(userData);
+        setUser("");
         removeLocalStoreData(TOKEN);
     }
 

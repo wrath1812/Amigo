@@ -3,6 +3,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React from 'react';
 
 import GroupNavigator from './GroupNavigator';
+import Settings from '../pages/Settings';
 import PAGES from '../constants/pages';
 
 const Tab = createBottomTabNavigator();
@@ -24,6 +25,11 @@ const AppNavigator = (
                 }}
                 component={GroupNavigator}
             />
+            <Tab.Screen
+                name={PAGES.SETTINGS}
+                component={Settings}
+            />
+
         </Tab.Group>
     </Tab.Navigator>
 );

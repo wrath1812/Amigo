@@ -6,7 +6,6 @@ import {
     ScrollView,
     Pressable,
 } from 'react-native';
-import { calcHeight, calcWidth } from '../helper/res';
 import Loader from '../components/Loader';
 import apiHelper from '../helper/apiHelper';
 import PAGES from '../constants/pages';

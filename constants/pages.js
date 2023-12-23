@@ -6,6 +6,7 @@ const PAGES = {
     TRANSACTION: 'Transaction',
     ADD_TRANSACTION: 'Add Transaction',
     ADD_GROUP: 'Add Group',
+    SETTINGS:"Settings"
 };
 
 export default PAGES;
