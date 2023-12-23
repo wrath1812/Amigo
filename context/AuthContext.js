@@ -26,6 +26,24 @@ export const AuthProvider = ({ children }) => {
         })();
     }, []);
 
+    const signup = async (email, password,name) => {
+        setLoading(true);
+        try {
+            const { data } = await apiHelper.post('/auth/signup', {
+                email,
+                password,
+                name
+            });
+            setLoading(false);
+            const { token, userData } = data;
+            setUser(userData);
+            setLocalStoreData(TOKEN, token);
+        } catch (e) {
+            console.log(e);
+            setLoading(false);
+        }
+    };
+
     const login = async (email, password) => {
         setLoading(true);
         try {
@@ -55,7 +73,8 @@ export const AuthProvider = ({ children }) => {
                 loading,
                 login,
                 setLoading,
-                logout
+                logout,
+                signup
             }}
         >
             {children}

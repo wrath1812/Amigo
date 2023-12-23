@@ -17,10 +17,11 @@ import PAGES from '../constants/pages';
 const SignUpScreen = ({ navigation }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const { login } = useAuth();
+    const [name,setName]=useState("");
+    const { signup } = useAuth();
 
-    const handleLogin = () => {
-        login(email, password);
+    const handleSignUp = () => {
+        signup(email, password,name);
     };
 
     return (
@@ -31,7 +32,7 @@ const SignUpScreen = ({ navigation }) => {
                 enabled
             >
                 <Image source={LoginImage} style={styles.image} />
-                <Text style={styles.title}>Login</Text>
+                <Text style={styles.title}>Sign Up</Text>
                 <TextInput
                     style={styles.input}
                     placeholder="Email"
@@ -45,7 +46,13 @@ const SignUpScreen = ({ navigation }) => {
                     onChangeText={setPassword}
                     value={password}
                 />
-                <TouchableOpacity style={styles.button} onPress={handleLogin}>
+                <TextInput
+                    style={styles.input}
+                    placeholder="Full Name"
+                    onChangeText={setName}
+                    value={name}
+                />
+                <TouchableOpacity style={styles.button} onPress={handleSignUp}>
                     <Text style={styles.buttonText}>Sign Up</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={styles.button} onPress={()=>navigation.navigate(PAGES.LOGIN)}>
