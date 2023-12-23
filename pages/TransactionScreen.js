@@ -22,6 +22,7 @@ function TransactionScreen({
 }) {
     const [transactions, setTransactions] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
+    const [balances,setBalances]=useState([]);
 
     const fetchTransactions = useCallback(async () => {
         setIsLoading(true);
@@ -34,7 +35,30 @@ function TransactionScreen({
         setIsLoading(false);
     }, [group]);
 
+    function saveBalanceData(data) {
+        const restructuredData = [];
+        
+        data.forEach((userData) => {
+            Object.keys(userData.amountOwed).forEach((userId) => {
+                restructuredData.push(`${userData.user.name} owes ${userId} \t\t${userData.amountOwed[userId]*-1}`);
+            });
+        });
+    
+        setBalances(restructuredData);
+    }
+    
+
+    const fetchBalances= useCallback(async () => {
+        try {
+            const { data } = await apiHelper(`/balance/${group._id}`);
+            saveBalanceData(data);
+        } catch (error) {
+            console.error('Error fetching transactions:', error);
+        }
+    }, [group]);
+
     useFocusEffect(fetchTransactions);
+    useFocusEffect(fetchBalances);
 
     if (isLoading) {
         return <Loader />; // Your Loader component to indicate loading state
@@ -43,6 +67,10 @@ function TransactionScreen({
     return (
         <SafeAreaView style={styles.container}>
             <ScrollView style={styles.scrollView}>
+                {
+                    balances && balances.length>0 &&
+                    balances.map(balanceString=><Text>{balanceString}</Text>)
+                }
                 {transactions.map((transaction) => (
                     <Pressable
                         key={transaction._id}
