@@ -3,18 +3,18 @@ import React from 'react';
 
 import PAGES from '../constants/pages';
 import AddCardForm from '../pages/AddCardForm';
-import CardListScreen from '../pages/CardListScreen';
+import GroupListScreen from '../pages/GroupListScreen';
 
 const Stack = createNativeStackNavigator();
 function CardNavigator() {
     return (
         <Stack.Navigator>
             <Stack.Screen
-                name={PAGES.CARD_LIST}
+                name={PAGES.GROUP_LIST}
                 options={{
                     headerShown: false,
                 }}
-                component={CardListScreen}
+                component={GroupListScreen }
             />
             <Stack.Screen name={PAGES.ADD_CARD} component={AddCardForm} />
         </Stack.Navigator>

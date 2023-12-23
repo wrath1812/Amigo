@@ -2,12 +2,21 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 
 import { setLocalStoreData } from '../helper/localStorage';
 import apiHelper from "../helper/apiHelper";
-import { TOKEN } from '../constants/string';
+import { TOKEN} from '../constants/string';
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
     const [loading, setLoading] = useState(false);
     const [user,setUser]=useState();
+
+    useEffect(()=>{
+        (async()=>{
+            setLoading(true);
+        const {data}=await apiHelper.get("/user");
+        setLoading(false);
+        setUser(data);
+    })()
+    },[])
 
     const login = async (email,password) => {
         setLoading(true);
@@ -20,6 +29,7 @@ export const AuthProvider = ({ children }) => {
         }
         catch(e)
         {
+            console.log(e);
             setLoading(false);
         }
     };

@@ -1,6 +1,6 @@
 const PAGES = {
     LOGGED_OUT: 'Logged Out',
-    CARD_LIST: 'Cards',
+    GROUP_LIST: 'Group List',
     ADD_CARD: 'Add Card',
     CARD_NAVIGATOR: 'Card Navigator',
     SETTINGS: 'Settings',
