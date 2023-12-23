@@ -9,8 +9,11 @@ import {
 } from 'react-native';
 import apiHelper from "../helper/apiHelper";
 import Loader from '../components/Loader';
+import {calcWidth,calcHeight} from "../helper/res";
+import { FAB } from 'react-native-paper';
+import PAGES from "../constants/pages";
 
-function TransactionScreen({ route: { params: { id } } }) {
+function TransactionScreen({ navigation,route: { params: { id } } }) {
   const [transactions, setTransactions] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -52,6 +55,12 @@ function TransactionScreen({ route: { params: { id } } }) {
           </Pressable>
         ))}
       </ScrollView>
+      <View style={styles.fabContainer}>
+        <FAB
+          icon="plus"
+          onPress={() => navigation.navigate(PAGES.ADD_TRANSACTION,{groupId:id})}
+        />
+      </View>
     </SafeAreaView>
   );
 }
@@ -74,7 +83,11 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 5,
   },
-  // ...other styles you may need
+  fabContainer: {
+    position: "absolute",
+    bottom: calcHeight(5),
+    right: calcWidth(5),
+  }
 });
 
 export default TransactionScreen;
