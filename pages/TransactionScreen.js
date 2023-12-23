@@ -10,8 +10,8 @@ import {
 import apiHelper from "../helper/apiHelper";
 import Loader from '../components/Loader';
 import {calcWidth,calcHeight} from "../helper/res";
-import { FAB } from 'react-native-paper';
 import PAGES from "../constants/pages";
+import FabIcon from '../components/FabIcon';
 
 function TransactionScreen({ navigation,route: { params: { group } } }) {
   const [transactions, setTransactions] = useState([]);
@@ -55,12 +55,9 @@ function TransactionScreen({ navigation,route: { params: { group } } }) {
           </Pressable>
         ))}
       </ScrollView>
-      <View style={styles.fabContainer}>
-        <FAB
-          icon="plus"
+        <FabIcon
           onPress={() => navigation.navigate(PAGES.ADD_TRANSACTION,{group})}
         />
-      </View>
     </SafeAreaView>
   );
 }
@@ -82,11 +79,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 5,
-  },
-  fabContainer: {
-    position: "absolute",
-    bottom: calcHeight(5),
-    right: calcWidth(5),
   }
 });
 
