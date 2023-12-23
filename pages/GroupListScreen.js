@@ -22,7 +22,7 @@ function GroupListScreen({ navigation }) {
         <SafeAreaView style={styles.container}>
             <ScrollView>
                 {groups.map(group => (
-                    <Pressable onPress={()=>{navigation.navigate(PAGES.TRANSACTION,{id:group._id})
+                    <Pressable onPress={()=>{navigation.navigate(PAGES.TRANSACTION,{group})
                     }}>
                     <Text key={group._id} style={styles.groupName}>
                         {group.name}

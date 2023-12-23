@@ -13,7 +13,7 @@ import {calcWidth,calcHeight} from "../helper/res";
 import { FAB } from 'react-native-paper';
 import PAGES from "../constants/pages";
 
-function TransactionScreen({ navigation,route: { params: { id } } }) {
+function TransactionScreen({ navigation,route: { params: { group } } }) {
   const [transactions, setTransactions] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -21,14 +21,14 @@ function TransactionScreen({ navigation,route: { params: { id } } }) {
     (async () => {
       setIsLoading(true);
       try {
-        const { data } = await apiHelper(`/group/${id}/transactions`);
+        const { data } = await apiHelper(`/group/${group._id}/transactions`);
         setTransactions(data);
       } catch (error) {
         console.error("Error fetching transactions:", error);
       }
       setIsLoading(false);
     })();
-  }, [id]);
+  }, [group]);
 
   if (isLoading) {
     return <Loader />; // Your Loader component to indicate loading state
@@ -58,7 +58,7 @@ function TransactionScreen({ navigation,route: { params: { id } } }) {
       <View style={styles.fabContainer}>
         <FAB
           icon="plus"
-          onPress={() => navigation.navigate(PAGES.ADD_TRANSACTION,{groupId:id})}
+          onPress={() => navigation.navigate(PAGES.ADD_TRANSACTION,{group})}
         />
       </View>
     </SafeAreaView>
