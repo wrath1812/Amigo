@@ -1,38 +1,52 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
-import { setLocalStoreData } from '../helper/localStorage';
-import apiHelper from "../helper/apiHelper";
-import { TOKEN} from '../constants/string';
+import { setLocalStoreData ,removeLocalStoreData} from '../helper/localStorage';
+import apiHelper from '../helper/apiHelper';
+import { TOKEN } from '../constants/string';
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
     const [loading, setLoading] = useState(false);
-    const [user,setUser]=useState();
+    const [user, setUser] = useState();
 
-    useEffect(()=>{
-        (async()=>{
+    useEffect(() => {
+        (async () => {
+            try{
             setLoading(true);
-        const {data}=await apiHelper.get("/user");
-        setLoading(false);
-        setUser(data);
-    })()
-    },[])
+            const { data } = await apiHelper.get('/user');
+            setLoading(false);
+            setUser(data);
 
-    const login = async (email,password) => {
+            }
+            catch(e)
+            {
+                logout();
+                setLoading(false);
+            }
+        })();
+    }, []);
+
+    const login = async (email, password) => {
         setLoading(true);
-        try{
-        const {data}=await apiHelper.post("/auth/login",{email,password});
-        setLoading(false);
-        const {token,userData}=data;
-        setUser(userData);
-        setLocalStoreData(TOKEN,token);
-        }
-        catch(e)
-        {
+        try {
+            const { data } = await apiHelper.post('/auth/login', {
+                email,
+                password,
+            });
+            setLoading(false);
+            const { token, userData } = data;
+            setUser(userData);
+            setLocalStoreData(TOKEN, token);
+        } catch (e) {
             console.log(e);
             setLoading(false);
         }
     };
+
+    const logout=()=>{
+        setUser(userData);
+        removeLocalStoreData(TOKEN);
+    }
 
     return (
         <AuthContext.Provider
@@ -40,7 +54,8 @@ export const AuthProvider = ({ children }) => {
                 user,
                 loading,
                 login,
-                setLoading
+                setLoading,
+                logout
             }}
         >
             {children}

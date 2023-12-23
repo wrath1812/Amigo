@@ -10,42 +10,36 @@ import {
     KeyboardAvoidingView,
 } from 'react-native';
 
-import LoginImage from '../assets/icon.png';
-import { useAuth } from '../context/AuthContext';
+import apiHelper from "../helper/apiHelper";
+import Loader from '../components/Loader';
+import PAGES from '../constants/pages';
 
-const LoginScreen = ({ navigation }) => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const { login } = useAuth();
+const CreateGroupScreen = ({ navigation }) => {
+    const [name,setName]=useState();
+    const [loading,setLoading]=useState(false);
 
-    const handleLogin = () => {
-        login(email, password);
+    const handleAddGroup = async() => {
+        setLoading(true);
+        await apiHelper.post("/group",{name});
+        navigation.navigate(PAGES.GROUP_LIST);
     };
 
-    return (
+    return loading?<Loader/>:(
         <SafeAreaView style={styles.container}>
             <KeyboardAvoidingView
                 behavior="padding"
                 style={styles.innerContainer}
                 enabled
             >
-                <Image source={LoginImage} style={styles.image} />
-                <Text style={styles.title}>Login</Text>
+                <Text style={styles.title}>Name</Text>
                 <TextInput
                     style={styles.input}
-                    placeholder="Email"
-                    onChangeText={setEmail}
-                    value={email}
+                    placeholder="Name"
+                    onChangeText={setName}
+                    value={name}
                 />
-                <TextInput
-                    style={styles.input}
-                    placeholder="Password"
-                    secureTextEntry={true}
-                    onChangeText={setPassword}
-                    value={password}
-                />
-                <TouchableOpacity style={styles.button} onPress={handleLogin}>
-                    <Text style={styles.buttonText}>Login</Text>
+                <TouchableOpacity style={styles.button} onPress={handleAddGroup}>
+                    <Text style={styles.buttonText}>Add</Text>
                 </TouchableOpacity>
             </KeyboardAvoidingView>
         </SafeAreaView>
@@ -96,4 +90,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default LoginScreen;
+export default CreateGroupScreen;

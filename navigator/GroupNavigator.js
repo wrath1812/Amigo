@@ -5,6 +5,7 @@ import PAGES from '../constants/pages';
 import GroupListScreen from '../pages/GroupListScreen';
 import TransactionScreen from '../pages/TransactionScreen';
 import TransactionFormScreen from '../pages/TransactionForm';
+import CreateGroupScreen from '../pages/CreateGroup';
 const Stack = createNativeStackNavigator();
 function GroupNavigator() {
     return (
@@ -14,15 +15,19 @@ function GroupNavigator() {
                 options={{
                     headerShown: false,
                 }}
-                component={GroupListScreen }
+                component={GroupListScreen}
             />
             <Stack.Screen
                 name={PAGES.TRANSACTION}
                 component={TransactionScreen}
             />
             <Stack.Screen
-            name={PAGES.ADD_TRANSACTION}
-            component={TransactionFormScreen}
+                name={PAGES.ADD_TRANSACTION}
+                component={TransactionFormScreen}
+            />
+            <Stack.Screen
+            name={PAGES.ADD_GROUP}
+            component={CreateGroupScreen}
             />
         </Stack.Navigator>
     );

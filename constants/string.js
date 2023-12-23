@@ -1,2 +1,2 @@
-const TOKEN="token";
-export {  TOKEN };
+const TOKEN = 'token';
+export { TOKEN };

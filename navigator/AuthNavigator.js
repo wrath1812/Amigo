@@ -9,11 +9,11 @@ const AuthNavigator = (
     <Stack.Navigator>
         <Stack.Group>
             <Stack.Screen
-                name={"Login"}
+                name={'Login'}
                 options={{
                     headerShown: false,
                 }}
-                component={LoginScreen }
+                component={LoginScreen}
             />
         </Stack.Group>
     </Stack.Navigator>
