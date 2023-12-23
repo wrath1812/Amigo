@@ -7,7 +7,8 @@ const PAGES = {
     TRANSACTION: 'Transaction',
     ADD_TRANSACTION: 'Add Transaction',
     ADD_GROUP: 'Add Group',
-    SETTINGS:"Settings"
+    SETTINGS:"Settings",
+    JOIN_GROUP:"Join group"
 };
 
 export default PAGES;
