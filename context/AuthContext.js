@@ -40,6 +40,7 @@ export const AuthProvider = ({ children }) => {
                 user,
                 loading,
                 login,
+                setLoading
             }}
         >
             {children}

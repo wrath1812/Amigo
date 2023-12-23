@@ -3,23 +3,26 @@ import { Text, StyleSheet, SafeAreaView, ScrollView, Pressable } from 'react-nat
 import { calcHeight, calcWidth } from '../helper/res';
 import Loader from "../components/Loader";
 import apiHelper from "../helper/apiHelper";
+import PAGES from '../constants/pages';
 
 function GroupListScreen({ navigation }) {
     const [groups, setGroups] = useState([]);
+    const [loading,setLoading]=useState(false);
 
     useEffect(() => {
         (async () => {
+            setLoading(true);
             const { data } = await apiHelper("/group");
             setGroups(data);
+            setLoading(false);
         })()
     }, [])
 
-    return (
+    return loading?<Loader/>:(
         <SafeAreaView style={styles.container}>
             <ScrollView>
                 {groups.map(group => (
-                    <Pressable onPress={()=>{
-                        console.log(group._id);
+                    <Pressable onPress={()=>{navigation.navigate(PAGES.TRANSACTION,{id:group._id})
                     }}>
                     <Text key={group._id} style={styles.groupName}>
                         {group.name}
