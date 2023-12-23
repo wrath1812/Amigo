@@ -48,7 +48,10 @@ const LoginScreen = ({ navigation }) => {
                 <TouchableOpacity style={styles.button} onPress={handleLogin}>
                     <Text style={styles.buttonText}>Login</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.button} onPress={()=>navigation.navigate(PAGES.SIGN_UP)}>
+                <TouchableOpacity
+                    style={styles.button}
+                    onPress={() => navigation.navigate(PAGES.SIGN_UP)}
+                >
                     <Text style={styles.buttonText}>Sign Up</Text>
                 </TouchableOpacity>
             </KeyboardAvoidingView>

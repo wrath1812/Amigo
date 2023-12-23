@@ -10,21 +10,23 @@ import {
     KeyboardAvoidingView,
 } from 'react-native';
 
-import apiHelper from "../helper/apiHelper";
+import apiHelper from '../helper/apiHelper';
 import Loader from '../components/Loader';
 import PAGES from '../constants/pages';
 
 const CreateGroupScreen = ({ navigation }) => {
-    const [name,setName]=useState();
-    const [loading,setLoading]=useState(false);
+    const [name, setName] = useState();
+    const [loading, setLoading] = useState(false);
 
-    const handleAddGroup = async() => {
+    const handleAddGroup = async () => {
         setLoading(true);
-        await apiHelper.post("/group",{name});
+        await apiHelper.post('/group', { name });
         navigation.navigate(PAGES.GROUP_LIST);
     };
 
-    return loading?<Loader/>:(
+    return loading ? (
+        <Loader />
+    ) : (
         <SafeAreaView style={styles.container}>
             <KeyboardAvoidingView
                 behavior="padding"
@@ -38,7 +40,10 @@ const CreateGroupScreen = ({ navigation }) => {
                     onChangeText={setName}
                     value={name}
                 />
-                <TouchableOpacity style={styles.button} onPress={handleAddGroup}>
+                <TouchableOpacity
+                    style={styles.button}
+                    onPress={handleAddGroup}
+                >
                     <Text style={styles.buttonText}>Add</Text>
                 </TouchableOpacity>
             </KeyboardAvoidingView>

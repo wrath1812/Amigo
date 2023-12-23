@@ -22,7 +22,6 @@ const AuthNavigator = (
                 }}
                 component={SignUpScreen}
             />
-            
         </Stack.Group>
     </Stack.Navigator>
 );

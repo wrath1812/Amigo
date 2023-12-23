@@ -1,6 +1,9 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
-import { setLocalStoreData ,removeLocalStoreData} from '../helper/localStorage';
+import {
+    setLocalStoreData,
+    removeLocalStoreData,
+} from '../helper/localStorage';
 import apiHelper from '../helper/apiHelper';
 import { TOKEN } from '../constants/string';
 const AuthContext = createContext();
@@ -11,28 +14,25 @@ export const AuthProvider = ({ children }) => {
 
     useEffect(() => {
         (async () => {
-            try{
-            setLoading(true);
-            const { data } = await apiHelper.get('/user');
-            setLoading(false);
-            setUser(data);
-
-            }
-            catch(e)
-            {
+            try {
+                setLoading(true);
+                const { data } = await apiHelper.get('/user');
+                setLoading(false);
+                setUser(data);
+            } catch (e) {
                 logout();
                 setLoading(false);
             }
         })();
     }, []);
 
-    const signup = async (email, password,name) => {
+    const signup = async (email, password, name) => {
         setLoading(true);
         try {
             const { data } = await apiHelper.post('/auth/signup', {
                 email,
                 password,
-                name
+                name,
             });
             setLoading(false);
             const { token, userData } = data;
@@ -61,10 +61,10 @@ export const AuthProvider = ({ children }) => {
         }
     };
 
-    const logout=()=>{
-        setUser("");
+    const logout = () => {
+        setUser('');
         removeLocalStoreData(TOKEN);
-    }
+    };
 
     return (
         <AuthContext.Provider
@@ -74,7 +74,7 @@ export const AuthProvider = ({ children }) => {
                 login,
                 setLoading,
                 logout,
-                signup
+                signup,
             }}
         >
             {children}

@@ -25,11 +25,7 @@ const AppNavigator = (
                 }}
                 component={GroupNavigator}
             />
-            <Tab.Screen
-                name={PAGES.SETTINGS}
-                component={Settings}
-            />
-
+            <Tab.Screen name={PAGES.SETTINGS} component={Settings} />
         </Tab.Group>
     </Tab.Navigator>
 );

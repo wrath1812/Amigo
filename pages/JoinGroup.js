@@ -6,42 +6,39 @@ import {
     TouchableOpacity,
     StyleSheet,
     SafeAreaView,
-    Image
+    Image,
 } from 'react-native';
-import Loader from "../components/Loader";
+import Loader from '../components/Loader';
 
 import PAGES from '../constants/pages';
-import apiHelper from "../helper/apiHelper";
+import apiHelper from '../helper/apiHelper';
 
 const JoinScreen = ({ navigation }) => {
-    const [groupId,setGroupId]=useState("");
-    const [loading,setLoading]=useState(false);
+    const [groupId, setGroupId] = useState('');
+    const [loading, setLoading] = useState(false);
 
-    const handleJoin=async ()=>{
+    const handleJoin = async () => {
         setLoading(true);
-        try{
-        await apiHelper.post(`group/${groupId}/join`);
-        }
-        catch(e)
-        {
-
-        }
+        try {
+            await apiHelper.post(`group/${groupId}/join`);
+        } catch (e) {}
         setLoading(false);
         navigation.navigate(PAGES.GROUP_LIST);
-    }
+    };
 
-
-    return loading?<Loader/>:(
+    return loading ? (
+        <Loader />
+    ) : (
         <SafeAreaView style={styles.container}>
-                <TextInput
-                    style={styles.input}
-                    placeholder="Group Id"
-                    onChangeText={setGroupId}
-                    value={groupId}
-                />
-                <TouchableOpacity style={styles.button} onPress={handleJoin}>
-                    <Text style={styles.buttonText}>Join</Text>
-                </TouchableOpacity>
+            <TextInput
+                style={styles.input}
+                placeholder="Group Id"
+                onChangeText={setGroupId}
+                value={groupId}
+            />
+            <TouchableOpacity style={styles.button} onPress={handleJoin}>
+                <Text style={styles.buttonText}>Join</Text>
+            </TouchableOpacity>
         </SafeAreaView>
     );
 };

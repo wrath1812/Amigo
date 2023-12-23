@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import {
     Text,
     StyleSheet,
@@ -12,6 +12,7 @@ import Loader from '../components/Loader';
 import { calcWidth, calcHeight } from '../helper/res';
 import PAGES from '../constants/pages';
 import FabIcon from '../components/FabIcon';
+import { useFocusEffect } from '@react-navigation/native';
 
 function TransactionScreen({
     navigation,
@@ -22,20 +23,18 @@ function TransactionScreen({
     const [transactions, setTransactions] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
 
-    useEffect(() => {
-        (async () => {
-            setIsLoading(true);
-            try {
-                const { data } = await apiHelper(
-                    `/group/${group._id}/transactions`,
-                );
-                setTransactions(data);
-            } catch (error) {
-                console.error('Error fetching transactions:', error);
-            }
-            setIsLoading(false);
-        })();
+    const fetchTransactions = useCallback(async () => {
+        setIsLoading(true);
+        try {
+            const { data } = await apiHelper(`/group/${group._id}/transactions`);
+            setTransactions(data);
+        } catch (error) {
+            console.error('Error fetching transactions:', error);
+        }
+        setIsLoading(false);
     }, [group]);
+
+    useFocusEffect(fetchTransactions);
 
     if (isLoading) {
         return <Loader />; // Your Loader component to indicate loading state

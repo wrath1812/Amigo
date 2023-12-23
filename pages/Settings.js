@@ -6,7 +6,6 @@ import PAGES from '../constants/pages';
 import { useAuth } from '../context/AuthContext';
 import { calcHeight } from '../helper/res';
 
-
 function Settings({ navigation }) {
     const { logout } = useAuth();
     const settingsOptions = [
@@ -14,9 +13,8 @@ function Settings({ navigation }) {
             title: 'Logout',
             icon: 'logout',
             action: logout,
-        }
+        },
     ];
-    
 
     const renderItem = ({ item }) => (
         <TouchableOpacity style={styles.option} onPress={item.action}>

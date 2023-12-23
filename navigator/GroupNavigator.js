@@ -6,7 +6,7 @@ import GroupListScreen from '../pages/GroupListScreen';
 import TransactionScreen from '../pages/TransactionScreen';
 import TransactionFormScreen from '../pages/TransactionForm';
 import CreateGroupScreen from '../pages/CreateGroup';
-import JoinGroup from "../pages/JoinGroup";
+import JoinGroup from '../pages/JoinGroup';
 const Stack = createNativeStackNavigator();
 function GroupNavigator() {
     return (
@@ -27,13 +27,10 @@ function GroupNavigator() {
                 component={TransactionFormScreen}
             />
             <Stack.Screen
-            name={PAGES.ADD_GROUP}
-            component={CreateGroupScreen}
+                name={PAGES.ADD_GROUP}
+                component={CreateGroupScreen}
             />
-            <Stack.Screen
-            name={PAGES.JOIN_GROUP}
-            component={JoinGroup}
-            />
+            <Stack.Screen name={PAGES.JOIN_GROUP} component={JoinGroup} />
         </Stack.Navigator>
     );
 }

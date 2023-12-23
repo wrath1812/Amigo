@@ -17,11 +17,11 @@ import PAGES from '../constants/pages';
 const SignUpScreen = ({ navigation }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [name,setName]=useState("");
+    const [name, setName] = useState('');
     const { signup } = useAuth();
 
     const handleSignUp = () => {
-        signup(email, password,name);
+        signup(email, password, name);
     };
 
     return (
@@ -55,7 +55,10 @@ const SignUpScreen = ({ navigation }) => {
                 <TouchableOpacity style={styles.button} onPress={handleSignUp}>
                     <Text style={styles.buttonText}>Sign Up</Text>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.button} onPress={()=>navigation.navigate(PAGES.LOGIN)}>
+                <TouchableOpacity
+                    style={styles.button}
+                    onPress={() => navigation.navigate(PAGES.LOGIN)}
+                >
                     <Text style={styles.buttonText}>Login</Text>
                 </TouchableOpacity>
             </KeyboardAvoidingView>
