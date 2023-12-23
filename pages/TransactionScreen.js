@@ -4,7 +4,8 @@ import {
   StyleSheet,
   SafeAreaView,
   ScrollView,
-  View
+  View,
+  Pressable
 } from 'react-native';
 import apiHelper from "../helper/apiHelper";
 import Loader from '../components/Loader';
@@ -34,19 +35,21 @@ function TransactionScreen({ route: { params: { id } } }) {
     <SafeAreaView style={styles.container}>
       <ScrollView style={styles.scrollView}>
         {transactions.map(transaction => (
-          <View key={transaction._id} style={styles.transactionCard}>
+          <Pressable key={transaction._id} style={styles.transactionCard}>
             <Text style={styles.description}>{transaction.description}</Text>
             <Text>Amount: ${transaction.amount}</Text>
             <Text>Date: {new Date(transaction.date).toLocaleDateString()}</Text>
+            <Text>Paid By {transaction.paidBy.name}</Text>
             <View>
               <Text>Split among:</Text>
-              {transaction.splitAmong.map(person => (
-                <Text key={person._id}>
-                  User: {person.user} - Amount: ${person.amount}
+              {transaction.splitAmong.map((person) => (
+                <Text key={person.user._id}>
+                  User: {person.user.name} - Amount: ${person.amount}
                 </Text>
               ))}
             </View>
-          </View>
+
+          </Pressable>
         ))}
       </ScrollView>
     </SafeAreaView>
