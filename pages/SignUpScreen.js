@@ -14,7 +14,7 @@ import LoginImage from '../assets/icon.png';
 import { useAuth } from '../context/AuthContext';
 import PAGES from '../constants/pages';
 
-const LoginScreen = ({ navigation }) => {
+const SignUpScreen = ({ navigation }) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const { login } = useAuth();
@@ -46,10 +46,10 @@ const LoginScreen = ({ navigation }) => {
                     value={password}
                 />
                 <TouchableOpacity style={styles.button} onPress={handleLogin}>
-                    <Text style={styles.buttonText}>Login</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.button} onPress={()=>navigation.navigate(PAGES.SIGN_UP)}>
                     <Text style={styles.buttonText}>Sign Up</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.button} onPress={()=>navigation.navigate(PAGES.LOGIN)}>
+                    <Text style={styles.buttonText}>Login</Text>
                 </TouchableOpacity>
             </KeyboardAvoidingView>
         </SafeAreaView>
@@ -100,4 +100,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default LoginScreen;
+export default SignUpScreen;
