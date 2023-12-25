@@ -66,31 +66,33 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: COLOR.APP_BACKGROUND,
-    justifyContent: 'center',
   },
   innerContainer: {
-    width: '100%',
     paddingHorizontal: calcWidth(5),
-    alignItems: 'center',
+    marginTop:calcHeight(5)
   },
   header: {
     flexDirection: 'row',
-    alignItems: 'center',
-    margin: calcWidth(5),
+    marginHorizontal: calcWidth(5),
+    marginBottom:calcHeight(5),
+  },
+  image: {
+    width: calcWidth(20),
+    aspectRatio:1,
+    marginRight: calcWidth(5),
   },
   textContainer: {
     flex: 1,
-    justifyContent: 'flex-end',
-    height: calcHeight(10),
+    justifyContent: 'flex-end'
   },
   headerText: {
     fontSize: getFontSizeByWindowWidth(18),
     fontWeight: 'bold',
     color: COLOR.TEXT,
-    paddingBottom: calcHeight(3),
+    paddingBottom: calcHeight(2),
   },
   promptText: {
-    fontSize: 14,
+    fontSize: getFontSizeByWindowWidth(10),
     color: COLOR.TEXT,
   },
   otpContainer: {
@@ -129,11 +131,6 @@ const styles = StyleSheet.create({
     color: COLOR.PRIMARY,
     fontSize: calcWidth(3.5),
     marginTop: calcHeight(2),
-  },
-  image: {
-    width: calcWidth(20),
-    height: calcHeight(20),
-    marginRight: calcWidth(5),
   }
 });
 

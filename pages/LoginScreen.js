@@ -104,7 +104,7 @@ const styles = StyleSheet.create({
     paddingBottom: calcHeight(2),
   },
   promptText: {
-    fontSize: 14,
+    fontSize: getFontSizeByWindowWidth(10),
     color: COLOR.TEXT,
   },
   inputContainer: {
