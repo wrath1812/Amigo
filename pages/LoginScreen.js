@@ -31,6 +31,7 @@ const LoginScreen = ({ navigation }) => {
           </View>
         </View>
         <View style={styles.inputContainer}>
+          <View style={{flexDirection:"row"}}>
           <View style={styles.plusIconContainer}>
             <Text  style={getTextInputStyle(isCodeFocused)}>+</Text>
           </View>
@@ -55,8 +56,9 @@ const LoginScreen = ({ navigation }) => {
             onBlur={() => setIsPhoneFocused(false)}
             placeholderTextColor="#D3D3D3"
           />
-        </View>
-        <Button 
+          </View>
+          <View style={styles.buttonContainer}>
+           <Button 
           title="Send OTP"
           onPress={() => {
             sendOTP(countryCode+phoneNumber,)
@@ -64,6 +66,8 @@ const LoginScreen = ({ navigation }) => {
           }
           }
         />
+        </View>
+        </View>
       </View>
     </SafeAreaView>
   );
@@ -73,20 +77,18 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: COLOR.APP_BACKGROUND,
-    justifyContent: 'center',
   },
   innerContainer: {
-    width: '100%',
     paddingHorizontal: calcWidth(5),
   },
   header: {
     flexDirection: 'row',
-    alignItems: 'center',
-    margin: calcWidth(5),
+    marginHorizontal: calcWidth(5),
+    marginBottom:calcHeight(5)
   },
   image: {
-    width: calcWidth(20),
-    height: calcHeight(20),
+    width: calcWidth(17),
+    height: calcHeight(10),
     marginRight: calcWidth(5),
   },
   textContainer: {
@@ -105,7 +107,6 @@ const styles = StyleSheet.create({
     color: COLOR.TEXT,
   },
   inputContainer: {
-    flexDirection: 'row',
     alignItems: 'center',
   },
   phoneNumberInput: {
@@ -119,7 +120,7 @@ const styles = StyleSheet.create({
   },
   countryCodeContainer: {
     width: calcWidth(12), // Adjust width as needed
-  }
+  },
 });
 
 export default LoginScreen;
