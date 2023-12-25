@@ -1,6 +1,7 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
-
+import Back from "../assets/back.png";
+import COLOR from '../constants/Colors';
 import PAGES from '../constants/pages';
 import LoginScreen from '../pages/LoginScreen';
 import SignUpScreen from '../pages/SignUpScreen';
@@ -18,12 +19,16 @@ const AuthNavigator = (
             component={OnboardingScreen}
             />
             <Stack.Screen
-                name={PAGES.LOGIN}
-                options={{
-                    headerShown: false,
-                }}
-                component={LoginScreen}
-            />
+    name={PAGES.LOGIN}
+    component={LoginScreen}
+    options={{
+        headerStyle: {
+            backgroundColor: COLOR.APP_BACKGROUND
+        },
+        title:null
+    }}
+/>
+
             <Stack.Screen
                 name={PAGES.SIGN_UP}
                 options={{

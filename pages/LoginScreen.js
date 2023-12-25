@@ -1,10 +1,9 @@
-import React, { useState } from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 import {
   View, Text, TextInput, TouchableOpacity, StyleSheet,
-  SafeAreaView, Image, StatusBar, Alert, Platform, Dimensions
+  SafeAreaView, Image, StatusBar, Alert,Dimensions
+  
 } from 'react-native';
-
-// Make sure to use the correct path to your assets and helper functions
 import LoginImage from '../assets/Login.png';
 import COLOR from '../constants/Colors';
 import PAGES from '../constants/pages';
@@ -13,6 +12,7 @@ const { width } = Dimensions.get('window');
 
 const LoginScreen = ({ navigation }) => {
   const [phoneNumber, setPhoneNumber] = useState('');
+ 
 
   const validateAndNavigate = () => {
     // Basic validation for a 10-digit phone number
@@ -35,7 +35,7 @@ const LoginScreen = ({ navigation }) => {
           </View>
         </View>
         <View style={styles.inputContainer}>
-          <Text style={styles.countryCode}>+1</Text>
+          <Text style={styles.countryCode}>+91</Text>
           <TextInput
             style={styles.phoneNumberInput}
             placeholder="Phone number"
