@@ -60,7 +60,8 @@
                 "enterpriseProvisioning": "universal"
             },
             "env": {
-                "ENV": "production"
+                "ENV": "production",
+                "API_URL":"https://pink-bear-cuff.cyclic.app"
             }
         }
     },
