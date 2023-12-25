@@ -1,30 +1,40 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, Text, TextInput, StyleSheet, SafeAreaView, Image, Pressable } from 'react-native';
+import { View, Text, TextInput, StyleSheet, SafeAreaView, Image, Pressable, TouchableOpacity } from 'react-native';
 import COLOR from '../constants/Colors';
 import Button from '../components/Button';
 import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
 import OTPImage from "../assets/OTPImage.png";
 import PAGES from '../constants/pages';
 import OTPFilled from "../assets/OTPFilled.png";
+import sendOTP from '../helper/sendOTP';
 const OTPScreen = ({ navigation,route:{params:{countryCode,phoneNumber}} }) => {
   const [otp, setOtp] = useState('');
   const inputRef = useRef();
+  const [error,setError]=useState(false);
 
   useEffect(() => {
     inputRef.current.focus();
   }, []);
 
   const handleOTPChange = (text) => {
+    setError(false);
     setOtp(text);
   };
+  function verifyOTP (){
+    if(otp.length<6)
+    {
+      setError(true);
+      return;
+    }
 
+  }
   const otpBoxes = Array.from({ length: 6 }).map((_, index) => {
     const digit = otp[index] || '';
     const isFocused = index === otp.length;
     const boxStyle = isFocused ? styles.highlightedBox : styles.otpInput;
 
     return (
-      <Pressable key={index} style={boxStyle} onPress={() => inputRef.current.focus()}>
+      <Pressable key={index} style={{...boxStyle,...(error?{borderBottomColor:COLOR.ERROR_BORDER}:{})}} onPress={() => inputRef.current.focus()}>
         <Text style={styles.otpText}>{digit}</Text>
       </Pressable>
     );
@@ -56,13 +66,29 @@ const OTPScreen = ({ navigation,route:{params:{countryCode,phoneNumber}} }) => {
           maxLength={6}
           autoFocus
         />
-        <Text style={styles.resendText}>Didn’t receive the code? <Text style={{
-          fontWeight:"bold"
-        }}>Resend</Text></Text>
+        <View style={{flexDirection:"row"}}>
+       <Text style={styles.resendText}>
+  Didn't receive the code?{" "}
+</Text>
+<TouchableOpacity 
+onPress={()=>{
+  sendOTP("+91"+phoneNumber);
+}}
+>
+    <Text style={{
+      fontWeight: "bold",
+      ...styles.resendText
+    }}>
+      Resend
+    </Text>
+  </TouchableOpacity>
+  </View>
+
+
        
         <Button
           title="Verify"
-          onPress={() => navigation.navigate(PAGES.SIGN_UP)} // Update with actual navigation
+          onPress={verifyOTP} 
         />
        
         </View>
@@ -143,7 +169,7 @@ const styles = StyleSheet.create({
   },
   resendText: {
     color: COLOR.PRIMARY,
-    fontSize: calcWidth(3.5),
+    fontSize: getFontSizeByWindowWidth(12),
   }
 });
 
