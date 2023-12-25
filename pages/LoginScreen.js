@@ -59,8 +59,8 @@ const LoginScreen = ({ navigation }) => {
         <Button 
           title="Send OTP"
           onPress={() => {
-            sendOTP(countryCode+phoneNumber)
-            navigation.navigate(PAGES.OTP)
+            sendOTP(countryCode+phoneNumber,)
+            navigation.navigate(PAGES.OTP,{countryCode,phoneNumber})
           }
           }
         />

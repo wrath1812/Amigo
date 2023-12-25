@@ -6,7 +6,7 @@ import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
 import OTPImage from "../assets/OTPImage.png";
 import PAGES from '../constants/pages';
 
-const OTPScreen = ({ navigation }) => {
+const OTPScreen = ({ navigation,route:{params:{countryCode,phoneNumber}} }) => {
   const [otp, setOtp] = useState('');
   const inputRef = useRef();
 
