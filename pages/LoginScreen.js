@@ -34,19 +34,17 @@ const LoginScreen = ({ navigation }) => {
             <View
              style={{
               marginLeft: calcWidth(1),
-              width: calcWidth(15), // Adjust width as needed
-              borderBottomWidth: 1, // Set this to the desired border thickness
-              borderBottomColor: 'rgba(255, 255, 255, 0.5)', // Set this to the desired border
-                        }
+              width: calcWidth(15), 
+              borderBottomWidth: 1,     
+              borderBottomColor: 'rgba(255, 255, 255, 0.5)'    
+            }
                         }
             >
             <Text
              style={{
               color: COLOR.TEXT,
               fontSize: 18,
-              marginLeft: calcWidth(1),
-              width: calcWidth(15), // Adjust width as needed
-              borderBottomWidth: 1, // Set this to the desired border thickness
+              // textAlign: "center",
                         }
                         }
             >{countryCode}</Text>
@@ -59,7 +57,6 @@ const LoginScreen = ({ navigation }) => {
             onFocus={() => setIsPhoneFocused(true)}
             onBlur={() => setIsPhoneFocused(false)}
             placeholderTextColor="#D3D3D3"
-            textAlign="center"
           />
           </View>
            <Button 
@@ -112,6 +109,8 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     alignItems: 'center',
+    marginHorizontal:calcWidth(6),
+    marginTop:calcHeight(2)
   },
   phoneNumberInput: {
     flex: 1,
@@ -119,7 +118,8 @@ const styles = StyleSheet.create({
     fontSize: 18,
     borderBottomWidth: 1,
     paddingBottom: calcHeight(2),
-    marginLeft: calcWidth(1)
+    marginLeft: calcWidth(1),
+    fontWeight:"bold"
   },
   countryCodeContainer: {
     width: calcWidth(15), // Adjust width as needed
