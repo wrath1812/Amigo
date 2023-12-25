@@ -35,6 +35,7 @@ const SignUpScreen = ({ navigation }) => {
             onChangeText={setName}
             onFocus={() => setIsNameFocused(true)}
             onBlur={() => setIsNameFocused(false)}
+            placeholderTextColor="#D3D3D3"
           />
         </View>
         <Button 

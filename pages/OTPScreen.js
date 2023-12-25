@@ -52,6 +52,7 @@ const OTPScreen = ({ navigation }) => {
               value={digit}
               onChangeText={(text) => handleOTPChange(text, index)}
               maxLength={1}
+              placeholderTextColor="#D3D3D3"
             />
           ))}
         </View>
