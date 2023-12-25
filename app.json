@@ -15,17 +15,13 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true,
-      "bundleIdentifier": "com.bhaumik.tandan.cardvault",
-      "buildNumber": "1"
+      "bundleIdentifier": "com.splitcash.splitcash"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/icon.png",
         "backgroundColor": "#000"
-      },
-      "package": "com.bhaumik.tandan.cardvault",
-      "versionCode": 1
+      }
     },
     "web": {
       "favicon": "./assets/favicon.png"

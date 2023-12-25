@@ -32,5 +32,5 @@ export const getLocalStoreData = async (key) => {
     }
 };
 
-// removeLocalStoreData('cards');
+// removeLocalStoreData('token');
 export default { setLocalStoreData, getLocalStoreData, removeLocalStoreData };
