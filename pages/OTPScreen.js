@@ -40,9 +40,13 @@ const OTPScreen = ({ navigation,route:{params:{countryCode,phoneNumber}} }) => {
             <Text style={styles.promptText}>Enter the code sent to +1 999 888...</Text>
           </View>
         </View>
+        <View style={{
+          alignItems:"center"
+        }}>
         <View style={styles.otpContainer}>
           {otpBoxes}
         </View>
+        
         <TextInput
           ref={inputRef}
           style={styles.hiddenInput}
@@ -52,11 +56,16 @@ const OTPScreen = ({ navigation,route:{params:{countryCode,phoneNumber}} }) => {
           maxLength={6}
           autoFocus
         />
+        <Text style={styles.resendText}>Didn’t receive the code? <Text style={{
+          fontWeight:"bold"
+        }}>Resend</Text></Text>
+       
         <Button
           title="Verify"
           onPress={() => navigation.navigate(PAGES.SIGN_UP)} // Update with actual navigation
         />
-        <Text style={styles.resendText}>Didn’t receive the code? Resend</Text>
+       
+        </View>
       </View>
     </SafeAreaView>
   );
@@ -98,28 +107,33 @@ const styles = StyleSheet.create({
   otpContainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    width: '80%',
     paddingBottom: calcHeight(4),
+    width:"80%",
   },
   otpInput: {
-    width: calcWidth(10),
+    width: calcWidth(11),
     borderBottomWidth: 1,
     textAlign: 'center',
-    fontSize: calcWidth(5),
+    fontSize: getFontSizeByWindowWidth(10),
     color: COLOR.TEXT,
+    justifyContent: 'center', // Center content vertically
+    alignItems: 'center', // Center content horizontally
+    height: calcHeight(7), // Make sure to set a fixed height for vertical alignment to work
   },
   highlightedBox: {
-    width: calcWidth(10),
+    width: calcWidth(11),
     borderBottomWidth: 2,
     borderColor: COLOR.PRIMARY,
     textAlign: 'center',
-    fontSize: calcWidth(5),
+    fontSize: getFontSizeByWindowWidth(15),
     color: COLOR.TEXT,
+    justifyContent: 'center', // Center content vertically
+    alignItems: 'center', // Center content horizontally
+    height: calcHeight(7), // Make sure to set a fixed height for vertical alignment to work
   },
   otpText: {
-    fontSize: getFontSizeByWindowWidth(20),
-    color: COLOR.TEXT,
-    marginBottom:calcHeight(2)
+    fontSize: getFontSizeByWindowWidth(15),
+    color: COLOR.TEXT
   },
   hiddenInput: {
     position: 'absolute',
@@ -130,7 +144,6 @@ const styles = StyleSheet.create({
   resendText: {
     color: COLOR.PRIMARY,
     fontSize: calcWidth(3.5),
-    marginTop: calcHeight(2),
   }
 });
 
