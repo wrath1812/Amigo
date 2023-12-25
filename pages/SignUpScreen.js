@@ -1,113 +1,97 @@
 import React, { useState } from 'react';
 import {
-    View,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    StyleSheet,
-    SafeAreaView,
-    Image,
-    KeyboardAvoidingView,
+  View, Text, TextInput, StyleSheet, SafeAreaView, Image
 } from 'react-native';
-
-import LoginImage from '../assets/icon.png';
-import { useAuth } from '../context/AuthContext';
-import PAGES from '../constants/pages';
+import SignUpImage from "../assets/SignUp.png"; // Make sure you have an image for the sign-up
+import COLOR from '../constants/Colors'; // Replace with your actual colors
+import PAGES from '../constants/pages'; // Replace with your actual page constants
+import Button from '../components/Button'; // Replace with your actual button component
+import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res'; // Replace with your actual responsive helpers
 
 const SignUpScreen = ({ navigation }) => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [name, setName] = useState('');
-    const { signup } = useAuth();
+  const [name, setName] = useState(''); // State for the name
+  const [isNameFocused, setIsNameFocused] = useState(false); // State to handle the focus styling
 
-    const handleSignUp = () => {
-        signup(email, password, name);
-    };
+  const getTextInputStyle = (isFocused) => ({
+    ...styles.nameInput,
+    borderBottomColor: isFocused ? 'rgba(255, 255, 255, 1)' : 'rgba(255, 255, 255, 0.5)'
+  });
 
-    return (
-        <SafeAreaView style={styles.container}>
-            <KeyboardAvoidingView
-                behavior="padding"
-                style={styles.innerContainer}
-                enabled
-            >
-                <Image source={LoginImage} style={styles.image} />
-                <Text style={styles.title}>Sign Up</Text>
-                <TextInput
-                    style={styles.input}
-                    placeholder="Email"
-                    onChangeText={setEmail}
-                    value={email}
-                />
-                <TextInput
-                    style={styles.input}
-                    placeholder="Password"
-                    secureTextEntry={true}
-                    onChangeText={setPassword}
-                    value={password}
-                />
-                <TextInput
-                    style={styles.input}
-                    placeholder="Full Name"
-                    onChangeText={setName}
-                    value={name}
-                />
-                <TouchableOpacity style={styles.button} onPress={handleSignUp}>
-                    <Text style={styles.buttonText}>Sign Up</Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                    style={styles.button}
-                    onPress={() => navigation.navigate(PAGES.LOGIN)}
-                >
-                    <Text style={styles.buttonText}>Login</Text>
-                </TouchableOpacity>
-            </KeyboardAvoidingView>
-        </SafeAreaView>
-    );
+  return (
+    <SafeAreaView style={styles.container}>
+      <View style={styles.innerContainer}>
+        <View style={styles.header}>
+          <Image source={SignUpImage} style={styles.image} resizeMode="contain" />
+          <View style={styles.textContainer}>
+            <Text style={styles.headerText}>Your Name</Text>
+            <Text style={styles.promptText}>What should we call you?</Text>
+          </View>
+        </View>
+        <View style={styles.inputContainer}>
+          <TextInput
+            style={getTextInputStyle(isNameFocused)}
+            placeholder="Your name"
+            value={name}
+            onChangeText={setName}
+            onFocus={() => setIsNameFocused(true)}
+            onBlur={() => setIsNameFocused(false)}
+          />
+        </View>
+        <Button 
+          title="Verify"
+          onPress={() => navigation.navigate(PAGES.VerificationPage)} // Update with your actual verification page
+        />
+      </View>
+    </SafeAreaView>
+  );
 };
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    innerContainer: {
-        width: '80%',
-        alignItems: 'center',
-    },
-    image: {
-        width: 200,
-        height: 200,
-        borderRadius: 100, // Add rounded border to the image
-    },
-    title: {
-        fontSize: 24,
-        marginBottom: 20,
-        color: 'white', // Set text color to white
-    },
-    input: {
-        width: '100%', // Adjusted input width to be responsive
-        height: 40,
-        borderWidth: 1,
-        borderColor: '#ccc',
-        borderRadius: 5,
-        marginBottom: 10,
-        padding: 10,
-        backgroundColor: 'white', // Set input background color to white
-    },
-    button: {
-        width: '100%', // Adjusted button width to be responsive
-        height: 40,
-        backgroundColor: 'blue',
-        borderRadius: 5,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    buttonText: {
-        color: 'white',
-        fontSize: 16,
-    },
+  container: {
+    flex: 1,
+    backgroundColor: COLOR.APP_BACKGROUND,
+    justifyContent: 'center',
+  },
+  innerContainer: {
+    width: '100%',
+    paddingHorizontal: calcWidth(5),
+  },
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    margin: calcWidth(5),
+  },
+  image: {
+    width: calcWidth(20),
+    height: calcHeight(20),
+    marginRight: calcWidth(5),
+  },
+  textContainer: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    height: calcHeight(10),
+  },
+  headerText: {
+    fontSize: getFontSizeByWindowWidth(18),
+    fontWeight: 'bold',
+    color: COLOR.TEXT,
+    paddingBottom: calcHeight(3),
+  },
+  promptText: {
+    fontSize: 14,
+    color: COLOR.TEXT,
+  },
+  inputContainer: {
+    marginTop: calcHeight(5),
+  },
+  nameInput: {
+    color: COLOR.TEXT,
+    fontSize: 18,
+    borderBottomWidth: 1,
+    marginBottom: 20,
+    paddingBottom: calcHeight(2),
+    paddingHorizontal: calcWidth(5)
+  },
 });
 
 export default SignUpScreen;

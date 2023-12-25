@@ -4,6 +4,7 @@ import COLOR from '../constants/Colors';
 import Button from '../components/Button';
 import { calcHeight, calcWidth,getFontSizeByWindowWidth } from '../helper/res';
 import OTPImage from "../assets/OTPImage.png";
+import PAGES from '../constants/pages';
 
 const OTPScreen = ({ navigation }) => {
   const [otp, setOtp] = useState(new Array(6).fill(''));
@@ -56,7 +57,7 @@ const OTPScreen = ({ navigation }) => {
         </View>
         <Button
           title="Verify"
-          onPress={() => navigation.navigate('NextScreen')} // Update with the actual navigation
+          onPress={() => navigation.navigate(PAGES.SIGN_UP)} // Update with the actual navigation
         />
         <Text style={styles.resendText}>Didn’t receive the code? Resend</Text>
       </View>

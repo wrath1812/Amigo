@@ -41,6 +41,14 @@ const AuthNavigator = (
                 }}
                 component={OTPScreen}
             />
+            <Stack.Screen
+                name={PAGES.SIGN_UP}
+               options={{
+                    headerShown:false
+                }
+                }
+                component={SignUpScreen}
+            />
         </Stack.Group>
     </Stack.Navigator>
 );

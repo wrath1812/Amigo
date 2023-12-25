@@ -49,6 +49,7 @@ const LoginScreen = ({ navigation }) => {
             onChangeText={setPhoneNumber}
             onFocus={() => setIsPhoneFocused(true)}
             onBlur={() => setIsPhoneFocused(false)}
+            placeholderTextColor="#D3D3D3"
           />
         </View>
         <Button 
