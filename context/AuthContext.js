@@ -26,55 +26,30 @@ export const AuthProvider = ({ children }) => {
         })();
     }, []);
 
-    const signup = async (email, password, name) => {
-        setLoading(true);
-        try {
-            const { data } = await apiHelper.post('/auth/signup', {
-                email,
-                password,
-                name,
-            });
-            setLoading(false);
-            const { token, userData } = data;
-            setUser(userData);
-            setLocalStoreData(TOKEN, token);
-        } catch (e) {
-            console.log(e);
-            setLoading(false);
-        }
-    };
 
-    const login = async (email, password) => {
-        setLoading(true);
-        try {
-            const { data } = await apiHelper.post('/auth/login', {
-                email,
-                password,
-            });
-            setLoading(false);
-            const { token, userData } = data;
-            setUser(userData);
-            setLocalStoreData(TOKEN, token);
-        } catch (e) {
-            console.log(e);
-            setLoading(false);
-        }
-    };
+
 
     const logout = () => {
         setUser('');
         removeLocalStoreData(TOKEN);
     };
 
+   async function  verifyOTP(phoneNumber,countryCode,otp){
+    const {data}= await apiHelper.post("/auth/verifyOTP",{phoneNumber,countryCode,otp});
+    if(data.status)
+    return;
+    const {userData,token}=data;
+    setUser(userData);
+    setLocalStoreData(TOKEN,token);
+    }
+
     return (
         <AuthContext.Provider
             value={{
                 user,
                 loading,
-                login,
                 setLoading,
-                logout,
-                signup,
+                verifyOTP
             }}
         >
             {children}

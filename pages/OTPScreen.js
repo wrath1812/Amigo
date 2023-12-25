@@ -4,14 +4,16 @@ import COLOR from '../constants/Colors';
 import Button from '../components/Button';
 import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
 import OTPImage from "../assets/OTPImage.png";
-import PAGES from '../constants/pages';
+import {useAuth} from "../context/AuthContext";
+import Loader from "../components/Loader";
 import OTPFilled from "../assets/OTPFilled.png";
 import sendOTP from '../helper/sendOTP';
 const OTPScreen = ({ navigation,route:{params:{countryCode,phoneNumber}} }) => {
   const [otp, setOtp] = useState('');
   const inputRef = useRef();
   const [error,setError]=useState(false);
-
+  const [loading,setLoading]=useState(false);
+  const {verifyOTP}=useAuth();
   useEffect(() => {
     inputRef.current.focus();
   }, []);
@@ -20,12 +22,17 @@ const OTPScreen = ({ navigation,route:{params:{countryCode,phoneNumber}} }) => {
     setError(false);
     setOtp(text);
   };
-  function verifyOTP (){
+ async function handleVerifyOTP (){
     if(otp.length<6)
     {
       setError(true);
       return;
     }
+    setLoading(true);
+   await verifyOTP(phoneNumber,countryCode,otp);
+   setLoading(false);
+   setOtp("");
+   setError(true);
 
   }
   const otpBoxes = Array.from({ length: 6 }).map((_, index) => {
@@ -40,7 +47,7 @@ const OTPScreen = ({ navigation,route:{params:{countryCode,phoneNumber}} }) => {
     );
   });
 
-  return (
+  return loading?<Loader/>:(
     <SafeAreaView style={styles.container}>
       <View style={styles.innerContainer}>
         <View style={styles.header}>
@@ -88,7 +95,7 @@ onPress={()=>{
        
         <Button
           title="Verify"
-          onPress={verifyOTP} 
+          onPress={handleVerifyOTP} 
         />
        
         </View>
