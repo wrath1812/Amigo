@@ -1,25 +1,21 @@
 import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView, Image, StatusBar, Dimensions } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView, Image } from 'react-native';
 
 // Assuming this is the path to your image
 import OnboardingImage from "../assets/Onboarding.png"; // Update the image path if necessary
 import { calcWidth,calcHeight,getFontSizeByWindowWidth } from '../helper/res';
 import COLOR from '../constants/Colors';
-
+import PAGES from "../constants/pages";
 const OnboardingScreen = ({ navigation }) => {
 
-    const handleContinue = () => {
-        // Implement what happens when you press continue
-    };
-
+   
     return (
         <SafeAreaView style={styles.container}>
-            <StatusBar barStyle="light-content" />
             <View style={styles.innerContainer}>
                 <Image source={OnboardingImage} style={styles.image} resizeMode="contain" />
                 <Text style={styles.title}>Group payments made easy</Text>
                 <Text style={styles.subtitle}>Keep track of your shared expenses and balances</Text>
-                <TouchableOpacity style={styles.button} onPress={handleContinue}>
+                <TouchableOpacity style={styles.button} onPress={()=>navigation.navigate(PAGES.LOGIN)}>
                     <Text style={styles.buttonText}>Continue with Phone number</Text>
                 </TouchableOpacity>
             </View>
