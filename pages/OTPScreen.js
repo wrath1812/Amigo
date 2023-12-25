@@ -5,7 +5,7 @@ import Button from '../components/Button';
 import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
 import OTPImage from "../assets/OTPImage.png";
 import PAGES from '../constants/pages';
-
+import OTPFilled from "../assets/OTPFilled.png";
 const OTPScreen = ({ navigation,route:{params:{countryCode,phoneNumber}} }) => {
   const [otp, setOtp] = useState('');
   const inputRef = useRef();
@@ -34,7 +34,7 @@ const OTPScreen = ({ navigation,route:{params:{countryCode,phoneNumber}} }) => {
     <SafeAreaView style={styles.container}>
       <View style={styles.innerContainer}>
         <View style={styles.header}>
-          <Image source={OTPImage} style={styles.image} resizeMode="contain" />
+          <Image source={otp.length!=6?OTPImage:OTPFilled} style={styles.image} resizeMode="contain" />
           <View style={styles.textContainer}>
             <Text style={styles.headerText}>OTP Verification</Text>
             <Text style={styles.promptText}>Enter the code sent to +1 999 888...</Text>
