@@ -1,8 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { View, Text, TextInput, StyleSheet, SafeAreaView } from 'react-native';
+import { View, Text, TextInput, StyleSheet, SafeAreaView,Image } from 'react-native';
 import COLOR from '../constants/Colors';
 import Button from '../components/Button';
-import { calcHeight, calcWidth } from '../helper/res';
+import { calcHeight, calcWidth,getFontSizeByWindowWidth } from '../helper/res';
+import OTPImage from "../assets/OTPImage.png";
 
 const OTPScreen = ({ navigation }) => {
   const [otp, setOtp] = useState(new Array(6).fill(''));
@@ -32,8 +33,14 @@ const OTPScreen = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.innerContainer}>
+      <View style={styles.header}>
+      
+      <Image source={OTPImage} style={styles.image} resizeMode="contain" />
+      <View style={styles.textContainer}>
         <Text style={styles.headerText}>OTP Verification</Text>
         <Text style={styles.promptText}>Enter the code sent to +1 999 888...</Text>
+        </View>
+        </View>
         <View style={styles.otpContainer}>
           {otp.map((digit, index) => (
             <TextInput
@@ -69,15 +76,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   headerText: {
-    fontSize: calcWidth(6),
+    fontSize: getFontSizeByWindowWidth(18),
     fontWeight: 'bold',
     color: COLOR.TEXT,
-    paddingBottom: calcHeight(2),
+    paddingBottom: calcHeight(3),
   },
   promptText: {
-    fontSize: calcWidth(4),
+    fontSize: 14,
     color: COLOR.TEXT,
-    paddingBottom: calcHeight(4),
   },
   otpContainer: {
     flexDirection: 'row',
@@ -96,6 +102,21 @@ const styles = StyleSheet.create({
     color: COLOR.PRIMARY,
     fontSize: calcWidth(3.5),
     marginTop: calcHeight(2),
+  },
+  image: {
+    width: calcWidth(20),
+    height: calcHeight(20),
+    marginRight: calcWidth(5),
+  },
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    margin: calcWidth(5),
+  },
+  textContainer: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    height: calcHeight(10),
   }
 });
 
