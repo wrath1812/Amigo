@@ -31,13 +31,16 @@ const LoginScreen = ({ navigation }) => {
           </View>
         </View>
         <View style={styles.inputContainer}>
+          <View style={styles.plusIconContainer}>
+            <Text  style={getTextInputStyle(isCodeFocused)}>+</Text>
+          </View>
           <View style={styles.countryCodeContainer}>
             <TextInput
               style={getTextInputStyle(isCodeFocused)}
               keyboardType="phone-pad"
               value={countryCode}
               onChangeText={setCountryCode}
-              maxLength={4}
+              maxLength={3}
               onFocus={() => setIsCodeFocused(true)}
               onBlur={() => setIsCodeFocused(false)}
             />
@@ -115,11 +118,8 @@ const styles = StyleSheet.create({
     marginLeft: calcWidth(1)
   },
   countryCodeContainer: {
-    width: calcWidth(15), // Adjust width as needed
-  },
-  countryCodeInput: {
-    // Styles for the country code input
-  },
+    width: calcWidth(12), // Adjust width as needed
+  }
 });
 
 export default LoginScreen;
