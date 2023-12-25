@@ -80,27 +80,28 @@ const styles = StyleSheet.create({
   },
   innerContainer: {
     paddingHorizontal: calcWidth(5),
+    marginTop:calcHeight(5)
   },
   header: {
     flexDirection: 'row',
     marginHorizontal: calcWidth(5),
-    marginBottom:calcHeight(5)
+    marginBottom:calcHeight(5),
+
   },
   image: {
-    width: calcWidth(17),
-    height: calcHeight(10),
+    width: calcWidth(20),
+    aspectRatio:1,
     marginRight: calcWidth(5),
   },
   textContainer: {
     flex: 1,
-    justifyContent: 'flex-end',
-    height: calcHeight(10),
+    justifyContent: 'flex-end'
   },
   headerText: {
     fontSize: getFontSizeByWindowWidth(18),
     fontWeight: 'bold',
     color: COLOR.TEXT,
-    paddingBottom: calcHeight(3),
+    paddingBottom: calcHeight(2),
   },
   promptText: {
     fontSize: 14,
