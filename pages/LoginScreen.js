@@ -7,12 +7,13 @@ import COLOR from '../constants/Colors';
 import PAGES from '../constants/pages';
 import Button from '../components/Button';
 import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
-
+import sendOTP from '../helper/sendOTP';
 const LoginScreen = ({ navigation }) => {
   const [phoneNumber, setPhoneNumber] = useState('');
-  const [countryCode, setCountryCode] = useState("+91");
+  const [countryCode, setCountryCode] = useState("91");
   const [isPhoneFocused, setIsPhoneFocused] = useState(false);
   const [isCodeFocused, setIsCodeFocused] = useState(false);
+
 
   const getTextInputStyle = (isFocused) => ({
     ...styles.phoneNumberInput,
@@ -54,7 +55,11 @@ const LoginScreen = ({ navigation }) => {
         </View>
         <Button 
           title="Send OTP"
-          onPress={() => navigation.navigate(PAGES.OTP)}
+          onPress={() => {
+            sendOTP(countryCode+phoneNumber)
+            navigation.navigate(PAGES.OTP)
+          }
+          }
         />
       </View>
     </SafeAreaView>
