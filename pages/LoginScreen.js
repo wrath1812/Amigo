@@ -1,31 +1,26 @@
-import React, { useLayoutEffect, useState } from 'react';
+import React, { useState } from 'react';
 import {
-  View, Text, TextInput, TouchableOpacity, StyleSheet,
-  SafeAreaView, Image, StatusBar, Alert,Dimensions
-  
+  View, Text, TextInput, StyleSheet, SafeAreaView, Image
 } from 'react-native';
 import LoginImage from '../assets/Login.png';
 import COLOR from '../constants/Colors';
 import PAGES from '../constants/pages';
-
-const { width } = Dimensions.get('window');
+import Button from '../components/Button';
+import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
 
 const LoginScreen = ({ navigation }) => {
   const [phoneNumber, setPhoneNumber] = useState('');
- 
+  const [countryCode, setCountryCode] = useState("+91");
+  const [isPhoneFocused, setIsPhoneFocused] = useState(false);
+  const [isCodeFocused, setIsCodeFocused] = useState(false);
 
-  const validateAndNavigate = () => {
-    // Basic validation for a 10-digit phone number
-    if (/^\d{10}$/.test(phoneNumber)) {
-      navigation.navigate(PAGES.OTP, { phoneNumber });
-    } else {
-      Alert.alert('Invalid Phone Number', 'Please enter a valid 10-digit phone number.');
-    }
-  };
+  const getTextInputStyle = (isFocused) => ({
+    ...styles.phoneNumberInput,
+    borderBottomColor: isFocused ? 'rgba(255, 255, 255, 1)' : 'rgba(255, 255, 255, 0.5)'
+  });
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar barStyle="light-content" />
       <View style={styles.innerContainer}>
         <View style={styles.header}>
           <Image source={LoginImage} style={styles.image} resizeMode="contain" />
@@ -35,22 +30,31 @@ const LoginScreen = ({ navigation }) => {
           </View>
         </View>
         <View style={styles.inputContainer}>
-          <Text style={styles.countryCode}>+91</Text>
+          <View style={styles.countryCodeContainer}>
+            <TextInput
+              style={getTextInputStyle(isCodeFocused)}
+              keyboardType="phone-pad"
+              value={countryCode}
+              onChangeText={setCountryCode}
+              maxLength={4}
+              onFocus={() => setIsCodeFocused(true)}
+              onBlur={() => setIsCodeFocused(false)}
+            />
+          </View>
           <TextInput
-            style={styles.phoneNumberInput}
+            style={getTextInputStyle(isPhoneFocused)}
             placeholder="Phone number"
             keyboardType="phone-pad"
             value={phoneNumber}
             onChangeText={setPhoneNumber}
-            maxLength={10}
+            onFocus={() => setIsPhoneFocused(true)}
+            onBlur={() => setIsPhoneFocused(false)}
           />
         </View>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={validateAndNavigate}
-        >
-          <Text style={styles.buttonText}>Send OTP</Text>
-        </TouchableOpacity>
+        <Button 
+          title="Send OTP"
+          onPress={() => navigation.navigate(PAGES.LOGIN)}
+        />
       </View>
     </SafeAreaView>
   );
@@ -59,68 +63,56 @@ const LoginScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: COLOR.APP_BACKGROUND, // Keep your color settings
+    backgroundColor: COLOR.APP_BACKGROUND,
     justifyContent: 'center',
   },
   innerContainer: {
     width: '100%',
-    maxWidth: 600, // Max width for larger screens
-    paddingHorizontal: 20, // Adjusted padding
+    paddingHorizontal: calcWidth(5),
   },
   header: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 20,
+    margin: calcWidth(5),
   },
   image: {
-    width: width * 0.2, // Adjusted for screen width
-    height: width * 0.2, // Adjusted for screen width
-    marginRight: 10,
+    width: calcWidth(20),
+    height: calcHeight(20),
+    marginRight: calcWidth(5),
   },
   textContainer: {
-    justifyContent: 'center',
+    flex: 1,
+    justifyContent: 'flex-end',
+    height: calcHeight(10),
   },
   headerText: {
-    fontSize: 24, // Adjusted for readability
+    fontSize: getFontSizeByWindowWidth(18),
     fontWeight: 'bold',
     color: COLOR.TEXT,
+    paddingBottom: calcHeight(3),
   },
   promptText: {
-    fontSize: 14, // Adjusted for readability
+    fontSize: 14,
     color: COLOR.TEXT,
   },
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    borderBottomWidth: 1,
-    borderBottomColor: "white",
-    marginBottom: 20,
-  },
-  countryCode: {
-    fontSize: 18,
-    color: COLOR.TEXT,
-    marginRight: 10,
   },
   phoneNumberInput: {
     flex: 1,
     color: COLOR.TEXT,
     fontSize: 18,
+    borderBottomWidth: 1,
+    marginBottom: 20,
+    paddingBottom: calcHeight(2),
+    marginLeft: calcWidth(1)
   },
-  button: {
-    backgroundColor: COLOR.BUTTON,
-    borderRadius: 20,
-    paddingVertical: 12,
-    paddingHorizontal: 60,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 2,
-    elevation: 3, // for Android shadow
+  countryCodeContainer: {
+    width: calcWidth(15), // Adjust width as needed
   },
-  buttonText: {
-    fontSize: 18,
-    color: COLOR.TEXT,
-    fontWeight: 'bold',
-    textAlign: 'center',
+  countryCodeInput: {
+    // Styles for the country code input
   },
 });
 

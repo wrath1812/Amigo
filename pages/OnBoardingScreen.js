@@ -6,6 +6,7 @@ import OnboardingImage from "../assets/Onboarding.png"; // Update the image path
 import { calcWidth,calcHeight,getFontSizeByWindowWidth } from '../helper/res';
 import COLOR from '../constants/Colors';
 import PAGES from "../constants/pages";
+import Button from '../components/Button';
 const OnboardingScreen = ({ navigation }) => {
 
    
@@ -15,9 +16,10 @@ const OnboardingScreen = ({ navigation }) => {
                 <Image source={OnboardingImage} style={styles.image} resizeMode="contain" />
                 <Text style={styles.title}>Group payments made easy</Text>
                 <Text style={styles.subtitle}>Keep track of your shared expenses and balances</Text>
-                <TouchableOpacity style={styles.button} onPress={()=>navigation.navigate(PAGES.LOGIN)}>
-                    <Text style={styles.buttonText}>Continue with Phone number</Text>
-                </TouchableOpacity>
+                <Button
+                title="Continue with Phone number"
+                onPress={()=>navigation.navigate(PAGES.LOGIN)}
+                />
             </View>
         </SafeAreaView>
     );
