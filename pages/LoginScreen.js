@@ -1,23 +1,37 @@
 import React, { useState } from 'react';
-import {
-  View, Text, TextInput, StyleSheet, SafeAreaView, Image
-} from 'react-native';
+import { View, Text, TextInput, StyleSheet, SafeAreaView, Image } from 'react-native';
 import LoginImage from '../assets/Login.png';
 import COLOR from '../constants/Colors';
 import PAGES from '../constants/pages';
 import Button from '../components/Button';
 import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
 import sendOTP from '../helper/sendOTP';
+
+const CountryCodeInput = ({ countryCode }) => (
+  <View style={styles.countryCodeContainer}>
+    <Text style={styles.countryCodeText}>{countryCode}</Text>
+  </View>
+);
+
 const LoginScreen = ({ navigation }) => {
   const [phoneNumber, setPhoneNumber] = useState('');
   const [countryCode, setCountryCode] = useState("+91");
   const [isPhoneFocused, setIsPhoneFocused] = useState(false);
-
-
+  const [error,setError]=useState(false);
   const getTextInputStyle = (isFocused) => ({
     ...styles.phoneNumberInput,
     borderBottomColor: isFocused ? 'rgba(255, 255, 255, 1)' : 'rgba(255, 255, 255, 0.5)'
   });
+
+  const handleSendOTP = () => {
+    if(!phoneNumber || phoneNumber.length!=10){
+      setError(true)
+    return;
+    }
+    console.log("red");
+    sendOTP("+91"+phoneNumber);
+    navigation.navigate(PAGES.OTP, {countryCode, phoneNumber});
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -30,43 +44,20 @@ const LoginScreen = ({ navigation }) => {
           </View>
         </View>
         <View style={styles.inputContainer}>
-          <View style={{flexDirection:"row"}}>
-            <View
-             style={{
-              marginLeft: calcWidth(1),
-              width: calcWidth(15), 
-              borderBottomWidth: 1,     
-              borderBottomColor: 'rgba(255, 255, 255, 0.5)'    
-            }
-                        }
-            >
-            <Text
-             style={{
-              color: COLOR.TEXT,
-              fontSize: 18,
-              // textAlign: "center",
-                        }
-                        }
-            >{countryCode}</Text>
-            </View>
-          <TextInput
-            style={getTextInputStyle(isPhoneFocused)}
-            keyboardType="phone-pad"
-            value={phoneNumber}
-            onChangeText={setPhoneNumber}
-            onFocus={() => setIsPhoneFocused(true)}
-            onBlur={() => setIsPhoneFocused(false)}
-            placeholderTextColor="#D3D3D3"
-          />
+          <View style={styles.phoneNumberRow}>
+            <CountryCodeInput countryCode={countryCode} />
+            <TextInput
+              style={{...getTextInputStyle(isPhoneFocused),...(error?{borderBottomColor:COLOR.ERROR_BORDER}:{})}}
+              keyboardType="phone-pad"
+              value={phoneNumber}
+              onChangeText={(value)=>{setPhoneNumber(value);
+              setError(false)}}
+              onFocus={() => setIsPhoneFocused(true)}
+              onBlur={() => setIsPhoneFocused(false)}
+              placeholderTextColor="#D3D3D3"
+            />
           </View>
-           <Button 
-          title="Send OTP"
-          onPress={() => {
-            sendOTP("91"+phoneNumber)
-            navigation.navigate(PAGES.OTP,{countryCode,phoneNumber})
-          }
-          }
-        />
+          <Button title="Send OTP" onPress={handleSendOTP} />
         </View>
       </View>
     </SafeAreaView>
@@ -80,22 +71,21 @@ const styles = StyleSheet.create({
   },
   innerContainer: {
     paddingHorizontal: calcWidth(5),
-    marginTop:calcHeight(5)
+    marginTop: calcHeight(5),
   },
   header: {
     flexDirection: 'row',
     marginHorizontal: calcWidth(5),
-    marginBottom:calcHeight(5),
-
+    marginBottom: calcHeight(5),
   },
   image: {
     width: calcWidth(20),
-    aspectRatio:1,
+    aspectRatio: 1,
     marginRight: calcWidth(5),
   },
   textContainer: {
     flex: 1,
-    justifyContent: 'flex-end'
+    justifyContent: 'flex-end',
   },
   headerText: {
     fontSize: getFontSizeByWindowWidth(18),
@@ -109,8 +99,8 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     alignItems: 'center',
-    marginHorizontal:calcWidth(6),
-    marginTop:calcHeight(2)
+    marginHorizontal: calcWidth(6),
+    marginTop: calcHeight(2),
   },
   phoneNumberInput: {
     flex: 1,
@@ -119,14 +109,21 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     paddingBottom: calcHeight(2),
     marginLeft: calcWidth(1),
-    fontWeight:"bold"
+    fontWeight: "bold",
   },
   countryCodeContainer: {
-    width: calcWidth(15), // Adjust width as needed
-  borderBottomWidth: 1, // Set this to the desired border thickness
-  borderBottomColor: 'rgba(255, 255, 255, 0.5)', // Set this to the desired border
-  
-  }
+    marginLeft: calcWidth(1),
+    width: calcWidth(15),
+    borderBottomWidth: 1,
+    borderBottomColor: 'rgba(255, 255, 255, 0.5)',
+  },
+  countryCodeText: {
+    color: COLOR.TEXT,
+    fontSize: 18,
+  },
+  phoneNumberRow: {
+    flexDirection: "row",
+  },
 });
 
 export default LoginScreen;

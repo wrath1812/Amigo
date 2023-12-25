@@ -1,42 +1,44 @@
 {
-    "expo": {
-        "name": "Split Cash",
-        "slug": "Split Cash",
-        "version": "1.0.0",
-        "orientation": "portrait",
-        "icon": "./assets/icon.png",
-        "userInterfaceStyle": "automatic",
-        "splash": {
-            "image": "./assets/splash.png",
-            "resizeMode": "contain",
-            "backgroundColor": "#000"
-        },
-        "assetBundlePatterns": ["**/*"],
-        "ios": {
-            "supportsTablet": true,
-            "bundleIdentifier": "com.bhaumik.tandan.cardvault",
-            "buildNumber": "1"
-        },
-        "android": {
-            "adaptiveIcon": {
-                "foregroundImage": "./assets/icon.png",
-                "backgroundColor": "#000"
-            },
-            "package": "com.bhaumik.tandan.cardvault",
-            "versionCode": 1
-        },
-        "web": {
-            "favicon": "./assets/favicon.png"
-        },
-        "extra": {
-            "eas": {
-                "projectId": "f26cf6f9-5809-4aa2-bf74-370cdbacf72e"
-            }
-        },
-        "owner": "cardvault"
+  "expo": {
+    "name": "Split Cash",
+    "slug": "splitcash",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "automatic",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#000"
     },
-    "react-native-google-mobile-ads": {
-        "android_app_id": "ca-app-pub-5499479031752321~2533055801",
-        "ios_app_id": "ca-app-pub-5499479031752321~1051983983"
-    }
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.bhaumik.tandan.cardvault",
+      "buildNumber": "1"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/icon.png",
+        "backgroundColor": "#000"
+      },
+      "package": "com.bhaumik.tandan.cardvault",
+      "versionCode": 1
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "cff7cde2-89df-4910-a559-59c360746095"
+      }
+    },
+    "owner": "splitcash"
+  },
+  "react-native-google-mobile-ads": {
+    "android_app_id": "ca-app-pub-5499479031752321~2533055801",
+    "ios_app_id": "ca-app-pub-5499479031752321~1051983983"
+  }
 }
