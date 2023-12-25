@@ -10,9 +10,8 @@ import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
 import sendOTP from '../helper/sendOTP';
 const LoginScreen = ({ navigation }) => {
   const [phoneNumber, setPhoneNumber] = useState('');
-  const [countryCode, setCountryCode] = useState("91");
+  const [countryCode, setCountryCode] = useState("+91");
   const [isPhoneFocused, setIsPhoneFocused] = useState(false);
-  const [isCodeFocused, setIsCodeFocused] = useState(false);
 
 
   const getTextInputStyle = (isFocused) => ({
@@ -32,22 +31,26 @@ const LoginScreen = ({ navigation }) => {
         </View>
         <View style={styles.inputContainer}>
           <View style={{flexDirection:"row"}}>
-          <View style={styles.plusIconContainer}>
-            <Text  style={getTextInputStyle(isCodeFocused)}>+</Text>
-          </View>
-          <View style={styles.countryCodeContainer}>
-            <TextInput
-              style={getTextInputStyle(isCodeFocused)}
-              keyboardType="phone-pad"
-              value={countryCode}
-              onChangeText={setCountryCode}
-              maxLength={3}
-              onFocus={() => setIsCodeFocused(true)}
-              onBlur={() => setIsCodeFocused(false)}
-              textAlign="center"
-            />
-          </View>
-          <View style={styles.phoneNumberContainer}>
+            <View
+             style={{
+              marginLeft: calcWidth(1),
+              width: calcWidth(15), // Adjust width as needed
+              borderBottomWidth: 1, // Set this to the desired border thickness
+              borderBottomColor: 'rgba(255, 255, 255, 0.5)', // Set this to the desired border
+                        }
+                        }
+            >
+            <Text
+             style={{
+              color: COLOR.TEXT,
+              fontSize: 18,
+              marginLeft: calcWidth(1),
+              width: calcWidth(15), // Adjust width as needed
+              borderBottomWidth: 1, // Set this to the desired border thickness
+                        }
+                        }
+            >{countryCode}</Text>
+            </View>
           <TextInput
             style={getTextInputStyle(isPhoneFocused)}
             keyboardType="phone-pad"
@@ -59,17 +62,14 @@ const LoginScreen = ({ navigation }) => {
             textAlign="center"
           />
           </View>
-          </View>
-          <View style={styles.buttonContainer}>
            <Button 
           title="Send OTP"
           onPress={() => {
-            sendOTP(countryCode+phoneNumber,)
+            sendOTP("91"+phoneNumber)
             navigation.navigate(PAGES.OTP,{countryCode,phoneNumber})
           }
           }
         />
-        </View>
         </View>
       </View>
     </SafeAreaView>
@@ -118,15 +118,14 @@ const styles = StyleSheet.create({
     color: COLOR.TEXT,
     fontSize: 18,
     borderBottomWidth: 1,
-    marginBottom: 20,
     paddingBottom: calcHeight(2),
     marginLeft: calcWidth(1)
   },
   countryCodeContainer: {
     width: calcWidth(15), // Adjust width as needed
-  },
-  phoneNumberContainer:{
-    width: calcWidth(62)
+  borderBottomWidth: 1, // Set this to the desired border thickness
+  borderBottomColor: 'rgba(255, 255, 255, 0.5)', // Set this to the desired border
+  
   }
 });
 
