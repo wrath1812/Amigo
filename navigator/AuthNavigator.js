@@ -5,9 +5,18 @@ import PAGES from '../constants/pages';
 import LoginScreen from '../pages/LoginScreen';
 import SignUpScreen from '../pages/SignUpScreen';
 const Stack = createNativeStackNavigator();
+import OnboardingScreen from '../pages/OnBoardingScreen';
 const AuthNavigator = (
     <Stack.Navigator>
         <Stack.Group>
+            <Stack.Screen
+            name={PAGES.ONBOARDING}
+            options={{
+                headerShown:false
+            }
+            }
+            component={OnboardingScreen}
+            />
             <Stack.Screen
                 name={PAGES.LOGIN}
                 options={{
