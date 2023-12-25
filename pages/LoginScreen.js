@@ -44,18 +44,21 @@ const LoginScreen = ({ navigation }) => {
               maxLength={3}
               onFocus={() => setIsCodeFocused(true)}
               onBlur={() => setIsCodeFocused(false)}
+              textAlign="center"
             />
           </View>
+          <View style={styles.phoneNumberContainer}>
           <TextInput
             style={getTextInputStyle(isPhoneFocused)}
-            placeholder="Phone number"
             keyboardType="phone-pad"
             value={phoneNumber}
             onChangeText={setPhoneNumber}
             onFocus={() => setIsPhoneFocused(true)}
             onBlur={() => setIsPhoneFocused(false)}
             placeholderTextColor="#D3D3D3"
+            textAlign="center"
           />
+          </View>
           </View>
           <View style={styles.buttonContainer}>
            <Button 
@@ -120,8 +123,11 @@ const styles = StyleSheet.create({
     marginLeft: calcWidth(1)
   },
   countryCodeContainer: {
-    width: calcWidth(12), // Adjust width as needed
+    width: calcWidth(15), // Adjust width as needed
   },
+  phoneNumberContainer:{
+    width: calcWidth(62)
+  }
 });
 
 export default LoginScreen;
