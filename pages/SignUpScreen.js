@@ -7,15 +7,19 @@ import COLOR from '../constants/Colors'; // Replace with your actual colors
 import PAGES from '../constants/pages'; // Replace with your actual page constants
 import Button from '../components/Button'; // Replace with your actual button component
 import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res'; // Replace with your actual responsive helpers
-
+import {useAuth} from "../context/AuthContext";
 const SignUpScreen = ({ navigation }) => {
   const [name, setName] = useState(''); // State for the name
   const [isNameFocused, setIsNameFocused] = useState(false); // State to handle the focus styling
-
+  const {addName}=useAuth();
   const getTextInputStyle = (isFocused) => ({
     ...styles.nameInput,
     borderBottomColor: isFocused ? 'rgba(255, 255, 255, 1)' : 'rgba(255, 255, 255, 0.5)'
   });
+
+    navigation.getParent()?.setOptions({
+      tabBarStyle: { display: "none" },
+    });
 
   return (
     <SafeAreaView style={styles.container}>
@@ -40,7 +44,9 @@ const SignUpScreen = ({ navigation }) => {
         </View>
         <Button 
           title="Verify"
-          onPress={() => navigation.navigate(PAGES.VerificationPage)} // Update with your actual verification page
+          onPress={() => {addName(name);
+          navigation.navigate(PAGES.GROUP_LIST)
+          }}
         />
       </View>
     </SafeAreaView>

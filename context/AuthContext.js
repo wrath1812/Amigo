@@ -28,7 +28,10 @@ export const AuthProvider = ({ children }) => {
 
 
 
-
+    const addName=(name)=>{
+     apiHelper.patch('/user/name',{name});
+     setUser((prev)=>({...prev,name}));
+    }
     const logout = () => {
         setUser('');
         removeLocalStoreData(TOKEN);
@@ -49,7 +52,8 @@ export const AuthProvider = ({ children }) => {
                 user,
                 loading,
                 setLoading,
-                verifyOTP
+                verifyOTP,
+                addName
             }}
         >
             {children}

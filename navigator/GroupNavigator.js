@@ -7,10 +7,13 @@ import TransactionScreen from '../pages/TransactionScreen';
 import TransactionFormScreen from '../pages/TransactionForm';
 import CreateGroupScreen from '../pages/CreateGroup';
 import JoinGroup from '../pages/JoinGroup';
+import SignUpScreen from '../pages/SignUpScreen';
 const Stack = createNativeStackNavigator();
+import { useAuth } from '../context/AuthContext';
 function GroupNavigator() {
+    const {user}=useAuth();
     return (
-        <Stack.Navigator>
+        <Stack.Navigator initialRouteName={user.name?PAGES.GROUP_LIST:PAGES.SIGN_UP}>
             <Stack.Screen
                 name={PAGES.GROUP_LIST}
                 options={{
@@ -31,6 +34,14 @@ function GroupNavigator() {
                 component={CreateGroupScreen}
             />
             <Stack.Screen name={PAGES.JOIN_GROUP} component={JoinGroup} />
+            <Stack.Screen
+                name={PAGES.SIGN_UP}
+               options={{
+                    headerShown:false
+                }
+                }
+                component={SignUpScreen}
+            />
         </Stack.Navigator>
     );
 }
