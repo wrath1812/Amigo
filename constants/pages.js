@@ -9,7 +9,8 @@ const PAGES = {
     ADD_GROUP: 'Add Group',
     SETTINGS: 'Settings',
     JOIN_GROUP: 'Join group',
-    ONBOARDING:"Onboarding"
+    ONBOARDING:"Onboarding",
+    OTP:"OTP"
 };
 
 export default PAGES;

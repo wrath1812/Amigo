@@ -5,7 +5,9 @@ import COLOR from '../constants/Colors';
 import PAGES from '../constants/pages';
 import LoginScreen from '../pages/LoginScreen';
 import SignUpScreen from '../pages/SignUpScreen';
+import OTPScreen from "../pages/OTPScreen";
 const Stack = createNativeStackNavigator();
+
 import OnboardingScreen from '../pages/OnBoardingScreen';
 const AuthNavigator = (
     <Stack.Navigator>
@@ -29,12 +31,15 @@ const AuthNavigator = (
     }}
 />
 
-            <Stack.Screen
-                name={PAGES.SIGN_UP}
+<Stack.Screen
+                name={PAGES.OTP}
                 options={{
-                    headerShown: false,
+                    headerStyle: {
+                        backgroundColor: COLOR.APP_BACKGROUND
+                    },
+                    title:null
                 }}
-                component={SignUpScreen}
+                component={OTPScreen}
             />
         </Stack.Group>
     </Stack.Navigator>

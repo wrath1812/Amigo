@@ -53,7 +53,7 @@ const LoginScreen = ({ navigation }) => {
         </View>
         <Button 
           title="Send OTP"
-          onPress={() => navigation.navigate(PAGES.LOGIN)}
+          onPress={() => navigation.navigate(PAGES.OTP)}
         />
       </View>
     </SafeAreaView>
