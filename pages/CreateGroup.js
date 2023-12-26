@@ -33,19 +33,43 @@ const CreateGroup = ({ navigation }) => {
         const { data } = await Contacts.getContactsAsync({
           fields: [Contacts.Fields.Name, Contacts.Fields.PhoneNumbers, Contacts.Fields.Image],
         });
+  
         if (data.length > 0) {
-          const simplifiedContacts = data.map((contact) => ({
-            id: contact.id, // Unique identifier
-            name: contact.name || '',
-            phoneNumber: contact.phoneNumbers ? contact.phoneNumbers[0].number : '',
-            imageURI: contact.imageAvailable ? contact.image.uri : '',
-            color: generateRandomColor()
-          }));
+          const seenPhoneNumbers = new Set();
+          const uniqueContacts = data.filter(contact => {
+            if (contact.phoneNumbers && contact.phoneNumbers.length > 0) {
+              const phoneNumber = contact.phoneNumbers[0].number.replace(/\D/g, '');
+              if (!seenPhoneNumbers.has(phoneNumber)) {
+                seenPhoneNumbers.add(phoneNumber);
+                return true;
+              }
+            }
+            return false;
+          });
+  
+          const simplifiedContacts = uniqueContacts.map((contact) => {
+            return {
+              id: contact.id,
+              name: contact.name || '',
+              phoneNumber: contact.phoneNumbers[0].number.replace(/\D/g, ''),
+              imageURI: contact.imageAvailable ? contact.image.uri : '',
+              color: generateRandomColor()
+            };
+          });
+  
           setContacts(simplifiedContacts);
         }
       }
     })();
   }, []);
+  
+
+  const createGroupAsync =async()=>{
+    setIsLoading(true);
+    const phoneNumbers=selectedContacts.map(({phoneNumber})=>({phoneNumber,countryCode:"91"}));
+    await apiHelper.post('/group', { name:groupName,phoneNumbers });
+    navigation.navigate(PAGES.GROUP_LIST);
+};
 
   const handleSelectContact = (contact) => {
     if (selectedContacts.some((selected) => selected.id === contact.id)) {
@@ -66,11 +90,6 @@ const CreateGroup = ({ navigation }) => {
     );
   };
 
-  const createGroupAsync =async()=>{
-      setIsLoading(true);
-      await apiHelper.post('/group', { name:groupName });
-      navigation.navigate(PAGES.GROUP_LIST);
-  };
 
   return isLoading?<Loader/>:(
     <SafeAreaView style={styles.container}>

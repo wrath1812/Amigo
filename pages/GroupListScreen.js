@@ -22,7 +22,6 @@ function GroupListScreen({ navigation }) {
 
     useFocusEffect(
         useCallback(() => {
-            // Fetch data again when the screen gains focus
             (async () => {
                 setLoading(true);
                 const { data } = await apiHelper('/group');
