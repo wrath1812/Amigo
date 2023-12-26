@@ -56,7 +56,9 @@ function GroupListScreen({ navigation }) {
                         </Pressable>
                     </Pressable>
                 ))}
+                
             </ScrollView>)}
+            {groups.length!=0 &&<FabIcon/>}
         </SafeAreaView>
     );
 }
