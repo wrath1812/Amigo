@@ -35,6 +35,7 @@ function GroupListScreen({ navigation }) {
         <Loader />
     ) : (
         <SafeAreaView style={styles.container}>
+            <Text>Groups</Text>
             {groups.length==0?<NoGroups onPress={()=>{navigation.navigate(PAGES.CREATE_GROUP)}}/>:(<ScrollView>
                 {groups.map((group) => (
                     <Pressable
@@ -58,7 +59,8 @@ function GroupListScreen({ navigation }) {
                 ))}
                 
             </ScrollView>)}
-            {groups.length!=0 &&<FabIcon/>}
+            {groups.length!=0 &&<FabIcon onPress={()=>{{
+                navigation.navigate(PAGES.CREATE_GROUP)}}}/>}
         </SafeAreaView>
     );
 }

@@ -19,14 +19,7 @@ function GroupNavigator() {
   name={PAGES.GROUP_LIST}
   component={GroupListScreen}
   options={{
-    headerStyle: {
-      backgroundColor: COLOR.APP_BACKGROUND,
-    },
-    headerTitle: () => (
-      <View style={{ flex: 1, justifyContent: 'flex-start' }}>
-        <Text style={{ fontWeight: 'bold',marginTop:calcHeight(3), color: 'white',fontSize:getFontSizeByWindowWidth(15) }}>{PAGES.GROUP_LIST}</Text>
-      </View>
-    ),
+    headerShown:false
   }}
 />
 
