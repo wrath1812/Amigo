@@ -20,7 +20,7 @@ import { calcHeight,calcWidth } from '../helper/res';
 import COLOR from '../constants/Colors';
 import { AntDesign,SimpleLineIcons } from '@expo/vector-icons'; 
 import { Ionicons } from '@expo/vector-icons'; 
-
+import TransactionCard from '../components/TransactionCard';
 function getMembersString(members) {
     let names = [];
 
@@ -46,8 +46,6 @@ function GroupScreen({
 
     const [transactions, setTransactions] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
-    const [balances,setBalances]=useState([]);
-    const {user}=useAuth();
 
     const fetchTransactions = useCallback(async () => {
         setIsLoading(true);
@@ -61,17 +59,8 @@ function GroupScreen({
     }, [group]);
 
 
-    const fetchBalances= useCallback(async () => {
-        try {
-            const { data } = await apiHelper(`/balance/${group._id}`);
-            setBalances(data);
-        } catch (error) {
-            console.error('Error fetching transactions:', error);
-        }
-    }, [group]);
 
     useFocusEffect(fetchTransactions);
-    useFocusEffect(fetchBalances);
 
     if (isLoading) {
         return <Loader />; // Your Loader component to indicate loading state
@@ -81,7 +70,9 @@ function GroupScreen({
         <SafeAreaView style={styles.container}>
 
              <View style={styles.header}>
+                <Pressable onPress={()=>navigation.goBack()}> 
              <Ionicons name="chevron-back" size={calcHeight(3)} color="#87CEEB" />
+             </Pressable>
              <View style={{flexDirection:"row",alignItems:"center"}}>
                     <GroupIcon image={LoginIcon}/>
                     <View style={styles.groupNameContainer}>
@@ -93,47 +84,9 @@ function GroupScreen({
                     <SimpleLineIcons name="options-vertical" size={24} color="white" />
                 </View>
             <ScrollView style={styles.scrollView}>
-{
-    balances && balances.length > 0 && balances.map((balance) => {
-        const isLender = user._id === balance.lender._id;
-        const isBorrower = user._id === balance.borrower._id;
-
-        const lenderName = isLender ? "You" : balance.lender.name;
-        const borrowerName = isBorrower ? "You" : balance.borrower.name;
-        const amountOwed = balance.amount;
-
-        return (
-            <Text>
-                {`${borrowerName} owe ${lenderName} ${amountOwed}`}
-            </Text>
-        );
-    })
-}
 
                 {transactions.map((transaction) => (
-                    <Pressable
-                        key={transaction._id}
-                        style={styles.transactionCard}
-                    >
-                        <Text style={styles.description}>
-                            {transaction.description}
-                        </Text>
-                        <Text>Amount: ${transaction.amount}</Text>
-                        <Text>
-                            Date:{' '}
-                            {new Date(transaction.date).toLocaleDateString()}
-                        </Text>
-                        <Text>Paid By {transaction.paidBy.name}</Text>
-                        <View>
-                            <Text>Split among:</Text>
-                            {transaction.splitAmong.map((person) => (
-                                <Text key={person.user._id}>
-                                    User: {person.user.name} - Amount: $
-                                    {person.amount}
-                                </Text>
-                            ))}
-                        </View>
-                    </Pressable>
+                   <TransactionCard transaction={transaction}/>
                 ))}
             </ScrollView>
             <FabIcon
