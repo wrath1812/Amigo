@@ -8,10 +8,11 @@ function NoGroups({onPress}) {
     return (
         <SafeAreaView style={styles.container}>
             <Image source={NoGroupsImage} style={styles.image} resizeMode="contain" />
-            <Pressable onPress={onPress}>
+            
             <Text style={styles.text}>No Groups Yet</Text>
+            <Pressable onPress={onPress}>
+            <AntDesign name="pluscircle" size={calcHeight(5)} color={COLOR.BUTTON}  />
             </Pressable>
-            <AntDesign name="pluscircle" size={calcHeight(5)} color={COLOR.BUTTON} />
         </SafeAreaView>
     );
 }

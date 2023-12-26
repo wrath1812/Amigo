@@ -4938,6 +4938,13 @@ expo-constants@^14.4.2, expo-constants@~14.4.2:
     "@expo/config" "~8.1.0"
     uuid "^3.3.2"
 
+expo-contacts@^12.4.0:
+  version "12.4.0"
+  resolved "https://registry.yarnpkg.com/expo-contacts/-/expo-contacts-12.4.0.tgz#58f86165d44bf9e83621684148a9c0c09c2fbaa8"
+  integrity sha512-PXLvORckrXaerGSfASjGlY2WA/Cb4m5KHFUa0SHpT+sB3tsctyoUKK8rxiwo9vaGS1up7YmvWnbfdX57S9qRNw==
+  dependencies:
+    uuid "^3.4.0"
+
 expo-device@~5.4.0:
   version "5.4.0"
   resolved "https://registry.yarnpkg.com/expo-device/-/expo-device-5.4.0.tgz#4dc4db4b2265d1f5c9d7c2be6548c375882be437"
