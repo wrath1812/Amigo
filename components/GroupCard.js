@@ -6,6 +6,7 @@ import COLOR from '../constants/Colors';
 import LoginImage from "../assets/Login.png";
 import { useNavigation } from '@react-navigation/native'
 import PAGES from "../constants/pages";
+import GroupIcon from './GroupIcon';
 function getMembersString(members) {
     let names = [];
 
@@ -26,13 +27,11 @@ function GroupCard({ group }) {
     return (
             <Pressable
                         onPress={() => {
-                            navigation.navigate(PAGES.TRANSACTION, { group });
+                            navigation.navigate(PAGES.GROUP, { group });
                         }}
                         style={styles.container}
                     >
-                       <View style={styles.imageContainer}>
-            <Image source={LoginImage} style={styles.image} resizeMode="contain" />
-            </View>
+                      <GroupIcon image={LoginImage}/>
             <View style={styles.textContainer}>
                         <Text  style={styles.nameText}>
                             {group.name}
@@ -54,15 +53,6 @@ const styles = StyleSheet.create({
         padding: calcWidth(5),
         borderBottomColor: "rgba(255, 255, 255, 0.13)" ,    
         borderBottomWidth:1
-    },
-    image: {
-        height:calcHeight(4),
-        width:calcHeight(4)
-    },
-    imageContainer:{
-        padding:calcWidth(2),
-        borderRadius:calcHeight(10),
-        backgroundColor:COLOR.BUTTON
     },
     textContainer: {
         width:calcWidth(60),

@@ -4,7 +4,7 @@ const PAGES = {
     GROUP_NAVIGATOR: 'Group Navigator',
     LOGIN: 'Login',
     SIGN_UP: 'Sign Up',
-    TRANSACTION: 'Transaction',
+    GROUP:"Group",
     ADD_TRANSACTION: 'Add Transaction',
     ADD_GROUP: 'Add Group',
     SETTINGS: 'Settings',

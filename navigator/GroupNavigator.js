@@ -3,12 +3,12 @@ import React from 'react';
 
 import PAGES from '../constants/pages';
 import GroupListScreen from '../pages/GroupListScreen';
-import TransactionScreen from '../pages/TransactionScreen';
 import TransactionFormScreen from '../pages/TransactionForm';
 import CreateGroupScreen from '../pages/CreateGroup';
 import JoinGroup from '../pages/JoinGroup';
 import {View,Text} from "react-native";
 import { calcHeight, getFontSizeByWindowWidth } from '../helper/res';
+import Group from "../pages/Group";
 import COLOR from "../constants/Colors";
 import CreateGroup from "../pages/CreateGroup";
 const Stack = createNativeStackNavigator();
@@ -24,8 +24,14 @@ function GroupNavigator() {
 />
 
             <Stack.Screen
-                name={PAGES.TRANSACTION}
-                component={TransactionScreen}
+                name={PAGES.GROUP}
+                component={Group}
+                options={{
+                    headerStyle: {
+                        backgroundColor: COLOR.APP_BACKGROUND
+                    },
+                    title:null
+                }}
             />
             <Stack.Screen
                 name={PAGES.ADD_TRANSACTION}
