@@ -26,12 +26,6 @@ function GroupNavigator() {
             <Stack.Screen
                 name={PAGES.GROUP}
                 component={Group}
-                options={{
-                    headerStyle: {
-                        backgroundColor: COLOR.APP_BACKGROUND
-                    },
-                    title:null
-                }}
             />
             <Stack.Screen
                 name={PAGES.ADD_TRANSACTION}
