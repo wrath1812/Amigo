@@ -11,7 +11,7 @@ function RootNavigator() {
     return loading ? (
         <Loader />
     ) : (
-        <NavigationContainer>
+        <NavigationContainer linking={linking}>
             {user ? <AppNavigator/> : AuthNavigator}
         </NavigationContainer>
     );
