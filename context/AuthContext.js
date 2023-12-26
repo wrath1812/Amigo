@@ -53,7 +53,8 @@ export const AuthProvider = ({ children }) => {
                 loading,
                 setLoading,
                 verifyOTP,
-                addName
+                addName,
+                logout
             }}
         >
             {children}
