@@ -19,6 +19,7 @@ import GroupIcon from "../components/GroupIcon";
 import { calcHeight,calcWidth } from '../helper/res';
 import COLOR from '../constants/Colors';
 import { AntDesign,SimpleLineIcons } from '@expo/vector-icons'; 
+import { Ionicons } from '@expo/vector-icons'; 
 
 function getMembersString(members) {
     let names = [];
@@ -41,24 +42,6 @@ function GroupScreen({
     },
 }) {
 
-    useLayoutEffect(() => {
-        navigation.setOptions({
-            headerTitle: () => (
-                <View style={styles.header}>
-                    <GroupIcon image={LoginIcon}/>
-                    <View style={styles.groupNameContainer}>
-                        <Text style={styles.groupName}>{group.name}</Text>
-                        <Text style={styles.groupMembers}>{getMembersString(group.members)}</Text>
-                    </View>
-                    <AntDesign name="scan1" size={24} color="white" />
-                    <SimpleLineIcons name="options-vertical" size={24} color="white" />
-                </View>
-            ),
-            headerStyle: {
-                backgroundColor: COLOR.APP_BACKGROUND,
-            },
-        });
-      }, [navigation, group.id]);
 
 
     const [transactions, setTransactions] = useState([]);
@@ -96,6 +79,19 @@ function GroupScreen({
 
     return (
         <SafeAreaView style={styles.container}>
+
+             <View style={styles.header}>
+             <Ionicons name="chevron-back" size={calcHeight(3)} color="#87CEEB" />
+             <View style={{flexDirection:"row",alignItems:"center"}}>
+                    <GroupIcon image={LoginIcon}/>
+                    <View style={styles.groupNameContainer}>
+                        <Text style={styles.groupName}>{group.name}</Text>
+                        <Text style={styles.groupMembers}>{getMembersString(group.members)}</Text>
+                    </View>
+                    </View>
+                    <AntDesign name="scan1" size={24} color="white" />
+                    <SimpleLineIcons name="options-vertical" size={24} color="white" />
+                </View>
             <ScrollView style={styles.scrollView}>
 {
     balances && balances.length > 0 && balances.map((balance) => {
@@ -173,6 +169,7 @@ const styles = StyleSheet.create({
         flexDirection:"row",
         padding:calcHeight(1),
         justifyContent:"space-between",
+        alignItems:"center"
     },
     image: {
         height:calcHeight(4),

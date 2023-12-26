@@ -19,13 +19,19 @@ function GroupNavigator() {
   name={PAGES.GROUP_LIST}
   component={GroupListScreen}
   options={{
-    headerShown:false
-  }}
+    headerStyle: {
+        backgroundColor: COLOR.APP_BACKGROUND
+    },
+    title:null
+}}
 />
 
             <Stack.Screen
                 name={PAGES.GROUP}
                 component={Group}
+                options={{
+                    headerShown:false
+                }}
             />
             <Stack.Screen
                 name={PAGES.ADD_TRANSACTION}
