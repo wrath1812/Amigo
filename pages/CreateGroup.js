@@ -1,98 +1,176 @@
-import React, { useState } from 'react';
-import {
-    View,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    StyleSheet,
-    SafeAreaView,
-    Image,
-    KeyboardAvoidingView,
-} from 'react-native';
+import React, { useState, useEffect, useRef } from 'react';
+import { View,ScrollView, Text, SafeAreaView,TextInput, TouchableOpacity, StyleSheet, FlatList, Image, Pressable } from 'react-native';
+import { FontAwesome } from '@expo/vector-icons';
+import * as Contacts from 'expo-contacts';
+import COLOR from '../constants/Colors';
+import ContactCard from '../components/ContactCard';
+import Button from '../components/Button';
+import { calcHeight, calcWidth } from '../helper/res';
+import Toast from 'react-native-root-toast';
 
-import apiHelper from '../helper/apiHelper';
-import Loader from '../components/Loader';
-import PAGES from '../constants/pages';
+function generateRandomColor() {
+  let color = '#';
+  for (let i = 0; i < 6; i++) {
+    color += Math.floor(Math.random() * 16).toString(16);
+  }
+  return color;
+}
 
-const CreateGroupScreen = ({ navigation }) => {
-    const [name, setName] = useState();
-    const [loading, setLoading] = useState(false);
+const CreateGroup = ({ navigation }) => {
+  const [contacts, setContacts] = useState([]);
+  const [search, setSearch] = useState('');
+  const [groupName, setGroupName] = useState('');
+  const [selectedContacts, setSelectedContacts] = useState([]);
+  const searchRef=useRef();
+  const nameRef=useRef();
 
-    const handleAddGroup = async () => {
-        setLoading(true);
-        await apiHelper.post('/group', { name });
-        navigation.navigate(PAGES.GROUP_LIST);
-    };
+  useEffect(() => {
+    (async () => {
+      const { status } = await Contacts.requestPermissionsAsync();
+      if (status === 'granted') {
+        const { data } = await Contacts.getContactsAsync({
+          fields: [Contacts.Fields.Name, Contacts.Fields.PhoneNumbers, Contacts.Fields.Image],
+        });
+        if (data.length > 0) {
+          const simplifiedContacts = data.map((contact) => ({
+            id: contact.id, // Unique identifier
+            name: contact.name || '',
+            phoneNumber: contact.phoneNumbers ? contact.phoneNumbers[0].number : '',
+            imageURI: contact.imageAvailable ? contact.image.uri : '',
+            color: generateRandomColor()
+          }));
+          setContacts(simplifiedContacts);
+        }
+      }
+    })();
+  }, []);
 
-    return loading ? (
-        <Loader />
-    ) : (
-        <SafeAreaView style={styles.container}>
-            <KeyboardAvoidingView
-                behavior="padding"
-                style={styles.innerContainer}
-                enabled
-            >
-                <Text style={styles.title}>Name</Text>
-                <TextInput
-                    style={styles.input}
-                    placeholder="Name"
-                    onChangeText={setName}
-                    value={name}
-                />
-                <TouchableOpacity
-                    style={styles.button}
-                    onPress={handleAddGroup}
-                >
-                    <Text style={styles.buttonText}>Add</Text>
-                </TouchableOpacity>
-            </KeyboardAvoidingView>
-        </SafeAreaView>
+  const handleSelectContact = (contact) => {
+    if (selectedContacts.some((selected) => selected.id === contact.id)) {
+      setSelectedContacts(selectedContacts.filter((selected) => selected.id !== contact.id));
+    } else {
+      setSelectedContacts([...selectedContacts, contact]);
+    }
+  };
+
+  const filterContacts = () => {
+    if (search === '') {
+      return contacts;
+    }
+    return contacts.filter(
+      (contact) =>
+        contact.name.toLowerCase().includes(search.toLowerCase()) ||
+        contact.phoneNumber.includes(search)
     );
+  };
+
+  const createGroupAsync =async()=>{
+      setLoading(true);
+      await apiHelper.post('/group', { name });
+      navigation.navigate(PAGES.GROUP_LIST);
+  };
+
+  return (
+    <SafeAreaView style={styles.container}>
+    <ScrollView contentContainerStyle={styles.scroll}>
+      <Text style={styles.heading}>New group</Text>
+      <Pressable style={styles.inputContainer} 
+      onPress={()=>nameRef.current.focus()}
+      >
+        <TextInput
+          style={styles.input}
+          onChangeText={setGroupName}
+          value={groupName}
+          placeholder="Name your group"
+          placeholderTextColor="gray"
+          ref={nameRef}
+        />
+      </Pressable>
+      <View style={styles.title}>
+        <Text style={styles.titleText}>Add members</Text>
+      </View>
+      <Pressable style={styles.inputContainer} 
+      onPress={()=>searchRef.current.focus()}
+      >
+        <FontAwesome name="search" size={24} color="gray" />
+        <TextInput
+          style={styles.input}
+          onChangeText={setSearch}
+          value={search}
+          placeholder="Search"
+          placeholderTextColor="gray"
+          ref={searchRef}
+        />
+      </Pressable>
+      <FlatList
+        data={filterContacts()}
+        style={{
+          height:calcHeight(40)
+        }}
+        keyExtractor={(item) => item.id}
+        renderItem={({ item }) => (
+          <Pressable onPress={() => handleSelectContact(item)}>
+            <ContactCard
+              {...item}
+              selected={selectedContacts.some((selected) => selected.id === item.id)}
+            />
+          </Pressable>
+        )}
+      />
+<View style={styles.button}>
+        <Button title="Create Group" onPress={
+    selectedContacts.length==0?  ()=>    {
+      Toast.show("Select a contact",{duration: Toast.durations.LONG})
+          }:createGroupAsync
+        } 
+        styleOverwrite={selectedContacts.length==0?{opacity:0.57}:{}}
+        />
+      </View>
+    </ScrollView>
+    </SafeAreaView>
+  );
 };
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    innerContainer: {
-        width: '80%',
-        alignItems: 'center',
-    },
-    image: {
-        width: 200,
-        height: 200,
-        borderRadius: 100, // Add rounded border to the image
-    },
-    title: {
-        fontSize: 24,
-        marginBottom: 20,
-        color: 'white', // Set text color to white
-    },
-    input: {
-        width: '100%', // Adjusted input width to be responsive
-        height: 40,
-        borderWidth: 1,
-        borderColor: '#ccc',
-        borderRadius: 5,
-        marginBottom: 10,
-        padding: 10,
-        backgroundColor: 'white', // Set input background color to white
-    },
-    button: {
-        width: '100%', // Adjusted button width to be responsive
-        height: 40,
-        backgroundColor: 'blue',
-        borderRadius: 5,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    buttonText: {
-        color: 'white',
-        fontSize: 16,
-    },
+  container: {
+    flex: 1,
+    backgroundColor: COLOR.APP_BACKGROUND,
+  },
+  scroll:{
+    margin:calcWidth(5)
+  },
+  heading: {
+    color: COLOR.PRIMARY,
+    marginTop: 20,
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 15,
+  },
+  inputContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    padding: 10,
+    borderWidth: 1,
+    borderColor: 'gray',
+    borderRadius: 5,
+    marginVertical: 5,
+  },
+  input: {
+    flex: 1,
+    marginLeft: 10,
+  },
+  title: {
+    alignSelf: 'flex-start',
+    marginVertical: 10,
+  },
+  titleText: {
+    color: COLOR.PRIMARY,
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  button: {
+    alignContent:"center"
+  },
 });
 
-export default CreateGroupScreen;
+export default CreateGroup;

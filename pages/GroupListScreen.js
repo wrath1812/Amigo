@@ -15,12 +15,10 @@ import copyToClipBoard from '../helper/copyToClipBoard';
 import { Feather } from '@expo/vector-icons';
 import NoGroups from '../components/NoGroups';
 import COLOR from '../constants/Colors';
-import GroupModal from '../components/GroupModal';
 
 function GroupListScreen({ navigation }) {
     const [groups, setGroups] = useState([]);
     const [loading, setLoading] = useState(false);
-    const [createGroupModal,setCreateGroupModal]=useState(false);
 
     useFocusEffect(
         useCallback(() => {
@@ -38,7 +36,7 @@ function GroupListScreen({ navigation }) {
         <Loader />
     ) : (
         <SafeAreaView style={styles.container}>
-            {groups.length==0?<NoGroups onPress={()=>{setCreateGroupModal(true)}}/>:(<ScrollView>
+            {groups.length==0?<NoGroups onPress={()=>{navigation.navigate(PAGES.CREATE_GROUP)}}/>:(<ScrollView>
                 {groups.map((group) => (
                     <Pressable
                         onPress={() => {
@@ -60,15 +58,6 @@ function GroupListScreen({ navigation }) {
                     </Pressable>
                 ))}
             </ScrollView>)}
-            {/* <FabIcon onPress={() => navigation.navigate(PAGES.ADD_GROUP)} />
-            <Pressable
-                onPress={() => {
-                    navigation.navigate(PAGES.JOIN_GROUP);
-                }}
-            >
-                <Text>Join Group</Text>
-            </Pressable> */}
-            <GroupModal  visible={createGroupModal} hideModal={()=>setCreateGroupModal(false)}/>
         </SafeAreaView>
     );
 }

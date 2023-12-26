@@ -71,6 +71,6 @@ const styles = StyleSheet.create({
         marginRight:calcWidth(2)
     },
     selectorContainer:{
-        // right:calcWidth(5)
+        right:calcWidth(5)
     }
 });

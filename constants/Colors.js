@@ -3,7 +3,8 @@ const COLOR={
     BUTTON:"#8740FD",
     TEXT:"white",
     PRIMARY:"white",
-    ERROR_BORDER:"red"
+    ERROR_BORDER:"red",
+    BUTTON_DISABLED:"grey"
 }
 
 export default COLOR;
