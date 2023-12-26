@@ -7,6 +7,14 @@ import * as Contacts from "expo-contacts";
 import COLOR from "../constants/Colors";
 import ContactCard from "./ContactCard";
 import { FontAwesome } from '@expo/vector-icons'; 
+
+function generateRandomColor() {
+    let color = "#";
+    for (let i = 0; i < 6; i++) {
+        color += Math.floor(Math.random() * 16).toString(16);
+    }
+    return color;
+}
 const GroupModal = ({ visible, hideModal }) => {
   const [contacts, setContacts] = useState([]);
   const [search, setSearch] = useState("");
@@ -20,20 +28,26 @@ const GroupModal = ({ visible, hideModal }) => {
           fields: [Contacts.Fields.Name, Contacts.Fields.PhoneNumbers, Contacts.Fields.Image],
         });
         if (data.length > 0) {
-          setContacts(data);
+          const simplifiedContacts = data.map(contact => ({
+            name: contact.name||"",
+            phoneNumber: contact.phoneNumbers ? contact.phoneNumbers[0].number : '',
+            imageURI: contact.imageAvailable ? contact.image.uri : ''
+          }));
+          setContacts(simplifiedContacts);
         }
       }
     })();
   }, []);
-
-  const renderContactItem = ({ item }) => (
-    <View style={styles.contactItem}>
-      <Text style={styles.contactName}>{item.name}</Text>
-      <TouchableOpacity style={styles.addButton}>
-        <Entypo name="circle-with-plus" size={24} color="blue" />
-      </TouchableOpacity>
-    </View>
-  );
+  
+  const filterContacts = () => {
+    if (search === "") {
+      return contacts;
+    }
+    return contacts.filter((contact) =>
+      contact.name.toLowerCase().includes(search.toLowerCase()) ||
+      contact.phoneNumber.includes(search)
+    );
+};
 
   return (
     <Modal
@@ -75,6 +89,12 @@ const GroupModal = ({ visible, hideModal }) => {
         placeholderTextColor={"gray"}
       />
     </View>
+    <FlatList
+        data={filterContacts()}
+        keyExtractor={(item) => item.phoneNumber.toString()}
+        renderItem={({item})=>{
+        return(<ContactCard {...item} color={generateRandomColor()}/>)}}
+      />
 
     </Modal>
   );
@@ -109,6 +129,7 @@ const styles = StyleSheet.create({
     },
       input: {
         paddingLeft: calcWidth(2),
+        color:COLOR.TEXT
       },
       title:{
         color:COLOR.PRIMARY,

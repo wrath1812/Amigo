@@ -6,21 +6,20 @@ import { Ionicons } from '@expo/vector-icons'; // Make sure to install expo-icon
 // Helper functions for responsive layout
 import { calcHeight, calcWidth,getFontSizeByWindowWidth } from '../helper/res';
 import COLOR from '../constants/Colors';
-function generateRandomLightColor() {
-    const randomByte = () => 128 + Math.floor(Math.random() * 128).toString(16);
-    return `#${randomByte()}${randomByte()}${randomByte()}`;
-}
 
 
-function ContactCard({ selected, name, phoneNumber, imageURI, onPress }) {
+
+
+function ContactCard({ selected,color, name, phoneNumber, imageURI, onPress, }) {
+    
     return (
         <View style={styles.container}>
             {imageURI?<Image
                 source={{ uri: imageURI }}
                 style={styles.profileImage}
             />:
-            <View style={styles.placeHolderView}>
-                <Text>{name.charAt(0).charAt(0).toUpperCase()}</Text>
+            <View style={[styles.placeHolderView,{backgroundColor:color}]}>
+                <Text>{name.charAt(0).toUpperCase()}</Text>
             </View>
             }
             <View style={styles.textContainer}>
@@ -50,7 +49,6 @@ const styles = StyleSheet.create({
         marginRight:calcWidth(2)
     },
     textContainer: {
-        flex: 1,
     },
     nameText: {
         fontWeight: 'bold',
@@ -61,7 +59,6 @@ const styles = StyleSheet.create({
         color: COLOR.PRIMARY,
     },
     placeHolderView:{
-        backgroundColor:generateRandomLightColor(),
         height:calcHeight(5),
         width:calcHeight(5),
         borderRadius:calcHeight(5),
