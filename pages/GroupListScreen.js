@@ -13,6 +13,8 @@ import FabIcon from '../components/FabIcon';
 import { useFocusEffect } from '@react-navigation/native';
 import copyToClipBoard from '../helper/copyToClipBoard';
 import { Feather } from '@expo/vector-icons';
+import NoGroups from '../components/NoGroups';
+import COLOR from '../constants/Colors';
 
 function GroupListScreen({ navigation }) {
     const [groups, setGroups] = useState([]);
@@ -34,7 +36,8 @@ function GroupListScreen({ navigation }) {
         <Loader />
     ) : (
         <SafeAreaView style={styles.container}>
-            <ScrollView>
+
+            {groups.length==0?<NoGroups onPress={()=>{}}/>:(<ScrollView>
                 {groups.map((group) => (
                     <Pressable
                         onPress={() => {
@@ -55,15 +58,15 @@ function GroupListScreen({ navigation }) {
                         </Pressable>
                     </Pressable>
                 ))}
-            </ScrollView>
-            <FabIcon onPress={() => navigation.navigate(PAGES.ADD_GROUP)} />
+            </ScrollView>)}
+            {/* <FabIcon onPress={() => navigation.navigate(PAGES.ADD_GROUP)} />
             <Pressable
                 onPress={() => {
                     navigation.navigate(PAGES.JOIN_GROUP);
                 }}
             >
                 <Text>Join Group</Text>
-            </Pressable>
+            </Pressable> */}
         </SafeAreaView>
     );
 }
@@ -73,6 +76,7 @@ const styles = StyleSheet.create({
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
+        backgroundColor:COLOR.APP_BACKGROUND
     },
     groupName: {
         fontSize: 16,
