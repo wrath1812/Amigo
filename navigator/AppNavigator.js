@@ -15,7 +15,7 @@ const AppNavigator =()=>{
     <Tab.Navigator>
         <Tab.Group>
             <Tab.Screen
-                name={PAGES.CARD_NAVIGATOR}
+                name={PAGES.GROUP_NAVIGATOR}
                 options={{
                     headerShown: false,
                     tabBarLabel: PAGES.CARD_LIST,

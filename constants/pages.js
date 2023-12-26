@@ -1,7 +1,7 @@
 const PAGES = {
     LOGGED_OUT: 'Logged Out',
     GROUP_LIST: 'Group List',
-    CARD_NAVIGATOR: 'Card Navigator',
+    GROUP_NAVIGATOR: 'Group Navigator',
     LOGIN: 'Login',
     SIGN_UP: 'Sign Up',
     TRANSACTION: 'Transaction',
