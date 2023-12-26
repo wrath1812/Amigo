@@ -3,7 +3,6 @@ import React from 'react';
 import COLOR from '../constants/Colors';
 import PAGES from '../constants/pages';
 import LoginScreen from '../pages/LoginScreen';
-import SignUpScreen from '../pages/SignUpScreen';
 import OTPScreen from "../pages/OTPScreen";
 const Stack = createNativeStackNavigator();
 

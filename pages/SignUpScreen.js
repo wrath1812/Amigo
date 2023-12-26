@@ -17,10 +17,6 @@ const SignUpScreen = ({ navigation }) => {
     borderBottomColor: isFocused ? 'rgba(255, 255, 255, 1)' : 'rgba(255, 255, 255, 0.5)'
   });
 
-    navigation.getParent()?.setOptions({
-      tabBarStyle: { display: "none" },
-    });
-
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.innerContainer}>

@@ -12,7 +12,7 @@ function RootNavigator() {
         <Loader />
     ) : (
         <NavigationContainer>
-            {user ? AppNavigator : AuthNavigator}
+            {user ? <AppNavigator/> : AuthNavigator}
         </NavigationContainer>
     );
 }
