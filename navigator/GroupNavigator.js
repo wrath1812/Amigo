@@ -7,17 +7,28 @@ import TransactionScreen from '../pages/TransactionScreen';
 import TransactionFormScreen from '../pages/TransactionForm';
 import CreateGroupScreen from '../pages/CreateGroup';
 import JoinGroup from '../pages/JoinGroup';
+import {View,Text} from "react-native";
+import { calcHeight, getFontSizeByWindowWidth } from '../helper/res';
+import COLOR from "../constants/Colors";
 const Stack = createNativeStackNavigator();
 function GroupNavigator() {
     return (
         <Stack.Navigator initialRouteName={PAGES.GROUP_LIST}>
             <Stack.Screen
-                name={PAGES.GROUP_LIST}
-                options={{
-                    headerShown: false,
-                }}
-                component={GroupListScreen}
-            />
+  name={PAGES.GROUP_LIST}
+  component={GroupListScreen}
+  options={{
+    headerStyle: {
+      backgroundColor: COLOR.APP_BACKGROUND,
+    },
+    headerTitle: () => (
+      <View style={{ flex: 1, justifyContent: 'flex-start' }}>
+        <Text style={{ fontWeight: 'bold',marginTop:calcHeight(3), color: 'white',fontSize:getFontSizeByWindowWidth(15) }}>{PAGES.GROUP_LIST}</Text>
+      </View>
+    ),
+  }}
+/>
+
             <Stack.Screen
                 name={PAGES.TRANSACTION}
                 component={TransactionScreen}

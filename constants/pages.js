@@ -1,6 +1,6 @@
 const PAGES = {
     LOGGED_OUT: 'Logged Out',
-    GROUP_LIST: 'Group List',
+    GROUP_LIST: 'Groups',
     GROUP_NAVIGATOR: 'Group Navigator',
     LOGIN: 'Login',
     SIGN_UP: 'Sign Up',
