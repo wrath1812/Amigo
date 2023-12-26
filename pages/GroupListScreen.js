@@ -20,6 +20,7 @@ import NoGroups from '../components/NoGroups';
 import COLOR from '../constants/Colors';
 import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
 import {useRef} from "react";
+import GroupCard from '../components/GroupCard';
 
 function GroupListScreen({ navigation }) {
     const [groups, setGroups] = useState([]);
@@ -61,24 +62,7 @@ function GroupListScreen({ navigation }) {
       </Pressable>
       <ScrollView>
                 {groups.map((group) => (
-                    <Pressable
-                        onPress={() => {
-                            navigation.navigate(PAGES.TRANSACTION, { group });
-                        }}
-                        style={styles.group}
-                    >
-                        <Text key={group._id} style={styles.groupName}>
-                            {group.name}
-                        </Text>
-                        <Pressable
-                            key={group._id}
-                            onPress={() =>
-                                copyToClipBoard(group._id, 'Group Id Copied')
-                            }
-                        >
-                            <Feather name="copy" size={24} color="black" />
-                        </Pressable>
-                    </Pressable>
+                    <GroupCard group={group}/>
                 ))}
                 
             </ScrollView></View>)}
@@ -110,11 +94,12 @@ const styles = StyleSheet.create({
     inputContainer: {
         flexDirection: 'row',
         alignItems: 'center',
-        padding: calcWidth(2),
+        padding: calcWidth(5),
         borderWidth: 1,
         borderColor: COLOR.BUTTON,
-        borderRadius: calcWidth(2),
+        borderRadius: 10,
         margin: calcHeight(2),
+        marginBottom:calcHeight(5)
       },
       input: {
         flex: 1,
