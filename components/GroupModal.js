@@ -6,9 +6,11 @@ import Modal from "react-native-modal";
 import * as Contacts from "expo-contacts";
 import COLOR from "../constants/Colors";
 import ContactCard from "./ContactCard";
+import { FontAwesome } from '@expo/vector-icons'; 
 const GroupModal = ({ visible, hideModal }) => {
   const [contacts, setContacts] = useState([]);
   const [search, setSearch] = useState("");
+  const [groupName, setGroupName] = useState('');
 
   useEffect(() => {
     (async () => {
@@ -46,67 +48,76 @@ const GroupModal = ({ visible, hideModal }) => {
       onSwipeComplete={hideModal}
       style={styles.modal}
     >
-        <ContactCard
-        selected={true} name={"fefr"} phoneNumber={"+4342423232323"}
-        />
-      <View style={styles.modalContent}>
-        <View style={styles.menuHeader}>
-          <TouchableOpacity onPress={hideModal}>
-            <Entypo name="chevron-thin-down" size={20} color="black" />
-          </TouchableOpacity>
-          <Text style={styles.menuTitle}>New group</Text>
-          <Entypo name="dots-three-vertical" size={20} color="black" />
-        </View>
-        <TextInput
-          style={styles.input}
-          placeholder="Name your group"
-          placeholderTextColor="#666"
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Search"
-          placeholderTextColor="#666"
-          onChangeText={setSearch}
-          value={search}
-        />
-        <FlatList
-          data={contacts.filter(contact => 
-            contact.name.toLowerCase().includes(search.toLowerCase())
-          )}
-          keyExtractor={(item) => item.id.toString()}
-          renderItem={renderContactItem}
-          ListFooterComponent={<View style={{ marginBottom: calcHeight(4) }} />} // Add spacing at the bottom
-        />
-      </View>
+        <Text style={styles.heading}>New group</Text>
+        <View style={styles.inputContainer}>
+      <TextInput
+        style={styles.input}
+        onChangeText={setGroupName}
+        value={groupName}
+        placeholder="Name your group"
+        placeholderTextColor={"gray"}
+      />
+    </View>
+    <View style={styles.title}>
+    <Text style={styles.title}>Add members</Text>
+    </View>
+    <View style={styles.inputContainer}>
+    <FontAwesome name="search" size={calcWidth(4)} color="gray"
+    style={{
+        marginLeft:calcWidth(2)
+    }}
+     />
+      <TextInput
+        style={styles.input}
+        onChangeText={setSearch}
+        value={search}
+        placeholder="Search"
+        placeholderTextColor={"gray"}
+      />
+    </View>
+
     </Modal>
   );
 };
 
 const styles = StyleSheet.create({
     modal:{
-        backgroundColor:COLOR.APP_BACKGROUND
+        backgroundColor:COLOR.APP_BACKGROUND,
+        justifyContent: 'flex-end',
+    margin: 0,
+    marginTop:calcHeight(15),
+    flex: 1,
+        justifyContent: 'flex-start',
+        alignItems: 'center',
     },
-  contactItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    padding: calcHeight(1),
-    borderBottomWidth: 1,
-    borderBottomColor: '#e7e6ea',
-  },
-  contactName: {
-    fontSize: getFontSizeByWindowWidth(14),
-    flex: 1, // Make name take up the available space
-    marginLeft: calcWidth(3),
-  },
-  addButton: {
-    marginRight: calcWidth(3),
-  },
-  avatar: {
-    width: calcHeight(3),
-    height: calcHeight(3),
-    borderRadius: calcHeight(1.5),
-  },
-  // Add the rest of your styles here
+    heading:{
+        color:COLOR.PRIMARY,
+        marginTop:calcHeight(10),
+        fontSize:getFontSizeByWindowWidth(15),
+        color:COLOR.PRIMARY,
+        fontWeight:"bold",
+        marginBottom:calcHeight(3)
+    },
+    inputContainer:{
+        height: calcHeight(5),
+        width:calcWidth(80),
+        borderRadius:calcWidth(2),
+        borderWidth: 1,
+        borderColor: 'gray', // Add more styling as needed,
+        flexDirection:"row",
+        alignItems:"center"
+    },
+      input: {
+        paddingLeft: calcWidth(2),
+      },
+      title:{
+        color:COLOR.PRIMARY,
+        marginTop:calcHeight(2),
+        fontSize:getFontSizeByWindowWidth(12),
+        color:COLOR.PRIMARY,
+        margin:calcHeight(2.5),
+        alignSelf:"flex-start"
+      }
 });
 
 export default GroupModal;
