@@ -7,7 +7,9 @@ import ContactCard from '../components/ContactCard';
 import Button from '../components/Button';
 import { calcHeight, calcWidth } from '../helper/res';
 import Toast from 'react-native-root-toast';
-
+import Loader from "../components/Loader";
+import apiHelper from "../helper/apiHelper";
+import PAGES from "../constants/pages";
 function generateRandomColor() {
   let color = '#';
   for (let i = 0; i < 6; i++) {
@@ -15,7 +17,7 @@ function generateRandomColor() {
   }
   return color;
 }
-
+//country code of inviters might be a problem
 const CreateGroup = ({ navigation }) => {
   const [contacts, setContacts] = useState([]);
   const [search, setSearch] = useState('');
@@ -23,7 +25,7 @@ const CreateGroup = ({ navigation }) => {
   const [selectedContacts, setSelectedContacts] = useState([]);
   const searchRef=useRef();
   const nameRef=useRef();
-
+  const [isLoading,setIsLoading]=useState(false);
   useEffect(() => {
     (async () => {
       const { status } = await Contacts.requestPermissionsAsync();
@@ -65,12 +67,12 @@ const CreateGroup = ({ navigation }) => {
   };
 
   const createGroupAsync =async()=>{
-      setLoading(true);
-      await apiHelper.post('/group', { name });
+      setIsLoading(true);
+      await apiHelper.post('/group', { name:groupName });
       navigation.navigate(PAGES.GROUP_LIST);
   };
 
-  return (
+  return isLoading?<Loader/>:(
     <SafeAreaView style={styles.container}>
     <ScrollView contentContainerStyle={styles.scroll}>
       <Text style={styles.heading}>New group</Text>
@@ -119,11 +121,11 @@ const CreateGroup = ({ navigation }) => {
       />
 <View style={styles.button}>
         <Button title="Create Group" onPress={
-    selectedContacts.length==0?  ()=>    {
+    selectedContacts.length==0 || groupName==""?  ()=>    {
       Toast.show("Select a contact",{duration: Toast.durations.LONG})
           }:createGroupAsync
         } 
-        styleOverwrite={selectedContacts.length==0?{opacity:0.57}:{}}
+        styleOverwrite={selectedContacts.length==0 || groupName==""?{opacity:0.57}:{}}
         />
       </View>
     </ScrollView>
@@ -158,6 +160,7 @@ const styles = StyleSheet.create({
   input: {
     flex: 1,
     marginLeft: 10,
+    color:"white"
   },
   title: {
     alignSelf: 'flex-start',
