@@ -7,7 +7,7 @@ import * as Contacts from "expo-contacts";
 import COLOR from "../constants/Colors";
 import ContactCard from "./ContactCard";
 import { FontAwesome } from '@expo/vector-icons'; 
-
+import Button from "../components/Button";
 function generateRandomColor() {
     let color = "#";
     for (let i = 0; i < 6; i++) {
@@ -19,6 +19,7 @@ const GroupModal = ({ visible, hideModal }) => {
   const [contacts, setContacts] = useState([]);
   const [search, setSearch] = useState("");
   const [groupName, setGroupName] = useState('');
+  const [selectContacts,setSelectedContacts]=useState([]);
 
   useEffect(() => {
     (async () => {
@@ -89,12 +90,21 @@ const GroupModal = ({ visible, hideModal }) => {
         placeholderTextColor={"gray"}
       />
     </View>
+   {!search &&<View  style={styles.title}>
+    <Text style={styles.text}>All Contacts</Text>
+    </View>}
     <FlatList
         data={filterContacts()}
         keyExtractor={(item) => item.phoneNumber.toString()}
         renderItem={({item})=>{
-        return(<ContactCard {...item} color={generateRandomColor()}/>)}}
+        return(<ContactCard {...item} color={generateRandomColor()} selected={false}/>)}}
       />
+
+    <View style={styles.button}>
+      <Button
+      title="Create Group"
+      />
+      </View>
 
     </Modal>
   );
@@ -112,7 +122,7 @@ const styles = StyleSheet.create({
     },
     heading:{
         color:COLOR.PRIMARY,
-        marginTop:calcHeight(10),
+        marginTop:calcHeight(5),
         fontSize:getFontSizeByWindowWidth(15),
         color:COLOR.PRIMARY,
         fontWeight:"bold",
@@ -138,6 +148,17 @@ const styles = StyleSheet.create({
         color:COLOR.PRIMARY,
         margin:calcHeight(2.5),
         alignSelf:"flex-start"
+      },
+      text:{
+        color:"gray",
+        fontSize:getFontSizeByWindowWidth(12),
+        color:COLOR.PRIMARY,
+        marginTop:calcHeight(3),
+        marginLeft:calcWidth(4),
+        alignSelf:"flex-start"
+      },
+      button:{
+        marginBottom:calcHeight(6)
       }
 });
 
