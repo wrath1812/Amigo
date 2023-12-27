@@ -1,28 +1,23 @@
+// Import necessary modules from React and React Native
 import React, { useEffect, useState, useRef } from 'react';
 import {
-    View,
-    Text,
-    TextInput,
-    StyleSheet,
-    TouchableOpacity,
-    ScrollView,
-    Alert,
-    Pressable,
+    View, Text, TextInput, StyleSheet, TouchableOpacity,
+    ScrollView, Alert, Pressable
 } from 'react-native';
+
+// Import custom components and helpers
 import { useAuth } from '../context/AuthContext';
 import apiHelper from '../helper/apiHelper';
 import PAGES from '../constants/pages';
 import Loader from '../components/Loader';
 import COLOR from '../constants/Colors';
-import { calcWidth, calcHeight, getFontSizeByWindowWidth } from '../helper/res';
 import Button from '../components/Button';
 import Categories from '../constants/Categories';
-function TransactionFormScreen({
-    navigation,
-    route: {
-        params: { group },
-    },
-}) {
+import { calcWidth, getFontSizeByWindowWidth } from '../helper/res';
+
+// TransactionFormScreen component definition
+function TransactionFormScreen({ navigation, route: { params: { group } } }) {
+    // State and context hooks
     const { user } = useAuth();
     const [loading, setIsLoading] = useState(false);
     const [transactionData, setTransactionData] = useState({
@@ -31,36 +26,34 @@ function TransactionFormScreen({
         paidBy: user._id,
         group: group._id,
         date: new Date(),
-        splitAmong: [],
+        splitAmong: []
     });
-
     const descriptionRef = useRef();
 
+    // Effect for updating split amounts
     useEffect(() => {
         const perUserPayment = transactionData.amount / group.members.length;
-        setTransactionData((prev) => ({
+        setTransactionData(prev => ({
             ...prev,
             splitAmong: group.members.map(({ _id }) => ({
                 amount: perUserPayment,
-                user: _id,
-            })),
+                user: _id
+            }))
         }));
     }, [transactionData.amount, group.members]);
 
+    // Handlers
     const handleInputChange = (field, value) => {
-        setTransactionData((prev) => ({
+        setTransactionData(prev => ({
             ...prev,
-            [field]: value,
+            [field]: value
         }));
     };
 
     const handleSubmit = async () => {
         setIsLoading(true);
         try {
-            const { data } = await apiHelper.post(
-                '/transaction',
-                transactionData,
-            );
+            const { data } = await apiHelper.post('/transaction', transactionData);
             Alert.alert('Success', 'Transaction saved successfully.');
             navigation.navigate(PAGES.TRANSACTION, { group });
         } catch (error) {
@@ -69,44 +62,32 @@ function TransactionFormScreen({
         setIsLoading(false);
     };
 
+    // Component render
     return loading ? (
         <Loader />
     ) : (
         <ScrollView style={styles.container}>
-            <View
-                style={{
-                    flexDirection: 'row',
-                    justifyContent: 'center',
-                    alignContent: 'center',
-                }}
-            >
+            <View style={styles.rowCentered}>
                 <Text style={styles.amount}>$</Text>
                 <TextInput
                     style={styles.amount}
-                    onChangeText={(text) => handleInputChange('amount', text)}
+                    onChangeText={text => handleInputChange('amount', text)}
                     value={transactionData.amount}
                     keyboardType="numeric"
                     placeholderTextColor={COLOR.TEXT}
                     placeholder="0"
-                    autoFocus={true}
+                    autoFocus
                 />
             </View>
-            <View
-                style={{
-                    flexDirection: 'row',
-                    justifyContent: 'center',
-                    alignContent: 'center',
-                }}
-            >
+
+            <View style={styles.rowCentered}>
                 <Pressable
                     style={styles.descriptionContainer}
                     onPress={() => descriptionRef.current.focus()}
                 >
                     <TextInput
                         style={styles.description}
-                        onChangeText={(text) =>
-                            handleInputChange('description', text)
-                        }
+                        onChangeText={text => handleInputChange('description', text)}
                         value={transactionData.description}
                         placeholder="Description"
                         placeholderTextColor="#ccc"
@@ -114,37 +95,22 @@ function TransactionFormScreen({
                     />
                 </Pressable>
             </View>
-            <ScrollView horizontal={true}>
-                {Categories.map((item) => {
-                    return (
-                        <Pressable
-                            style={{
-                                flexDirection: 'row',
-                                justifyContent: 'center',
-                                alignContent: 'center',
-                                alignItems: 'center',
-                                padding: calcWidth(3),
-                            }}
-                        >
-                            {item.icon}
-                            <Text
-                                style={{
-                                    color: COLOR.TEXT,
-                                    fontSize: getFontSizeByWindowWidth(8),
-                                    paddingLeft: calcWidth(1),
-                                }}
-                            >
-                                {item.name}
-                            </Text>
-                        </Pressable>
-                    );
-                })}
+
+            <ScrollView horizontal>
+                {Categories.map((item, index) => (
+                    <Pressable key={index} style={styles.categoryItem}>
+                        {item.icon}
+                        <Text style={styles.categoryText}>{item.name}</Text>
+                    </Pressable>
+                ))}
             </ScrollView>
-            <Button onPress={handleSubmit} title={'Submit'} />
+
+            <Button onPress={handleSubmit} title="Submit" />
         </ScrollView>
     );
 }
 
+// Styles definition
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -152,22 +118,16 @@ const styles = StyleSheet.create({
         backgroundColor: COLOR.APP_BACKGROUND,
         alignContent: 'center',
     },
+    rowCentered: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignContent: 'center',
+    },
     amount: {
         alignItems: 'center',
         alignContent: 'center',
         color: COLOR.TEXT,
         fontSize: getFontSizeByWindowWidth(50),
-    },
-    button: {
-        backgroundColor: '#007bff',
-        padding: 10,
-        borderRadius: 5,
-        alignItems: 'center',
-        marginTop: 20,
-    },
-    buttonText: {
-        color: 'white',
-        fontSize: 16,
     },
     description: {
         flex: 1,
@@ -183,6 +143,19 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         width: calcWidth(30),
     },
+    categoryItem: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignContent: 'center',
+        alignItems: 'center',
+        padding: calcWidth(3),
+    },
+    categoryText: {
+        color: COLOR.TEXT,
+        fontSize: getFontSizeByWindowWidth(8),
+        paddingLeft: calcWidth(1),
+    }
 });
 
+// Export the component
 export default TransactionFormScreen;
