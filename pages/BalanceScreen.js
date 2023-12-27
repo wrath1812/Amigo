@@ -82,7 +82,6 @@ function BalanceScreen({ navigation }) {
         <SafeAreaView style={styles.container}>
             <View
                 style={{
-                    flex: 1,
                     padding: calcWidth(2),
                 }}
             >
@@ -112,6 +111,7 @@ function BalanceScreen({ navigation }) {
                         $ 0
                     </Text>
                 </View>
+                </View>
                 {balances.length == 0 ?(
                     <EmptyScreen
                         onPress={() => {
@@ -136,7 +136,7 @@ function BalanceScreen({ navigation }) {
                         }}
                     />
                 )}
-            </View>
+            
         </SafeAreaView>
     );
 }

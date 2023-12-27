@@ -21,7 +21,14 @@ function GroupBalanceCard({ group }) {
             <GroupIcon image={LoginImage} />
             <View style={styles.textContainer}>
                 <Text style={styles.nameText}>{group.name}</Text>
+                <Text style={styles.memberText}>owe you money</Text>
             </View>
+            <Text
+            style={{
+                color:group.totalBalance>0?"green":"red",
+                fontWeight:"bold"
+            }}
+            >$ {parseInt(group.totalBalance)}</Text>
         </Pressable>
     );
 }
