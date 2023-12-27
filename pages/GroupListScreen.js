@@ -27,17 +27,17 @@ function GroupListScreen({ navigation }) {
     const [loading, setLoading] = useState(false);
     const [search, setSearch] = useState('');
     const searchRef = useRef();
-    // useFocusEffect(
-    //     useCallback(() => {
-    //         (async () => {
-    //             setLoading(true);
-    //             console.log(groups.members);
-    //             const { data } = await apiHelper('/group');
-    //             setGroups(data);
-    //             setLoading(false);
-    //         })();
-    //     }, []),
-    // );
+    useFocusEffect(
+        useCallback(() => {
+            (async () => {
+                setLoading(true);
+                console.log(groups.members);
+                const { data } = await apiHelper('/group');
+                setGroups(data);
+                setLoading(false);
+            })();
+        }, []),
+    );
 
     return loading ? (
         <Loader />
