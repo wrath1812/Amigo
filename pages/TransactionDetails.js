@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, SafeAreaView } from 'react-native';
+import React, { useState,useLayoutEffect } from 'react';
+import { View, Text, StyleSheet, SafeAreaView,TouchableOpacity } from 'react-native';
 import COLOR from '../constants/Colors';
 import { calcWidth, calcHeight, getFontSizeByWindowWidth } from '../helper/res';
 import generateRandomColor from '../helper/generateRandomColor';
 import { useAuth } from '../context/AuthContext';
 import DatePicker from '../components/DatePicker';
 import {getCategoryIcon} from "../constants/Categories";
+import { FontAwesome5,AntDesign } from '@expo/vector-icons'; 
 const TransactionDetail = ({
     navigation,
     route: {
@@ -14,6 +15,29 @@ const TransactionDetail = ({
 }) => {
     const [date, setDate] = useState(new Date(transaction.date));
     const { user } = useAuth();
+
+    useLayoutEffect(() => {
+        navigation.setOptions({
+          headerRight: () => (
+            <View style={{
+                flexDirection:"row"
+            }}>
+            <TouchableOpacity
+             style={{
+                marginRight:calcWidth(10)
+             }}
+            >
+                <FontAwesome5 name="edit" size={calcWidth(6)} color={COLOR.BUTTON} />
+            </TouchableOpacity>
+            <TouchableOpacity
+            >
+                <AntDesign name="delete" size={calcWidth(6)} color={COLOR.BUTTON} />
+            </TouchableOpacity>
+            </View>
+          ),
+        });
+      }, [navigation]);
+
     return (
         <SafeAreaView style={styles.container}>
             <View
@@ -202,7 +226,6 @@ const styles = StyleSheet.create({
         backgroundColor: COLOR.BUTTON,
     },
     sharedContainer: {
-        paddingVertical: calcHeight(1),
     },
     sharedDetail: {
         flexDirection: 'row',
