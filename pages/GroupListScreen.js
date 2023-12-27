@@ -16,28 +16,28 @@ import FabIcon from '../components/FabIcon';
 import { useFocusEffect } from '@react-navigation/native';
 import copyToClipBoard from '../helper/copyToClipBoard';
 import { Feather } from '@expo/vector-icons';
-import NoGroups from '../components/NoGroups';
+import EmptyScreen from '../components/EmptyScreen';
 import COLOR from '../constants/Colors';
 import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
 import { useRef } from 'react';
 import GroupCard from '../components/GroupCard';
-
+import NoGroupsImage from '../assets/NoGroups.png';
 function GroupListScreen({ navigation }) {
     const [groups, setGroups] = useState([]);
     const [loading, setLoading] = useState(false);
     const [search, setSearch] = useState('');
     const searchRef = useRef();
-    useFocusEffect(
-        useCallback(() => {
-            (async () => {
-                setLoading(true);
-                console.log(groups.members);
-                const { data } = await apiHelper('/group');
-                setGroups(data);
-                setLoading(false);
-            })();
-        }, []),
-    );
+    // useFocusEffect(
+    //     useCallback(() => {
+    //         (async () => {
+    //             setLoading(true);
+    //             console.log(groups.members);
+    //             const { data } = await apiHelper('/group');
+    //             setGroups(data);
+    //             setLoading(false);
+    //         })();
+    //     }, []),
+    // );
 
     return loading ? (
         <Loader />
@@ -45,10 +45,12 @@ function GroupListScreen({ navigation }) {
         <SafeAreaView style={styles.container}>
             <Text style={styles.header}>Groups</Text>
             {groups.length == 0 ? (
-                <NoGroups
+                <EmptyScreen
                     onPress={() => {
                         navigation.navigate(PAGES.CREATE_GROUP);
                     }}
+                    image={NoGroupsImage}
+                    title="No Groups Yet"
                 />
             ) : (
                 <View>

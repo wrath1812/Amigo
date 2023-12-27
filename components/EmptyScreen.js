@@ -7,20 +7,19 @@ import {
     Image,
     Pressable,
 } from 'react-native';
-import NoGroupsImage from '../assets/NoGroups.png';
 import { calcWidth, calcHeight, getFontSizeByWindowWidth } from '../helper/res';
 import { AntDesign } from '@expo/vector-icons';
 import COLOR from '../constants/Colors';
-function NoGroups({ onPress }) {
+function EmptyScreen({ onPress,image,title }) {
     return (
         <SafeAreaView style={styles.container}>
             <Image
-                source={NoGroupsImage}
+                source={image}
                 style={styles.image}
                 resizeMode="contain"
             />
 
-            <Text style={styles.text}>No Groups Yet</Text>
+            <Text style={styles.text}>{title}</Text>
             <Pressable onPress={onPress}>
                 <AntDesign
                     name="pluscircle"
@@ -50,4 +49,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default NoGroups;
+export default EmptyScreen;

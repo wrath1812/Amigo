@@ -16,7 +16,7 @@ import FabIcon from '../components/FabIcon';
 import { useFocusEffect } from '@react-navigation/native';
 import copyToClipBoard from '../helper/copyToClipBoard';
 import { Feather } from '@expo/vector-icons';
-import NoGroups from '../components/NoGroups';
+import NoGroups from '../components/EmptyScreen';
 import COLOR from '../constants/Colors';
 import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
 import { useRef } from 'react';
@@ -25,8 +25,7 @@ import GroupCard from '../components/GroupCard';
 function BalanceScreen({ navigation }) {
     const [groups, setGroups] = useState([]);
     const [loading, setLoading] = useState(false);
-    const [search, setSearch] = useState('');
-    const searchRef = useRef();
+    const [balance,setBalance]=useState([]);
     useFocusEffect(
         useCallback(() => {
             (async () => {
@@ -43,49 +42,7 @@ function BalanceScreen({ navigation }) {
         <Loader />
     ) : (
         <SafeAreaView style={styles.container}>
-            <Text style={styles.header}>Groups</Text>
-            {groups.length == 0 ? (
-                <NoGroups
-                    onPress={() => {
-                        navigation.navigate(PAGES.CREATE_GROUP);
-                    }}
-                />
-            ) : (
-                <View>
-                    <Pressable
-                        style={styles.inputContainer}
-                        onPress={() => searchRef.current.focus()}
-                    >
-                        <FontAwesome
-                            name="search"
-                            size={calcWidth(4)}
-                            color="gray"
-                        />
-                        <TextInput
-                            style={styles.input}
-                            onChangeText={setSearch}
-                            value={search}
-                            placeholder="Search"
-                            placeholderTextColor="gray"
-                            ref={searchRef}
-                        />
-                    </Pressable>
-                    <ScrollView>
-                        {groups.map((group) => (
-                            <GroupCard group={group} />
-                        ))}
-                    </ScrollView>
-                </View>
-            )}
-            {groups.length != 0 && (
-                <FabIcon
-                    onPress={() => {
-                        {
-                            navigation.navigate(PAGES.CREATE_GROUP);
-                        }
-                    }}
-                />
-            )}
+
         </SafeAreaView>
     );
 }
