@@ -59,7 +59,7 @@ function GroupScreen({
         setIsLoading(false);
     }, [group]);
 
-    // useFocusEffect(fetchTransactions);
+    useFocusEffect(fetchTransactions);
 
     if (isLoading) {
         return <Loader />;
