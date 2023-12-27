@@ -13,6 +13,7 @@ const PAGES = {
     OTP: 'OTP',
     CREATE_GROUP: 'Create Group',
     TRANSACTION_DETAIL: 'Transaction Detail',
+    BALANCE:"Balance"
 };
 
 export default PAGES;

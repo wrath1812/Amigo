@@ -4,6 +4,7 @@ import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import GroupNavigator from './GroupNavigator';
 import { useAuth } from '../context/AuthContext';
+import BalanceScreen from "../pages/BalanceScreen";
 import Settings from '../pages/Settings';
 import PAGES from '../constants/pages';
 const Stack = createNativeStackNavigator();
@@ -14,6 +15,21 @@ const AppNavigator = () => {
     return user.name ? (
         <Tab.Navigator>
             <Tab.Group>
+            <Tab.Screen
+                    name={PAGES.BALANCE}
+                    options={{
+                        headerShown: false,
+                        tabBarLabel: PAGES.CARD_LIST,
+                        tabBarIcon: ({ color, size }) => (
+                            <EvilIcons
+                                name="credit-card"
+                                size={size}
+                                color={color}
+                            />
+                        ),
+                    }}
+                    component={BalanceScreen}
+                />
                 <Tab.Screen
                     name={PAGES.GROUP_NAVIGATOR}
                     options={{
@@ -29,6 +45,7 @@ const AppNavigator = () => {
                     }}
                     component={GroupNavigator}
                 />
+
                 <Tab.Screen name={PAGES.SETTINGS} component={Settings} />
             </Tab.Group>
         </Tab.Navigator>
