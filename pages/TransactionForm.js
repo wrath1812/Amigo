@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState,useRef } from 'react';
 import {
     View,
     Text,
@@ -7,6 +7,7 @@ import {
     TouchableOpacity,
     ScrollView,
     Alert,
+    Pressable
 } from 'react-native';
 import { useAuth } from '../context/AuthContext';
 import apiHelper from '../helper/apiHelper';
@@ -25,6 +26,8 @@ function TransactionFormScreen({ navigation, route: { params: { group } } }) {
         date: new Date(),
         splitAmong: [],
     });
+
+    const descriptionRef=useRef();
 
 
     useEffect(() => {
@@ -79,14 +82,24 @@ function TransactionFormScreen({ navigation, route: { params: { group } } }) {
                 autoFocus={true}
             />
  </View>
-            <TextInput
-                style={styles.input}
+ <View style={{
+                flexDirection:"row",
+                justifyContent:"center",
+                alignContent:"center"
+            }}>
+            <Pressable style={styles.descriptionContainer} 
+      onPress={()=>descriptionRef.current.focus()}
+      >
+       <TextInput
+                style={styles.description}
                 onChangeText={text => handleInputChange('description', text)}
                 value={transactionData.description}
-                placeholder="Enter description"
+                placeholder="Description"
                 placeholderTextColor="#ccc"
+                ref={descriptionRef}
             />
-
+      </Pressable>
+</View>
             <TouchableOpacity style={styles.button} onPress={handleSubmit}>
                 <Text style={styles.buttonText}>Save</Text>
             </TouchableOpacity>
@@ -118,6 +131,20 @@ const styles = StyleSheet.create({
         color: 'white',
         fontSize: 16,
     },
+    description:{
+        flex: 1,
+    color:"white",
+    },
+    descriptionContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent:"center",
+        padding: calcWidth(3),
+        borderWidth: 1,
+        borderColor: 'gray',
+        borderRadius: 5,
+        width:calcWidth(30),
+      }
 });
 
 export default TransactionFormScreen;
