@@ -25,6 +25,7 @@ function GroupNavigator() {
                     },
                     title: null,
                 }}
+                
             />
 
             <Stack.Screen
@@ -59,7 +60,7 @@ function GroupNavigator() {
                 component={TransactionDetail}
                 options={{
                     headerStyle: {
-                        backgroundColor: COLOR.APP_BACKGROUND,
+                        backgroundColor: COLOR.APP_BACKGROUND,  
                     },
                     title: null,
                 }}
