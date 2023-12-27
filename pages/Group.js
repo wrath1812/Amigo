@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback,useLayoutEffect } from 'react';
+import React, { useEffect, useState, useCallback,useLayoutEffect} from 'react';
 import {
     Text,
     StyleSheet,
@@ -6,7 +6,8 @@ import {
     ScrollView,
     View,
     Pressable,
-    Image
+    Image,
+    FlatList 
 } from 'react-native';
 import apiHelper from '../helper/apiHelper';
 import Loader from '../components/Loader';
@@ -83,12 +84,14 @@ function GroupScreen({
                     <AntDesign name="scan1" size={24} color="white" />
                     <SimpleLineIcons name="options-vertical" size={24} color="white" />
                 </View>
-            <ScrollView style={styles.scrollView}>
-
-                {transactions.map((transaction) => (
-                   <TransactionCard transaction={transaction}/>
-                ))}
-            </ScrollView>
+          <FlatList
+          inverted
+          data={transactions}
+          keyExtractor={(item) => item._id}
+          renderItem={({ item }) => (
+            <TransactionCard transaction={item}/>
+          )}
+          />
             <FabIcon
                 onPress={() =>
                     navigation.navigate(PAGES.ADD_TRANSACTION, { group })

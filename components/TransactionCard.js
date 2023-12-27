@@ -2,6 +2,7 @@ import { StyleSheet, View, Pressable,Text } from 'react-native';
 import { calcHeight, calcWidth,getFontSizeByWindowWidth } from '../helper/res';
 import COLOR from '../constants/Colors';
 import { Octicons,EvilIcons } from '@expo/vector-icons'; 
+import { useAuth } from '../context/AuthContext';
 function convertToCustomFormat(dateString) {
     // Parse the date string
     var date = new Date(dateString);
@@ -15,8 +16,9 @@ function convertToCustomFormat(dateString) {
 
 
 function TransactionCard({ transaction }) {
-    
+    const {user}=useAuth();
     return (
+        <View style={{...styles.transactionContainer,alignItems:user._id==transaction.creator._id?"flex-end":"flex-start"}}>
         <Pressable
                         key={transaction._id}
                         style={styles.transactionCard}
@@ -45,22 +47,26 @@ function TransactionCard({ transaction }) {
                         </Text>
                         </View>
                         <Text style={styles.description}>
-                           Created By {transaction.creator.name}
+                           Created By {user._id==transaction.creator._id?"You":transaction.creator.name}
                         </Text>
                         </View>
                     </Pressable>
+                    </View>
     );
 }
 
 export default TransactionCard;
 
 const styles = StyleSheet.create({
+    transactionContainer:{
+        flex:1
+    },
     transactionCard: {
         padding: calcWidth(5),
         width:calcWidth(70),
         borderRadius:calcHeight(1),
         backgroundColor: '#342F4F',
-        margin:calcWidth(5)
+        margin:calcWidth(5),
     },
     description: {
         fontSize: getFontSizeByWindowWidth(10),
