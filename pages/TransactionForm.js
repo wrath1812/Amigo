@@ -5,7 +5,6 @@ import {
     ScrollView, Alert, Pressable
 } from 'react-native';
 
-// Import custom components and helpers
 import { useAuth } from '../context/AuthContext';
 import apiHelper from '../helper/apiHelper';
 import PAGES from '../constants/pages';
@@ -15,9 +14,8 @@ import Button from '../components/Button';
 import Categories from '../constants/Categories';
 import { calcWidth, getFontSizeByWindowWidth } from '../helper/res';
 
-// TransactionFormScreen component definition
 function TransactionFormScreen({ navigation, route: { params: { group } } }) {
-    // State and context hooks
+
     const { user } = useAuth();
     const [loading, setIsLoading] = useState(false);
     const [transactionData, setTransactionData] = useState({
@@ -30,7 +28,6 @@ function TransactionFormScreen({ navigation, route: { params: { group } } }) {
     });
     const descriptionRef = useRef();
 
-    // Effect for updating split amounts
     useEffect(() => {
         const perUserPayment = transactionData.amount / group.members.length;
         setTransactionData(prev => ({
@@ -42,7 +39,6 @@ function TransactionFormScreen({ navigation, route: { params: { group } } }) {
         }));
     }, [transactionData.amount, group.members]);
 
-    // Handlers
     const handleInputChange = (field, value) => {
         setTransactionData(prev => ({
             ...prev,
@@ -92,6 +88,7 @@ function TransactionFormScreen({ navigation, route: { params: { group } } }) {
                         placeholder="Description"
                         placeholderTextColor="#ccc"
                         ref={descriptionRef}
+                        textAlign='center'
                     />
                 </Pressable>
             </View>
@@ -135,8 +132,6 @@ const styles = StyleSheet.create({
     },
     descriptionContainer: {
         flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
         padding: calcWidth(3),
         borderWidth: 1,
         borderColor: 'gray',
