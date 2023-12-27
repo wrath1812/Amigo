@@ -1,7 +1,13 @@
 import React, { useEffect, useState, useRef } from 'react';
 import {
-    View, Text, TextInput, StyleSheet, TouchableOpacity,
-    ScrollView, Alert, Pressable
+    View,
+    Text,
+    TextInput,
+    StyleSheet,
+    TouchableOpacity,
+    ScrollView,
+    Alert,
+    Pressable,
 } from 'react-native';
 
 import { useAuth } from '../context/AuthContext';
@@ -13,8 +19,12 @@ import Button from '../components/Button';
 import Categories from '../constants/Categories';
 import { calcWidth, getFontSizeByWindowWidth } from '../helper/res';
 
-function TransactionFormScreen({ navigation, route: { params: { group } } }) {
-
+function TransactionFormScreen({
+    navigation,
+    route: {
+        params: { group },
+    },
+}) {
     const { user } = useAuth();
     const [loading, setIsLoading] = useState(false);
     const [selectedCategory, setSelectedCategory] = useState(null);
@@ -25,46 +35,49 @@ function TransactionFormScreen({ navigation, route: { params: { group } } }) {
         paidBy: user._id,
         group: group._id,
         date: new Date(),
-        type:"Other",
-        splitAmong: []
+        type: 'Other',
+        splitAmong: [],
     });
     const descriptionRef = useRef();
 
     useEffect(() => {
         const perUserPayment = transactionData.amount / group.members.length;
-        setTransactionData(prev => ({
+        setTransactionData((prev) => ({
             ...prev,
             splitAmong: group.members.map(({ _id }) => ({
                 amount: perUserPayment,
-                user: _id
-            }))
+                user: _id,
+            })),
         }));
     }, [transactionData.amount, group.members]);
 
     const handleInputChange = (field, value) => {
-        setTransactionData(prev => ({
+        setTransactionData((prev) => ({
             ...prev,
-            [field]: value
+            [field]: value,
         }));
     };
 
     const handleCategorySelect = (category) => {
         setSelectedCategory(category);
-        setTransactionData(prev => ({
+        setTransactionData((prev) => ({
             ...prev,
-            category: category
+            category: category,
         }));
     };
 
     const handleSubmit = async () => {
         setIsLoading(true);
         try {
-            transactionData["amount"]=parseInt(transactionData.amount);
-            const { data } = await apiHelper.post('/transaction', transactionData);
+            transactionData['amount'] = parseInt(transactionData.amount);
+            const { data } = await apiHelper.post(
+                '/transaction',
+                transactionData,
+            );
             Alert.alert('Success', JSON.stringify(data));
             navigation.navigate(PAGES.TRANSACTION, { group });
         } catch (error) {
-            console.log("error",error);
+            console.log('error', error);
             Alert.alert('Error', 'There was an error saving the transaction.');
         }
         setIsLoading(false);
@@ -78,7 +91,7 @@ function TransactionFormScreen({ navigation, route: { params: { group } } }) {
                 <Text style={styles.amount}>$</Text>
                 <TextInput
                     style={styles.amount}
-                    onChangeText={text => handleInputChange('amount', text)}
+                    onChangeText={(text) => handleInputChange('amount', text)}
                     value={transactionData.amount}
                     keyboardType="numeric"
                     placeholderTextColor={COLOR.TEXT}
@@ -94,12 +107,14 @@ function TransactionFormScreen({ navigation, route: { params: { group } } }) {
                 >
                     <TextInput
                         style={styles.description}
-                        onChangeText={text => handleInputChange('description', text)}
+                        onChangeText={(text) =>
+                            handleInputChange('description', text)
+                        }
                         value={transactionData.description}
                         placeholder="Description"
                         placeholderTextColor="#ccc"
                         ref={descriptionRef}
-                        textAlign='center'
+                        textAlign="center"
                     />
                 </Pressable>
             </View>
@@ -110,7 +125,8 @@ function TransactionFormScreen({ navigation, route: { params: { group } } }) {
                         key={index}
                         style={[
                             styles.categoryItem,
-                            selectedCategory === item.name && styles.selectedCategory
+                            selectedCategory === item.name &&
+                                styles.selectedCategory,
                         ]}
                         onPress={() => handleCategorySelect(item.name)}
                     >

@@ -10,14 +10,10 @@ import {
 import { calcWidth, calcHeight, getFontSizeByWindowWidth } from '../helper/res';
 import { AntDesign } from '@expo/vector-icons';
 import COLOR from '../constants/Colors';
-function EmptyScreen({ onPress,image,title }) {
+function EmptyScreen({ onPress, image, title }) {
     return (
         <SafeAreaView style={styles.container}>
-            <Image
-                source={image}
-                style={styles.image}
-                resizeMode="contain"
-            />
+            <Image source={image} style={styles.image} resizeMode="contain" />
 
             <Text style={styles.text}>{title}</Text>
             <Pressable onPress={onPress}>

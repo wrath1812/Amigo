@@ -1,25 +1,23 @@
 import { FAB } from 'react-native-paper';
-import { StyleSheet, Pressable,TextInput as DefaultInput } from 'react-native';
+import { StyleSheet, Pressable, TextInput as DefaultInput } from 'react-native';
 import { calcHeight, calcWidth } from '../helper/res';
 
 import { useRef } from 'react';
 function TextInput(propsOverwrite) {
-    const textRef=useRef();
+    const textRef = useRef();
     return (
         <Pressable
-        style={styles.container}
-        onPress={() => textRef.current.focus()}
-    >
-        <DefaultInput
-            style={styles.input}
-            placeholderTextColor="#ccc"
-            ref={textRef}
-            textAlign='center'
-            {
-                ...propsOverwrite
-            }
-        />
-    </Pressable>
+            style={styles.container}
+            onPress={() => textRef.current.focus()}
+        >
+            <DefaultInput
+                style={styles.input}
+                placeholderTextColor="#ccc"
+                ref={textRef}
+                textAlign="center"
+                {...propsOverwrite}
+            />
+        </Pressable>
     );
 }
 
@@ -36,6 +34,6 @@ const styles = StyleSheet.create({
         borderColor: 'gray',
         borderRadius: 5,
         width: calcWidth(30),
-        color:"white"
-    }
+        color: 'white',
+    },
 });

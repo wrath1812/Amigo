@@ -36,13 +36,13 @@ function GroupListScreen({ navigation }) {
         if (isFocused) {
             // Show the tab bar when this screen is focused
             navigation.getParent()?.setOptions({
-                tabBarStyle: { display: "flex" }
+                tabBarStyle: { display: 'flex' },
             });
         } else {
             // Optional: Hide the tab bar when this screen is not focused
             // You can remove this part if you only want to show the tab bar in this screen
             navigation.getParent()?.setOptions({
-                tabBarStyle: { display: "none" }
+                tabBarStyle: { display: 'none' },
             });
         }
     }, [isFocused, navigation]);
