@@ -1,15 +1,16 @@
 import React from 'react';
 import { Text, TouchableOpacity, StyleSheet } from 'react-native';
 
-import { calcWidth,calcHeight,getFontSizeByWindowWidth } from '../helper/res';
+import { calcWidth, calcHeight, getFontSizeByWindowWidth } from '../helper/res';
 import COLOR from '../constants/Colors';
-const Button = ({onPress,title,styleOverwrite={}}) => {
-
-   
+const Button = ({ onPress, title, styleOverwrite = {} }) => {
     return (
-                <TouchableOpacity style={{...styles.button,...styleOverwrite}} onPress={onPress}>
-                    <Text style={styles.buttonText}>{title}</Text>
-                </TouchableOpacity>
+        <TouchableOpacity
+            style={{ ...styles.button, ...styleOverwrite }}
+            onPress={onPress}
+        >
+            <Text style={styles.buttonText}>{title}</Text>
+        </TouchableOpacity>
     );
 };
 
@@ -18,18 +19,18 @@ const styles = StyleSheet.create({
         display: 'flex',
         justifyContent: 'center', // Centers child horizontally in the container
         alignItems: 'center',
-        width:calcWidth(80),
-        paddingVertical:calcHeight(2),
+        width: calcWidth(80),
+        paddingVertical: calcHeight(2),
         borderRadius: 10,
         backgroundColor: COLOR.BUTTON,
         elevation: 3,
-        marginTop:calcHeight(4)
+        marginTop: calcHeight(4),
     },
     buttonText: {
         fontSize: getFontSizeByWindowWidth(12),
         color: 'white',
         fontWeight: '600',
-        alignItems:"center",
+        alignItems: 'center',
     },
 });
 

@@ -4,15 +4,15 @@ const PAGES = {
     GROUP_NAVIGATOR: 'Group Navigator',
     LOGIN: 'Login',
     SIGN_UP: 'Sign Up',
-    GROUP:"Group",
+    GROUP: 'Group',
     ADD_TRANSACTION: 'Add Transaction',
     ADD_GROUP: 'Add Group',
     SETTINGS: 'Settings',
     JOIN_GROUP: 'Join group',
-    ONBOARDING:"Onboarding",
-    OTP:"OTP",
-    CREATE_GROUP:"Create Group",
-    TRANSACTION_DETAIL:"Transaction Detail"
+    ONBOARDING: 'Onboarding',
+    OTP: 'OTP',
+    CREATE_GROUP: 'Create Group',
+    TRANSACTION_DETAIL: 'Transaction Detail',
 };
 
 export default PAGES;

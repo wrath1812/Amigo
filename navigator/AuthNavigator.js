@@ -3,7 +3,7 @@ import React from 'react';
 import COLOR from '../constants/Colors';
 import PAGES from '../constants/pages';
 import LoginScreen from '../pages/LoginScreen';
-import OTPScreen from "../pages/OTPScreen";
+import OTPScreen from '../pages/OTPScreen';
 const Stack = createNativeStackNavigator();
 
 import OnboardingScreen from '../pages/OnBoardingScreen';
@@ -11,31 +11,30 @@ const AuthNavigator = (
     <Stack.Navigator>
         <Stack.Group>
             <Stack.Screen
-            name={PAGES.ONBOARDING}
-            options={{
-                headerShown:false
-            }
-            }
-            component={OnboardingScreen}
+                name={PAGES.ONBOARDING}
+                options={{
+                    headerShown: false,
+                }}
+                component={OnboardingScreen}
             />
             <Stack.Screen
-    name={PAGES.LOGIN}
-    component={LoginScreen}
-    options={{
-        headerStyle: {
-            backgroundColor: COLOR.APP_BACKGROUND
-        },
-        title:null
-    }}
-/>
+                name={PAGES.LOGIN}
+                component={LoginScreen}
+                options={{
+                    headerStyle: {
+                        backgroundColor: COLOR.APP_BACKGROUND,
+                    },
+                    title: null,
+                }}
+            />
 
-<Stack.Screen
+            <Stack.Screen
                 name={PAGES.OTP}
                 options={{
                     headerStyle: {
-                        backgroundColor: COLOR.APP_BACKGROUND
+                        backgroundColor: COLOR.APP_BACKGROUND,
                     },
-                    title:null
+                    title: null,
                 }}
                 component={OTPScreen}
             />

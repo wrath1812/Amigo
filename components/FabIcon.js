@@ -5,11 +5,11 @@ import COLOR from '../constants/Colors';
 function FabIcon({ onPress }) {
     return (
         <View style={styles.fabContainer}>
-            <FAB 
+            <FAB
                 style={styles.fab}
-                icon="plus" 
+                icon="plus"
                 customSize={calcHeight(9)}
-                onPress={onPress} 
+                onPress={onPress}
                 color="white"
             />
         </View>
@@ -27,8 +27,8 @@ const styles = StyleSheet.create({
     fab: {
         backgroundColor: COLOR.BUTTON,
         // Increase the size of the FAB
-        height: calcHeight(5),  // Default is usually 56, increase this value
-        width: calcHeight(5),   // Default is usually 56, increase this value
+        height: calcHeight(5), // Default is usually 56, increase this value
+        width: calcHeight(5), // Default is usually 56, increase this value
         borderRadius: calcHeight(5), // Adjust the border radius if needed (half of width/height for perfect circle)
         alignItems: 'center',
         justifyContent: 'center',

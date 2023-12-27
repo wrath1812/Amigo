@@ -6,7 +6,7 @@ import {
     ScrollView,
     Pressable,
     View,
-    TextInput
+    TextInput,
 } from 'react-native';
 import Loader from '../components/Loader';
 import { FontAwesome } from '@expo/vector-icons';
@@ -19,14 +19,14 @@ import { Feather } from '@expo/vector-icons';
 import NoGroups from '../components/NoGroups';
 import COLOR from '../constants/Colors';
 import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
-import {useRef} from "react";
+import { useRef } from 'react';
 import GroupCard from '../components/GroupCard';
 
 function GroupListScreen({ navigation }) {
     const [groups, setGroups] = useState([]);
     const [loading, setLoading] = useState(false);
-    const [search,setSearch]=useState("");
-    const searchRef=useRef();
+    const [search, setSearch] = useState('');
+    const searchRef = useRef();
     useFocusEffect(
         useCallback(() => {
             (async () => {
@@ -44,30 +44,48 @@ function GroupListScreen({ navigation }) {
     ) : (
         <SafeAreaView style={styles.container}>
             <Text style={styles.header}>Groups</Text>
-            {groups.length==0?<NoGroups onPress={()=>{navigation.navigate(PAGES.CREATE_GROUP)}}/>:(
-            <View>
-                
-                <Pressable style={styles.inputContainer} 
-      onPress={()=>searchRef.current.focus()}
-      >
-        <FontAwesome name="search" size={calcWidth(4)} color="gray" />
-        <TextInput
-          style={styles.input}
-          onChangeText={setSearch}
-          value={search}
-          placeholder="Search"
-          placeholderTextColor="gray"
-          ref={searchRef}
-        />
-      </Pressable>
-      <ScrollView>
-                {groups.map((group) => (
-                    <GroupCard group={group}/>
-                ))}
-                
-            </ScrollView></View>)}
-            {groups.length!=0 &&<FabIcon onPress={()=>{{
-                navigation.navigate(PAGES.CREATE_GROUP)}}}/>}
+            {groups.length == 0 ? (
+                <NoGroups
+                    onPress={() => {
+                        navigation.navigate(PAGES.CREATE_GROUP);
+                    }}
+                />
+            ) : (
+                <View>
+                    <Pressable
+                        style={styles.inputContainer}
+                        onPress={() => searchRef.current.focus()}
+                    >
+                        <FontAwesome
+                            name="search"
+                            size={calcWidth(4)}
+                            color="gray"
+                        />
+                        <TextInput
+                            style={styles.input}
+                            onChangeText={setSearch}
+                            value={search}
+                            placeholder="Search"
+                            placeholderTextColor="gray"
+                            ref={searchRef}
+                        />
+                    </Pressable>
+                    <ScrollView>
+                        {groups.map((group) => (
+                            <GroupCard group={group} />
+                        ))}
+                    </ScrollView>
+                </View>
+            )}
+            {groups.length != 0 && (
+                <FabIcon
+                    onPress={() => {
+                        {
+                            navigation.navigate(PAGES.CREATE_GROUP);
+                        }
+                    }}
+                />
+            )}
         </SafeAreaView>
     );
 }
@@ -75,14 +93,14 @@ function GroupListScreen({ navigation }) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor:COLOR.APP_BACKGROUND
+        backgroundColor: COLOR.APP_BACKGROUND,
     },
-    header:{
-        fontSize:getFontSizeByWindowWidth(19),
-        color:COLOR.TEXT,
-        fontWeight:"bold",
-        alignContent:"left",
-        padding:calcWidth(3)
+    header: {
+        fontSize: getFontSizeByWindowWidth(19),
+        color: COLOR.TEXT,
+        fontWeight: 'bold',
+        alignContent: 'left',
+        padding: calcWidth(3),
     },
     groupName: {
         fontSize: 16,
@@ -99,13 +117,13 @@ const styles = StyleSheet.create({
         borderColor: COLOR.BUTTON,
         borderRadius: 10,
         margin: calcHeight(2),
-        marginBottom:calcHeight(5)
-      },
-      input: {
+        marginBottom: calcHeight(5),
+    },
+    input: {
         flex: 1,
         marginLeft: 10,
-        color:"white"
-      }
+        color: 'white',
+    },
 });
 
 export default GroupListScreen;

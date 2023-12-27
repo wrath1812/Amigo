@@ -16,7 +16,6 @@ const linking = {
             Linking.removeEventListener('url', onReceiveURL);
         };
     },
-    config: {
-    },
+    config: {},
 };
 export default linking;

@@ -26,24 +26,25 @@ export const AuthProvider = ({ children }) => {
         })();
     }, []);
 
-
-
-    const addName=(name)=>{
-     apiHelper.patch('/user/name',{name});
-     setUser((prev)=>({...prev,name}));
-    }
+    const addName = (name) => {
+        apiHelper.patch('/user/name', { name });
+        setUser((prev) => ({ ...prev, name }));
+    };
     const logout = () => {
         setUser('');
         removeLocalStoreData(TOKEN);
     };
 
-   async function  verifyOTP(phoneNumber,countryCode,otp){
-    const {data}= await apiHelper.post("/auth/verifyOTP",{phoneNumber,countryCode,otp});
-    if(data.status)
-    return;
-    const {userData,token}=data;
-    setUser(userData);
-    setLocalStoreData(TOKEN,token);
+    async function verifyOTP(phoneNumber, countryCode, otp) {
+        const { data } = await apiHelper.post('/auth/verifyOTP', {
+            phoneNumber,
+            countryCode,
+            otp,
+        });
+        if (data.status) return;
+        const { userData, token } = data;
+        setUser(userData);
+        setLocalStoreData(TOKEN, token);
     }
 
     return (
@@ -54,7 +55,7 @@ export const AuthProvider = ({ children }) => {
                 setLoading,
                 verifyOTP,
                 addName,
-                logout
+                logout,
             }}
         >
             {children}
