@@ -10,7 +10,6 @@ import PAGES from '../constants/pages';
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 import SignUpScreen from '../pages/SignUpScreen';
-import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 
 
 const AppNavigator = () => {
@@ -45,6 +44,7 @@ const AppNavigator = () => {
                                 color={color}
                             />
                         ),
+                        tabBarStyle: { display: "none" }
                     }}
                     component={GroupNavigator}
                 />

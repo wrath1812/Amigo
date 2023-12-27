@@ -34,9 +34,6 @@ function GroupScreen({ navigation, route: { params: { group } } }) {
     const [transactions, setTransactions] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [amount,setAmount]=useState("");
-    // navigation.getParent()?.setOptions({
-    //     tabBarStyle: { display: "none" },
-    //   });
 
     const fetchTransactions = useCallback(async () => {
         navigation.get
