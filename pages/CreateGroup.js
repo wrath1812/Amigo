@@ -61,8 +61,8 @@ const CreateGroup = ({ navigation }) => {
   const createGroupAsync =async()=>{
     setIsLoading(true);
     const phoneNumbers=selectedContacts.map(({phoneNumber})=>({phoneNumber,countryCode:"91"}));
-    await apiHelper.post('/group', { name:groupName,phoneNumbers });
-    navigation.navigate(PAGES.GROUP_LIST);
+    const group=await apiHelper.post('/group', { name:groupName,phoneNumbers });
+    navigation.goBack({group});
 };
 
   const handleSelectContact = (contact) => {
