@@ -15,6 +15,7 @@ import PAGES from '../constants/pages';
 import Loader from '../components/Loader';
 import COLOR from "../constants/Colors";
 import {calcWidth,calcHeight,getFontSizeByWindowWidth} from "../helper/res";
+import Button from '../components/Button';
 function TransactionFormScreen({ navigation, route: { params: { group } } }) {
     const { user } = useAuth();
     const [loading, setIsLoading] = useState(false);
@@ -100,9 +101,10 @@ function TransactionFormScreen({ navigation, route: { params: { group } } }) {
             />
       </Pressable>
 </View>
-            <TouchableOpacity style={styles.button} onPress={handleSubmit}>
-                <Text style={styles.buttonText}>Save</Text>
-            </TouchableOpacity>
+            <Button
+            onPress={handleSubmit}
+            title={"Submit"}
+            />
         </ScrollView>
     );
 }
