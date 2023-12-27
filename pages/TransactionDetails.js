@@ -235,8 +235,7 @@ const styles = StyleSheet.create({
     },
     sharedUser: {
         color: COLOR.TEXT,
-        fontSize: getFontSizeByWindowWidth(14),
-        marginLeft: calcWidth(7),
+        fontSize: getFontSizeByWindowWidth(14)
     },
     sharedAmount: {
         color: COLOR.TEXT,
