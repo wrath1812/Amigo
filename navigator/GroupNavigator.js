@@ -12,6 +12,7 @@ import Group from "../pages/Group";
 import COLOR from "../constants/Colors";
 import CreateGroup from "../pages/CreateGroup";
 const Stack = createNativeStackNavigator();
+import TransactionDetail from '../pages/TransactionDetails';
 function GroupNavigator() {
     return (
         <Stack.Navigator initialRouteName={PAGES.GROUP_LIST}>
@@ -39,6 +40,16 @@ function GroupNavigator() {
             />
             <Stack.Screen
             name={PAGES.CREATE_GROUP}
+            component={CreateGroup}
+            options={{
+              headerStyle: {
+                  backgroundColor: COLOR.APP_BACKGROUND
+              },
+              title:null
+          }}
+            />
+            <Stack.Screen
+            name={PAGES.TRANSACTION_DETAIL}
             component={CreateGroup}
             options={{
               headerStyle: {

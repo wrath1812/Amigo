@@ -11,7 +11,8 @@ const PAGES = {
     JOIN_GROUP: 'Join group',
     ONBOARDING:"Onboarding",
     OTP:"OTP",
-    CREATE_GROUP:"Create Group"
+    CREATE_GROUP:"Create Group",
+    TRANSACTION_DETAIL:"Transaction Detail"
 };
 
 export default PAGES;

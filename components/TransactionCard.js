@@ -3,6 +3,8 @@ import { calcHeight, calcWidth,getFontSizeByWindowWidth } from '../helper/res';
 import COLOR from '../constants/Colors';
 import { Octicons,EvilIcons } from '@expo/vector-icons'; 
 import { useAuth } from '../context/AuthContext';
+import { useNavigation } from '@react-navigation/native';
+import PAGES from '../constants/pages';
 function convertToCustomFormat(dateString) {
     // Parse the date string
     var date = new Date(dateString);
@@ -16,12 +18,14 @@ function convertToCustomFormat(dateString) {
 
 
 function TransactionCard({ transaction }) {
+    const navigation=useNavigation();
     const {user}=useAuth();
     return (
         <View style={{...styles.transactionContainer,alignItems:user._id==transaction.creator._id?"flex-end":"flex-start"}}>
         <Pressable
                         key={transaction._id}
                         style={styles.transactionCard}
+                        onPress={()=>navigation.navigate(PAGES.TRANSACTION_DETAIL,{transactionId:transaction._id})}
                     >
                         <View style={styles.header}>
 
