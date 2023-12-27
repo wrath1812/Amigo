@@ -1,6 +1,5 @@
 import React from 'react';
 import { StyleSheet, View, Text, Image, Pressable } from 'react-native';
-import { Feather } from '@expo/vector-icons';
 import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
 import COLOR from '../constants/Colors';
 import LoginImage from '../assets/Login.png';
