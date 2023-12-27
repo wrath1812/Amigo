@@ -18,22 +18,25 @@ import COLOR from '../constants/Colors';
 import Button from '../components/Button';
 import Categories from '../constants/Categories';
 import { calcWidth, getFontSizeByWindowWidth } from '../helper/res';
+import { MaterialIcons } from '@expo/vector-icons'; 
+import { AntDesign } from '@expo/vector-icons'; 
 
 function TransactionFormScreen({
     navigation,
     route: {
-        params: { group },
+        params,
     },
 }) {
+
     const { user } = useAuth();
     const [loading, setIsLoading] = useState(false);
     const [selectedCategory, setSelectedCategory] = useState(null);
+    const [group,setGroup]=useState(params?.group||{});
     const [transactionData, setTransactionData] = useState({
         amount: '',
         description: '',
         category: '',
         paidBy: user._id,
-        group: group._id,
         date: new Date(),
         type: 'Other',
         splitAmong: [],
@@ -41,6 +44,7 @@ function TransactionFormScreen({
     const descriptionRef = useRef();
 
     useEffect(() => {
+        if(group && group.members){
         const perUserPayment = transactionData.amount / group.members.length;
         setTransactionData((prev) => ({
             ...prev,
@@ -49,6 +53,7 @@ function TransactionFormScreen({
                 user: _id,
             })),
         }));
+    }
     }, [transactionData.amount, group.members]);
 
     const handleInputChange = (field, value) => {
@@ -135,6 +140,36 @@ function TransactionFormScreen({
                     </Pressable>
                 ))}
             </ScrollView>
+{!params?.group &&
+            <View>
+                <View
+                style={{
+                    backgroundColor:"#302B49",
+                    padding:calcWidth(5),
+                    borderRadius:10,
+                    flexDirection:"row",
+                    alignItems:"center",
+                    justifyContent:"space-evenly"
+                }}
+                >
+                    <MaterialIcons name="group-add" size={calcWidth(8)} color="white" />
+                    <Text
+                    style={{
+                        color:"white"
+                    }}
+                    
+                    >Add Group</Text>
+                    <AntDesign name="right" size={calcWidth(8)}color="white" 
+                    style={
+                        {
+                            marginLeft:calcWidth(40)
+                        }
+                    }
+                    />
+                </View>
+
+            </View>
+}
 
             <Button onPress={handleSubmit} title="Submit" />
         </ScrollView>
@@ -152,6 +187,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         alignContent: 'center',
+        marginBottom:calcWidth(5)
     },
     amount: {
         alignItems: 'center',
