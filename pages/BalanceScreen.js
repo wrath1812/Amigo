@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import { StyleSheet, SafeAreaView, View, Text } from 'react-native';
+import { StyleSheet, SafeAreaView, View, Text, ScrollView, FlatList,Pressable } from 'react-native';
 import Loader from '../components/Loader';
 import apiHelper from '../helper/apiHelper';
 import PAGES from '../constants/pages';
@@ -9,18 +9,68 @@ import COLOR from '../constants/Colors';
 import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
 import EmptyScreen from '../components/EmptyScreen';
 import NoBalance from '../assets/NoBalance.png';
+import GroupBalanceCard from '../components/GroupBalanceCard';
+function groupByGroup(balances) {
+    const groupMap = new Map();
+
+    balances.forEach(balance => {
+        const groupId = balance.group._id;
+        const groupName = balance.group.name;
+        const amount = balance.amount;
+
+        // If the group is not yet in the map, initialize it
+        if (!groupMap.has(groupId)) {
+            groupMap.set(groupId, {
+                name: groupName,
+                id: groupId,
+                lenderBorrowerSet: new Set(),
+                totalBalance: 0,
+                lenderBorrowerDetails: []
+            });
+        }
+
+        const group = groupMap.get(groupId);
+
+        // Add the lender and borrower IDs to the set to count unique occurrences
+        group.lenderBorrowerSet.add(balance.lender._id);
+        group.lenderBorrowerSet.add(balance.borrower._id);
+
+        // Accumulate the balance and add lender and borrower details
+        group.totalBalance += amount;
+        group.lenderBorrowerDetails.push({ 
+            name: balance.lender.name, 
+            id: balance.lender._id, 
+            amount: amount 
+        });
+        group.lenderBorrowerDetails.push({ 
+            name: balance.borrower.name, 
+            id: balance.borrower._id, 
+            amount: amount 
+        });
+    });
+
+    // Convert the map to the desired array structure
+    return Array.from(groupMap.values()).map(group => ({
+        name: group.name,
+        id: group.id,
+        lenderNumberBorrowerNumber: group.lenderBorrowerSet.size,
+        totalBalance: group.totalBalance,
+        lenderBorrower: group.lenderBorrowerDetails
+    }));
+}
+
+
 
 function BalanceScreen({ navigation }) {
-    const [groups, setGroups] = useState([]);
     const [loading, setLoading] = useState(false);
-    const [balance, setBalance] = useState([]);
+    const [balances, setBalances] = useState([]);
     useFocusEffect(
         useCallback(() => {
             (async () => {
                 setLoading(true);
-                console.log(groups.members);
-                const { data } = await apiHelper('/group');
-                setGroups(data);
+                const { data } = await apiHelper('/balance');
+                const computedBalances=groupByGroup(data);
+                setBalances(computedBalances);
                 setLoading(false);
             })();
         }, []),
@@ -62,7 +112,7 @@ function BalanceScreen({ navigation }) {
                         $ 0
                     </Text>
                 </View>
-                {balance.length == 0 && (
+                {balances.length == 0 ?(
                     <EmptyScreen
                         onPress={() => {
                             navigation.navigate(PAGES.ADD_TRANSACTION);
@@ -70,8 +120,16 @@ function BalanceScreen({ navigation }) {
                         image={NoBalance}
                         title="No Transactions Yet"
                     />
+                ):
+                <FlatList
+                data={balances}
+                keyExtractor={(item) => item.id}
+                renderItem={({ item }) => (
+                    <GroupBalanceCard group={item}/>
                 )}
-                {balance.length != 0 && (
+                />
+                }
+                {balances.length != 0 && (
                     <FabIcon
                         onPress={() => {
                             navigation.navigate(PAGES.ADD_TRANSACTION);
