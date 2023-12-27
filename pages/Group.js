@@ -1,7 +1,7 @@
 // 1. Import Statements
-import React, { useEffect, useState, useCallback } from 'react';
+import React, { useRef, useState, useCallback } from 'react';
 import {
-    Text, StyleSheet, SafeAreaView, View, Pressable, FlatList
+    Text, StyleSheet, SafeAreaView, View, Pressable, FlatList, TouchableOpacity, TextInput
 } from 'react-native';
 import { Ionicons, AntDesign, SimpleLineIcons } from '@expo/vector-icons';
 import apiHelper from '../helper/apiHelper';
@@ -14,9 +14,8 @@ import LoginIcon from '../assets/Login.png';
 import GroupIcon from '../components/GroupIcon';
 import COLOR from '../constants/Colors';
 import { calcHeight, calcWidth } from '../helper/res';
-import TextInput from '../components/TextInput';
-import Button from "../components/Button";
-// 2. Utility Functions
+import { getFontSizeByWindowWidth } from '../helper/res';
+
 function getMembersString(members) {
     let names = [];
     for (let i = 0; i < members.length; i++) {
@@ -28,12 +27,11 @@ function getMembersString(members) {
     return names.join(', ');
 }
 
-// 3. Component Definition
 function GroupScreen({ navigation, route: { params: { group } } }) {
-    // 4. State and Context Hooks
+    const textRef=useRef();
     const [transactions, setTransactions] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
-    const [amount,setAmount]=useState("");
+    const [text,setText]=useState("");
 
     const fetchTransactions = useCallback(async () => {
         navigation.get
@@ -86,19 +84,36 @@ function GroupScreen({ navigation, route: { params: { group } } }) {
                 flex:1,
                 flexDirection:"row",
                 margin:calcHeight(2)
-                
             }}>
-                <TextInput
-                placeHolder="kuhkh"
-                />
-            
+                <Pressable
+        style={styles.inputContainer}
+        onPress={() => textRef.current.focus()}
+    >
+        <TextInput
+            style={styles.input}
+            placeholderTextColor="#ccc"
+            ref={textRef}
+            placeholder='Enter the amount'
+            textAlign='center'
+        />
+    </Pressable>
+            <TouchableOpacity
+            style={styles.button}
+        >
+            <Text style={styles.buttonText}>$ Settle</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+            style={styles.button}
+            // onPress={onPress}
+        >
+            <Text style={styles.buttonText}>+ Expense</Text>
+        </TouchableOpacity>
             </View>
             <FabIcon onPress={() => navigation.navigate(PAGES.ADD_TRANSACTION, { group })} />
         </SafeAreaView>
     );
     }
 
-    // 8. Styles
     const styles = StyleSheet.create({
         container: {
             flex: 1,
@@ -121,6 +136,37 @@ function GroupScreen({ navigation, route: { params: { group } } }) {
         groupMembers: {
             color: '#A5A5A5',
         },
+        button: {
+            flex:1,
+            display: 'flex',
+            justifyContent: 'center', // Centers child horizontally in the container
+            alignItems: 'center',
+            width: calcWidth(15),
+            paddingVertical: calcHeight(2),
+            borderRadius: 10,
+            backgroundColor: COLOR.BUTTON,
+            elevation: 3,
+            marginTop: calcHeight(4),
+        },
+        buttonText: {
+            fontSize: getFontSizeByWindowWidth(12),
+            color: 'white',
+            alignItems: 'center',
+        },
+        inputContainer: {
+            flex: 1,
+            color: 'white',
+            height:calcHeight(5)
+        },
+        input: {
+            margin: calcWidth(3),
+            height:"100%",
+            borderWidth: 1,
+            borderColor: 'gray',
+            borderRadius: 10,
+            width: calcWidth(35),
+            color:"white"
+        }
     });
 
 
