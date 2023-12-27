@@ -1,10 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, StyleSheet, SafeAreaView } from 'react-native';
 import COLOR from '../constants/Colors';
 import { calcWidth, calcHeight, getFontSizeByWindowWidth } from "../helper/res";
 import generateRandomColor from "../helper/generateRandomColor";
-
+import {useAuth} from "../context/AuthContext";
+import DatePicker from '../components/DatePicker';
 const TransactionDetail = ({ navigation, route: { params: { transaction } } }) => {
+    const [date,setDate]=useState(new Date(transaction.date));
+    const {user}=useAuth();
   return (
     <SafeAreaView style={styles.container}>
         <View style={{
@@ -19,6 +22,22 @@ const TransactionDetail = ({ navigation, route: { params: { transaction } } }) =
             fontSize:getFontSizeByWindowWidth(10),
             color:COLOR.TEXT
         }}>{transaction.description}</Text>
+        <View style={{
+            flexDirection:"row",
+        }}>
+        <DatePicker
+        date={date}
+        setDate={setDate}
+        />
+        <View style={{
+            backgroundColor:"white"
+        }}>
+            <Text>General</Text>
+        </View>
+        </View>
+        <Text style={{
+            color:COLOR.TEXT
+        }}>Create By {user._id==transaction.creator._id?"You":transaction.creator.name}</Text>
         </View>
       <View style={styles.boxContainer}>
         <View style={{ borderTopLeftRadius: calcWidth(5), // Adjust this value to set the curve radius
@@ -30,7 +49,7 @@ const TransactionDetail = ({ navigation, route: { params: { transaction } } }) =
         <View style={styles.headerContainer}>
           <View style={styles.userDetail}>
             <View style={[styles.circle, { backgroundColor: generateRandomColor() }]} />
-            <Text style={styles.userName}>You</Text>
+            <Text style={styles.userName}>{user._id==transaction.paidBy._id?"You":transaction.creator.name}</Text>
             <Text style={styles.userAmount}>$ {transaction.amount}</Text>
           </View>
         </View>
@@ -58,6 +77,7 @@ const styles = StyleSheet.create({
   },
   boxContainer: {
     backgroundColor: COLOR.PAYMENT_BACKGROUND,
+    margin:calcWidth(5)
   },
   sharedContainer:{
     // margin:calcWidth(5),
