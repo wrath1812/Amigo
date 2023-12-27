@@ -10,7 +10,8 @@ import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
 import EmptyScreen from '../components/EmptyScreen';
 import NoBalance from '../assets/NoBalance.png';
 import GroupBalanceCard from '../components/GroupBalanceCard';
-function groupByGroup(balances) {
+import {useAuth} from "../context/AuthContext";
+function groupByGroup(balances,userId) {
     const groupMap = new Map();
 
     balances.forEach(balance => {
@@ -18,58 +19,68 @@ function groupByGroup(balances) {
         const groupName = balance.group.name;
         const amount = balance.amount;
 
-        // If the group is not yet in the map, initialize it
+        // Initialize group data in the map if not existing
         if (!groupMap.has(groupId)) {
             groupMap.set(groupId, {
                 name: groupName,
                 id: groupId,
-                lenderBorrowerSet: new Set(),
-                totalBalance: 0,
-                lenderBorrowerDetails: []
+                lenders: new Map(),
+                borrowers: new Map(),
+                totalBalance: 0
             });
         }
 
         const group = groupMap.get(groupId);
 
-        // Add the lender and borrower IDs to the set to count unique occurrences
-        group.lenderBorrowerSet.add(balance.lender._id);
-        group.lenderBorrowerSet.add(balance.borrower._id);
+        // Process the lender
+        if (!group.lenders.has(balance.lender._id)) {
+            group.lenders.set(balance.lender._id, {
+                name: balance.lender.name,
+                id: balance.lender._id,
+                amount: 0
+            });
+        }
+        group.lenders.get(balance.lender._id).amount += amount;
 
-        // Accumulate the balance and add lender and borrower details
+        // Process the borrower
+        if (!group.borrowers.has(balance.borrower._id)) {
+            group.borrowers.set(balance.borrower._id, {
+                name: balance.borrower.name,
+                id: balance.borrower._id,
+                amount: 0
+            });
+        }
+        group.borrowers.get(balance.borrower._id).amount += amount;
+
+        // Accumulate the total balance
         group.totalBalance += amount;
-        group.lenderBorrowerDetails.push({ 
-            name: balance.lender.name, 
-            id: balance.lender._id, 
-            amount: amount 
-        });
-        group.lenderBorrowerDetails.push({ 
-            name: balance.borrower.name, 
-            id: balance.borrower._id, 
-            amount: amount 
-        });
     });
 
     // Convert the map to the desired array structure
     return Array.from(groupMap.values()).map(group => ({
         name: group.name,
         id: group.id,
-        lenderNumberBorrowerNumber: group.lenderBorrowerSet.size,
+        lenderNumber: group.lenders.size,
+        borrowerNumber: group.borrowers.size,
         totalBalance: group.totalBalance,
-        lenderBorrower: group.lenderBorrowerDetails
+        lenders: Array.from(group.lenders.values()),
+        borrowers: Array.from(group.borrowers.values())
     }));
 }
+
 
 
 
 function BalanceScreen({ navigation }) {
     const [loading, setLoading] = useState(false);
     const [balances, setBalances] = useState([]);
+    const {user}=useAuth();
     useFocusEffect(
         useCallback(() => {
             (async () => {
                 setLoading(true);
                 const { data } = await apiHelper('/balance');
-                const computedBalances=groupByGroup(data);
+                const computedBalances=groupByGroup(data,user.id);
                 setBalances(computedBalances);
                 setLoading(false);
             })();

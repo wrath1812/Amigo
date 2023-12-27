@@ -21,7 +21,12 @@ function GroupBalanceCard({ group }) {
             <GroupIcon image={LoginImage} />
             <View style={styles.textContainer}>
                 <Text style={styles.nameText}>{group.name}</Text>
-                <Text style={styles.memberText}>owe you money</Text>
+                <Text style={styles.memberText}>
+                    {
+                      group.lenderNumber==1?  
+                      `${group.borrowerNumber} participants owe you money`:`You owe mony to ${group.lenderNumber} participants`
+                    }
+                </Text>
             </View>
             <Text
             style={{
