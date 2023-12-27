@@ -5,6 +5,7 @@ import { calcWidth, calcHeight, getFontSizeByWindowWidth } from '../helper/res';
 import generateRandomColor from '../helper/generateRandomColor';
 import { useAuth } from '../context/AuthContext';
 import DatePicker from '../components/DatePicker';
+import {getCategoryIcon} from "../constants/Categories";
 const TransactionDetail = ({
     navigation,
     route: {
@@ -40,15 +41,22 @@ const TransactionDetail = ({
                 <View
                     style={{
                         flexDirection: 'row',
+                        alignContent:"center",
+                        justifyContent:"space-between",
+                        alignItems:"center"
                     }}
                 >
+                    <View>
                     <DatePicker date={date} setDate={setDate} />
+                    </View>
                     <View
                         style={{
                             backgroundColor: 'white',
+                            flexDirection:"row"
                         }}
                     >
-                        <Text>General</Text>
+                        {getCategoryIcon(transaction.type)}
+                        <Text>{transaction.type}</Text>
                     </View>
                 </View>
                 <Text
@@ -133,17 +141,38 @@ const styles = StyleSheet.create({
         backgroundColor: COLOR.PAYMENT_BACKGROUND,
         margin: calcWidth(5),
     },
-    sharedContainer: {
-        // margin:calcWidth(5),
+    centeredView: {
+        alignItems: 'center',
     },
-    headerContainer: {
-        padding: calcWidth(2),
-    },
-    headerLabel: {
+    amountText: {
+        fontSize: getFontSizeByWindowWidth(25),
         color: COLOR.TEXT,
-        fontSize: getFontSizeByWindowWidth(12),
-
-        padding: calcWidth(3),
+        fontWeight: 'bold',
+    },
+    descriptionText: {
+        fontSize: getFontSizeByWindowWidth(10),
+        color: COLOR.TEXT,
+    },
+    datePickerContainer: {
+        flexDirection: 'row',
+        alignContent: "center",
+        justifyContent: "space-between",
+        alignItems: "center",
+    },
+    categoryContainer: {
+        backgroundColor: 'white',
+        flexDirection: "row",
+    },
+    createdByText: {
+        color: COLOR.TEXT,
+    },
+    header: {
+        borderTopLeftRadius: calcWidth(5),
+        borderTopRightRadius: calcWidth(5),
+        backgroundColor: COLOR.BUTTON,
+    },
+    userDetailContainer: {
+        padding: calcWidth(2),
     },
     userDetail: {
         flexDirection: 'row',
@@ -172,6 +201,9 @@ const styles = StyleSheet.create({
         padding: calcWidth(2),
         backgroundColor: COLOR.BUTTON,
     },
+    sharedContainer: {
+        paddingVertical: calcHeight(1),
+    },
     sharedDetail: {
         flexDirection: 'row',
         alignItems: 'center',
@@ -181,7 +213,7 @@ const styles = StyleSheet.create({
     sharedUser: {
         color: COLOR.TEXT,
         fontSize: getFontSizeByWindowWidth(14),
-        marginLeft: calcWidth(7), // Adjust so the name aligns with the circle
+        marginLeft: calcWidth(7),
     },
     sharedAmount: {
         color: COLOR.TEXT,
@@ -189,6 +221,13 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         marginLeft: 'auto',
     },
+    headerLabel: {
+        color: COLOR.TEXT,
+        fontSize: getFontSizeByWindowWidth(12),
+        padding: calcWidth(3),
+    },
 });
+
+
 
 export default TransactionDetail;
