@@ -47,16 +47,17 @@ const TransactionDetail = ({
             >
                 <Text
                     style={{
-                        fontSize: getFontSizeByWindowWidth(25),
+                        fontSize: getFontSizeByWindowWidth(50),
                         color: COLOR.TEXT,
                         fontWeight: 'bold',
+                        marginTop:calcHeight(5)
                     }}
                 >
                     $ {transaction.amount}
                 </Text>
                 <Text
                     style={{
-                        fontSize: getFontSizeByWindowWidth(10),
+                        fontSize: getFontSizeByWindowWidth(15),
                         color: COLOR.TEXT,
                     }}
                 >
@@ -67,7 +68,8 @@ const TransactionDetail = ({
                         flexDirection: 'row',
                         alignContent:"center",
                         justifyContent:"space-between",
-                        alignItems:"center"
+                        alignItems:"center",
+                        marginTop:calcHeight(8)
                     }}
                 >
                     <View>
