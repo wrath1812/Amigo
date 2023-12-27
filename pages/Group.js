@@ -15,7 +15,7 @@ import GroupIcon from '../components/GroupIcon';
 import COLOR from '../constants/Colors';
 import { calcHeight, calcWidth } from '../helper/res';
 import TextInput from '../components/TextInput';
-
+import Button from "../components/Button";
 // 2. Utility Functions
 function getMembersString(members) {
     let names = [];
@@ -73,25 +73,26 @@ function GroupScreen({ navigation, route: { params: { group } } }) {
                 <AntDesign name="scan1" size={24} color="white" />
                 <SimpleLineIcons name="options-vertical" size={24} color="white" />
             </View>
-            <View style={{
-                flex:1,
-                flexDirection:"row",
-                
-            }}>
-                <TextInput
-                placeHolder="kuhkh"
-                />
-            </View>
             <FlatList
                 inverted
                 data={transactions}
                 keyExtractor={(item) => item._id}
                 renderItem={({ item }) => <TransactionCard transaction={item} />}
                 style={{
-                    height:calcHeight(80)
+                    height:calcHeight(70)
                 }}
             />
+            <View style={{
+                flex:1,
+                flexDirection:"row",
+                margin:calcHeight(2)
+                
+            }}>
+                <TextInput
+                placeHolder="kuhkh"
+                />
             
+            </View>
             <FabIcon onPress={() => navigation.navigate(PAGES.ADD_TRANSACTION, { group })} />
         </SafeAreaView>
     );

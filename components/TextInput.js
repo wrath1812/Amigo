@@ -31,11 +31,11 @@ const styles = StyleSheet.create({
         color: 'white',
     },
     input: {
-        flexDirection: 'row',
         padding: calcWidth(3),
         borderWidth: 1,
         borderColor: 'gray',
         borderRadius: 5,
         width: calcWidth(30),
+        color:"white"
     }
 });
