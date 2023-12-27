@@ -10,14 +10,8 @@ import Toast from 'react-native-root-toast';
 import Loader from "../components/Loader";
 import apiHelper from "../helper/apiHelper";
 import PAGES from "../constants/pages";
-function generateRandomColor() {
-  let color = '#';
-  for (let i = 0; i < 6; i++) {
-    color += Math.floor(Math.random() * 16).toString(16);
-  }
-  return color;
-}
-//country code of inviters might be a problem
+import generateRandomColor from '../helper/generateRandomColor';
+
 const CreateGroup = ({ navigation }) => {
   const [contacts, setContacts] = useState([]);
   const [search, setSearch] = useState('');

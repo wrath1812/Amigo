@@ -1,62 +1,50 @@
-import React, { useState } from 'react';
-import { View, Text, TextInput, StyleSheet, SafeAreaView, Image } from 'react-native';
-import LoginImage from '../assets/Login.png';
+import React from 'react';
+import { View, Text, StyleSheet, SafeAreaView } from 'react-native';
 import COLOR from '../constants/Colors';
-import PAGES from '../constants/pages';
-import Button from '../components/Button';
-import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
-import sendOTP from '../helper/sendOTP';
+import { calcWidth, calcHeight, getFontSizeByWindowWidth } from "../helper/res";
+import generateRandomColor from "../helper/generateRandomColor";
 
-const CountryCodeInput = ({ countryCode }) => (
-  <View style={styles.countryCodeContainer}>
-    <Text style={styles.countryCodeText}>{countryCode}</Text>
-  </View>
-);
-
-const TransactionDetail= ({ navigation }) => {
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [countryCode, setCountryCode] = useState("+91");
-  const [isPhoneFocused, setIsPhoneFocused] = useState(false);
-  const [error,setError]=useState(false);
-  const getTextInputStyle = (isFocused) => ({
-    ...styles.phoneNumberInput,
-    borderBottomColor: isFocused ? 'rgba(255, 255, 255, 1)' : 'rgba(255, 255, 255, 0.5)'
-  });
-
-  const handleSendOTP = () => {
-    if(!phoneNumber || phoneNumber.length!=10){
-      setError(true)
-    return;
-    }
-    sendOTP("+91"+phoneNumber);
-    navigation.navigate(PAGES.OTP, {countryCode, phoneNumber});
-  };
-
+const TransactionDetail = ({ navigation, route: { params: { transaction } } }) => {
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.innerContainer}>
-        <View style={styles.header}>
-          <Image source={LoginImage} style={styles.image} resizeMode="contain" />
-          <View style={styles.textContainer}>
-            <Text style={styles.headerText}>Hi there!</Text>
-            <Text style={styles.promptText}>Please enter your phone number</Text>
+        <View style={{
+            alignItems:"center"
+        }}>
+        <Text style={{
+            fontSize:getFontSizeByWindowWidth(25),
+            color:COLOR.TEXT,
+            fontWeight:"bold"
+        }}>$ {transaction.amount}</Text>
+        <Text style={{
+            fontSize:getFontSizeByWindowWidth(10),
+            color:COLOR.TEXT
+        }}>{transaction.description}</Text>
+        </View>
+      <View style={styles.boxContainer}>
+        <View style={{ borderTopLeftRadius: calcWidth(5), // Adjust this value to set the curve radius
+    borderTopRightRadius: calcWidth(5),
+    backgroundColor:COLOR.BUTTON
+    }}>
+      <Text style={styles.headerLabel}>Paid by</Text>
+      </View>
+        <View style={styles.headerContainer}>
+          <View style={styles.userDetail}>
+            <View style={[styles.circle, { backgroundColor: generateRandomColor() }]} />
+            <Text style={styles.userName}>You</Text>
+            <Text style={styles.userAmount}>$ {transaction.amount}</Text>
           </View>
         </View>
-        <View style={styles.inputContainer}>
-          <View style={styles.phoneNumberRow}>
-            <CountryCodeInput countryCode={countryCode} />
-            <TextInput
-              style={{...getTextInputStyle(isPhoneFocused),...(error?{borderBottomColor:COLOR.ERROR_BORDER}:{})}}
-              keyboardType="phone-pad"
-              value={phoneNumber}
-              onChangeText={(value)=>{setPhoneNumber(value);
-              setError(false)}}
-              onFocus={() => setIsPhoneFocused(true)}
-              onBlur={() => setIsPhoneFocused(false)}
-              placeholderTextColor="#D3D3D3"
-            />
+        <View>
+          <Text style={styles.sharedLabel}>Shared with</Text>
+          <View styles={styles.sharedContainer}>
+          {transaction.splitAmong.map(({user,amount}, index) => (
+            <View key={user._id} style={styles.sharedDetail}>
+              <View style={[styles.circle, { backgroundColor: generateRandomColor() }]} />
+              <Text style={styles.sharedUser}>{user.name||"Anonymous"}</Text>
+              <Text style={styles.sharedAmount}>$ {parseInt(amount)}</Text>
+            </View>
+          ))}
           </View>
-          <Button title="Send OTP" onPress={handleSendOTP} />
         </View>
       </View>
     </SafeAreaView>
@@ -68,60 +56,64 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: COLOR.APP_BACKGROUND,
   },
-  innerContainer: {
-    paddingHorizontal: calcWidth(5),
-    marginTop: calcHeight(5),
+  boxContainer: {
+    backgroundColor: COLOR.PAYMENT_BACKGROUND,
   },
-  header: {
+  sharedContainer:{
+    // margin:calcWidth(5),
+  },
+  headerContainer: {
+    padding: calcWidth(2),
+  },
+  headerLabel: {
+    color: COLOR.TEXT,
+    fontSize: getFontSizeByWindowWidth(12),
+    
+    padding:calcWidth(3)
+  },
+  userDetail: {
     flexDirection: 'row',
-    marginHorizontal: calcWidth(5),
-    marginBottom: calcHeight(5),
-  },
-  image: {
-    width: calcWidth(20),
-    aspectRatio: 1,
-    marginRight: calcWidth(5),
-  },
-  textContainer: {
-    flex: 1,
-    justifyContent: 'flex-end',
-  },
-  headerText: {
-    fontSize: getFontSizeByWindowWidth(18),
-    fontWeight: 'bold',
-    color: COLOR.TEXT,
-    paddingBottom: calcHeight(2),
-  },
-  promptText: {
-    fontSize: getFontSizeByWindowWidth(10),
-    color: COLOR.TEXT,
-  },
-  inputContainer: {
     alignItems: 'center',
-    marginHorizontal: calcWidth(6),
-    marginTop: calcHeight(2),
+    margin: calcWidth(5),
   },
-  phoneNumberInput: {
-    flex: 1,
+  circle: {
+    width: calcWidth(5),
+    height: calcWidth(5),
+    borderRadius: calcWidth(5) / 2,
+    marginRight: calcWidth(2),
+  },
+  userName: {
     color: COLOR.TEXT,
-    fontSize: 18,
-    borderBottomWidth: 1,
-    paddingBottom: calcHeight(2),
-    marginLeft: calcWidth(1),
-    fontWeight: "bold",
+    fontSize: getFontSizeByWindowWidth(14),
   },
-  countryCodeContainer: {
-    marginLeft: calcWidth(1),
-    width: calcWidth(15),
-    borderBottomWidth: 1,
-    borderBottomColor: 'rgba(255, 255, 255, 0.5)',
-  },
-  countryCodeText: {
+  userAmount: {
     color: COLOR.TEXT,
-    fontSize: 18,
+    fontSize: getFontSizeByWindowWidth(14),
+    fontWeight: 'bold',
+    marginLeft: 'auto',
   },
-  phoneNumberRow: {
-    flexDirection: "row",
+  sharedLabel: {
+    color: COLOR.TEXT,
+    fontSize: getFontSizeByWindowWidth(14),
+    padding: calcWidth(2),
+    backgroundColor:COLOR.BUTTON
+  },
+  sharedDetail: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingVertical: calcHeight(1),
+    marginHorizontal: calcWidth(5),
+  },
+  sharedUser: {
+    color: COLOR.TEXT,
+    fontSize: getFontSizeByWindowWidth(14),
+    marginLeft: calcWidth(7), // Adjust so the name aligns with the circle
+  },
+  sharedAmount: {
+    color: COLOR.TEXT,
+    fontSize: getFontSizeByWindowWidth(14),
+    fontWeight: 'bold',
+    marginLeft: 'auto',
   },
 });
 

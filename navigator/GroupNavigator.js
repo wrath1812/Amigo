@@ -50,7 +50,7 @@ function GroupNavigator() {
             />
             <Stack.Screen
             name={PAGES.TRANSACTION_DETAIL}
-            component={CreateGroup}
+            component={TransactionDetail}
             options={{
               headerStyle: {
                   backgroundColor: COLOR.APP_BACKGROUND

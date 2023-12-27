@@ -4,7 +4,8 @@ const COLOR={
     TEXT:"white",
     PRIMARY:"white",
     ERROR_BORDER:"red",
-    BUTTON_DISABLED:"grey"
+    BUTTON_DISABLED:"grey",
+    PAYMENT_BACKGROUND:"#342F4F"
 }
 
 export default COLOR;

@@ -25,7 +25,7 @@ function TransactionCard({ transaction }) {
         <Pressable
                         key={transaction._id}
                         style={styles.transactionCard}
-                        onPress={()=>navigation.navigate(PAGES.TRANSACTION_DETAIL,{transactionId:transaction._id})}
+                        onPress={()=>navigation.navigate(PAGES.TRANSACTION_DETAIL,{transaction:transaction})}
                     >
                         <View style={styles.header}>
 
