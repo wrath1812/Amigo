@@ -12,18 +12,11 @@ const Tab = createBottomTabNavigator();
 import SignUpScreen from '../pages/SignUpScreen';
 import { getFocusedRouteNameFromRoute } from '@react-navigation/native';
 
-function getTabBarVisibility(route) {
-    const routeName = getFocusedRouteNameFromRoute(route) ?? '';
-    const visibleScreens = [PAGES.GROUP_LIST];
-    return visibleScreens.includes(routeName);
-  }
 
 const AppNavigator = () => {
     const { user } = useAuth();
     return user.name ? (
-        <Tab.Navigator screenOptions={({ route }) => ({
-            tabBarStyle: { display: getTabBarVisibility(route) ? 'flex' :'none'}
-          })}>
+        <Tab.Navigator>
             <Tab.Group>
             <Tab.Screen
                     name={PAGES.BALANCE}

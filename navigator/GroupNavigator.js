@@ -23,7 +23,7 @@ function GroupNavigator() {
                     headerStyle: {
                         backgroundColor: COLOR.APP_BACKGROUND,
                     },
-                    title: null,
+                    title: null
                 }}
                 
             />
