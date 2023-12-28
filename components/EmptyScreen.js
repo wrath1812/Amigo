@@ -10,6 +10,7 @@ import {
 import { calcWidth, calcHeight, getFontSizeByWindowWidth } from '../helper/res';
 import { AntDesign } from '@expo/vector-icons';
 import COLOR from '../constants/Colors';
+import FabIcon from './FabIcon';
 function EmptyScreen({ onPress, image, title }) {
     return (
         <SafeAreaView style={styles.container}>

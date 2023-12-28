@@ -22,6 +22,7 @@ import GroupBalanceCard from '../components/GroupBalanceCard';
 import { useAuth } from '../context/AuthContext';
 import { Ionicons } from '@expo/vector-icons'; 
 import ScanIcon from "../assets/icons/scan.png";
+import plusIconStyle from '../constants/plusIconStyle';
 
 const headerIconSize=6;
 function groupByGroup(balances, userId) {
