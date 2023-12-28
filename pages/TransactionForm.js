@@ -72,12 +72,13 @@ function TransactionFormScreen({ navigation, route: { params } }) {
         setIsLoading(true);
         try {
             transactionData['amount'] = parseInt(transactionData.amount);
+            transactionData["group"]=group._id;
             const { data } = await apiHelper.post(
                 '/transaction',
                 transactionData,
             );
             Alert.alert('Success', JSON.stringify(data));
-            navigation.navigate(PAGES.TRANSACTION, { group });
+            navigation.navigate(PAGES.GROUP, { group });
         } catch (error) {
             console.log('error', error);
             Alert.alert('Error', 'There was an error saving the transaction.');
