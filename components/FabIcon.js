@@ -17,19 +17,19 @@ function FabIcon({ onPress }) {
 }
 
 export default FabIcon;
-
+const fabSize=7;
 const styles = StyleSheet.create({
     fabContainer: {
         position: 'absolute',
-        bottom: calcHeight(10),
-        right: calcWidth(5),
+        bottom: calcHeight(5),
+        right: calcWidth(6.5),
     },
     fab: {
         backgroundColor: COLOR.BUTTON,
         // Increase the size of the FAB
-        height: calcHeight(5), // Default is usually 56, increase this value
-        width: calcHeight(5), // Default is usually 56, increase this value
-        borderRadius: calcHeight(5), // Adjust the border radius if needed (half of width/height for perfect circle)
+        height: calcHeight(fabSize), // Default is usually 56, increase this value
+        width: calcHeight(fabSize), // Default is usually 56, increase this value
+        borderRadius: calcHeight(fabSize), // Adjust the border radius if needed (half of width/height for perfect circle)
         alignItems: 'center',
         justifyContent: 'center',
     },

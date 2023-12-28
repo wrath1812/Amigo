@@ -1,5 +1,5 @@
-import React, { useCallback, useState } from 'react';
-import { StyleSheet, SafeAreaView, View, Text, ScrollView, FlatList,Pressable } from 'react-native';
+import React, { useCallback, useState,useLayoutEffect } from 'react';
+import { StyleSheet, SafeAreaView, View, Text, ScrollView, FlatList,Pressable,Image } from 'react-native';
 import Loader from '../components/Loader';
 import apiHelper from '../helper/apiHelper';
 import PAGES from '../constants/pages';
@@ -11,6 +11,8 @@ import EmptyScreen from '../components/EmptyScreen';
 import NoBalance from '../assets/NoBalance.png';
 import GroupBalanceCard from '../components/GroupBalanceCard';
 import {useAuth} from "../context/AuthContext";
+import { AntDesign } from '@expo/vector-icons'; 
+
 function groupByGroup(balances,userId) {
     const groupMap = new Map();
 
@@ -72,6 +74,57 @@ function groupByGroup(balances,userId) {
 
 
 function BalanceScreen({ navigation }) {
+
+    useLayoutEffect(() => {
+        navigation.setOptions({
+          headerRight: () => (
+            <View style={{
+                flex:1,
+                justifyContent:"center",
+            }}>
+                <View style={{
+                    marginBottom:calcHeight(5),
+                    marginRight:calcWidth(2),
+                    flexDirection:"row",
+                    justifyContent:"space-between",
+                    alignContent:"center",
+                    alignItems:"center"
+                }}>
+                    <AntDesign name="search1" size={calcWidth(10)} color="white" 
+                    style={{
+                        marginRight:calcWidth(5)
+                    }}
+                    />
+
+               <Image
+                        source={{uri:"https://t.ly/Rel6Z"}}
+                        style={{
+width:calcWidth(10),
+height:calcWidth(10),
+borderRadius:calcWidth(10)
+                        }}
+                    />
+                    </View>
+            </View>
+          ),
+          headerLeft: () => (
+            <View style={{
+                flex:1,
+                justifyContent:"center",
+            }}>
+                <View style={{
+                    flex:1,
+                    marginBottom:calcHeight(1)
+                }}>
+                   <AntDesign name="scan1" size={calcWidth(5)} color="white" style={{
+                    marginRight:calcWidth(5)
+                }} />
+                    </View>
+            </View>
+          ),
+        });
+      }, [navigation]);
+
     const [loading, setLoading] = useState(false);
     const [balances, setBalances] = useState([]);
     const {user}=useAuth();
