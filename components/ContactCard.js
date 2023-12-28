@@ -56,8 +56,9 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'row',
         alignItems: 'center',
-        padding: calcWidth(5),
+        paddingVertical: calcWidth(5),
         backgroundColor: COLOR.APP_BACKGROUND,
+        justifyContent:"space-between"
     },
     profileImage: {
         height: calcHeight(5),
@@ -66,7 +67,6 @@ const styles = StyleSheet.create({
     },
     textContainer: {
         width: calcWidth(60),
-        marginLeft: calcWidth(5),
     },
     nameText: {
         color: COLOR.TEXT,
@@ -81,10 +81,6 @@ const styles = StyleSheet.create({
         width: calcHeight(selectorSize),
         borderRadius: calcHeight(selectorSize),
         justifyContent: 'center',
-        alignItems: 'center',
-        marginRight: calcWidth(2),
-    },
-    selectorContainer: {
-        right: calcWidth(5),
-    },
+        alignItems: 'center',           
+    }
 });

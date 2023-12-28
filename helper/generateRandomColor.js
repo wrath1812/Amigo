@@ -1,9 +1,13 @@
-function generateRandomColor() {
+function generateMinimalColor() {
     let color = '#';
-    for (let i = 0; i < 6; i++) {
-        color += Math.floor(Math.random() * 16).toString(16);
+    for (let i = 0; i < 3; i++) {
+        // Generate a light, muted color component
+        let component = Math.floor((Math.random() * 128) + 127).toString(16);
+        // Ensuring two digits for each color component
+        color += component.length === 1 ? '0' + component : component;
     }
     return color;
 }
 
-export default generateRandomColor;
+export default generateMinimalColor;
+
