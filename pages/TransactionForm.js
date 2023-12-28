@@ -25,7 +25,6 @@ function TransactionFormScreen({ navigation }) {
     const [loading,setIsLoading]=useState(false);
     const {transactionData,setTransactionData}=useTransaction();
     const descriptionRef = useRef();
-
     useEffect(() => {
         const {group}=transactionData;
         if (group && group.members) {
@@ -60,6 +59,8 @@ function TransactionFormScreen({ navigation }) {
         try {
             transactionData['amount'] = parseInt(transactionData.amount);
             transactionData["group"]=transactionData.group._id;
+            transactionData["paidBy"]=transactionData.paidBy._id;
+            console.log(transactionData)
             const { data } = await apiHelper.post(
                 '/transaction',
                 transactionData,
@@ -143,6 +144,7 @@ function TransactionFormScreen({ navigation }) {
                         }}
                         onPress={() => {
                             navigation.navigate(PAGES.SELECT_GROUP);
+
                         }}
                     >
                         <MaterialIcons
@@ -169,7 +171,34 @@ function TransactionFormScreen({ navigation }) {
                             }}
                         />
                     </Pressable>
+
                 </View>
+                {
+                      transactionData.group?.members?.length>0 &&(<View><Pressable
+                        style={{
+                            backgroundColor: '#302B49',
+                            padding: calcWidth(5),
+                            borderRadius: 10,
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                            justifyContent: 'space-evenly',
+                            marginTop:calcHeight(5),
+                            width:calcWidth(40)
+                        }}
+                        onPress={() => {
+                            navigation.navigate(PAGES.SELECT_PAID_BY)
+                        }}
+                    >
+                        <Text
+                            style={{
+                                color: 'white',
+                            }}
+                        >
+                            Paid By {transactionData.paidBy.name}
+                        </Text>
+                    </Pressable>
+                    </View>)
+                    }
             <View
                 style={{
                     alignItems: 'center',

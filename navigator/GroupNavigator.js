@@ -14,12 +14,23 @@ import CreateGroup from '../pages/CreateGroup';
 const Stack = createNativeStackNavigator();
 import TransactionDetail from '../pages/TransactionDetails';
 import SelectGroup from '../pages/SelectGroup';
+import SelectPaidBy from "../pages/SelectPaidBy";
 function GroupNavigator() {
     return (
         <Stack.Navigator initialRouteName={PAGES.GROUP_LIST}>
             <Stack.Screen
                 name={PAGES.GROUP_LIST}
                 component={GroupListScreen}
+                options={{
+                    headerStyle: {
+                        backgroundColor: COLOR.APP_BACKGROUND,
+                    },
+                    title: null,
+                }}
+            />
+            <Stack.Screen
+                name={PAGES.SELECT_PAID_BY}
+                component={SelectPaidBy}
                 options={{
                     headerStyle: {
                         backgroundColor: COLOR.APP_BACKGROUND,

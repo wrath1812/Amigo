@@ -132,7 +132,7 @@ const TransactionDetail = ({
                         <Text style={styles.userName}>
                             {user._id == transaction.paidBy._id
                                 ? 'You'
-                                : transaction.creator.name}
+                                : transaction.paidBy.name}
                         </Text>
                         <Text style={styles.userAmount}>
                             $ {transaction.amount}

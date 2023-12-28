@@ -17,7 +17,7 @@ export const TransactionProvider = ({ children }) => {
 
     useEffect(()=>{
         setTransactionData((prev)=>({
-            ...prev,paidBy:user?._id
+            ...prev,paidBy:{_id:user?._id,name:user?.name}
         }))
     },[user])
 
