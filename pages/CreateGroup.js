@@ -18,6 +18,7 @@ import Toast from 'react-native-root-toast';
 import apiHelper from '../helper/apiHelper';
 import generateRandomColor from '../helper/generateRandomColor';
 import Search from "../components/Search";
+import Loader from '../components/Loader';
 
 const CreateGroup = ({ navigation }) => {
     const [contacts, setContacts] = useState([]);
