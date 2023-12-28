@@ -16,13 +16,107 @@ import LoginImage from '../assets/Login.png';
 import PAGES from "../constants/pages";
 import sliceText from '../helper/sliceText';
 import { useLayoutEffect } from 'react';
+import {MaterialCommunityIcons} from "@expo/vector-icons"
 
 const GroupSplitScreen = ({navigation}) => {
     const { transactionData, setTransactionData } = useTransaction();
     const [members, setMembers] = useState(transactionData.splitAmong.map(member => ({
         ...member,
-        isAmountManuallyEntered: false
+        isAmountManuallyEntered: false,
+        included:true
       })));
+
+      const toggleMemberIncluded = (memberId) => {
+        setMembers(prevMembers => {
+            const updatedMembers = prevMembers.map(member => {
+                if (member.user._id === memberId) {
+                    const updatedMember = {
+                        ...member,
+                        included: !member.included,
+                    };
+                    if (!updatedMember.included) {
+                        updatedMember.isAmountManuallyEntered = false;
+                        updatedMember.amount = 0;
+                    }
+                    return updatedMember;
+                }
+                return member;
+            });
+            redistributeAmounts(updatedMembers);
+            return updatedMembers;
+        });
+    };
+    
+    const redistributeAmounts = (updatedMembers) => {
+        let totalAmount = transactionData.amount || 0;
+    
+        // Calculate total amount already manually entered by included members
+        let manuallyEnteredTotal = updatedMembers.reduce((acc, member) => {
+            return (member.isAmountManuallyEntered && member.included) ? acc + member.amount : acc;
+        }, 0);
+    
+        // Calculate remaining amount to distribute
+        let amountToDistribute = totalAmount - manuallyEnteredTotal;
+    
+        // Distribute the remaining amount among the members who haven't manually entered their amounts and are included
+        let membersNotEntered = updatedMembers.filter(m => !m.isAmountManuallyEntered && m.included);
+        const perUserPayment = Math.max(Math.floor(amountToDistribute / membersNotEntered.length), 0);
+        const remainder = amountToDistribute % membersNotEntered.length;
+    
+        let distributedRemainder = 0;
+        updatedMembers.forEach(member => {
+            if (!member.isAmountManuallyEntered && member.included) {
+                let adjustedAmount = perUserPayment;
+                if (distributedRemainder < remainder) {
+                    adjustedAmount += 1;
+                    distributedRemainder++;
+                }
+                member.amount = adjustedAmount;
+            }
+        });
+    };
+    
+    
+    const handleAmountChange = (amount, id) => {
+        const newAmount = Math.max(parseInt(amount) || 0, 0);
+        let totalAmount = transactionData.amount || 0;
+    
+        let manuallyEnteredTotal = newAmount;
+        members.forEach(member => {
+            if (member.isAmountManuallyEntered && member.user._id !== id && member.included) {
+                manuallyEnteredTotal += member.amount;
+            }
+        });
+    
+        if (manuallyEnteredTotal > totalAmount) {
+            // Handle the case where the total exceeds the limit
+            // Reset newAmount or alert the user
+            return; // Exit the function or reset newAmount as needed
+        }
+    
+        setMembers(prevMembers => {
+            let amountToDistribute = totalAmount - manuallyEnteredTotal;
+            let membersNotEntered = prevMembers.filter(m => !m.isAmountManuallyEntered && m.user._id !== id && m.included);
+            const perUserPayment = Math.max(Math.floor(amountToDistribute / membersNotEntered.length), 0);
+            const remainder = amountToDistribute % membersNotEntered.length;
+    
+            let distributedRemainder = 0;
+            return prevMembers.map(member => {
+                if (member.user._id === id) {
+                    return { ...member, amount: newAmount, isAmountManuallyEntered: true };
+                } else if (!member.isAmountManuallyEntered && member.included) {
+                    let adjustedAmount = perUserPayment;
+                    if (distributedRemainder < remainder) {
+                        adjustedAmount += 1;
+                        distributedRemainder++;
+                    }
+                    return { ...member, amount: adjustedAmount };
+                }
+                return member;
+            });
+        });
+    };
+    
 
       useLayoutEffect(() => {
         navigation.setOptions({
@@ -38,46 +132,7 @@ const GroupSplitScreen = ({navigation}) => {
         });
       }, [navigation]);
 
-      const handleAmountChange = (amount, id) => {
-        const newAmount = Math.max(parseInt(amount) || 0, 0);
-        let totalAmount = transactionData.amount || 0;
-        
-        // Ensure totalAmount is not exceeded
-        let manuallyEnteredTotal = newAmount;
-        members.forEach(member => {
-          if (member.isAmountManuallyEntered && member.user._id !== id) {
-            manuallyEnteredTotal += member.amount;
-          }
-        });
     
-        if (manuallyEnteredTotal > totalAmount) {
-          // Handle the case where the total exceeds the limit
-          // Reset newAmount or alert the user
-          return; // Exit the function or reset newAmount as needed
-        }
-    
-        let amountToDistribute = totalAmount - manuallyEnteredTotal;
-        const membersNotEntered = members.filter(m => !m.isAmountManuallyEntered && m.user._id !== id);
-        const perUserPayment = Math.max(Math.floor(amountToDistribute / membersNotEntered.length), 0);
-        const remainder = amountToDistribute % membersNotEntered.length;
-    
-        let distributedRemainder = 0;
-        const updatedMembers = members.map(member => {
-          if (member.user._id === id) {
-            return { ...member, amount: newAmount, isAmountManuallyEntered: true };
-          } else if (!member.isAmountManuallyEntered) {
-            let adjustedAmount = perUserPayment;
-            if (distributedRemainder < remainder) {
-              adjustedAmount += 1;
-              distributedRemainder++;
-            }
-            return { ...member, amount: adjustedAmount };
-          }
-          return member;
-        });
-    
-        setMembers(updatedMembers);
-    };
     
     
     
@@ -89,6 +144,13 @@ const GroupSplitScreen = ({navigation}) => {
                 flexDirection:"row",
                 alignItems:"center"
             }}>
+                <TouchableOpacity onPress={() => toggleMemberIncluded(item.user._id)}>
+                <MaterialCommunityIcons
+                    name={item.included ? 'checkbox-marked' : 'checkbox-blank-outline'}
+                    size={24}
+                    color={item.included ? COLOR.BUTTON : COLOR.TEXT}
+                />
+            </TouchableOpacity>
             <Image source={LoginImage} style={{
                         width:calcHeight(4),
                         height:calcHeight(4),
@@ -158,11 +220,6 @@ const GroupSplitScreen = ({navigation}) => {
                 renderItem={renderItem}
                 keyExtractor={(item) => item.id}
             />
-            {/* <TouchableOpacity style={styles.addButton} onPress={addMember}>
-                <Text style={styles.addButtonText}>
-                    Add a new member in this group
-                </Text>
-            </TouchableOpacity> */}
         </View>
     );
 };
