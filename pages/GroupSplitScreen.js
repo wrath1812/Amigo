@@ -6,7 +6,8 @@ import {
     FlatList,
     TouchableOpacity,
     Pressable,
-    Image
+    Image,
+    TextInput
 } from 'react-native';
 import { useTransaction } from '../context/TransactionContext';
 import COLOR from '../constants/Colors';
@@ -17,30 +18,54 @@ import sliceText from '../helper/sliceText';
 
 const GroupSplitScreen = ({navigation}) => {
     const { transactionData, setTransactionData } = useTransaction();
-    const [members, setMembers] = useState([
-        { id: '1', name: 'You', amount: 15 },
-        { id: '2', name: 'Binny', amount: 15 },
-        { id: '3', name: 'Sheldon', amount: 15 },
-    ]);
+    const [members, setMembers] = useState(transactionData.splitAmong.map(member => ({
+        ...member,
+        isAmountManuallyEntered: false
+      })));
 
-    const [totalAmount, setTotalAmount] = useState(75);
-
-
-    const addMember = () => {
-        const newId = (members.length + 1).toString();
-        const newMember = {
-            id: newId,
-            name: 'New Member',
-            amount: totalAmount / (members.length + 1),
-        };
-        setMembers((currentMembers) => {
-            return currentMembers
-                .map((member) => ({ ...member, amount: newMember.amount }))
-                .concat(newMember);
+      const handleAmountChange = (amount, id) => {
+        const newAmount = parseInt(amount) || 0;
+    
+        let totalAmount = transactionData.amount || 0; // Total amount to be split
+        let amountToDistribute = totalAmount - newAmount; // Amount remaining to distribute
+    
+        // Calculate the total manually entered amount and reduce it from amountToDistribute
+        members.forEach(member => {
+          if (member.isAmountManuallyEntered && member.user._id !== id) {
+            amountToDistribute -= member.amount;
+          }
         });
+    
+        const membersNotEntered = members.filter(m => !m.isAmountManuallyEntered && m.user._id !== id);
+        const perUserPayment = Math.floor(amountToDistribute / membersNotEntered.length);
+        const remainder = amountToDistribute % membersNotEntered.length;
+    
+        let distributedRemainder = 0;
+    
+        const updatedMembers = members.map(member => {
+          if (member.user._id === id) {
+            // Update the member who's input was changed
+            return { ...member, amount: newAmount, isAmountManuallyEntered: true };
+          } else if (!member.isAmountManuallyEntered) {
+            // Distribute the remaining amount among members who haven't entered their amount
+            let adjustedAmount = perUserPayment;
+            if (distributedRemainder < remainder) {
+              adjustedAmount += 1;
+              distributedRemainder++;
+            }
+            return { ...member, amount: adjustedAmount };
+          }
+          return member;
+        });
+    
+        // Update the state with the new members array
+        setMembers(updatedMembers);
     };
-
-    const renderItem = ({ item }) => (
+    
+    
+    
+    const renderItem = ({ item }) => {
+        return(
         <View style={styles.memberContainer}>
             <View style={{
                 flexDirection:"row",
@@ -56,9 +81,18 @@ const GroupSplitScreen = ({navigation}) => {
                     }}/>
             <Text style={styles.memberName}>{item.user.name}</Text>
             </View>
-            <Text style={styles.memberAmount}>${parseInt(item.amount)}</Text>
+
+            <View style={styles.rowCentered}>
+    <Text style={styles.amount}>$</Text>
+    <TextInput 
+        style={styles.amount} 
+        value={String(item.amount)}
+        onChangeText={(newAmount) => handleAmountChange(newAmount, item.user._id)}
+    />
+</View>
+
         </View>
-    );
+    )};
 
     return (
         <View style={styles.container}>
@@ -102,15 +136,15 @@ const GroupSplitScreen = ({navigation}) => {
             >Split between</Text>
             
             <FlatList
-                data={transactionData.splitAmong}
+                data={members}
                 renderItem={renderItem}
                 keyExtractor={(item) => item.id}
             />
-            <TouchableOpacity style={styles.addButton} onPress={addMember}>
+            {/* <TouchableOpacity style={styles.addButton} onPress={addMember}>
                 <Text style={styles.addButtonText}>
                     Add a new member in this group
                 </Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
         </View>
     );
 };
@@ -160,6 +194,17 @@ const styles = StyleSheet.create({
         color: '#fff',
         fontWeight: 'bold',
         fontSize: 18,
+    },
+    rowCentered: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignContent: 'center',
+    },
+    amount: {
+        alignItems: 'center',
+        alignContent: 'center',
+        color: COLOR.TEXT,
+        fontSize: getFontSizeByWindowWidth(20),
     },
 });
 
