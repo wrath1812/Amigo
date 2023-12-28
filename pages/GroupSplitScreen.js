@@ -26,14 +26,22 @@ const GroupSplitScreen = ({navigation}) => {
         included:true
       })));
 
-      const submitSplit=()=>{
-        setTransactionData((prev)=>({
-            ...prev,
-            splitAmong:members
+       
+      const submitSplit = () => {
+        // Filter out members who are not included
+        const includedMembers = members.filter(member => member.included);
+      
+        // Update the transaction data with the filtered members
+        setTransactionData(prev => ({
+          ...prev,
+          splitAmong: includedMembers
         }));
+      
+      
+        // Navigate back to the previous screen after updating
         navigation.goBack();
-
-      }
+      };
+      
 
       const toggleMemberIncluded = (memberId) => {
         setMembers(prevMembers => {
