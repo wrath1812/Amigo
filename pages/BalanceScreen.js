@@ -20,11 +20,11 @@ import EmptyScreen from '../components/EmptyScreen';
 import NoBalance from '../assets/NoBalance.png';
 import GroupBalanceCard from '../components/GroupBalanceCard';
 import { useAuth } from '../context/AuthContext';
-import { Ionicons } from '@expo/vector-icons'; 
-import ScanIcon from "../assets/icons/scan.png";
+import { Ionicons } from '@expo/vector-icons';
+import ScanIcon from '../assets/icons/scan.png';
 import plusIconStyle from '../constants/plusIconStyle';
 
-const headerIconSize=6;
+const headerIconSize = 6;
 function groupByGroup(balances, userId) {
     const groupMap = new Map();
     let userTotalBalance = 0;
@@ -70,7 +70,7 @@ function groupByGroup(balances, userId) {
         // Accumulate the total balance
         group.totalBalance += amount;
 
-            userTotalBalance += amount;
+        userTotalBalance += amount;
     });
 
     // Convert the map to the desired array structure
@@ -87,18 +87,20 @@ function groupByGroup(balances, userId) {
     return { groups: groupsArray, userTotalBalance };
 }
 
-
 function BalanceScreen({ navigation }) {
     const [loading, setLoading] = useState(false);
     const [balances, setBalances] = useState([]);
-    const [balance,setBalance]=useState(0);
+    const [balance, setBalance] = useState(0);
     const { user } = useAuth();
     useFocusEffect(
         useCallback(() => {
             (async () => {
                 setLoading(true);
                 const { data } = await apiHelper('/balance');
-                const {groups,userTotalBalance} = groupByGroup(data, user.id);
+                const { groups, userTotalBalance } = groupByGroup(
+                    data,
+                    user.id,
+                );
                 setBalance(parseInt(userTotalBalance));
                 setBalances(groups);
                 setLoading(false);
@@ -111,46 +113,45 @@ function BalanceScreen({ navigation }) {
     ) : (
         <SafeAreaView style={styles.container}>
             <View
-                    style={{
-                        flexDirection:"row",
-                        justifyContent:"space-between",
-                        alignItems:"center",
-                        margin:calcWidth(headerIconSize)
-                    }}
-                >
-                    <View
-                    >
-                        <Image
+                style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    alignItems: 'center',
+                    margin: calcWidth(headerIconSize),
+                }}
+            >
+                <View>
+                    <Image
                         source={ScanIcon}
                         style={{
-                            width:calcWidth(headerIconSize),
-                            height:calcWidth(headerIconSize)
+                            width: calcWidth(headerIconSize),
+                            height: calcWidth(headerIconSize),
                         }}
-                        />
-                    </View>
-                    <View
-                        style={{
-                            flexDirection: 'row',
-                            justifyContent: 'space-between',
-                        }}
-                    >
-                        <Ionicons
-                            name="search"
-                            size={calcWidth(headerIconSize)}
-                            color="white"
-                        />
-
-                        <Image
-                            source={{ uri: 'https://t.ly/Rel6Z' }}
-                            style={{
-                                width: calcWidth(headerIconSize),
-                                height: calcWidth(headerIconSize),
-                                borderRadius: calcWidth(headerIconSize),
-                                marginLeft:calcWidth(headerIconSize)
-                            }}
-                        />
-                    </View>
+                    />
                 </View>
+                <View
+                    style={{
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                    }}
+                >
+                    <Ionicons
+                        name="search"
+                        size={calcWidth(headerIconSize)}
+                        color="white"
+                    />
+
+                    <Image
+                        source={{ uri: 'https://t.ly/Rel6Z' }}
+                        style={{
+                            width: calcWidth(headerIconSize),
+                            height: calcWidth(headerIconSize),
+                            borderRadius: calcWidth(headerIconSize),
+                            marginLeft: calcWidth(headerIconSize),
+                        }}
+                    />
+                </View>
+            </View>
             <View
                 style={{
                     padding: calcWidth(2),
@@ -163,7 +164,7 @@ function BalanceScreen({ navigation }) {
                         padding: calcHeight(2),
                         borderRadius: 10,
                         justifyContent: 'space-between',
-                        marginTop:calcHeight(1)
+                        marginTop: calcHeight(1),
                     }}
                 >
                     <Text
@@ -198,7 +199,7 @@ function BalanceScreen({ navigation }) {
                     keyExtractor={(item) => item.id}
                     renderItem={({ item }) => <GroupBalanceCard group={item} />}
                     style={{
-                        marginTop:calcHeight(5)
+                        marginTop: calcHeight(5),
                     }}
                 />
             )}

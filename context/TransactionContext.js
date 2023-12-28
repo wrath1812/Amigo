@@ -5,27 +5,28 @@ import { useAuth } from './AuthContext';
 
 export const TransactionProvider = ({ children }) => {
     const { user } = useAuth();
-    const [transactionData,setTransactionData]=useState({
+    const [transactionData, setTransactionData] = useState({
         amount: '',
         description: '',
         category: '',
         date: new Date(),
         type: 'Other',
         splitAmong: [],
-        group:{}
+        group: {},
     });
 
-    useEffect(()=>{
-        setTransactionData((prev)=>({
-            ...prev,paidBy:{_id:user?._id,name:user?.name}
-        }))
-    },[user])
+    useEffect(() => {
+        setTransactionData((prev) => ({
+            ...prev,
+            paidBy: { _id: user?._id, name: user?.name },
+        }));
+    }, [user]);
 
     return (
         <TransactionContext.Provider
             value={{
                 transactionData,
-                setTransactionData
+                setTransactionData,
             }}
         >
             {children}

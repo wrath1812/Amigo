@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: COLOR.BUTTON,
         borderRadius: 10,
-        width:calcWidth(90)
+        width: calcWidth(90),
     },
     input: {
         flex: 1,

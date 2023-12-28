@@ -29,7 +29,7 @@ function GroupListScreen({ navigation }) {
     const [groups, setGroups] = useState([]);
     const [loading, setLoading] = useState(false);
     const [search, setSearch] = useState('');
-    const {setTransactionData}=useTransaction();
+    const { setTransactionData } = useTransaction();
 
     useFocusEffect(
         useCallback(() => {
@@ -51,11 +51,13 @@ function GroupListScreen({ navigation }) {
             <ScrollView>
                 <GroupSelectCard name={'Create new group'} />
                 {groups.map((group) => (
-                    <GroupSelectCard name={group.name}
-                    onPress={()=>{setTransactionData(prev=>({...prev,group}));
-                    navigation.navigate(PAGES.ADD_TRANSACTION)
-                }}
-                     />
+                    <GroupSelectCard
+                        name={group.name}
+                        onPress={() => {
+                            setTransactionData((prev) => ({ ...prev, group }));
+                            navigation.navigate(PAGES.ADD_TRANSACTION);
+                        }}
+                    />
                 ))}
             </ScrollView>
         </SafeAreaView>

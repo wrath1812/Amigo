@@ -1,5 +1,5 @@
-import COLOR from "./Colors";
-import { calcHeight } from "../helper/res";
+import COLOR from './Colors';
+import { calcHeight } from '../helper/res';
 const size = 6;
 export default {
     backgroundColor: COLOR.BUTTON,
@@ -9,4 +9,4 @@ export default {
     borderRadius: calcHeight(size), // Adjust the border radius if needed (half of width/height for perfect circle)
     alignItems: 'center',
     justifyContent: 'center',
-}
+};

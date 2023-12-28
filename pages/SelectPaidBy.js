@@ -26,20 +26,25 @@ import Search from '../components/Search';
 import GroupSelectCard from '../components/GroupSelectCard';
 import { useTransaction } from '../context/TransactionContext';
 function GroupListScreen({ navigation }) {
-    const {setTransactionData,transactionData}=useTransaction();
+    const { setTransactionData, transactionData } = useTransaction();
     return (
         <SafeAreaView style={styles.container}>
             <ScrollView>
                 {transactionData.group.members.map((member) => (
-                    <GroupSelectCard name={member.name}
-                    onPress={()=>{setTransactionData(prev=>({...prev,paidBy:member}));
-                    navigation.navigate(PAGES.ADD_TRANSACTION)
-                }}
-                     />
+                    <GroupSelectCard
+                        name={member.name}
+                        onPress={() => {
+                            setTransactionData((prev) => ({
+                                ...prev,
+                                paidBy: member,
+                            }));
+                            navigation.goBack();
+                        }}
+                    />
                 ))}
             </ScrollView>
         </SafeAreaView>
-    )
+    );
 }
 
 const styles = StyleSheet.create({

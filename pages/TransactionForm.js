@@ -22,11 +22,11 @@ import { AntDesign } from '@expo/vector-icons';
 import { useTransaction } from '../context/TransactionContext';
 
 function TransactionFormScreen({ navigation }) {
-    const [loading,setIsLoading]=useState(false);
-    const {transactionData,setTransactionData}=useTransaction();
+    const [loading, setIsLoading] = useState(false);
+    const { transactionData, setTransactionData } = useTransaction();
     const descriptionRef = useRef();
     useEffect(() => {
-        const {group}=transactionData;
+        const { group } = transactionData;
         if (group && group.members) {
             const perUserPayment =
                 transactionData.amount / group.members.length;
@@ -58,9 +58,9 @@ function TransactionFormScreen({ navigation }) {
         setIsLoading(true);
         try {
             transactionData['amount'] = parseInt(transactionData.amount);
-            transactionData["group"]=transactionData.group._id;
-            transactionData["paidBy"]=transactionData.paidBy._id;
-            console.log(transactionData)
+            transactionData['group'] = transactionData.group._id;
+            transactionData['paidBy'] = transactionData.paidBy._id;
+            console.log(transactionData);
             const { data } = await apiHelper.post(
                 '/transaction',
                 transactionData,
@@ -132,7 +132,52 @@ function TransactionFormScreen({ navigation }) {
                     </Pressable>
                 ))}
             </ScrollView>
-                <View>
+            <View>
+                <Pressable
+                    style={{
+                        backgroundColor: '#302B49',
+                        padding: calcWidth(5),
+                        borderRadius: 10,
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        justifyContent: 'space-evenly',
+                    }}
+                    onPress={() => {
+                        navigation.navigate(PAGES.SELECT_GROUP);
+                    }}
+                >
+                    <MaterialIcons
+                        name="group-add"
+                        style={{
+                            marginRight: calcWidth(3),
+                        }}
+                        size={calcWidth(8)}
+                        color="white"
+                    />
+                    <Text
+                        style={{
+                            color: 'white',
+                        }}
+                    >
+                        {transactionData.group.name || 'Add Group'}
+                    </Text>
+                    <AntDesign
+                        name="right"
+                        size={calcWidth(5)}
+                        color="white"
+                        style={{
+                            marginLeft: calcWidth(40),
+                        }}
+                    />
+                </Pressable>
+            </View>
+            {transactionData.group?.members?.length > 0 && (
+                <View
+                    style={{
+                        flexDirection: 'row',
+                        justifyContent: 'space-between',
+                    }}
+                >
                     <Pressable
                         style={{
                             backgroundColor: '#302B49',
@@ -141,57 +186,11 @@ function TransactionFormScreen({ navigation }) {
                             flexDirection: 'row',
                             alignItems: 'center',
                             justifyContent: 'space-evenly',
+                            marginTop: calcHeight(5),
+                            width: calcWidth(40),
                         }}
                         onPress={() => {
-                            navigation.navigate(PAGES.SELECT_GROUP);
-
-                        }}
-                    >
-                        <MaterialIcons
-                            name="group-add"
-                            style={{
-                                marginRight: calcWidth(3),
-                            }}
-                            size={calcWidth(8)}
-                            color="white"
-                        />
-                        <Text
-                            style={{
-                                color: 'white',
-                            }}
-                        >
-                            {transactionData.group.name||"Add Group"}
-                        </Text>
-                        <AntDesign
-                            name="right"
-                            size={calcWidth(5)}
-                            color="white"
-                            style={{
-                                marginLeft: calcWidth(40),
-                            }}
-                        />
-                    </Pressable>
-
-                </View>
-                {
-                      transactionData.group?.members?.length>0 &&(<View
-                      style={{
-                        flexDirection:"row",
-                        justifyContent:"space-between"
-                      }}
-                      ><Pressable
-                        style={{
-                            backgroundColor: '#302B49',
-                            padding: calcWidth(5),
-                            borderRadius: 10,
-                            flexDirection: 'row',
-                            alignItems: 'center',
-                            justifyContent: 'space-evenly',
-                            marginTop:calcHeight(5),
-                            width:calcWidth(40)
-                        }}
-                        onPress={() => {
-                            navigation.navigate(PAGES.SELECT_PAID_BY)
+                            navigation.navigate(PAGES.SELECT_PAID_BY);
                         }}
                     >
                         <Text
@@ -210,11 +209,11 @@ function TransactionFormScreen({ navigation }) {
                             flexDirection: 'row',
                             alignItems: 'center',
                             justifyContent: 'space-evenly',
-                            marginTop:calcHeight(5),
-                            width:calcWidth(40)
+                            marginTop: calcHeight(5),
+                            width: calcWidth(40),
                         }}
                         onPress={() => {
-                            navigation.navigate(PAGES.SELECT_PAID_BY)
+                            navigation.navigate(PAGES.GROUP_SPLIT_SCREEN);
                         }}
                     >
                         <Text
@@ -222,11 +221,11 @@ function TransactionFormScreen({ navigation }) {
                                 color: 'white',
                             }}
                         >
-                           Split Equally
+                            Split Equally
                         </Text>
                     </Pressable>
-                    </View>)
-                    }
+                </View>
+            )}
             <View
                 style={{
                     alignItems: 'center',

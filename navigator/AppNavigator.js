@@ -19,50 +19,53 @@ const AppNavigator = () => {
     const { user } = useAuth();
     return user.name ? (
         <Tab.Navigator
-  screenOptions={{
-    headerShown: false,
-    tabBarLabel: () => null, // Add this line to disable labels
-    tabBarStyle: tabBarStyle
-  }}
->
+            screenOptions={{
+                headerShown: false,
+                tabBarLabel: () => null, // Add this line to disable labels
+                tabBarStyle: tabBarStyle,
+            }}
+        >
             <Tab.Group>
-            <Tab.Screen
-    name={PAGES.BALANCE}
-    options={{
-        tabBarIcon: (tabBarProps) => (
-           
-               <TabBarIcon
-            tabBarProps={tabBarProps} screen={PAGES.BALANCE}/>
-           
-          ),
-        headerShown: false
-    }}
-    component={BalanceScreen}
-/>
-
+                <Tab.Screen
+                    name={PAGES.BALANCE}
+                    options={{
+                        tabBarIcon: (tabBarProps) => (
+                            <TabBarIcon
+                                tabBarProps={tabBarProps}
+                                screen={PAGES.BALANCE}
+                            />
+                        ),
+                        headerShown: false,
+                    }}
+                    component={BalanceScreen}
+                />
 
                 <Tab.Screen
                     name={PAGES.GROUP_NAVIGATOR}
                     options={{
                         headerShown: false,
                         tabBarIcon: (tabBarProps) => (
-           
                             <TabBarIcon
-                         tabBarProps={tabBarProps} screen={PAGES.GROUP_NAVIGATOR}/>
-                        
-                       ),
+                                tabBarProps={tabBarProps}
+                                screen={PAGES.GROUP_NAVIGATOR}
+                            />
+                        ),
                         tabBarStyle: { display: 'none' },
                     }}
                     component={GroupNavigator}
                 />
 
-                <Tab.Screen name={PAGES.SETTINGS} component={Settings}
-                options={{ tabBarIcon: (tabBarProps) => (
-           
-                    <TabBarIcon
-                 tabBarProps={tabBarProps} screen={PAGES.SETTINGS}/>
-                
-               )}}
+                <Tab.Screen
+                    name={PAGES.SETTINGS}
+                    component={Settings}
+                    options={{
+                        tabBarIcon: (tabBarProps) => (
+                            <TabBarIcon
+                                tabBarProps={tabBarProps}
+                                screen={PAGES.SETTINGS}
+                            />
+                        ),
+                    }}
                 />
             </Tab.Group>
         </Tab.Navigator>

@@ -14,7 +14,8 @@ import CreateGroup from '../pages/CreateGroup';
 const Stack = createNativeStackNavigator();
 import TransactionDetail from '../pages/TransactionDetails';
 import SelectGroup from '../pages/SelectGroup';
-import SelectPaidBy from "../pages/SelectPaidBy";
+import GroupSplitScreen from '../pages/GroupSplitScreen';
+import SelectPaidBy from '../pages/SelectPaidBy';
 function GroupNavigator() {
     return (
         <Stack.Navigator initialRouteName={PAGES.GROUP_LIST}>
@@ -44,6 +45,16 @@ function GroupNavigator() {
                 component={Group}
                 options={{
                     headerShown: false,
+                }}
+            />
+            <Stack.Screen
+                name={PAGES.GROUP_SPLIT_SCREEN}
+                component={GroupSplitScreen}
+                options={{
+                    headerStyle: {
+                        backgroundColor: COLOR.APP_BACKGROUND,
+                    },
+                    title: null,
                 }}
             />
             <Stack.Screen

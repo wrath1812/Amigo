@@ -25,5 +25,5 @@ const styles = StyleSheet.create({
         bottom: calcHeight(5),
         right: calcWidth(6.5),
     },
-    fab:plusIconStyle,
+    fab: plusIconStyle,
 });

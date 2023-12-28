@@ -6,13 +6,7 @@ import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons'; // Make s
 import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
 import COLOR from '../constants/Colors';
 
-function ContactCard({
-    selected,
-    color,
-    name,
-    phoneNumber,
-    imageURI
-}) {
+function ContactCard({ selected, color, name, phoneNumber, imageURI }) {
     return (
         <View style={styles.container}>
             {imageURI ? (
@@ -48,7 +42,7 @@ function ContactCard({
 }
 
 export default ContactCard;
-const selectorSize=5;
+const selectorSize = 5;
 
 const styles = StyleSheet.create({
     container: {
@@ -57,7 +51,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         paddingVertical: calcWidth(5),
         backgroundColor: COLOR.APP_BACKGROUND,
-        justifyContent:"space-between"
+        justifyContent: 'space-between',
     },
     profileImage: {
         height: calcHeight(5),
@@ -69,7 +63,7 @@ const styles = StyleSheet.create({
     },
     nameText: {
         color: COLOR.TEXT,
-        fontSize:getFontSizeByWindowWidth(12)
+        fontSize: getFontSizeByWindowWidth(12),
     },
     phoneText: {
         fontSize: getFontSizeByWindowWidth(10),
@@ -80,6 +74,6 @@ const styles = StyleSheet.create({
         width: calcHeight(selectorSize),
         borderRadius: calcHeight(selectorSize),
         justifyContent: 'center',
-        alignItems: 'center',           
-    }
+        alignItems: 'center',
+    },
 });

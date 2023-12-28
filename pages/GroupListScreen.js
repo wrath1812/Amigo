@@ -23,7 +23,7 @@ import NoGroupsImage from '../assets/NoGroups.png';
 import { useEffect } from 'react';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
 import Search from '../components/Search';
-import tabBarStyle from "../constants/tabBarStyle";
+import tabBarStyle from '../constants/tabBarStyle';
 function GroupListScreen({ navigation }) {
     const [groups, setGroups] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -34,7 +34,7 @@ function GroupListScreen({ navigation }) {
         if (isFocused) {
             // Show the tab bar when this screen is focused
             navigation.getParent()?.setOptions({
-                tabBarStyle: { display: 'flex', ...tabBarStyle},
+                tabBarStyle: { display: 'flex', ...tabBarStyle },
             });
         } else {
             // Optional: Hide the tab bar when this screen is not focused
@@ -72,19 +72,20 @@ function GroupListScreen({ navigation }) {
                 />
             ) : (
                 <>
-                    <View style={{
-                        alignItems:"center",
-                        marginTop:calcHeight(2),
-                        marginBottom:calcHeight(4)
-                    }}>
-                    <Search search={search} setSearch={setSearch} />
+                    <View
+                        style={{
+                            alignItems: 'center',
+                            marginTop: calcHeight(2),
+                            marginBottom: calcHeight(4),
+                        }}
+                    >
+                        <Search search={search} setSearch={setSearch} />
                     </View>
                     <FlatList
-    data={groups}
-    renderItem={({ item }) => <GroupCard group={item} />}
-    keyExtractor={item => item.id} // Replace 'item.id' with the appropriate key property from your group objects
-/>
-
+                        data={groups}
+                        renderItem={({ item }) => <GroupCard group={item} />}
+                        keyExtractor={(item) => item.id} // Replace 'item.id' with the appropriate key property from your group objects
+                    />
                 </>
             )}
             {groups.length != 0 && (
