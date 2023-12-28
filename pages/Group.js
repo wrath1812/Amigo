@@ -120,9 +120,6 @@ function GroupScreen({
                     />
                 </Pressable>
                 <TouchableOpacity style={styles.button}>
-                    <Text style={styles.buttonText}>$ Settle</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.button}>
                     <Text style={styles.buttonText}  onPress={() =>
                     navigation.navigate(PAGES.ADD_TRANSACTION, { group })
                 }>+ Expense</Text>
@@ -170,7 +167,7 @@ const styles = StyleSheet.create({
     },
     inputContainer: {
         color: 'white',
-        width:calcWidth(35),
+        width:calcWidth(60),
         height:calcHeight(5),
         alignContent:"center"
     },
