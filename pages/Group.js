@@ -68,14 +68,21 @@ function GroupScreen({
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.header}>
-                <View style={{ width:"40%",flexDirection: 'row', alignItems: 'center' ,justifyContent:"space-between"}}>
-                <Pressable onPress={() => navigation.goBack()}>
-                    <Ionicons
-                        name="chevron-back"
-                        size={calcHeight(3)}
-                        color="#87CEEB"
-                    />
-                </Pressable>
+                <View
+                    style={{
+                        width: '40%',
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                    }}
+                >
+                    <Pressable onPress={() => navigation.goBack()}>
+                        <Ionicons
+                            name="chevron-back"
+                            size={calcHeight(3)}
+                            color="#87CEEB"
+                        />
+                    </Pressable>
                     <GroupIcon image={LoginIcon} />
                     <View style={styles.groupNameContainer}>
                         <Text style={styles.groupName}>{group.name}</Text>
@@ -84,9 +91,14 @@ function GroupScreen({
                         </Text>
                     </View>
                 </View>
-                <AntDesign name="scan1" size={24} color="white" style={{
-                    marginRight:calcWidth(5)
-                }} />
+                <AntDesign
+                    name="scan1"
+                    size={24}
+                    color="white"
+                    style={{
+                        marginRight: calcWidth(5),
+                    }}
+                />
             </View>
             <FlatList
                 inverted
@@ -103,8 +115,8 @@ function GroupScreen({
                 style={{
                     flex: 1,
                     flexDirection: 'row',
-                    margin:calcWidth(2),
-                    justifyContent:"space-evenly"
+                    margin: calcWidth(2),
+                    justifyContent: 'space-evenly',
                 }}
             >
                 <Pressable
@@ -120,9 +132,16 @@ function GroupScreen({
                     />
                 </Pressable>
                 <TouchableOpacity style={styles.button}>
-                    <Text style={styles.buttonText}  onPress={() =>
-                    navigation.navigate(PAGES.ADD_TRANSACTION, { group })
-                }>+ Expense</Text>
+                    <Text
+                        style={styles.buttonText}
+                        onPress={() =>
+                            navigation.navigate(PAGES.ADD_TRANSACTION, {
+                                group,
+                            })
+                        }
+                    >
+                        + Expense
+                    </Text>
                 </TouchableOpacity>
             </View>
         </SafeAreaView>
@@ -137,9 +156,9 @@ const styles = StyleSheet.create({
     header: {
         width: '90%',
         flexDirection: 'row',
-        justifyContent: "space-between",
+        justifyContent: 'space-between',
         alignItems: 'center',
-        width: "100%"
+        width: '100%',
     },
     groupNameContainer: {
         // marginLeft: calcWidth(5),
@@ -153,12 +172,12 @@ const styles = StyleSheet.create({
     },
     button: {
         width: calcWidth(25),
-        height:calcHeight(5),
+        height: calcHeight(5),
         borderRadius: 10,
         backgroundColor: COLOR.BUTTON,
         elevation: 3,
-        justifyContent:"center",
-        alignItems:"center"
+        justifyContent: 'center',
+        alignItems: 'center',
     },
     buttonText: {
         fontSize: getFontSizeByWindowWidth(12),
@@ -167,17 +186,17 @@ const styles = StyleSheet.create({
     },
     inputContainer: {
         color: 'white',
-        width:calcWidth(60),
-        height:calcHeight(5),
-        alignContent:"center"
+        width: calcWidth(60),
+        height: calcHeight(5),
+        alignContent: 'center',
     },
     input: {
-        flex:1,
+        flex: 1,
         borderWidth: 1,
         borderColor: 'gray',
         borderRadius: 10,
         color: 'white',
-        fontSize:getFontSizeByWindowWidth(10),
+        fontSize: getFontSizeByWindowWidth(10),
     },
 });
 

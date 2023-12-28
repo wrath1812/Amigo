@@ -1,29 +1,25 @@
-import { StyleSheet, View,Pressable,TextInput } from 'react-native';
+import { StyleSheet, View, Pressable, TextInput } from 'react-native';
 import { calcHeight, calcWidth } from '../helper/res';
 import COLOR from '../constants/Colors';
 import { FontAwesome } from '@expo/vector-icons';
-import {useRef} from "react"
-function Search({ search,setSearch}) {
+import { useRef } from 'react';
+function Search({ search, setSearch }) {
     const searchRef = useRef();
     return (
         <Pressable
-        style={styles.inputContainer}
-        onPress={() => searchRef.current.focus()}
-    >
-        <FontAwesome
-            name="search"
-            size={calcWidth(4)}
-            color="gray"
-        />
-        <TextInput
-            style={styles.input}
-            onChangeText={setSearch}
-            value={search}
-            placeholder="Search"
-            placeholderTextColor="gray"
-            ref={searchRef}
-        />
-    </Pressable>
+            style={styles.inputContainer}
+            onPress={() => searchRef.current.focus()}
+        >
+            <FontAwesome name="search" size={calcWidth(4)} color="gray" />
+            <TextInput
+                style={styles.input}
+                onChangeText={setSearch}
+                value={search}
+                placeholder="Search"
+                placeholderTextColor="gray"
+                ref={searchRef}
+            />
+        </Pressable>
     );
 }
 
@@ -44,5 +40,5 @@ const styles = StyleSheet.create({
         flex: 1,
         marginLeft: 10,
         color: 'white',
-    }
+    },
 });

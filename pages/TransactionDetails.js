@@ -1,12 +1,18 @@
-import React, { useState,useLayoutEffect } from 'react';
-import { View, Text, StyleSheet, SafeAreaView,TouchableOpacity } from 'react-native';
+import React, { useState, useLayoutEffect } from 'react';
+import {
+    View,
+    Text,
+    StyleSheet,
+    SafeAreaView,
+    TouchableOpacity,
+} from 'react-native';
 import COLOR from '../constants/Colors';
 import { calcWidth, calcHeight, getFontSizeByWindowWidth } from '../helper/res';
 import generateRandomColor from '../helper/generateRandomColor';
 import { useAuth } from '../context/AuthContext';
 import DatePicker from '../components/DatePicker';
-import {getCategoryIcon} from "../constants/Categories";
-import { FontAwesome5,AntDesign } from '@expo/vector-icons'; 
+import { getCategoryIcon } from '../constants/Categories';
+import { FontAwesome5, AntDesign } from '@expo/vector-icons';
 const TransactionDetail = ({
     navigation,
     route: {
@@ -18,25 +24,34 @@ const TransactionDetail = ({
 
     useLayoutEffect(() => {
         navigation.setOptions({
-          headerRight: () => (
-            <View style={{
-                flexDirection:"row"
-            }}>
-            <TouchableOpacity
-             style={{
-                marginRight:calcWidth(10)
-             }}
-            >
-                <FontAwesome5 name="edit" size={calcWidth(6)} color={COLOR.BUTTON} />
-            </TouchableOpacity>
-            <TouchableOpacity
-            >
-                <AntDesign name="delete" size={calcWidth(6)} color={COLOR.BUTTON} />
-            </TouchableOpacity>
-            </View>
-          ),
+            headerRight: () => (
+                <View
+                    style={{
+                        flexDirection: 'row',
+                    }}
+                >
+                    <TouchableOpacity
+                        style={{
+                            marginRight: calcWidth(10),
+                        }}
+                    >
+                        <FontAwesome5
+                            name="edit"
+                            size={calcWidth(6)}
+                            color={COLOR.BUTTON}
+                        />
+                    </TouchableOpacity>
+                    <TouchableOpacity>
+                        <AntDesign
+                            name="delete"
+                            size={calcWidth(6)}
+                            color={COLOR.BUTTON}
+                        />
+                    </TouchableOpacity>
+                </View>
+            ),
         });
-      }, [navigation]);
+    }, [navigation]);
 
     return (
         <SafeAreaView style={styles.container}>
@@ -50,7 +65,7 @@ const TransactionDetail = ({
                         fontSize: getFontSizeByWindowWidth(50),
                         color: COLOR.TEXT,
                         fontWeight: 'bold',
-                        marginTop:calcHeight(5)
+                        marginTop: calcHeight(5),
                     }}
                 >
                     $ {transaction.amount}
@@ -66,19 +81,19 @@ const TransactionDetail = ({
                 <View
                     style={{
                         flexDirection: 'row',
-                        alignContent:"center",
-                        justifyContent:"space-between",
-                        alignItems:"center",
-                        marginTop:calcHeight(8)
+                        alignContent: 'center',
+                        justifyContent: 'space-between',
+                        alignItems: 'center',
+                        marginTop: calcHeight(8),
                     }}
                 >
                     <View>
-                    <DatePicker date={date} setDate={setDate} />
+                        <DatePicker date={date} setDate={setDate} />
                     </View>
                     <View
                         style={{
                             backgroundColor: 'white',
-                            flexDirection:"row"
+                            flexDirection: 'row',
                         }}
                     >
                         {getCategoryIcon(transaction.type)}
@@ -181,13 +196,13 @@ const styles = StyleSheet.create({
     },
     datePickerContainer: {
         flexDirection: 'row',
-        alignContent: "center",
-        justifyContent: "space-between",
-        alignItems: "center",
+        alignContent: 'center',
+        justifyContent: 'space-between',
+        alignItems: 'center',
     },
     categoryContainer: {
         backgroundColor: 'white',
-        flexDirection: "row",
+        flexDirection: 'row',
     },
     createdByText: {
         color: COLOR.TEXT,
@@ -227,8 +242,7 @@ const styles = StyleSheet.create({
         padding: calcWidth(2),
         backgroundColor: COLOR.BUTTON,
     },
-    sharedContainer: {
-    },
+    sharedContainer: {},
     sharedDetail: {
         flexDirection: 'row',
         alignItems: 'center',
@@ -237,7 +251,7 @@ const styles = StyleSheet.create({
     },
     sharedUser: {
         color: COLOR.TEXT,
-        fontSize: getFontSizeByWindowWidth(14)
+        fontSize: getFontSizeByWindowWidth(14),
     },
     sharedAmount: {
         color: COLOR.TEXT,
@@ -251,7 +265,5 @@ const styles = StyleSheet.create({
         padding: calcWidth(3),
     },
 });
-
-
 
 export default TransactionDetail;

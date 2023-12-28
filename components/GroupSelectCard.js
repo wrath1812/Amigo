@@ -6,19 +6,17 @@ import LoginImage from '../assets/Login.png';
 import { useNavigation } from '@react-navigation/native';
 import PAGES from '../constants/pages';
 import GroupIcon from './GroupIcon';
-import { AntDesign } from '@expo/vector-icons'; 
+import { AntDesign } from '@expo/vector-icons';
 
-function GroupSelectCard({ name,onPress }) {
+function GroupSelectCard({ name, onPress }) {
     const navigation = useNavigation();
     return (
-        <Pressable
-            style={styles.container}
-        >
+        <Pressable style={styles.container}>
             <GroupIcon image={LoginImage} />
             <View style={styles.textContainer}>
                 <Text style={styles.nameText}>{name}</Text>
             </View>
-            <AntDesign name="right" size={calcWidth(5)}color="white" />
+            <AntDesign name="right" size={calcWidth(5)} color="white" />
         </Pressable>
     );
 }

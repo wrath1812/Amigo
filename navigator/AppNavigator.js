@@ -17,25 +17,25 @@ const AppNavigator = () => {
     return user.name ? (
         <Tab.Navigator>
             <Tab.Group>
-            <Tab.Screen
-    name={PAGES.BALANCE}
-    options={{
-        tabBarLabel: PAGES.CARD_LIST,
-        tabBarIcon: ({ color, size }) => (
-            <EvilIcons
-                name="credit-card"
-                size={size}
-                color={color}
-            />
-        ),
-        headerStyle: {
-            backgroundColor: COLOR.APP_BACKGROUND,
-        },
-        // OR
-        title: '' // This will keep the header but remove the title
-    }}
-    component={BalanceScreen}
-/>
+                <Tab.Screen
+                    name={PAGES.BALANCE}
+                    options={{
+                        tabBarLabel: PAGES.CARD_LIST,
+                        tabBarIcon: ({ color, size }) => (
+                            <EvilIcons
+                                name="credit-card"
+                                size={size}
+                                color={color}
+                            />
+                        ),
+                        headerStyle: {
+                            backgroundColor: COLOR.APP_BACKGROUND,
+                        },
+                        // OR
+                        title: '', // This will keep the header but remove the title
+                    }}
+                    component={BalanceScreen}
+                />
 
                 <Tab.Screen
                     name={PAGES.GROUP_NAVIGATOR}

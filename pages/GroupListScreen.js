@@ -73,10 +73,7 @@ function GroupListScreen({ navigation }) {
                 />
             ) : (
                 <View>
-                   <Search
-                   search={search}
-                   setSearch={setSearch}
-                   />
+                    <Search search={search} setSearch={setSearch} />
                     <ScrollView>
                         {groups.map((group) => (
                             <GroupCard group={group} />
@@ -115,7 +112,7 @@ const styles = StyleSheet.create({
     },
     group: {
         flexDirection: 'row',
-    }
+    },
 });
 
 export default GroupListScreen;

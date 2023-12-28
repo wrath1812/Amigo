@@ -8,7 +8,6 @@ import { useNavigation } from '@react-navigation/native';
 import PAGES from '../constants/pages';
 import GroupIcon from './GroupIcon';
 
-
 function GroupBalanceCard({ group }) {
     const navigation = useNavigation();
     return (
@@ -22,18 +21,19 @@ function GroupBalanceCard({ group }) {
             <View style={styles.textContainer}>
                 <Text style={styles.nameText}>{group.name}</Text>
                 <Text style={styles.memberText}>
-                    {
-                      group.lenderNumber==1?  
-                      `${group.borrowerNumber} participants owe you money`:`You owe mony to ${group.lenderNumber} participants`
-                    }
+                    {group.lenderNumber == 1
+                        ? `${group.borrowerNumber} participants owe you money`
+                        : `You owe mony to ${group.lenderNumber} participants`}
                 </Text>
             </View>
             <Text
-            style={{
-                color:group.totalBalance>0?"green":"red",
-                fontWeight:"bold"
-            }}
-            >$ {parseInt(group.totalBalance)}</Text>
+                style={{
+                    color: group.totalBalance > 0 ? 'green' : 'red',
+                    fontWeight: 'bold',
+                }}
+            >
+                $ {parseInt(group.totalBalance)}
+            </Text>
         </Pressable>
     );
 }

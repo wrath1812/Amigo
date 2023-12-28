@@ -22,14 +22,12 @@ import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
 import { useRef } from 'react';
 import GroupCard from '../components/GroupCard';
 import NoGroupsImage from '../assets/NoGroups.png';
-import Search from "../components/Search";
+import Search from '../components/Search';
 import GroupSelectCard from '../components/GroupSelectCard';
 function GroupListScreen({ navigation }) {
     const [groups, setGroups] = useState([]);
     const [loading, setLoading] = useState(false);
     const [search, setSearch] = useState('');
-
-  
 
     useFocusEffect(
         useCallback(() => {
@@ -47,16 +45,13 @@ function GroupListScreen({ navigation }) {
         <Loader />
     ) : (
         <SafeAreaView style={styles.container}>
-          <Search
-          search={search}
-          setSearch={setSearch}
-          />
+            <Search search={search} setSearch={setSearch} />
             <ScrollView>
-            <GroupSelectCard name={"Create new group"}/>
-                        {groups.map((group) => (
-                            <GroupSelectCard name={group.name}/>
-                        ))}
-                    </ScrollView>
+                <GroupSelectCard name={'Create new group'} />
+                {groups.map((group) => (
+                    <GroupSelectCard name={group.name} />
+                ))}
+            </ScrollView>
         </SafeAreaView>
     );
 }
@@ -71,7 +66,7 @@ const styles = StyleSheet.create({
         color: COLOR.TEXT,
         fontWeight: 'bold',
         padding: calcWidth(3),
-        margin:calcHeight(2)
+        margin: calcHeight(2),
     },
     groupName: {
         fontSize: 16,

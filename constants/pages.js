@@ -14,7 +14,7 @@ const PAGES = {
     CREATE_GROUP: 'Create Group',
     TRANSACTION_DETAIL: 'Transaction Detail',
     BALANCE: 'Balance',
-    SELECT_GROUP:"Select Group"
+    SELECT_GROUP: 'Select Group',
 };
 
 export default PAGES;

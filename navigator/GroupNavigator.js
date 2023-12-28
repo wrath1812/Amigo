@@ -13,7 +13,7 @@ import COLOR from '../constants/Colors';
 import CreateGroup from '../pages/CreateGroup';
 const Stack = createNativeStackNavigator();
 import TransactionDetail from '../pages/TransactionDetails';
-import SelectGroup from "../pages/SelectGroup";
+import SelectGroup from '../pages/SelectGroup';
 function GroupNavigator() {
     return (
         <Stack.Navigator initialRouteName={PAGES.GROUP_LIST}>
@@ -35,23 +35,21 @@ function GroupNavigator() {
                     headerShown: false,
                 }}
             />
-         <Stack.Screen
-    name={PAGES.SELECT_GROUP}
-    component={SelectGroup}
-    options={{
-        headerStyle: {
-            backgroundColor: COLOR.APP_BACKGROUND,
-        },
-        headerTitle: "Add groups",
-        headerTitleStyle: {
-            color: 'white',   // Sets the title color to white
-            fontWeight: 'bold', // Makes the title bold
-            fontSize:getFontSizeByWindowWidth(20)
-        }
-    }}
-/>
-
-
+            <Stack.Screen
+                name={PAGES.SELECT_GROUP}
+                component={SelectGroup}
+                options={{
+                    headerStyle: {
+                        backgroundColor: COLOR.APP_BACKGROUND,
+                    },
+                    headerTitle: 'Add groups',
+                    headerTitleStyle: {
+                        color: 'white', // Sets the title color to white
+                        fontWeight: 'bold', // Makes the title bold
+                        fontSize: getFontSizeByWindowWidth(20),
+                    },
+                }}
+            />
 
             <Stack.Screen
                 name={PAGES.ADD_TRANSACTION}

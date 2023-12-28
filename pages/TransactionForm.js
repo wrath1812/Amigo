@@ -18,20 +18,16 @@ import COLOR from '../constants/Colors';
 import Button from '../components/Button';
 import Categories from '../constants/Categories';
 import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
-import { MaterialIcons } from '@expo/vector-icons'; 
-import { AntDesign } from '@expo/vector-icons'; 
+import { MaterialIcons } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons';
 
-function TransactionFormScreen({
-    navigation,
-    route: {
-        params,
-    },
-}) {
-
+function TransactionFormScreen({ navigation, route: { params } }) {
     const { user } = useAuth();
     const [loading, setIsLoading] = useState(false);
     const [selectedCategory, setSelectedCategory] = useState(null);
-    const [group,setGroup]=useState(params?.group||params?.selectedGroup||{});
+    const [group, setGroup] = useState(
+        params?.group || params?.selectedGroup || {},
+    );
     const [transactionData, setTransactionData] = useState({
         amount: '',
         description: '',
@@ -44,16 +40,17 @@ function TransactionFormScreen({
     const descriptionRef = useRef();
 
     useEffect(() => {
-        if(group && group.members){
-        const perUserPayment = transactionData.amount / group.members.length;
-        setTransactionData((prev) => ({
-            ...prev,
-            splitAmong: group.members.map(({ _id }) => ({
-                amount: perUserPayment,
-                user: _id,
-            })),
-        }));
-    }
+        if (group && group.members) {
+            const perUserPayment =
+                transactionData.amount / group.members.length;
+            setTransactionData((prev) => ({
+                ...prev,
+                splitAmong: group.members.map(({ _id }) => ({
+                    amount: perUserPayment,
+                    user: _id,
+                })),
+            }));
+        }
     }, [transactionData.amount, group.members]);
 
     const handleInputChange = (field, value) => {
@@ -124,10 +121,12 @@ function TransactionFormScreen({
                 </Pressable>
             </View>
 
-            <ScrollView horizontal showsHorizontalScrollIndicator={false}
-            contentContainerStyle={{
-                marginVertical:calcHeight(5)
-            }}
+            <ScrollView
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                contentContainerStyle={{
+                    marginVertical: calcHeight(5),
+                }}
             >
                 {Categories.map((item, index) => (
                     <Pressable
@@ -144,48 +143,53 @@ function TransactionFormScreen({
                     </Pressable>
                 ))}
             </ScrollView>
-{!params?.group &&
-            <View>
-                <Pressable
+            {!params?.group && (
+                <View>
+                    <Pressable
+                        style={{
+                            backgroundColor: '#302B49',
+                            padding: calcWidth(5),
+                            borderRadius: 10,
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                            justifyContent: 'space-evenly',
+                        }}
+                        onPress={() => {
+                            navigation.navigate(PAGES.SELECT_GROUP);
+                        }}
+                    >
+                        <MaterialIcons
+                            name="group-add"
+                            style={{
+                                marginRight: calcWidth(3),
+                            }}
+                            size={calcWidth(8)}
+                            color="white"
+                        />
+                        <Text
+                            style={{
+                                color: 'white',
+                            }}
+                        >
+                            Add Group
+                        </Text>
+                        <AntDesign
+                            name="right"
+                            size={calcWidth(5)}
+                            color="white"
+                            style={{
+                                marginLeft: calcWidth(40),
+                            }}
+                        />
+                    </Pressable>
+                </View>
+            )}
+            <View
                 style={{
-                    backgroundColor:"#302B49",
-                    padding:calcWidth(5),
-                    borderRadius:10,
-                    flexDirection:"row",
-                    alignItems:"center",
-                    justifyContent:"space-evenly"
+                    alignItems: 'center',
                 }}
-                onPress={()=>{
-                    navigation.navigate(PAGES.SELECT_GROUP)
-                }}
-                >
-                    <MaterialIcons name="group-add"
-                    style={{
-                        marginRight:calcWidth(3)
-                    }}
-                     size={calcWidth(8)} color="white" />
-                    <Text
-                    style={{
-                        color:"white"
-                    }}
-                    
-                    >Add Group</Text>
-                    <AntDesign name="right" size={calcWidth(5)}color="white" 
-                    style={
-                        {
-                            marginLeft:calcWidth(40)
-                        }
-                    }
-                    />
-                </Pressable>
-
-            </View>
-}
-            <View style={{
-                alignItems:"center"
-            }}>
-
-            <Button onPress={handleSubmit} title="Submit" />
+            >
+                <Button onPress={handleSubmit} title="Submit" />
             </View>
         </ScrollView>
     );
@@ -201,7 +205,7 @@ const styles = StyleSheet.create({
     rowCentered: {
         flexDirection: 'row',
         justifyContent: 'center',
-        alignContent: 'center'
+        alignContent: 'center',
     },
     amount: {
         alignItems: 'center',

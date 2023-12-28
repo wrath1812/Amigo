@@ -18,7 +18,7 @@ const categories = [
                 color="#4CAF50"
             />
         ),
-    }, 
+    },
     {
         name: 'Transport',
         icon: <FontAwesome5 name="bus-alt" size={size} color="#2196F3" />,
@@ -43,12 +43,10 @@ const categories = [
 
 export function getCategoryIcon(name) {
     // Find the category object where the name matches the input parameter
-    const category = categories.find(cat => cat.name === name);
+    const category = categories.find((cat) => cat.name === name);
 
     // Return the icon of the found category, or null if no match is found
     return category ? category.icon : null;
 }
-
-
 
 export default categories;

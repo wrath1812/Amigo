@@ -17,7 +17,7 @@ function FabIcon({ onPress }) {
 }
 
 export default FabIcon;
-const fabSize=7;
+const fabSize = 7;
 const styles = StyleSheet.create({
     fabContainer: {
         position: 'absolute',
