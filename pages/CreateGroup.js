@@ -163,6 +163,7 @@ const CreateGroup = ({ navigation }) => {
                             />
                         </Pressable>
                     )}
+                    showsVerticalScrollIndicator={false}
                 />
                 <View style={styles.button}>
                     <Button

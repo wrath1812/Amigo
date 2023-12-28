@@ -49,7 +49,7 @@ function ContactCard({
 }
 
 export default ContactCard;
-const selectorSize=4;
+const selectorSize=5;
 
 const styles = StyleSheet.create({
     container: {
