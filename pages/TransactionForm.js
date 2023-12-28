@@ -174,7 +174,12 @@ function TransactionFormScreen({ navigation }) {
 
                 </View>
                 {
-                      transactionData.group?.members?.length>0 &&(<View><Pressable
+                      transactionData.group?.members?.length>0 &&(<View
+                      style={{
+                        flexDirection:"row",
+                        justifyContent:"space-between"
+                      }}
+                      ><Pressable
                         style={{
                             backgroundColor: '#302B49',
                             padding: calcWidth(5),
@@ -195,6 +200,29 @@ function TransactionFormScreen({ navigation }) {
                             }}
                         >
                             Paid By {transactionData.paidBy.name}
+                        </Text>
+                    </Pressable>
+                    <Pressable
+                        style={{
+                            backgroundColor: '#302B49',
+                            padding: calcWidth(5),
+                            borderRadius: 10,
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                            justifyContent: 'space-evenly',
+                            marginTop:calcHeight(5),
+                            width:calcWidth(40)
+                        }}
+                        onPress={() => {
+                            navigation.navigate(PAGES.SELECT_PAID_BY)
+                        }}
+                    >
+                        <Text
+                            style={{
+                                color: 'white',
+                            }}
+                        >
+                           Split Equally
                         </Text>
                     </Pressable>
                     </View>)
