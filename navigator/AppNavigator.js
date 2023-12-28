@@ -13,6 +13,7 @@ import SignUpScreen from '../pages/SignUpScreen';
 import COLOR from '../constants/Colors';
 import { calcHeight } from '../helper/res';
 import TabBarIcon from '../components/TabBarIcon';
+import tabBarStyle from '../constants/tabBarStyle';
 
 const AppNavigator = () => {
     const { user } = useAuth();
@@ -21,12 +22,7 @@ const AppNavigator = () => {
   screenOptions={{
     headerShown: false,
     tabBarLabel: () => null, // Add this line to disable labels
-    tabBarStyle: {
-      height: calcHeight(10), // Adjust the height to your preference
-      backgroundColor:COLOR.APP_BACKGROUND,
-      shadowOpacity: 0,
-      borderTopWidth: 0,
-    },
+    tabBarStyle: tabBarStyle
   }}
 >
             <Tab.Group>

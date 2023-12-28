@@ -24,7 +24,7 @@ import NoGroupsImage from '../assets/NoGroups.png';
 import { useEffect } from 'react';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
 import Search from '../components/Search';
-
+import tabBarStyle from "../constants/tabBarStyle";
 function GroupListScreen({ navigation }) {
     const [groups, setGroups] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -35,7 +35,7 @@ function GroupListScreen({ navigation }) {
         if (isFocused) {
             // Show the tab bar when this screen is focused
             navigation.getParent()?.setOptions({
-                tabBarStyle: { display: 'flex' },
+                tabBarStyle: { display: 'flex', ...tabBarStyle},
             });
         } else {
             // Optional: Hide the tab bar when this screen is not focused
