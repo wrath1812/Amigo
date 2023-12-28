@@ -23,7 +23,7 @@ import { useTransaction } from '../context/TransactionContext';
 
 function TransactionFormScreen({ navigation }) {
     const [loading, setIsLoading] = useState(false);
-    const { transactionData, setTransactionData } = useTransaction();
+    const { transactionData, setTransactionData,resetTransaction } = useTransaction();
     const descriptionRef = useRef();
     useEffect(() => {
         const { group } = transactionData;
@@ -42,6 +42,9 @@ function TransactionFormScreen({ navigation }) {
         }
     }, [transactionData.amount, transactionData.group]);
     
+    useEffect(()=>{
+        resetTransaction();
+    },[])
 
     const handleInputChange = (field, value) => {
         setTransactionData((prev) => ({
@@ -162,7 +165,7 @@ function TransactionFormScreen({ navigation }) {
                             color: 'white',
                         }}
                     >
-                        {transactionData.group.name || 'Add Group'}
+                        {transactionData.group?.name || 'Add Group'}
                     </Text>
                     <AntDesign
                         name="right"
