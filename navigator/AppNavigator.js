@@ -28,11 +28,7 @@ const AppNavigator = () => {
                                 color={color}
                             />
                         ),
-                        headerStyle: {
-                            backgroundColor: COLOR.APP_BACKGROUND,
-                        },
-                        // OR
-                        title: '', // This will keep the header but remove the title
+                        headerShown:false
                     }}
                     component={BalanceScreen}
                 />
