@@ -20,13 +20,13 @@ import EmptyScreen from '../components/EmptyScreen';
 import NoBalance from '../assets/NoBalance.png';
 import GroupBalanceCard from '../components/GroupBalanceCard';
 import { useAuth } from '../context/AuthContext';
-import { AntDesign } from '@expo/vector-icons';
 import { Ionicons } from '@expo/vector-icons'; 
 import ScanIcon from "../assets/icons/scan.png";
 
 const headerIconSize=6;
 function groupByGroup(balances, userId) {
     const groupMap = new Map();
+    let userTotalBalance = 0;
 
     balances.forEach((balance) => {
         const groupId = balance.group._id;
@@ -68,10 +68,12 @@ function groupByGroup(balances, userId) {
 
         // Accumulate the total balance
         group.totalBalance += amount;
+
+            userTotalBalance += amount;
     });
 
     // Convert the map to the desired array structure
-    return Array.from(groupMap.values()).map((group) => ({
+    const groupsArray = Array.from(groupMap.values()).map((group) => ({
         name: group.name,
         id: group.id,
         lenderNumber: group.lenders.size,
@@ -80,19 +82,24 @@ function groupByGroup(balances, userId) {
         lenders: Array.from(group.lenders.values()),
         borrowers: Array.from(group.borrowers.values()),
     }));
+
+    return { groups: groupsArray, userTotalBalance };
 }
+
 
 function BalanceScreen({ navigation }) {
     const [loading, setLoading] = useState(false);
     const [balances, setBalances] = useState([]);
+    const [balance,setBalance]=useState(0);
     const { user } = useAuth();
     useFocusEffect(
         useCallback(() => {
             (async () => {
                 setLoading(true);
                 const { data } = await apiHelper('/balance');
-                const computedBalances = groupByGroup(data, user.id);
-                setBalances(computedBalances);
+                const {groups,userTotalBalance} = groupByGroup(data, user.id);
+                setBalance(parseInt(userTotalBalance));
+                setBalances(groups);
                 setLoading(false);
             })();
         }, []),
@@ -172,7 +179,7 @@ function BalanceScreen({ navigation }) {
                             fontWeight: 'bold',
                         }}
                     >
-                        $ 0
+                        $ {balance}
                     </Text>
                 </View>
             </View>
