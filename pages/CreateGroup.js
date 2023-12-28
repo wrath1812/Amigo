@@ -147,6 +147,7 @@ const CreateGroup = ({ navigation }) => {
                 search={search}
                 setSearch={setSearch}
                 />
+                <Text>Contacts</Text>
                 <FlatList
                     data={filterContacts()}
                     style={{

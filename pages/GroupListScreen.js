@@ -73,7 +73,11 @@ function GroupListScreen({ navigation }) {
                 />
             ) : (
                 <View>
+                    <View style={{
+                        alignItems:"center"
+                    }}>
                     <Search search={search} setSearch={setSearch} />
+                    </View>
                     <ScrollView>
                         {groups.map((group) => (
                             <GroupCard group={group} />
