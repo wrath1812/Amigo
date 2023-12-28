@@ -15,6 +15,7 @@ import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
 import LoginImage from '../assets/Login.png';
 import PAGES from "../constants/pages";
 import sliceText from '../helper/sliceText';
+import { useLayoutEffect } from 'react';
 
 const GroupSplitScreen = ({navigation}) => {
     const { transactionData, setTransactionData } = useTransaction();
@@ -23,31 +24,48 @@ const GroupSplitScreen = ({navigation}) => {
         isAmountManuallyEntered: false
       })));
 
+      useLayoutEffect(() => {
+        navigation.setOptions({
+          headerRight: () => (
+            <TouchableOpacity 
+
+            >
+                <Text style={[styles.tabBarText]}>
+                  Done
+                </Text>
+            </TouchableOpacity>
+          ),
+        });
+      }, [navigation]);
+
       const handleAmountChange = (amount, id) => {
-        const newAmount = parseInt(amount) || 0;
-    
-        let totalAmount = transactionData.amount || 0; // Total amount to be split
-        let amountToDistribute = totalAmount - newAmount; // Amount remaining to distribute
-    
-        // Calculate the total manually entered amount and reduce it from amountToDistribute
+        const newAmount = Math.max(parseInt(amount) || 0, 0);
+        let totalAmount = transactionData.amount || 0;
+        
+        // Ensure totalAmount is not exceeded
+        let manuallyEnteredTotal = newAmount;
         members.forEach(member => {
           if (member.isAmountManuallyEntered && member.user._id !== id) {
-            amountToDistribute -= member.amount;
+            manuallyEnteredTotal += member.amount;
           }
         });
     
+        if (manuallyEnteredTotal > totalAmount) {
+          // Handle the case where the total exceeds the limit
+          // Reset newAmount or alert the user
+          return; // Exit the function or reset newAmount as needed
+        }
+    
+        let amountToDistribute = totalAmount - manuallyEnteredTotal;
         const membersNotEntered = members.filter(m => !m.isAmountManuallyEntered && m.user._id !== id);
-        const perUserPayment = Math.floor(amountToDistribute / membersNotEntered.length);
+        const perUserPayment = Math.max(Math.floor(amountToDistribute / membersNotEntered.length), 0);
         const remainder = amountToDistribute % membersNotEntered.length;
     
         let distributedRemainder = 0;
-    
         const updatedMembers = members.map(member => {
           if (member.user._id === id) {
-            // Update the member who's input was changed
             return { ...member, amount: newAmount, isAmountManuallyEntered: true };
           } else if (!member.isAmountManuallyEntered) {
-            // Distribute the remaining amount among members who haven't entered their amount
             let adjustedAmount = perUserPayment;
             if (distributedRemainder < remainder) {
               adjustedAmount += 1;
@@ -58,9 +76,9 @@ const GroupSplitScreen = ({navigation}) => {
           return member;
         });
     
-        // Update the state with the new members array
         setMembers(updatedMembers);
     };
+    
     
     
     
@@ -185,16 +203,6 @@ const styles = StyleSheet.create({
         color:COLOR.TEXT,
         fontWeight:"bold"
     },
-    addButton: {
-        backgroundColor: '#6200ee',
-        padding: 20,
-        alignItems: 'center',
-    },
-    addButtonText: {
-        color: '#fff',
-        fontWeight: 'bold',
-        fontSize: 18,
-    },
     rowCentered: {
         flexDirection: 'row',
         justifyContent: 'center',
@@ -206,6 +214,10 @@ const styles = StyleSheet.create({
         color: COLOR.TEXT,
         fontSize: getFontSizeByWindowWidth(20),
     },
+    tabBarText: {
+        color:  COLOR.BUTTON,
+        fontSize: getFontSizeByWindowWidth(15)
+      },
 });
 
 export default GroupSplitScreen;
