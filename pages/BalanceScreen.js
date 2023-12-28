@@ -21,8 +21,10 @@ import NoBalance from '../assets/NoBalance.png';
 import GroupBalanceCard from '../components/GroupBalanceCard';
 import { useAuth } from '../context/AuthContext';
 import { AntDesign } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons'; 
+import ScanIcon from "../assets/icons/scan.png";
 
-const headerIconSize=7;
+const headerIconSize=6;
 function groupByGroup(balances, userId) {
     const groupMap = new Map();
 
@@ -110,10 +112,12 @@ function BalanceScreen({ navigation }) {
                 >
                     <View
                     >
-                        <AntDesign
-                            name="scan1"
-                            size={calcWidth(headerIconSize)}
-                            color="white"
+                        <Image
+                        source={ScanIcon}
+                        style={{
+                            width:calcWidth(headerIconSize),
+                            height:calcWidth(headerIconSize)
+                        }}
                         />
                     </View>
                     <View
@@ -122,8 +126,8 @@ function BalanceScreen({ navigation }) {
                             justifyContent: 'space-between',
                         }}
                     >
-                        <AntDesign
-                            name="search1"
+                        <Ionicons
+                            name="search"
                             size={calcWidth(headerIconSize)}
                             color="white"
                         />
@@ -151,6 +155,7 @@ function BalanceScreen({ navigation }) {
                         padding: calcHeight(2),
                         borderRadius: 10,
                         justifyContent: 'space-between',
+                        marginTop:calcHeight(1)
                     }}
                 >
                     <Text
@@ -184,6 +189,9 @@ function BalanceScreen({ navigation }) {
                     data={balances}
                     keyExtractor={(item) => item.id}
                     renderItem={({ item }) => <GroupBalanceCard group={item} />}
+                    style={{
+                        marginTop:calcHeight(5)
+                    }}
                 />
             )}
             {balances.length != 0 && (

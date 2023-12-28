@@ -13,8 +13,8 @@ export default GroupIcon;
 
 const styles = StyleSheet.create({
     image: {
-        height: calcHeight(4),
-        width: calcHeight(4),
+        height: calcHeight(3),
+        width: calcHeight(3),
     },
     imageContainer: {
         padding: calcWidth(2),
