@@ -11,46 +11,63 @@ const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 import SignUpScreen from '../pages/SignUpScreen';
 import COLOR from '../constants/Colors';
+import { calcHeight } from '../helper/res';
+import TabBarIcon from '../components/TabBarIcon';
 
 const AppNavigator = () => {
     const { user } = useAuth();
     return user.name ? (
-        <Tab.Navigator>
+        <Tab.Navigator
+  screenOptions={{
+    headerShown: false,
+    tabBarLabel: () => null, // Add this line to disable labels
+    tabBarStyle: {
+      height: calcHeight(10), // Adjust the height to your preference
+      backgroundColor:COLOR.APP_BACKGROUND,
+      shadowOpacity: 0,
+      borderTopWidth: 0,
+    },
+  }}
+>
             <Tab.Group>
-                <Tab.Screen
-                    name={PAGES.BALANCE}
-                    options={{
-                        tabBarLabel: PAGES.CARD_LIST,
-                        tabBarIcon: ({ color, size }) => (
-                            <EvilIcons
-                                name="credit-card"
-                                size={size}
-                                color={color}
-                            />
-                        ),
-                        headerShown:false
-                    }}
-                    component={BalanceScreen}
-                />
+            <Tab.Screen
+    name={PAGES.BALANCE}
+    options={{
+        tabBarIcon: (tabBarProps) => (
+           
+               <TabBarIcon
+            tabBarProps={tabBarProps} screen={PAGES.BALANCE}/>
+           
+          ),
+        headerShown: false
+    }}
+    component={BalanceScreen}
+/>
+
 
                 <Tab.Screen
                     name={PAGES.GROUP_NAVIGATOR}
                     options={{
                         headerShown: false,
-                        tabBarLabel: PAGES.CARD_LIST,
-                        tabBarIcon: ({ color, size }) => (
-                            <EvilIcons
-                                name="credit-card"
-                                size={size}
-                                color={color}
-                            />
-                        ),
+                        tabBarIcon: (tabBarProps) => (
+           
+                            <TabBarIcon
+                         tabBarProps={tabBarProps} screen={PAGES.GROUP_NAVIGATOR}/>
+                        
+                       ),
                         tabBarStyle: { display: 'none' },
                     }}
                     component={GroupNavigator}
                 />
 
-                <Tab.Screen name={PAGES.SETTINGS} component={Settings} />
+                <Tab.Screen name={PAGES.SETTINGS} component={Settings}
+                options={{ tabBarIcon: (tabBarProps) => (
+           
+                    <TabBarIcon
+                 tabBarProps={tabBarProps} screen={PAGES.SETTINGS}/>
+                
+               )}}
+                />
             </Tab.Group>
         </Tab.Navigator>
     ) : (
