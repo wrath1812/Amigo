@@ -3,8 +3,7 @@ import {
     Text,
     StyleSheet,
     SafeAreaView,
-    ScrollView,
-    Pressable,
+    FlatList,
     View,
     TextInput,
 } from 'react-native';
@@ -72,7 +71,7 @@ function GroupListScreen({ navigation }) {
                     title="No Groups Yet"
                 />
             ) : (
-                <View>
+                <>
                     <View style={{
                         alignItems:"center",
                         marginTop:calcHeight(2),
@@ -80,12 +79,13 @@ function GroupListScreen({ navigation }) {
                     }}>
                     <Search search={search} setSearch={setSearch} />
                     </View>
-                    <ScrollView>
-                        {groups.map((group) => (
-                            <GroupCard group={group} />
-                        ))}
-                    </ScrollView>
-                </View>
+                    <FlatList
+    data={groups}
+    renderItem={({ item }) => <GroupCard group={item} />}
+    keyExtractor={item => item.id} // Replace 'item.id' with the appropriate key property from your group objects
+/>
+
+                </>
             )}
             {groups.length != 0 && (
                 <FabIcon
