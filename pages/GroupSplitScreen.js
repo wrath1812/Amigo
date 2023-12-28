@@ -26,6 +26,15 @@ const GroupSplitScreen = ({navigation}) => {
         included:true
       })));
 
+      const submitSplit=()=>{
+        setTransactionData((prev)=>({
+            ...prev,
+            splitAmong:members
+        }));
+        navigation.goBack();
+
+      }
+
       const toggleMemberIncluded = (memberId) => {
         setMembers(prevMembers => {
             const updatedMembers = prevMembers.map(member => {
@@ -122,7 +131,7 @@ const GroupSplitScreen = ({navigation}) => {
         navigation.setOptions({
           headerRight: () => (
             <TouchableOpacity 
-
+            onPress={submitSplit}
             >
                 <Text style={[styles.tabBarText]}>
                   Done
