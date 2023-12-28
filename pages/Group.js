@@ -22,6 +22,7 @@ import GroupIcon from '../components/GroupIcon';
 import COLOR from '../constants/Colors';
 import { calcHeight, calcWidth } from '../helper/res';
 import { getFontSizeByWindowWidth } from '../helper/res';
+import {useTransaction} from "../context/TransactionContext";
 
 function getMembersString(members) {
     let names = [];
@@ -43,7 +44,7 @@ function GroupScreen({
     const textRef = useRef();
     const [transactions, setTransactions] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
-    const [text, setText] = useState('');
+    const {setTransactionData}=useTransaction();
 
     const fetchTransactions = useCallback(async () => {
         navigation.get;
@@ -134,10 +135,10 @@ function GroupScreen({
                 <TouchableOpacity style={styles.button}>
                     <Text
                         style={styles.buttonText}
-                        onPress={() =>
-                            navigation.navigate(PAGES.ADD_TRANSACTION, {
-                                group,
-                            })
+                        onPress={() =>{
+                            setTransactionData((prev)=>({...prev,group}))
+                            navigation.navigate(PAGES.ADD_TRANSACTION)
+                        }
                         }
                     >
                         + Expense
