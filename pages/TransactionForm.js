@@ -10,7 +10,6 @@ import {
     Pressable,
 } from 'react-native';
 
-import { useAuth } from '../context/AuthContext';
 import apiHelper from '../helper/apiHelper';
 import PAGES from '../constants/pages';
 import Loader from '../components/Loader';
@@ -20,26 +19,15 @@ import Categories from '../constants/Categories';
 import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
 import { MaterialIcons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
+import { useTransaction } from '../context/TransactionContext';
 
-function TransactionFormScreen({ navigation, route: { params } }) {
-    const { user } = useAuth();
-    const [loading, setIsLoading] = useState(false);
-    const [selectedCategory, setSelectedCategory] = useState(null);
-    const [group, setGroup] = useState(
-        params?.group || params?.selectedGroup || {},
-    );
-    const [transactionData, setTransactionData] = useState({
-        amount: '',
-        description: '',
-        category: '',
-        paidBy: user._id,
-        date: new Date(),
-        type: 'Other',
-        splitAmong: [],
-    });
+function TransactionFormScreen({ navigation }) {
+    const [loading,setIsLoading]=useState(false);
+    const {transactionData,setTransactionData}=useTransaction();
     const descriptionRef = useRef();
 
     useEffect(() => {
+        const {group}=transactionData;
         if (group && group.members) {
             const perUserPayment =
                 transactionData.amount / group.members.length;
@@ -51,7 +39,7 @@ function TransactionFormScreen({ navigation, route: { params } }) {
                 })),
             }));
         }
-    }, [transactionData.amount, group.members]);
+    }, [transactionData.amount, transactionData.group]);
 
     const handleInputChange = (field, value) => {
         setTransactionData((prev) => ({
@@ -61,7 +49,6 @@ function TransactionFormScreen({ navigation, route: { params } }) {
     };
 
     const handleCategorySelect = (category) => {
-        setSelectedCategory(category);
         setTransactionData((prev) => ({
             ...prev,
             category: category,
@@ -72,13 +59,13 @@ function TransactionFormScreen({ navigation, route: { params } }) {
         setIsLoading(true);
         try {
             transactionData['amount'] = parseInt(transactionData.amount);
-            transactionData["group"]=group._id;
+            transactionData["group"]=transactionData.group._id;
             const { data } = await apiHelper.post(
                 '/transaction',
                 transactionData,
             );
             Alert.alert('Success', JSON.stringify(data));
-            navigation.navigate(PAGES.GROUP, { group });
+            navigation.goBack();
         } catch (error) {
             console.log('error', error);
             Alert.alert('Error', 'There was an error saving the transaction.');
@@ -134,7 +121,7 @@ function TransactionFormScreen({ navigation, route: { params } }) {
                         key={index}
                         style={[
                             styles.categoryItem,
-                            selectedCategory === item.name &&
+                            transactionData.category === item.name &&
                                 styles.selectedCategory,
                         ]}
                         onPress={() => handleCategorySelect(item.name)}
@@ -144,7 +131,6 @@ function TransactionFormScreen({ navigation, route: { params } }) {
                     </Pressable>
                 ))}
             </ScrollView>
-            {!params?.group && (
                 <View>
                     <Pressable
                         style={{
@@ -172,7 +158,7 @@ function TransactionFormScreen({ navigation, route: { params } }) {
                                 color: 'white',
                             }}
                         >
-                            Add Group
+                            {transactionData.group.name||"Add Group"}
                         </Text>
                         <AntDesign
                             name="right"
@@ -184,7 +170,6 @@ function TransactionFormScreen({ navigation, route: { params } }) {
                         />
                     </Pressable>
                 </View>
-            )}
             <View
                 style={{
                     alignItems: 'center',
