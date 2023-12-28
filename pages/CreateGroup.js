@@ -22,6 +22,7 @@ import Loader from '../components/Loader';
 import apiHelper from '../helper/apiHelper';
 import PAGES from '../constants/pages';
 import generateRandomColor from '../helper/generateRandomColor';
+import Search from "../components/Search";
 
 const CreateGroup = ({ navigation }) => {
     const [contacts, setContacts] = useState([]);
@@ -142,20 +143,10 @@ const CreateGroup = ({ navigation }) => {
                 <View style={styles.title}>
                     <Text style={styles.titleText}>Add members</Text>
                 </View>
-                <Pressable
-                    style={styles.inputContainer}
-                    onPress={() => searchRef.current.focus()}
-                >
-                    <FontAwesome name="search" size={24} color="gray" />
-                    <TextInput
-                        style={styles.input}
-                        onChangeText={setSearch}
-                        value={search}
-                        placeholder="Search"
-                        placeholderTextColor="gray"
-                        ref={searchRef}
-                    />
-                </Pressable>
+                <Search
+                search={search}
+                setSearch={setSearch}
+                />
                 <FlatList
                     data={filterContacts()}
                     style={{
@@ -236,7 +227,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
     button: {
-        alignContent: 'center',
+        alignItems:"center"
     },
 });
 

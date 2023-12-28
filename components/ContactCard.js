@@ -33,13 +33,13 @@ function ContactCard({
                 {selected ? (
                     <Ionicons
                         name="md-checkmark-circle"
-                        size={24}
+                        size={calcWidth(5)}
                         color={COLOR.BUTTON}
                     />
                 ) : (
                     <MaterialCommunityIcons
                         name="checkbox-blank-circle-outline"
-                        size={24}
+                        size={calcWidth(5)}
                         color="white"
                     />
                 )}
@@ -49,6 +49,7 @@ function ContactCard({
 }
 
 export default ContactCard;
+const selectorSize=4;
 
 const styles = StyleSheet.create({
     container: {
@@ -69,15 +70,16 @@ const styles = StyleSheet.create({
     },
     nameText: {
         color: COLOR.TEXT,
+        fontSize:getFontSizeByWindowWidth(12)
     },
     phoneText: {
-        fontSize: getFontSizeByWindowWidth(8),
+        fontSize: getFontSizeByWindowWidth(10),
         color: COLOR.PRIMARY,
     },
     placeHolderView: {
-        height: calcHeight(5),
-        width: calcHeight(5),
-        borderRadius: calcHeight(5),
+        height: calcHeight(selectorSize),
+        width: calcHeight(selectorSize),
+        borderRadius: calcHeight(selectorSize),
         justifyContent: 'center',
         alignItems: 'center',
         marginRight: calcWidth(2),
