@@ -28,17 +28,20 @@ function TransactionFormScreen({ navigation }) {
     useEffect(() => {
         const { group } = transactionData;
         if (group && group.members) {
-            const perUserPayment =
-                transactionData.amount / group.members.length;
+            const totalMembers = group.members.length;
+            const perUserPayment = Math.floor(transactionData.amount / totalMembers);
+            const remainder = transactionData.amount % totalMembers;
+    
             setTransactionData((prev) => ({
                 ...prev,
-                splitAmong: group.members.map(({ _id }) => ({
-                    amount: perUserPayment,
-                    user: _id,
+                splitAmong: group.members.map((user, index) => ({
+                    amount: perUserPayment + (index < remainder ? 1 : 0),
+                    user,
                 })),
             }));
         }
     }, [transactionData.amount, transactionData.group]);
+    
 
     const handleInputChange = (field, value) => {
         setTransactionData((prev) => ({
@@ -60,7 +63,7 @@ function TransactionFormScreen({ navigation }) {
             transactionData['amount'] = parseInt(transactionData.amount);
             transactionData['group'] = transactionData.group._id;
             transactionData['paidBy'] = transactionData.paidBy._id;
-            console.log(transactionData);
+            transactionData['splitAmong']=transactionData.splitAmong.map(user=>({amount:user.amount,user:user.user._id}));
             const { data } = await apiHelper.post(
                 '/transaction',
                 transactionData,
