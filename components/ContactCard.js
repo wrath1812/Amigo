@@ -11,8 +11,7 @@ function ContactCard({
     color,
     name,
     phoneNumber,
-    imageURI,
-    onPress,
+    imageURI
 }) {
     return (
         <View style={styles.container}>

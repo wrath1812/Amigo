@@ -74,7 +74,9 @@ function GroupListScreen({ navigation }) {
             ) : (
                 <View>
                     <View style={{
-                        alignItems:"center"
+                        alignItems:"center",
+                        marginTop:calcHeight(2),
+                        marginBottom:calcHeight(4)
                     }}>
                     <Search search={search} setSearch={setSearch} />
                     </View>
