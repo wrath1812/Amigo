@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     inputContainer: {
         flexDirection: 'row',
         alignItems: 'center',
-        padding: calcWidth(5),
+        padding: calcWidth(3),
         borderWidth: 1,
         borderColor: COLOR.BUTTON,
         borderRadius: 10,

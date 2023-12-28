@@ -103,8 +103,7 @@ const styles = StyleSheet.create({
         fontSize: getFontSizeByWindowWidth(19),
         color: COLOR.TEXT,
         fontWeight: 'bold',
-        alignContent: 'left',
-        padding: calcWidth(3),
+        margin: calcHeight(2),
     },
     groupName: {
         fontSize: 16,
