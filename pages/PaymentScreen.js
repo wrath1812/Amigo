@@ -1,0 +1,159 @@
+// 1. Import Statements
+import React,{useState,useRef} from 'react';
+import {
+  SafeAreaView,
+  View,
+  Text,
+  StyleSheet,
+  TextInput,
+  Pressable
+} from 'react-native';
+import { AntDesign } from '@expo/vector-icons';
+import GroupIcon from '../components/GroupIcon';
+import COLOR from '../constants/Colors';
+import { calcHeight,getFontSizeByWindowWidth,calcWidth } from '../helper/res';
+import Button from "../components/Button";
+
+// GroupScreen Component
+function GroupScreen({ route:{ params: { payment }} }) {
+  const [amount,setAmount]=useState(payment.amount+"");
+  const [description,setDescription]=useState("");
+  const descriptionRef=useRef();
+  console.log(payment);
+
+  async function submitPayment()
+  {
+    const {data}=await apiHelper.post("/payment",{
+        payer:payment.from.id,
+        receiver:payment.to.id,group:payment.group,
+        amount,
+        description
+    });
+  }
+
+  return (
+    <SafeAreaView style={styles.container}>
+      <View style={styles.header}>
+        <View style={styles.headerItem}>
+          <GroupIcon 
+          image={require('../assets/Login.png')} />
+          <Text style={{
+            // marginTop:calcHeight(2),
+            color:COLOR.TEXT,
+            fontWeight:"bold"
+          }}>{payment.from.name}</Text>
+        </View>
+        <View style={styles.headerItem}>
+          <Text
+          style={{
+            color:"#D9D9D9",
+            marginBottom:calcHeight(2)
+          }}
+          >Paying To</Text>
+          <AntDesign name="arrowright" size={24} color="white" />
+        </View>
+        <View style={styles.headerItem}>
+          <GroupIcon image={require('../assets/Login.png')} />
+          <Text style={{
+            // marginTop:calcHeight(2),
+            color:COLOR.TEXT,
+            fontWeight:"bold"
+          }}>{payment.to.name}</Text>
+        </View>
+      </View>
+      <View style={styles.rowCentered}>
+                <Text style={styles.amount}>$</Text>
+                <TextInput
+                    style={styles.amount}
+                    onChangeText={(text) => setAmount(text)}
+                    value={amount}
+                    keyboardType="numeric"
+                    placeholderTextColor={COLOR.TEXT}
+                    placeholder="0"
+                    autoFocus
+                />
+            </View>
+            <View style={styles.rowCentered}>
+                <Pressable
+                    style={styles.descriptionContainer}
+                    onPress={() => descriptionRef.current.focus()}
+                >
+                    <TextInput
+                        style={styles.description}
+                        onChangeText={(text) =>
+                            setDescription(text)
+                        }
+                        value={description}
+                        placeholder="Description"
+                        placeholderTextColor="#ccc"
+                        ref={descriptionRef}
+                        textAlign="center"
+                    />
+                </Pressable>
+            </View>
+            <View style={{
+                alignItems:"center"
+            }}>
+                <View>
+                <Button
+                 styleOverwrite={{
+                    backgroundColor:"rgba(135, 64, 253, 0.11)",
+                    borderColor:COLOR.BUTTON,
+                    width:calcWidth(70),
+                    height:calcHeight(6),
+                    borderWidth:1
+                 }}
+            title="Remind"
+            />
+            </View>
+            <Button
+            title="Remind as  Cash Payment"
+            />
+            </View>
+    </SafeAreaView>
+  );
+}
+
+// StyleSheet
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: COLOR.APP_BACKGROUND,
+  },
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    margin: calcHeight(10),
+  },
+  headerItem: {
+    alignItems: 'center',
+    alignContent:"center",
+    justifyContent:"center"
+  },
+  rowCentered: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignContent: 'center',
+},
+amount: {
+    alignItems: 'center',
+    alignContent: 'center',
+    color: COLOR.TEXT,
+    fontSize: getFontSizeByWindowWidth(50),
+},
+description: {
+    flex: 1,
+    color: 'white',
+},
+descriptionContainer: {
+    flexDirection: 'row',
+    padding: calcWidth(3),
+    borderWidth: 1,
+    borderColor: 'gray',
+    borderRadius: 5,
+    width: calcWidth(30),
+}
+});
+
+// Export Statement
+export default GroupScreen;

@@ -24,14 +24,14 @@ import { calcHeight, calcWidth } from '../helper/res';
 import { getFontSizeByWindowWidth } from '../helper/res';
 import { useTransaction } from '../context/TransactionContext';
 import sliceText from "../helper/sliceText";
-
+import {useAuth} from "../context/AuthContext";
 function GroupScreen({
     navigation,
     route: {
         params: { group },
     },
 }) {
-;
+    const {user}=useAuth();
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.header}>
@@ -108,6 +108,21 @@ function GroupScreen({
                         alignItems:"center",
                         backgroundColor:"rgba(52, 47, 79, 0.53)",
                         borderRadius:10
+                    }}
+                    onPress={()=>{
+                        const payment={
+                            group:group.id,
+                            amount:item.amount
+                        };
+                        if(group.totalBalance>0){
+                        payment["from"]=item;
+                        payment["to"]=user;
+                        }
+                        else{
+                            payment["from"]=user;
+                        payment["to"]=item;
+                        }
+                        navigation.navigate(PAGES.PAYMENT,{payment});
                     }}
                     >
                     <View
