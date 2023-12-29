@@ -13,7 +13,7 @@ function GroupBalanceCard({ group }) {
     return (
         <Pressable
             onPress={() => {
-                navigation.navigate(PAGES.GROUP, { group });
+                navigation.navigate(PAGES.GROUP_BALANCE, {group });
             }}
             style={styles.container}
         >
@@ -21,7 +21,7 @@ function GroupBalanceCard({ group }) {
             <View style={styles.textContainer}>
                 <Text style={styles.nameText}>{group.name}</Text>
                 <Text style={styles.memberText}>
-                    {group.lenderNumber == 1
+                    {group.totalBalance < 0
                         ? `${group.borrowerNumber} participants owe you money`
                         : `You owe mony to ${group.lenderNumber} participants`}
                 </Text>

@@ -16,6 +16,7 @@ import TransactionDetail from '../pages/TransactionDetails';
 import SelectGroup from '../pages/SelectGroup';
 import GroupSplitScreen from '../pages/GroupSplitScreen';
 import SelectPaidBy from '../pages/SelectPaidBy';
+import GroupBalance from '../pages/GroupBalanceScreen';
 function GroupNavigator() {
     return (
         <Stack.Navigator initialRouteName={PAGES.GROUP_LIST}>
@@ -37,6 +38,13 @@ function GroupNavigator() {
                         backgroundColor: COLOR.APP_BACKGROUND,
                     },
                     title: null,
+                }}
+            />
+            <Stack.Screen
+                name={PAGES.GROUP_BALANCE}
+                component={GroupBalance}
+                options={{
+                    headerShown:false
                 }}
             />
 
