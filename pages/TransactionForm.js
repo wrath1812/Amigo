@@ -20,7 +20,7 @@ import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
 import { MaterialIcons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 import { useTransaction } from '../context/TransactionContext';
-
+import getPreviousPageName from "../helper/getPreviousPageName";
 function TransactionFormScreen({ navigation }) {
     const [loading, setIsLoading] = useState(false);
     const { transactionData, setTransactionData, resetTransaction } =
@@ -46,6 +46,7 @@ function TransactionFormScreen({ navigation }) {
     }, [transactionData.amount, transactionData.group]);
 
     useEffect(() => {
+        if(getPreviousPageName(navigation)!=PAGES.GROUP);
         resetTransaction();
     }, []);
 
