@@ -13,6 +13,7 @@ import GroupIcon from '../components/GroupIcon';
 import COLOR from '../constants/Colors';
 import { calcHeight,getFontSizeByWindowWidth,calcWidth } from '../helper/res';
 import Button from "../components/Button";
+import PAGES from '../constants/pages';
 
 // GroupScreen Component
 function GroupScreen({ route:{ params: { payment }} }) {
@@ -29,6 +30,8 @@ function GroupScreen({ route:{ params: { payment }} }) {
         amount,
         description
     });
+    alert(JSON.stringify(data));
+    navigation.navigate(PAGES.BALANCE);
   }
 
   return (
