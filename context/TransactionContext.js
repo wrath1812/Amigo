@@ -8,7 +8,8 @@ export const TransactionProvider = ({ children }) => {
     const [transactionData, setTransactionData] = useState({});
 
     const resetTransaction = () => {
-        setTransactionData({
+        setTransactionData((prev)=>({
+            ...prev,
             amount: '',
             description: '',
             category: '',
@@ -17,7 +18,7 @@ export const TransactionProvider = ({ children }) => {
             splitAmong: [],
             group: {},
             paidBy: { _id: user?._id, name: user?.name },
-        });
+        }));
     };
 
     return (

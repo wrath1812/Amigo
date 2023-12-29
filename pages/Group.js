@@ -44,7 +44,7 @@ function GroupScreen({
     const textRef = useRef();
     const [transactions, setTransactions] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
-    const { setTransactionData } = useTransaction();
+    const { setTransactionData,resetTransaction } = useTransaction();
 
     const fetchTransactions = useCallback(async () => {
         navigation.get;
@@ -136,6 +136,7 @@ function GroupScreen({
                     <Text
                         style={styles.buttonText}
                         onPress={() => {
+                            resetTransaction();
                             setTransactionData((prev) => ({ ...prev, group }));
                             navigation.navigate(PAGES.ADD_TRANSACTION);
                         }}

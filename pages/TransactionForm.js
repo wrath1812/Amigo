@@ -46,7 +46,7 @@ function TransactionFormScreen({ navigation }) {
     }, [transactionData.amount, transactionData.group]);
 
     useEffect(() => {
-        if(getPreviousPageName(navigation)!=PAGES.GROUP);
+        if(getPreviousPageName(navigation)!=PAGES.GROUP)
         resetTransaction();
     }, []);
 
@@ -144,7 +144,7 @@ function TransactionFormScreen({ navigation }) {
                     </Pressable>
                 ))}
             </ScrollView>
-            <View>
+        {   getPreviousPageName(navigation)!=PAGES.GROUP && <View>
                 <Pressable
                     style={{
                         backgroundColor: '#302B49',
@@ -182,7 +182,7 @@ function TransactionFormScreen({ navigation }) {
                         }}
                     />
                 </Pressable>
-            </View>
+            </View>}
             {transactionData.group?.members?.length > 0 && (
                 <View
                     style={{
