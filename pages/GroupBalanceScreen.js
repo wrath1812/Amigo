@@ -1,6 +1,6 @@
 // 1. Import Statements
 import React from 'react';
-import { Text, StyleSheet, SafeAreaView, View, Pressable, FlatList } from 'react-native';
+import { Text, StyleSheet, SafeAreaView, View, Pressable, FlatList,Image } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import GroupIcon from '../components/GroupIcon';
 import COLOR from '../constants/Colors';
@@ -8,6 +8,7 @@ import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
 import { useAuth } from '../context/AuthContext';
 import sliceText from '../helper/sliceText';
 import LoginImage from "../assets/Login.png";
+import Cross from "../assets/icons/cross.png";
 // 2. GroupBalanceScreen Functional Component
 function GroupBalanceScreen({ navigation, route }) {
     const { group } = route.params;
@@ -42,16 +43,18 @@ function GroupBalanceScreen({ navigation, route }) {
 
     return (
         <SafeAreaView style={styles.container}>
-            {/* Header */}
             <View style={styles.header}>
                 <Pressable onPress={() => navigation.goBack()}>
-                    <Ionicons name="chevron-back" size={calcHeight(3)} color="white" />
+                    <Image
+                    style={{
+                        height:calcHeight(3),
+                        width:calcHeight(3)
+                    }}
+                    source={Cross}/>
                 </Pressable>
                 <GroupIcon image={group.icon||LoginImage} />
                 <Text style={styles.groupName}>{group.name}</Text>
             </View>
-
-            {/* Balance Info */}
             <View style={styles.balanceInfo}>
                 <Text style={styles.balanceText}>Total Split Balance</Text>
                 <Text style={styles.subBalanceText}>
@@ -81,13 +84,13 @@ const styles = StyleSheet.create({
         width: '100%',
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'space-between',
+        justifyContent: "flex-start",
         padding: calcWidth(4),
     },
     groupName: {
         color: 'white',
         fontWeight: 'bold',
-        fontSize: getFontSizeByWindowWidth(18),
+        fontSize: getFontSizeByWindowWidth(13),
     },
     balanceInfo: {
         flexDirection: 'row',
