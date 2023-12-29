@@ -13,7 +13,7 @@ function GroupBalanceCard({ group }) {
     return (
         <Pressable
             onPress={() => {
-                navigation.navigate(PAGES.GROUP_BALANCE, {group });
+                navigation.navigate(PAGES.GROUP_BALANCE, { group });
             }}
             style={styles.container}
         >

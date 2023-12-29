@@ -23,15 +23,18 @@ import { useTransaction } from '../context/TransactionContext';
 
 function TransactionFormScreen({ navigation }) {
     const [loading, setIsLoading] = useState(false);
-    const { transactionData, setTransactionData,resetTransaction } = useTransaction();
+    const { transactionData, setTransactionData, resetTransaction } =
+        useTransaction();
     const descriptionRef = useRef();
     useEffect(() => {
         const { group } = transactionData;
         if (group && group.members) {
             const totalMembers = group.members.length;
-            const perUserPayment = Math.floor(transactionData.amount / totalMembers);
+            const perUserPayment = Math.floor(
+                transactionData.amount / totalMembers,
+            );
             const remainder = transactionData.amount % totalMembers;
-    
+
             setTransactionData((prev) => ({
                 ...prev,
                 splitAmong: group.members.map((user, index) => ({
@@ -41,10 +44,10 @@ function TransactionFormScreen({ navigation }) {
             }));
         }
     }, [transactionData.amount, transactionData.group]);
-    
-    useEffect(()=>{
+
+    useEffect(() => {
         resetTransaction();
-    },[])
+    }, []);
 
     const handleInputChange = (field, value) => {
         setTransactionData((prev) => ({
@@ -66,7 +69,9 @@ function TransactionFormScreen({ navigation }) {
             transactionData['amount'] = parseInt(transactionData.amount);
             transactionData['group'] = transactionData.group._id;
             transactionData['paidBy'] = transactionData.paidBy._id;
-            transactionData['splitAmong']=transactionData.splitAmong.map(user=>({amount:user.amount,user:user.user._id}));
+            transactionData['splitAmong'] = transactionData.splitAmong.map(
+                (user) => ({ amount: user.amount, user: user.user._id }),
+            );
             const { data } = await apiHelper.post(
                 '/transaction',
                 transactionData,

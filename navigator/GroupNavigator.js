@@ -17,7 +17,7 @@ import SelectGroup from '../pages/SelectGroup';
 import GroupSplitScreen from '../pages/GroupSplitScreen';
 import SelectPaidBy from '../pages/SelectPaidBy';
 import GroupBalance from '../pages/GroupBalanceScreen';
-import PaymentScreen from "../pages/PaymentScreen";
+import PaymentScreen from '../pages/PaymentScreen';
 function GroupNavigator() {
     return (
         <Stack.Navigator initialRouteName={PAGES.GROUP_LIST}>
@@ -45,22 +45,20 @@ function GroupNavigator() {
                 name={PAGES.GROUP_BALANCE}
                 component={GroupBalance}
                 options={{
-                    headerShown:false
+                    headerShown: false,
                 }}
             />
             <Stack.Screen
-    name={PAGES.PAYMENT}
-    component={PaymentScreen}
-    options={{
-        headerStyle: {
-            backgroundColor: COLOR.APP_BACKGROUND,
-        },
-        headerTitleAlign: 'left', // Aligns the title to the left
-        headerTintColor: '#fff', // Sets the title color to white
-    }}
-/>
-
-            
+                name={PAGES.PAYMENT}
+                component={PaymentScreen}
+                options={{
+                    headerStyle: {
+                        backgroundColor: COLOR.APP_BACKGROUND,
+                    },
+                    headerTitleAlign: 'left', // Aligns the title to the left
+                    headerTintColor: '#fff', // Sets the title color to white
+                }}
+            />
 
             <Stack.Screen
                 name={PAGES.GROUP}

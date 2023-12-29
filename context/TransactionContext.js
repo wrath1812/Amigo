@@ -7,8 +7,7 @@ export const TransactionProvider = ({ children }) => {
     const { user } = useAuth();
     const [transactionData, setTransactionData] = useState({});
 
-    
-    const resetTransaction=()=>{
+    const resetTransaction = () => {
         setTransactionData({
             amount: '',
             description: '',
@@ -17,16 +16,16 @@ export const TransactionProvider = ({ children }) => {
             type: 'Other',
             splitAmong: [],
             group: {},
-            paidBy: { _id: user?._id, name: user?.name }
+            paidBy: { _id: user?._id, name: user?.name },
         });
-    }
+    };
 
     return (
         <TransactionContext.Provider
             value={{
                 transactionData,
                 setTransactionData,
-                resetTransaction
+                resetTransaction,
             }}
         >
             {children}

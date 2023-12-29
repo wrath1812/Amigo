@@ -17,8 +17,8 @@ const PAGES = {
     SELECT_GROUP: 'Select Group',
     SELECT_PAID_BY: 'Select Paid By',
     GROUP_SPLIT_SCREEN: 'Group Split Screen',
-    GROUP_BALANCE:"Group Balance",
-    PAYMENT:"Payment"
+    GROUP_BALANCE: 'Group Balance',
+    PAYMENT: 'Payment',
 };
 
 export default PAGES;
