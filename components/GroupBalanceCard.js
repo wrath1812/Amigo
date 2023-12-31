@@ -10,6 +10,7 @@ import GroupIcon from './GroupIcon';
 
 function GroupBalanceCard({ group }) {
     const navigation = useNavigation();
+
     return (
         <Pressable
             onPress={() => {
@@ -22,8 +23,8 @@ function GroupBalanceCard({ group }) {
                 <Text style={styles.nameText}>{group.name}</Text>
                 <Text style={styles.memberText}>
                     {group.totalBalance < 0
-                        ? `${group.borrowerNumber} participants owe you money`
-                        : `You owe mony to ${group.lenderNumber} participants`}
+                        ? `${group.lenderNumber} participants owe you money`
+                        : `You owe mony to ${group.borrowerNumber} participants`}
                 </Text>
             </View>
             <Text
@@ -32,7 +33,7 @@ function GroupBalanceCard({ group }) {
                     fontWeight: 'bold',
                 }}
             >
-                $ {parseInt(group.totalBalance)}
+                $ {Math.abs(parseInt(group.totalBalance))}
             </Text>
         </Pressable>
     );
