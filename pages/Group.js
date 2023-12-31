@@ -44,8 +44,8 @@ function GroupScreen({
     const textRef = useRef();
     const [transactions, setTransactions] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
-    const { setTransactionData,resetTransaction } = useTransaction();
-    const [amount,setAmount]=useState("")
+    const { setTransactionData, resetTransaction } = useTransaction();
+    const [amount, setAmount] = useState('');
 
     const fetchTransactions = useCallback(async () => {
         navigation.get;
@@ -135,16 +135,19 @@ function GroupScreen({
                         onChangeText={setAmount}
                     />
                 </Pressable>
-                <TouchableOpacity style={styles.button} onPress={() => {
-                            resetTransaction();
-                            setTransactionData((prev) => ({ ...prev, group,amount }));
-                            navigation.navigate(PAGES.ADD_TRANSACTION);
-                        }}>
-                    <Text
-                        style={styles.buttonText}
-                    >
-                        + Expense
-                    </Text>
+                <TouchableOpacity
+                    style={styles.button}
+                    onPress={() => {
+                        resetTransaction();
+                        setTransactionData((prev) => ({
+                            ...prev,
+                            group,
+                            amount,
+                        }));
+                        navigation.navigate(PAGES.ADD_TRANSACTION);
+                    }}
+                >
+                    <Text style={styles.buttonText}>+ Expense</Text>
                 </TouchableOpacity>
             </View>
         </SafeAreaView>

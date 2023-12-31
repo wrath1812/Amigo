@@ -8,11 +8,11 @@ import PAGES from '../constants/pages';
 import GroupIcon from './GroupIcon';
 import { AntDesign } from '@expo/vector-icons';
 
-function GroupSelectCard({ name, onPress }) {
+function GroupSelectCard({ name, onPress, image }) {
     const navigation = useNavigation();
     return (
         <Pressable style={styles.container} onPress={onPress}>
-            <GroupIcon image={LoginImage} />
+            {image || <GroupIcon image={LoginImage} />}
             <View style={styles.textContainer}>
                 <Text style={styles.nameText}>{name}</Text>
             </View>
@@ -29,8 +29,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         padding: calcWidth(5),
-        borderBottomColor: 'rgba(255, 255, 255, 0.13)',
-        borderBottomWidth: 1,
     },
     textContainer: {
         width: calcWidth(60),
@@ -48,7 +46,6 @@ const styles = StyleSheet.create({
     placeHolderView: {
         height: calcHeight(5),
         width: calcHeight(5),
-        borderRadius: calcHeight(5),
         justifyContent: 'center',
         alignItems: 'center',
         marginRight: calcWidth(2),

@@ -1,14 +1,22 @@
 // 1. Import Statements
 import React from 'react';
-import { Text, StyleSheet, SafeAreaView, View, Pressable, FlatList,Image } from 'react-native';
+import {
+    Text,
+    StyleSheet,
+    SafeAreaView,
+    View,
+    Pressable,
+    FlatList,
+    Image,
+} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import GroupIcon from '../components/GroupIcon';
 import COLOR from '../constants/Colors';
 import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
 import { useAuth } from '../context/AuthContext';
 import sliceText from '../helper/sliceText';
-import LoginImage from "../assets/Login.png";
-import Cross from "../assets/icons/cross.png";
+import LoginImage from '../assets/Login.png';
+import Cross from '../assets/icons/cross.png';
 // 2. GroupBalanceScreen Functional Component
 function GroupBalanceScreen({ navigation, route }) {
     const { group } = route.params;
@@ -31,12 +39,16 @@ function GroupBalanceScreen({ navigation, route }) {
 
         return (
             <Pressable onPress={handlePress} style={styles.listItem}>
-                <GroupIcon image={group.icon||LoginImage} />
+                <GroupIcon image={group.icon || LoginImage} />
                 <Text style={styles.itemName}>{sliceText(item.name, 10)}</Text>
                 <Text style={[styles.amountText, { color: balanceColor }]}>
                     ${item.amount}
                 </Text>
-                <Ionicons name="chevron-forward" size={calcHeight(1.5)} color="white" />
+                <Ionicons
+                    name="chevron-forward"
+                    size={calcHeight(1.5)}
+                    color="white"
+                />
             </Pressable>
         );
     };
@@ -46,13 +58,14 @@ function GroupBalanceScreen({ navigation, route }) {
             <View style={styles.header}>
                 <Pressable onPress={() => navigation.goBack()}>
                     <Image
-                    style={{
-                        height:calcHeight(3),
-                        width:calcHeight(3)
-                    }}
-                    source={Cross}/>
+                        style={{
+                            height: calcHeight(3),
+                            width: calcHeight(3),
+                        }}
+                        source={Cross}
+                    />
                 </Pressable>
-                <GroupIcon image={group.icon||LoginImage} />
+                <GroupIcon image={group.icon || LoginImage} />
                 <Text style={styles.groupName}>{group.name}</Text>
             </View>
             <View style={styles.balanceInfo}>
@@ -84,7 +97,7 @@ const styles = StyleSheet.create({
         width: '100%',
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: "flex-start",
+        justifyContent: 'flex-start',
         padding: calcWidth(4),
     },
     groupName: {

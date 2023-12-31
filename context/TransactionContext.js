@@ -8,7 +8,7 @@ export const TransactionProvider = ({ children }) => {
     const [transactionData, setTransactionData] = useState({});
 
     const resetTransaction = () => {
-        setTransactionData((prev)=>({
+        setTransactionData((prev) => ({
             ...prev,
             amount: '',
             description: '',

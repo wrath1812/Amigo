@@ -22,7 +22,7 @@ function GroupScreen({
     route: {
         params: { payment },
     },
-    navigation
+    navigation,
 }) {
     const [amount, setAmount] = useState(payment.amount + '');
     const [description, setDescription] = useState('');
@@ -33,7 +33,7 @@ function GroupScreen({
         seIsLoading(true);
         try {
             const { data } = await apiHelper.post('/payment', {
-                payer: payment.from._id|| payment.from.id,
+                payer: payment.from._id || payment.from.id,
                 receiver: payment.to._id || payment.to.id,
                 group: payment.group,
                 amount,

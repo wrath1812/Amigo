@@ -9,22 +9,17 @@ import {
     TextInput,
 } from 'react-native';
 import Loader from '../components/Loader';
-import { FontAwesome } from '@expo/vector-icons';
 import apiHelper from '../helper/apiHelper';
 import PAGES from '../constants/pages';
-import FabIcon from '../components/FabIcon';
 import { useFocusEffect } from '@react-navigation/native';
-import copyToClipBoard from '../helper/copyToClipBoard';
-import { Feather } from '@expo/vector-icons';
-import EmptyScreen from '../components/EmptyScreen';
 import COLOR from '../constants/Colors';
 import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
-import { useRef } from 'react';
-import GroupCard from '../components/GroupCard';
-import NoGroupsImage from '../assets/NoGroups.png';
 import Search from '../components/Search';
 import GroupSelectCard from '../components/GroupSelectCard';
 import { useTransaction } from '../context/TransactionContext';
+import GroupIcon from '../components/GroupIcon';
+import CreateGroupIcon from "../assets/icons/createGroup.png"
+
 function GroupListScreen({ navigation }) {
     const [groups, setGroups] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -47,9 +42,20 @@ function GroupListScreen({ navigation }) {
         <Loader />
     ) : (
         <SafeAreaView style={styles.container}>
-            <Search search={search} setSearch={setSearch} />
+            <View
+                style={{
+                    marginVertical: calcHeight(2),
+                }}
+            >
+                <Search search={search} setSearch={setSearch} />
+            </View>
             <ScrollView>
-                <GroupSelectCard name={'Create new group'} />
+                <GroupSelectCard
+                    name={'Create new group'}
+                    image={
+                        <GroupIcon backgroundColor="white" image={CreateGroupIcon} />
+                    }
+                />
                 {groups.map((group) => (
                     <GroupSelectCard
                         name={group.name}
@@ -68,6 +74,7 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: COLOR.APP_BACKGROUND,
+        alignItems: 'center',
     },
     header: {
         fontSize: getFontSizeByWindowWidth(19),

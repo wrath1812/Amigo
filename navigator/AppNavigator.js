@@ -27,8 +27,7 @@ const AppNavigator = () => {
             }}
         >
             <Tab.Group>
-
-            <Tab.Screen
+                <Tab.Screen
                     name={PAGES.GROUP_NAVIGATOR}
                     options={{
                         tabBarIcon: (tabBarProps) => (

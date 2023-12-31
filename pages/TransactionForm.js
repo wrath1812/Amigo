@@ -20,7 +20,7 @@ import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
 import { MaterialIcons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 import { useTransaction } from '../context/TransactionContext';
-import getPreviousPageName from "../helper/getPreviousPageName";
+import getPreviousPageName from '../helper/getPreviousPageName';
 function TransactionFormScreen({ navigation }) {
     const [loading, setIsLoading] = useState(false);
     const { transactionData, setTransactionData, resetTransaction } =
@@ -46,8 +46,8 @@ function TransactionFormScreen({ navigation }) {
     }, [transactionData.amount, transactionData.group]);
 
     useEffect(() => {
-        if(getPreviousPageName(navigation)==PAGES.BALANCE)
-        resetTransaction();
+        if (getPreviousPageName(navigation) == PAGES.BALANCE)
+            resetTransaction();
     }, []);
 
     const handleInputChange = (field, value) => {
@@ -140,54 +140,60 @@ function TransactionFormScreen({ navigation }) {
                         onPress={() => handleCategorySelect(item.name)}
                     >
                         {item.icon}
-                        <Text style={[styles.categoryText,
-                        transactionData.category === item.name &&
-                        {
-                            color:"black"
-                        }
-                        ]}>{item.name}</Text>
+                        <Text
+                            style={[
+                                styles.categoryText,
+                                transactionData.category === item.name && {
+                                    color: 'black',
+                                },
+                            ]}
+                        >
+                            {item.name}
+                        </Text>
                     </Pressable>
                 ))}
             </ScrollView>
-        {   getPreviousPageName(navigation)!=PAGES.GROUP && <View>
-                <Pressable
-                    style={{
-                        backgroundColor: '#302B49',
-                        padding: calcWidth(5),
-                        borderRadius: 10,
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        justifyContent: 'space-evenly',
-                    }}
-                    onPress={() => {
-                        navigation.navigate(PAGES.SELECT_GROUP);
-                    }}
-                >
-                    <MaterialIcons
-                        name="group-add"
+            {getPreviousPageName(navigation) != PAGES.GROUP && (
+                <View>
+                    <Pressable
                         style={{
-                            marginRight: calcWidth(3),
+                            backgroundColor: '#302B49',
+                            padding: calcWidth(5),
+                            borderRadius: 10,
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                            justifyContent: 'space-evenly',
                         }}
-                        size={calcWidth(8)}
-                        color="white"
-                    />
-                    <Text
-                        style={{
-                            color: 'white',
+                        onPress={() => {
+                            navigation.navigate(PAGES.SELECT_GROUP);
                         }}
                     >
-                        {transactionData.group?.name || 'Add Group'}
-                    </Text>
-                    <AntDesign
-                        name="right"
-                        size={calcWidth(5)}
-                        color="white"
-                        style={{
-                            marginLeft: calcWidth(40),
-                        }}
-                    />
-                </Pressable>
-            </View>}
+                        <MaterialIcons
+                            name="group-add"
+                            style={{
+                                marginRight: calcWidth(3),
+                            }}
+                            size={calcWidth(8)}
+                            color="white"
+                        />
+                        <Text
+                            style={{
+                                color: 'white',
+                            }}
+                        >
+                            {transactionData.group?.name || 'Add Group'}
+                        </Text>
+                        <AntDesign
+                            name="right"
+                            size={calcWidth(5)}
+                            color="white"
+                            style={{
+                                marginLeft: calcWidth(40),
+                            }}
+                        />
+                    </Pressable>
+                </View>
+            )}
             {transactionData.group?.members?.length > 0 && (
                 <View
                     style={{
@@ -298,7 +304,7 @@ const styles = StyleSheet.create({
     },
     selectedCategory: {
         backgroundColor: '#ddd', // Highlight color for selected category,
-        borderRadius:10
+        borderRadius: 10,
     },
 });
 
