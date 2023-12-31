@@ -99,6 +99,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'flex-start',
         padding: calcWidth(4),
+        gap: calcWidth(5)
     },
     groupName: {
         color: 'white',
@@ -109,6 +110,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         margin: calcHeight(2),
+        backgroundColor:"rgb(33, 24, 45,0.53)"
     },
     balanceText: {
         color: COLOR.TEXT,

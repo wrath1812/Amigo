@@ -41,6 +41,13 @@ function GroupListScreen({ navigation }) {
         }, []),
     );
 
+    const filterGroups = () =>
+    search === ''
+        ? groups
+        : groups.filter((group) =>
+              group.name.toLowerCase().includes(search.toLowerCase()),
+          );
+
     return loading ? (
         <Loader />
     ) : (
@@ -66,7 +73,7 @@ function GroupListScreen({ navigation }) {
                         <Search search={search} setSearch={setSearch} />
                     </View>
                     <FlatList
-                        data={groups}
+                        data={filterGroups(groups)}
                         renderItem={({ item }) => <GroupCard group={item} />}
                         keyExtractor={(item) => item.id} // Replace 'item.id' with the appropriate key property from your group objects
                     />
