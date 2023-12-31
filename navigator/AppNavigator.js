@@ -14,6 +14,7 @@ import COLOR from '../constants/Colors';
 import { calcHeight } from '../helper/res';
 import TabBarIcon from '../components/TabBarIcon';
 import tabBarStyle from '../constants/tabBarStyle';
+import GroupListScreen from '../pages/GroupListScreen';
 
 const AppNavigator = () => {
     const { user } = useAuth();
@@ -26,8 +27,9 @@ const AppNavigator = () => {
             }}
         >
             <Tab.Group>
-                <Tab.Screen
-                    name={PAGES.BALANCE}
+
+            <Tab.Screen
+                    name={PAGES.GROUP_NAVIGATOR}
                     options={{
                         tabBarIcon: (tabBarProps) => (
                             <TabBarIcon
@@ -37,22 +39,18 @@ const AppNavigator = () => {
                         ),
                         headerShown: false,
                     }}
-                    component={BalanceScreen}
+                    component={GroupNavigator}
                 />
 
                 <Tab.Screen
-                    name={PAGES.GROUP_NAVIGATOR}
+                    name={PAGES.GROUP_LIST}
+                    component={GroupListScreen}
                     options={{
-                        headerShown: false,
-                        tabBarIcon: (tabBarProps) => (
-                            <TabBarIcon
-                                tabBarProps={tabBarProps}
-                                screen={PAGES.GROUP_NAVIGATOR}
-                            />
-                        ),
-                        tabBarStyle: { display: 'none' },
+                        headerStyle: {
+                            backgroundColor: COLOR.APP_BACKGROUND,
+                        },
+                        title: null,
                     }}
-                    component={GroupNavigator}
                 />
 
                 <Tab.Screen

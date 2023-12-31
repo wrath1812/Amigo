@@ -18,18 +18,23 @@ import GroupSplitScreen from '../pages/GroupSplitScreen';
 import SelectPaidBy from '../pages/SelectPaidBy';
 import GroupBalance from '../pages/GroupBalanceScreen';
 import PaymentScreen from '../pages/PaymentScreen';
+import BalanceScreen from '../pages/BalanceScreen';
 function GroupNavigator() {
     return (
-        <Stack.Navigator initialRouteName={PAGES.GROUP_LIST}>
+        <Stack.Navigator initialRouteName={PAGES.BALANCE}>
             <Stack.Screen
-                name={PAGES.GROUP_LIST}
-                component={GroupListScreen}
+                name={PAGES.BALANCE}
                 options={{
-                    headerStyle: {
-                        backgroundColor: COLOR.APP_BACKGROUND,
-                    },
-                    title: null,
+                    headerShown: false,
+                    tabBarIcon: (tabBarProps) => (
+                        <TabBarIcon
+                            tabBarProps={tabBarProps}
+                            screen={PAGES.GROUP_NAVIGATOR}
+                        />
+                    ),
+                    tabBarStyle: { display: 'none' },
                 }}
+                component={BalanceScreen}
             />
             <Stack.Screen
                 name={PAGES.SELECT_PAID_BY}
