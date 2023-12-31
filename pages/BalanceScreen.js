@@ -51,6 +51,8 @@ function groupByGroup(balances, userId) {
 
         const group = groupMap.get(groupId);
 
+
+        if(balance.borrower_id==userId){
         // Process the lender
         if (!group.lenders.has(balance.lender._id)) {
             group.lenders.set(balance.lender._id, {
@@ -60,6 +62,11 @@ function groupByGroup(balances, userId) {
             });
         }
         group.lenders.get(balance.lender._id).amount += amount;
+        group.totalBalance -= amount;
+
+        userTotalBalance -= amount;
+    }
+    else{
 
         // Process the borrower
         if (!group.borrowers.has(balance.borrower._id)) {
@@ -70,11 +77,11 @@ function groupByGroup(balances, userId) {
             });
         }
         group.borrowers.get(balance.borrower._id).amount += amount;
-
-        // Accumulate the total balance
         group.totalBalance += amount;
 
         userTotalBalance += amount;
+    }
+        // Accumulate the total balance
     });
 
     // Convert the map to the desired array structure
