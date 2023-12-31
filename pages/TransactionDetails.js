@@ -11,7 +11,9 @@ import { calcWidth, calcHeight, getFontSizeByWindowWidth } from '../helper/res';
 import generateRandomColor from '../helper/generateRandomColor';
 import { useAuth } from '../context/AuthContext';
 import { getCategoryIcon } from '../constants/Categories';
+import { Alert } from 'react-native';
 import { FontAwesome5, AntDesign } from '@expo/vector-icons';
+import apiHelper from "../helper/apiHelper";
 function formatDate(dateString) {
     // Parse the input string to a Date object
     let date = new Date(dateString);
@@ -22,12 +24,12 @@ function formatDate(dateString) {
     }
 
     // Extract day, month, and year and format them
-    let day = ("0" + date.getDate()).slice(-2);
-    let month = ("0" + (date.getMonth() + 1)).slice(-2);
+    let day = ('0' + date.getDate()).slice(-2);
+    let month = ('0' + (date.getMonth() + 1)).slice(-2);
     let year = date.getFullYear();
 
     // Return the formatted date string
-    return day + "-" + month + "-" + year;
+    return day + '-' + month + '-' + year;
 }
 
 // Example Usage
@@ -41,6 +43,35 @@ const TransactionDetail = ({
     const [date, setDate] = useState(new Date(transaction.date));
     const { user } = useAuth();
 
+    const handleDeleteTransaction = async () => {
+        Alert.alert(
+            'Delete Transaction',
+            'Are you sure you want to delete this transaction?',
+            [
+                {
+                    text: 'Cancel',
+                    onPress: ()=>{},
+                    style: 'cancel',
+                },
+                {
+                    text: 'Delete',
+                    onPress: async () => {
+                        try {
+                            await apiHelper.delete(`transaction/${transaction._id}`);
+                            navigation.goBack();
+                        } catch (error) {
+                            // Handle errors
+                            console.log(
+                                'An error occurred while deleting the transaction.',
+                            );
+                        }
+                    },
+                },
+            ],
+            { cancelable: false },
+        );
+    };
+
     useLayoutEffect(() => {
         navigation.setOptions({
             headerRight: () => (
@@ -49,7 +80,7 @@ const TransactionDetail = ({
                         flexDirection: 'row',
                     }}
                 >
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={handleDeleteTransaction}>
                         <AntDesign
                             name="delete"
                             size={calcWidth(6)}
@@ -88,27 +119,28 @@ const TransactionDetail = ({
                 </Text>
                 <View
                     style={{
-                        width:"50%",
+                        width: '50%',
                         flexDirection: 'row',
                         justifyContent: 'space-between',
                         marginVertical: calcHeight(3),
-                        
                     }}
                 >
-                    <View style={{
+                    <View
+                        style={{
                             backgroundColor: 'white',
                             flexDirection: 'row',
-                            borderRadius:10,
-                            padding:calcWidth(1)
-                        }}>
+                            borderRadius: 10,
+                            padding: calcWidth(1),
+                        }}
+                    >
                         <Text>{formatDate(date)}</Text>
                     </View>
                     <View
                         style={{
                             backgroundColor: 'white',
                             flexDirection: 'row',
-                            borderRadius:10,
-                            padding:calcWidth(0.5)
+                            borderRadius: 10,
+                            padding: calcWidth(0.5),
                         }}
                     >
                         {getCategoryIcon(transaction.type)}

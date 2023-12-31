@@ -31,7 +31,7 @@ const GroupSplitScreen = ({ navigation }) => {
     const submitSplit = () => {
         // Filter out members who are not included
         const includedMembers = members.filter((member) => member.included);
-        
+
         setTransactionData((prev) => ({
             ...prev,
             splitAmong: includedMembers.map(({ user, amount }) => ({
@@ -51,7 +51,9 @@ const GroupSplitScreen = ({ navigation }) => {
                     return {
                         ...member,
                         included: !member.included,
-                        isAmountManuallyEntered: member.included ? false : member.isAmountManuallyEntered,
+                        isAmountManuallyEntered: member.included
+                            ? false
+                            : member.isAmountManuallyEntered,
                         amount: member.included ? 0 : member.amount,
                     };
                 }
@@ -61,7 +63,7 @@ const GroupSplitScreen = ({ navigation }) => {
             return updatedMembers;
         });
     };
-    
+
     const redistributeAmounts = (updatedMembers) => {
         let totalAmount = transactionData.amount || 0;
 

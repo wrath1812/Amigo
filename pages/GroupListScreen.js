@@ -42,11 +42,11 @@ function GroupListScreen({ navigation }) {
     );
 
     const filterGroups = () =>
-    search === ''
-        ? groups
-        : groups.filter((group) =>
-              group.name.toLowerCase().includes(search.toLowerCase()),
-          );
+        search === ''
+            ? groups
+            : groups.filter((group) =>
+                  group.name.toLowerCase().includes(search.toLowerCase()),
+              );
 
     return loading ? (
         <Loader />

@@ -51,36 +51,33 @@ function groupByGroup(balances, userId) {
 
         const group = groupMap.get(groupId);
 
+        if (balance.borrower_id == userId) {
+            // Process the lender
+            if (!group.lenders.has(balance.lender._id)) {
+                group.lenders.set(balance.lender._id, {
+                    name: balance.lender.name,
+                    id: balance.lender._id,
+                    amount: 0,
+                });
+            }
+            group.lenders.get(balance.lender._id).amount += amount;
+            group.totalBalance -= amount;
 
-        if(balance.borrower_id==userId){
-        // Process the lender
-        if (!group.lenders.has(balance.lender._id)) {
-            group.lenders.set(balance.lender._id, {
-                name: balance.lender.name,
-                id: balance.lender._id,
-                amount: 0,
-            });
+            userTotalBalance -= amount;
+        } else {
+            // Process the borrower
+            if (!group.borrowers.has(balance.borrower._id)) {
+                group.borrowers.set(balance.borrower._id, {
+                    name: balance.borrower.name,
+                    id: balance.borrower._id,
+                    amount: 0,
+                });
+            }
+            group.borrowers.get(balance.borrower._id).amount += amount;
+            group.totalBalance += amount;
+
+            userTotalBalance += amount;
         }
-        group.lenders.get(balance.lender._id).amount += amount;
-        group.totalBalance -= amount;
-
-        userTotalBalance -= amount;
-    }
-    else{
-
-        // Process the borrower
-        if (!group.borrowers.has(balance.borrower._id)) {
-            group.borrowers.set(balance.borrower._id, {
-                name: balance.borrower.name,
-                id: balance.borrower._id,
-                amount: 0,
-            });
-        }
-        group.borrowers.get(balance.borrower._id).amount += amount;
-        group.totalBalance += amount;
-
-        userTotalBalance += amount;
-    }
         // Accumulate the total balance
     });
 

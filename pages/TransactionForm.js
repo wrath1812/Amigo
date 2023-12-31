@@ -65,9 +65,15 @@ function TransactionFormScreen({ navigation }) {
     };
 
     const handleSubmit = async () => {
-        if(!(transactionData.amount && transactionData.description && transactionData.group) ){
-        alert("All fiends are required");
-        return;
+        if (
+            !(
+                transactionData.amount &&
+                transactionData.description &&
+                transactionData.group
+            )
+        ) {
+            alert('All fiends are required');
+            return;
         }
         setIsLoading(true);
         try {
