@@ -50,6 +50,12 @@ const AppNavigator = () => {
                             backgroundColor: COLOR.APP_BACKGROUND,
                         },
                         title: null,
+                        tabBarIcon: (tabBarProps) => (
+                            <TabBarIcon
+                                tabBarProps={tabBarProps}
+                                screen={PAGES.GROUP_LIST}
+                            />
+                        ),
                     }}
                 />
 

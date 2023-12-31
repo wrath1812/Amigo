@@ -13,7 +13,7 @@ export default ({ size, focused, screen }) => {
         ) : (
             <Octicons name="home" size={size} color={color} />
         ),
-        [PAGES.GROUP_NAVIGATOR]: focused ? (
+        [PAGES.GROUP_LIST]: focused ? (
             <MaterialCommunityIcons
                 name="account-group"
                 size={size}
