@@ -23,7 +23,7 @@ const AppNavigator = () => {
             screenOptions={{
                 headerShown: false,
                 tabBarLabel: () => null, // Add this line to disable labels
-                tabBarStyle: tabBarStyle,
+                tabBarStyle,
             }}
         >
             <Tab.Group>
@@ -37,6 +37,7 @@ const AppNavigator = () => {
                             />
                         ),
                         headerShown: false,
+                        tabBarStyle: { display: 'none' },
                     }}
                     component={GroupNavigator}
                 />

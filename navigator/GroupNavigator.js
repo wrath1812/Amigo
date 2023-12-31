@@ -29,10 +29,9 @@ function GroupNavigator() {
                     tabBarIcon: (tabBarProps) => (
                         <TabBarIcon
                             tabBarProps={tabBarProps}
-                            screen={PAGES.GROUP_NAVIGATOR}
+                            screen={PAGES.BALANCE}
                         />
                     ),
-                    tabBarStyle: { display: 'none' },
                 }}
                 component={BalanceScreen}
             />

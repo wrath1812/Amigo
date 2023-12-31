@@ -28,22 +28,6 @@ function GroupListScreen({ navigation }) {
     const [groups, setGroups] = useState([]);
     const [loading, setLoading] = useState(false);
     const [search, setSearch] = useState('');
-    const isFocused = useIsFocused();
-
-    useEffect(() => {
-        if (isFocused) {
-            // Show the tab bar when this screen is focused
-            navigation.getParent()?.setOptions({
-                tabBarStyle: { display: 'flex', ...tabBarStyle },
-            });
-        } else {
-            // Optional: Hide the tab bar when this screen is not focused
-            // You can remove this part if you only want to show the tab bar in this screen
-            navigation.getParent()?.setOptions({
-                tabBarStyle: { display: 'none' },
-            });
-        }
-    }, [isFocused, navigation]);
 
     useFocusEffect(
         useCallback(() => {

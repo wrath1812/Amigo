@@ -61,6 +61,9 @@ function GroupListScreen({ navigation }) {
                                 image={CreateGroupIcon}
                             />
                         }
+                        onPress={() => {
+                            navigation.navigate(PAGES.CREATE_GROUP);
+                        }}
                     />
                 }
                 renderItem={({ item: group }) => (
