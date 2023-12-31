@@ -7,6 +7,7 @@ import {
     Pressable,
     View,
     TextInput,
+    FlatList,
 } from 'react-native';
 import Loader from '../components/Loader';
 import apiHelper from '../helper/apiHelper';
@@ -18,7 +19,7 @@ import Search from '../components/Search';
 import GroupSelectCard from '../components/GroupSelectCard';
 import { useTransaction } from '../context/TransactionContext';
 import GroupIcon from '../components/GroupIcon';
-import CreateGroupIcon from "../assets/icons/createGroup.png"
+import CreateGroupIcon from '../assets/icons/createGroup.png';
 
 function GroupListScreen({ navigation }) {
     const [groups, setGroups] = useState([]);
@@ -49,14 +50,20 @@ function GroupListScreen({ navigation }) {
             >
                 <Search search={search} setSearch={setSearch} />
             </View>
-            <ScrollView>
-                <GroupSelectCard
-                    name={'Create new group'}
-                    image={
-                        <GroupIcon backgroundColor="white" image={CreateGroupIcon} />
-                    }
-                />
-                {groups.map((group) => (
+            <FlatList
+                data={groups}
+                ListHeaderComponent={
+                    <GroupSelectCard
+                        name={'Create new group'}
+                        image={
+                            <GroupIcon
+                                backgroundColor="white"
+                                image={CreateGroupIcon}
+                            />
+                        }
+                    />
+                }
+                renderItem={({ item: group }) => (
                     <GroupSelectCard
                         name={group.name}
                         onPress={() => {
@@ -64,8 +71,8 @@ function GroupListScreen({ navigation }) {
                             navigation.navigate(PAGES.ADD_TRANSACTION);
                         }}
                     />
-                ))}
-            </ScrollView>
+                )}
+            />
         </SafeAreaView>
     );
 }

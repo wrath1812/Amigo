@@ -3,15 +3,13 @@ import { calcHeight, calcWidth } from '../helper/res';
 import COLOR from '../constants/Colors';
 function GroupIcon({ image, backgroundColor }) {
     return (
-        <View style={[styles.imageContainer, backgroundColor ? { backgroundColor } : {}]}>
-            <Image
-                source={image}
-                style={
-                    styles.image
-                   
-                }
-                resizeMode="contain"
-            />
+        <View
+            style={[
+                styles.imageContainer,
+                backgroundColor ? { backgroundColor } : {},
+            ]}
+        >
+            <Image source={image} style={styles.image} resizeMode="contain" />
         </View>
     );
 }
