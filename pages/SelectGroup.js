@@ -27,6 +27,16 @@ function GroupListScreen({ navigation }) {
     const [search, setSearch] = useState('');
     const { setTransactionData } = useTransaction();
 
+    const filterGroups = () =>
+        search === ''
+            ? groups
+            : groups.filter(
+                  (group) =>
+                      group.name
+                          .toLowerCase()
+                          .includes(search.toLowerCase()) 
+              );
+
     useFocusEffect(
         useCallback(() => {
             (async () => {
@@ -51,7 +61,7 @@ function GroupListScreen({ navigation }) {
                 <Search search={search} setSearch={setSearch} />
             </View>
             <FlatList
-                data={groups}
+                data={filterGroups(groups)}
                 ListHeaderComponent={
                     <GroupSelectCard
                         name={'Create new group'}
