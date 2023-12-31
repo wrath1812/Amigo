@@ -10,9 +10,28 @@ import COLOR from '../constants/Colors';
 import { calcWidth, calcHeight, getFontSizeByWindowWidth } from '../helper/res';
 import generateRandomColor from '../helper/generateRandomColor';
 import { useAuth } from '../context/AuthContext';
-import DatePicker from '../components/DatePicker';
 import { getCategoryIcon } from '../constants/Categories';
 import { FontAwesome5, AntDesign } from '@expo/vector-icons';
+function formatDate(dateString) {
+    // Parse the input string to a Date object
+    let date = new Date(dateString);
+
+    // Ensure the date is valid
+    if (isNaN(date.getTime())) {
+        return 'Invalid Date';
+    }
+
+    // Extract day, month, and year and format them
+    let day = ("0" + date.getDate()).slice(-2);
+    let month = ("0" + (date.getMonth() + 1)).slice(-2);
+    let year = date.getFullYear();
+
+    // Return the formatted date string
+    return day + "-" + month + "-" + year;
+}
+
+// Example Usage
+
 const TransactionDetail = ({
     navigation,
     route: {
@@ -30,17 +49,6 @@ const TransactionDetail = ({
                         flexDirection: 'row',
                     }}
                 >
-                    <TouchableOpacity
-                        style={{
-                            marginRight: calcWidth(10),
-                        }}
-                    >
-                        <FontAwesome5
-                            name="edit"
-                            size={calcWidth(6)}
-                            color={COLOR.BUTTON}
-                        />
-                    </TouchableOpacity>
                     <TouchableOpacity>
                         <AntDesign
                             name="delete"
@@ -80,20 +88,27 @@ const TransactionDetail = ({
                 </Text>
                 <View
                     style={{
+                        width:"50%",
                         flexDirection: 'row',
-                        alignContent: 'center',
                         justifyContent: 'space-between',
-                        alignItems: 'center',
-                        marginTop: calcHeight(8),
+                        marginVertical: calcHeight(3),
+                        
                     }}
                 >
-                    <View>
-                        <DatePicker date={date} setDate={setDate} />
+                    <View style={{
+                            backgroundColor: 'white',
+                            flexDirection: 'row',
+                            borderRadius:10,
+                            padding:calcWidth(1)
+                        }}>
+                        <Text>{formatDate(date)}</Text>
                     </View>
                     <View
                         style={{
                             backgroundColor: 'white',
                             flexDirection: 'row',
+                            borderRadius:10,
+                            padding:calcWidth(0.5)
                         }}
                     >
                         {getCategoryIcon(transaction.type)}
