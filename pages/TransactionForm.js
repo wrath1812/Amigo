@@ -140,7 +140,12 @@ function TransactionFormScreen({ navigation }) {
                         onPress={() => handleCategorySelect(item.name)}
                     >
                         {item.icon}
-                        <Text style={styles.categoryText}>{item.name}</Text>
+                        <Text style={[styles.categoryText,
+                        transactionData.category === item.name &&
+                        {
+                            color:"black"
+                        }
+                        ]}>{item.name}</Text>
                     </Pressable>
                 ))}
             </ScrollView>
@@ -284,7 +289,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignContent: 'center',
         alignItems: 'center',
-        padding: calcWidth(3),
+        paddingHorizontal: calcWidth(3),
     },
     categoryText: {
         color: COLOR.TEXT,
@@ -292,7 +297,8 @@ const styles = StyleSheet.create({
         paddingLeft: calcWidth(1),
     },
     selectedCategory: {
-        backgroundColor: '#ddd', // Highlight color for selected category
+        backgroundColor: '#ddd', // Highlight color for selected category,
+        borderRadius:10
     },
 });
 

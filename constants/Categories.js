@@ -36,7 +36,7 @@ const categories = [
         icon: <Entypo name="shop" size={size} color="#9C27B0" />,
     }, // Purple
     {
-        name: 'Other',
+        name: 'General',
         icon: <AntDesign name="ellipsis1" size={size} color="#607D8B" />,
     }, // Blue Grey
 ];

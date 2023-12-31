@@ -14,7 +14,7 @@ export const TransactionProvider = ({ children }) => {
             description: '',
             category: '',
             date: new Date(),
-            type: 'Other',
+            type: 'General',
             splitAmong: [],
             group: {},
             paidBy: { _id: user?._id, name: user?.name },
