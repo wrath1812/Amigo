@@ -12,7 +12,6 @@ export const TransactionProvider = ({ children }) => {
             ...prev,
             amount: '',
             description: '',
-            category: '',
             date: new Date(),
             type: 'General',
             splitAmong: [],
