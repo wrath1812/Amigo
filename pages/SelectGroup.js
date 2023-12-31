@@ -30,11 +30,8 @@ function GroupListScreen({ navigation }) {
     const filterGroups = () =>
         search === ''
             ? groups
-            : groups.filter(
-                  (group) =>
-                      group.name
-                          .toLowerCase()
-                          .includes(search.toLowerCase()) 
+            : groups.filter((group) =>
+                  group.name.toLowerCase().includes(search.toLowerCase()),
               );
 
     useFocusEffect(

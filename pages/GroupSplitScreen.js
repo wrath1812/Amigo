@@ -32,10 +32,12 @@ const GroupSplitScreen = ({ navigation }) => {
         // Filter out members who are not included
         const includedMembers = members.filter((member) => member.included);
 
-        // Update the transaction data with the filtered members
         setTransactionData((prev) => ({
             ...prev,
-            splitAmong: includedMembers,
+            splitAmong: includedMembers.map(({ user, amount }) => ({
+                user,
+                amount,
+            })),
         }));
 
         // Navigate back to the previous screen after updating

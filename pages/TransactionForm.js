@@ -67,15 +67,21 @@ function TransactionFormScreen({ navigation }) {
     const handleSubmit = async () => {
         setIsLoading(true);
         try {
-            transactionData['amount'] = parseInt(transactionData.amount);
-            transactionData['group'] = transactionData.group._id;
-            transactionData['paidBy'] = transactionData.paidBy._id;
-            transactionData['splitAmong'] = transactionData.splitAmong.map(
-                (user) => ({ amount: user.amount, user: user.user._id }),
-            );
+            // Create a new object with modifications, leaving original transactionData unchanged
+            const modifiedTransactionData = {
+                ...transactionData,
+                amount: parseInt(transactionData.amount),
+                group: transactionData.group._id,
+                paidBy: transactionData.paidBy._id,
+                splitAmong: transactionData.splitAmong.map((user) => ({
+                    amount: user.amount,
+                    user: user.user._id || user.user.id,
+                })),
+            };
+
             const { data } = await apiHelper.post(
                 '/transaction',
-                transactionData,
+                modifiedTransactionData,
             );
             Alert.alert('Success', JSON.stringify(data));
             navigation.goBack();
