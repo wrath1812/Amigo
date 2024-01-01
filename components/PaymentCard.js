@@ -5,9 +5,11 @@ import COLOR from '../constants/Colors';
 function PaymentCard({ createdAt, amount, payer, receiver }) {
     return (
         <View style={styles.transactionCard}>
-             <Text style={styles.payer}>{payer.name} paid {receiver.name}</Text>
+            <Text style={styles.payer}>
+                {payer.name} paid {receiver.name}
+            </Text>
             <Text style={styles.amount}>${amount}</Text>
-            <Text style={styles.createdAt}>{createdAt}</Text> 
+            <Text style={styles.createdAt}>{createdAt}</Text>
         </View>
     );
 }

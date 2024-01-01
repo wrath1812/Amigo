@@ -64,11 +64,16 @@ function GroupScreen({
     const renderActivity = ({ item }) => {
         if (item.activityType === 'transaction') {
             return <TransactionCard transaction={item.relatedId} />;
-        } else if(item.activityType === 'payment') {
-            return <PaymentCard creator={item.creator} createdAt={item.createdAt}
-            payer={item.relatedId.payer} receiver={item.relatedId.receiver}
-            amount={item.relatedId.amount}
-            />
+        } else if (item.activityType === 'payment') {
+            return (
+                <PaymentCard
+                    creator={item.creator}
+                    createdAt={item.createdAt}
+                    payer={item.relatedId.payer}
+                    receiver={item.relatedId.receiver}
+                    amount={item.relatedId.amount}
+                />
+            );
         }
     };
 
