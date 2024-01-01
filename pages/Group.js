@@ -67,6 +67,7 @@ function GroupScreen({
         } else if(item.activityType === 'payment') {
             return <PaymentCard creator={item.creator} createdAt={item.createdAt}
             payer={item.relatedId.payer} receiver={item.relatedId.receiver}
+            amount={item.relatedId.amount}
             />
         }
     };
