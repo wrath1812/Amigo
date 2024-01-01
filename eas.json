@@ -61,7 +61,7 @@
             },
             "env": {
                 "ENV": "production",
-                "API_URL": "https://pink-bear-cuff.cyclic.app"
+                "API_URL": "http://34.193.8.8:3000"
             }
         }
     },
