@@ -23,6 +23,7 @@ import COLOR from '../constants/Colors';
 import { calcHeight, calcWidth } from '../helper/res';
 import { getFontSizeByWindowWidth } from '../helper/res';
 import { useTransaction } from '../context/TransactionContext';
+import PaymentCard from '../components/PaymentCard';
 
 function getMembersString(members) {
     let names = [];
@@ -64,14 +65,9 @@ function GroupScreen({
         if (item.activityType === 'transaction') {
             return <TransactionCard transaction={item.relatedId} />;
         } else if(item.activityType === 'payment') {
-            // For other types of activities, just display the activity type
-            return (
-                <View style={styles.otherActivityContainer}>
-                    <Text style={styles.otherActivityText}>
-                        Activity: {JSON.stringify(item)}
-                    </Text>
-                </View>
-            );
+            return <PaymentCard creator={item.creator} createdAt={item.createdAt}
+            payer={item.relatedId.payer} receiver={item.relatedId.receiver}
+            />
         }
     };
 
