@@ -1,41 +1,40 @@
 {
-    "expo": {
-        "name": "Split Cash",
-        "slug": "splitcash",
-        "scheme": "split-cash",
-        "version": "1.2.0",
-        "orientation": "portrait",
-        "icon": "./assets/icon.png",
-        "userInterfaceStyle": "automatic",
-        "splash": {
-            "image": "./assets/splash.png",
-            "resizeMode": "contain",
-            "backgroundColor": "#000"
-        },
-        "assetBundlePatterns": ["**/*"],
-        "ios": {
-            "bundleIdentifier": "com.splitcash.splitcash",
-            "buildNumber": "3"
-        },
-        "android": {
-            "adaptiveIcon": {
-                "foregroundImage": "./assets/icon.png",
-                "backgroundColor": "#000"
-            },
-            "versionCode": 3
-        },
-        "web": {
-            "favicon": "./assets/favicon.png"
-        },
-        "extra": {
-            "eas": {
-                "projectId": "cff7cde2-89df-4910-a559-59c360746095"
-            }
-        },
-        "owner": "splitcash"
+  "expo": {
+    "name": "Split Cash",
+    "slug": "splitcash",
+    "scheme": "split-cash",
+    "version": "1.2.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "automatic",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#000"
     },
-    "react-native-google-mobile-ads": {
-        "android_app_id": "ca-app-pub-5499479031752321~2533055801",
-        "ios_app_id": "ca-app-pub-5499479031752321~1051983983"
-    }
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "bundleIdentifier": "com.splitcash.splitcash",
+      "buildNumber": "3"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/icon.png",
+        "backgroundColor": "#000"
+      },
+      "versionCode": 3,
+      "package": "com.splitcash.splitcash"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "a5e37fd5-f6da-46ef-bd3c-c15b41062d62"
+      }
+    },
+    "owner": "splitcash"
+  }
 }
