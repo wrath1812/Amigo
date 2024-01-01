@@ -45,7 +45,7 @@ function TransactionCard({ transaction }) {
                         color="white"
                     />
                     <Text style={styles.participants}>
-                        {transaction.splitAmong.length} Participants
+                        {transaction.splitAmong?.length} Participants
                     </Text>
                 </View>
                 <View style={styles.flexContainer}>

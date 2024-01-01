@@ -42,26 +42,38 @@ function GroupScreen({
     },
 }) {
     const textRef = useRef();
-    const [transactions, setTransactions] = useState([]);
+    const [activities, setActivities] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const { setTransactionData, resetTransaction } = useTransaction();
     const [amount, setAmount] = useState('');
 
-    const fetchTransactions = useCallback(async () => {
-        navigation.get;
+    const fetchActivities = useCallback(async () => {
         setIsLoading(true);
         try {
-            const { data } = await apiHelper(
-                `/group/${group._id}/transactions`,
-            );
-            setTransactions(data);
+            const { data } = await apiHelper(`/activity-feed/${group._id}`);
+            setActivities(data);
         } catch (error) {
-            console.error('Error fetching transactions:', error);
+            console.error('Error fetching activities:', error);
         }
         setIsLoading(false);
     }, [group]);
 
-    useFocusEffect(fetchTransactions);
+    useFocusEffect(fetchActivities);
+
+    const renderActivity = ({ item }) => {
+        if (item.activityType === 'transaction') {
+            return <TransactionCard transaction={item.relatedId} />;
+        } else if(item.activityType === 'payment') {
+            // For other types of activities, just display the activity type
+            return (
+                <View style={styles.otherActivityContainer}>
+                    <Text style={styles.otherActivityText}>
+                        Activity: {JSON.stringify(item)}
+                    </Text>
+                </View>
+            );
+        }
+    };
 
     if (isLoading) {
         return <Loader />;
@@ -104,11 +116,9 @@ function GroupScreen({
             </View>
             <FlatList
                 inverted
-                data={transactions}
+                data={activities}
                 keyExtractor={(item) => item._id}
-                renderItem={({ item }) => (
-                    <TransactionCard transaction={item} />
-                )}
+                renderItem={renderActivity}
                 style={{
                     height: calcHeight(75),
                 }}
