@@ -25,6 +25,7 @@ import { getFontSizeByWindowWidth } from '../helper/res';
 import { useTransaction } from '../context/TransactionContext';
 import PaymentCard from '../components/PaymentCard';
 import { useAuth } from '../context/AuthContext';
+import ChatCard from '../components/ChatCard';
 function getMembersString(members) {
     let names = [];
     for (let i = 0; i < members.length; i++) {
@@ -105,7 +106,7 @@ function GroupScreen({
             );
         }
         else if (item.activityType === 'chat'){
-            return (<Text>{item.relatedId.message}</Text>);
+            return (<ChatCard message={item.relatedId.message} creator={item.creator} createdAt={item.createdAt}/>);
         }
     };
 
