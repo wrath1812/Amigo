@@ -36,6 +36,11 @@ function getMembersString(members) {
     return names.join(', ');
 }
 
+function isNumber(text) {
+    return !isNaN(+text);
+}
+
+
 function GroupScreen({
     navigation,
     route: {
@@ -61,6 +66,19 @@ function GroupScreen({
 
     useFocusEffect(fetchActivities);
 
+    async function addChat(){
+        setActivities((prev)=>[
+            {
+                activityType:'chat'
+            },
+            ...prev
+        ]);
+        setAmount('');
+        const { data } = await apiHelper.post(`/group/${group._id}/chat`,{
+            message:amount
+        });
+    }
+
     const renderActivity = ({ item }) => {
         if (item.activityType === 'transaction') {
             return <TransactionCard transaction={item.relatedId} />;
@@ -74,6 +92,9 @@ function GroupScreen({
                     amount={item.relatedId.amount}
                 />
             );
+        }
+        else if (item.activityType === 'chat'){
+            return (<Text>{item.activityType}</Text>);
         }
     };
 
@@ -134,7 +155,7 @@ function GroupScreen({
                 }}
             >
                 <Pressable
-                    style={styles.inputContainer}
+                    style={[styles.inputContainer,{width: isNumber(amount)?calcWidth(60):calcWidth(75)}]}
                     onPress={() => textRef.current.focus()}
                 >
                     <TextInput
@@ -147,7 +168,7 @@ function GroupScreen({
                         onChangeText={setAmount}
                     />
                 </Pressable>
-                <TouchableOpacity
+                {isNumber(amount) ? <TouchableOpacity
                     style={styles.button}
                     onPress={() => {
                         resetTransaction();
@@ -160,7 +181,10 @@ function GroupScreen({
                     }}
                 >
                     <Text style={styles.buttonText}>+ Expense</Text>
-                </TouchableOpacity>
+                </TouchableOpacity>:
+                <TouchableOpacity
+                onPress={addChat}
+                ><AntDesign name="enter" size={calcHeight(4)} color={COLOR.BUTTON} /></TouchableOpacity>}
             </View>
         </SafeAreaView>
     );
