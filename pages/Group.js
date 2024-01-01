@@ -24,7 +24,7 @@ import { calcHeight, calcWidth } from '../helper/res';
 import { getFontSizeByWindowWidth } from '../helper/res';
 import { useTransaction } from '../context/TransactionContext';
 import PaymentCard from '../components/PaymentCard';
-
+import { useAuth } from '../context/AuthContext';
 function getMembersString(members) {
     let names = [];
     for (let i = 0; i < members.length; i++) {
@@ -52,6 +52,7 @@ function GroupScreen({
     const [isLoading, setIsLoading] = useState(false);
     const { setTransactionData, resetTransaction } = useTransaction();
     const [amount, setAmount] = useState('');
+    const {user}=useAuth();
 
     const fetchActivities = useCallback(async () => {
         setIsLoading(true);
@@ -69,7 +70,17 @@ function GroupScreen({
     async function addChat(){
         setActivities((prev)=>[
             {
-                activityType:'chat'
+                activityType:'chat',
+                createdAt:Date(),
+                creator:{
+                   "_id":user.id,
+                   "name":user.name
+                },
+                group:group._id,
+                "onModel":"Chat",
+                "relatedId":{
+                   "message":amount
+                },
             },
             ...prev
         ]);
@@ -94,7 +105,7 @@ function GroupScreen({
             );
         }
         else if (item.activityType === 'chat'){
-            return (<Text>{item.activityType}</Text>);
+            return (<Text>{item.relatedId.message}</Text>);
         }
     };
 
