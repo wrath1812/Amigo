@@ -6,10 +6,9 @@ import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
 import SignUpImage from "../assets/SignUp.png";
 import { Feather, Octicons, Ionicons, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
 
-function MenuOption({ iconName, label, IconComponent, additionalStyle }) {
-    const {logout}=useAuth();
+function MenuOption({ iconName, label, IconComponent, additionalStyle,onPress }) {
     return (
-        <Pressable style={[styles.menuOption, additionalStyle]} onPress={logout}>
+        <Pressable style={[styles.menuOption, additionalStyle]} onPress={onPress}>
             <IconComponent name={iconName} size={calcHeight(3)} color="white" />
             <Text style={styles.menuText}>{label}</Text>
         </Pressable>
@@ -17,7 +16,7 @@ function MenuOption({ iconName, label, IconComponent, additionalStyle }) {
 }
 
 function ProfileScreen({ navigation }) {
-    const { user } = useAuth();
+    const { user,logout } = useAuth();
 
     const menuOptions = [
         { label: "Account Settings", iconName: "settings-outline", IconComponent: Ionicons },
@@ -61,6 +60,7 @@ function ProfileScreen({ navigation }) {
                 iconName="logout" 
                 IconComponent={MaterialIcons} 
                 additionalStyle={styles.logoutStyle} 
+                onPress={logout}
             />
         </SafeAreaView>
     );

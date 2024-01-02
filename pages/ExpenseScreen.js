@@ -8,6 +8,7 @@ import {
     Image,
     Pressable
 } from 'react-native';
+import { Button } from 'react-native-paper';
 import Loader from '../components/Loader';
 import apiHelper from '../helper/apiHelper';
 import { useFocusEffect } from '@react-navigation/native';
@@ -16,6 +17,7 @@ import { calcHeight, calcWidth,getFontSizeByWindowWidth } from '../helper/res';
 import { useAuth } from '../context/AuthContext';
 import { Ionicons } from '@expo/vector-icons';
 import GroupIcon from '../components/GroupIcon';
+import { DatePickerModal } from 'react-native-paper-dates';
 function convertISODateToCustomFormat(isoDate) {
     const date = new Date(isoDate);
     const day = date.getDate().toString().padStart(2, '0');
@@ -33,7 +35,20 @@ function ExpenseScreen({ navigation }) {
     const [loading, setLoading] = useState(false);
     const [transactions, setTransactions] = useState([]);
     const { user } = useAuth();
+    const [range, setRange] = React.useState({ startDate: undefined, endDate: undefined });
+  const [open, setOpen] = React.useState(false);
 
+   const onDismiss = React.useCallback(() => {
+    setOpen(false);
+  }, [setOpen]);
+
+ const onConfirm = React.useCallback(
+    ({ startDate, endDate }) => {
+      setOpen(false);
+      setRange({ startDate, endDate });
+    },
+    [setOpen, setRange]
+  );
     useFocusEffect(
         useCallback(() => {
             (async () => {
@@ -53,6 +68,24 @@ function ExpenseScreen({ navigation }) {
     return (
         <SafeAreaView style={styles.container}>
             <Text style={styles.header}>Expense Summary</Text>
+
+            <View style={{ justifyContent: 'center', flex: 1, alignItems: 'center' }}>
+        <Button onPress={() => setOpen(true)} uppercase={false} mode="outlined">
+          Pick range
+        </Button>
+        <DatePickerModal
+          locale="en"
+          mode="range"
+          visible={open}
+          onDismiss={onDismiss}
+          startDate={range.startDate}
+          endDate={range.endDate}
+          onConfirm={onConfirm}
+        />
+        <Text>{JSON.stringify(range?.startDate)}</Text>
+        <Text>{JSON.stringify(range?.endDate)}</Text>
+      </View>
+
 
             {loading ? (
                 <Loader />
