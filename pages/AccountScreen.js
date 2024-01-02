@@ -7,8 +7,9 @@ import SignUpImage from "../assets/SignUp.png";
 import { Feather, Octicons, Ionicons, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
 
 function MenuOption({ iconName, label, IconComponent, additionalStyle }) {
+    const {logout}=useAuth();
     return (
-        <Pressable style={[styles.menuOption, additionalStyle]}>
+        <Pressable style={[styles.menuOption, additionalStyle]} onPress={logout}>
             <IconComponent name={iconName} size={calcHeight(3)} color="white" />
             <Text style={styles.menuText}>{label}</Text>
         </Pressable>
