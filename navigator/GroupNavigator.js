@@ -19,6 +19,7 @@ import SelectPaidBy from '../pages/SelectPaidBy';
 import GroupBalance from '../pages/GroupBalanceScreen';
 import PaymentScreen from '../pages/PaymentScreen';
 import BalanceScreen from '../pages/BalanceScreen';
+import SearchScreen from "../pages/Search";
 function GroupNavigator() {
     return (
         <Stack.Navigator initialRouteName={PAGES.BALANCE}>
@@ -50,6 +51,13 @@ function GroupNavigator() {
                 component={GroupBalance}
                 options={{
                     headerShown: false,
+                }}
+            />
+             <Stack.Screen
+                name={PAGES.SEARCH}
+                component={SearchScreen}
+                options={{
+                    // headerShown: false,
                 }}
             />
             <Stack.Screen

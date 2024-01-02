@@ -188,14 +188,12 @@ const styles = StyleSheet.create({
         backgroundColor: COLOR.APP_BACKGROUND,
     },
     header: {
-        width: '90%',
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        width: '100%',
     },
     groupNameContainer: {
-        // marginLeft: calcWidth(5),
+        marginLeft: calcWidth(5),
     },
     groupName: {
         color: 'white',

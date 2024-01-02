@@ -161,11 +161,13 @@ function BalanceScreen({ navigation }) {
                         justifyContent: 'space-between',
                     }}
                 >
+                    <Pressable onPress={()=>navigation.navigate(PAGES.SEARCH)}>
                     <Ionicons
                         name="search"
                         size={calcWidth(headerIconSize)}
                         color="white"
                     />
+                    </Pressable>
 
                     <Image
                         source={{ uri: 'https://t.ly/Rel6Z' }}
