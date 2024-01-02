@@ -15,6 +15,7 @@ import { calcHeight } from '../helper/res';
 import TabBarIcon from '../components/TabBarIcon';
 import tabBarStyle from '../constants/tabBarStyle';
 import GroupListScreen from '../pages/GroupListScreen';
+import ExpenseScreen from '../pages/ExpenseScreen';
 
 const AppNavigator = () => {
     const { user } = useAuth();
@@ -60,8 +61,8 @@ const AppNavigator = () => {
                 />
 
                 <Tab.Screen
-                    name={PAGES.SETTINGS}
-                    component={Settings}
+                    name={PAGES.EXPENSE}
+                    component={ExpenseScreen}
                     options={{
                         tabBarIcon: (tabBarProps) => (
                             <TabBarIcon
