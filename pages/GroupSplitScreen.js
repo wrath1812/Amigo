@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState, useRef  } from 'react';
 import {
     View,
     Text,
@@ -20,17 +20,33 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 const GroupSplitScreen = ({ navigation }) => {
     const { transactionData, setTransactionData } = useTransaction();
-    const [members, setMembers] = useState(
-        transactionData.splitAmong.map((member) => ({
-            ...member,
-            isAmountManuallyEntered: false,
-            included: true,
-        })),
-    );
+    const [members, setMembers] = useState([]);
+    const membersRef = useRef(members);
+
+    useEffect(()=>{
+        const parsedMembers=[];
+
+        for (i of transactionData.group.members)
+        {
+            const memberAmount=transactionData.splitAmong.find(({user})=>user._id==i._id)?.amount;
+            parsedMembers.push({
+                amount:memberAmount || 0,
+                user:i,
+                included: memberAmount && true,
+                isAmountManuallyEntered: false
+            })
+        }
+
+        setMembers([...parsedMembers]);
+
+    },[])
+    useEffect(() => {
+        membersRef.current = members;
+    }, [members]);
+    
 
     const submitSplit = () => {
-        // Filter out members who are not included
-        const includedMembers = members.filter((member) => member.included);
+        const includedMembers = membersRef.current.filter((member) => member.included);
 
         setTransactionData((prev) => ({
             ...prev,
