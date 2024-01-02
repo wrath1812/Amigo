@@ -168,7 +168,9 @@ function BalanceScreen({ navigation }) {
                         color="white"
                     />
                     </Pressable>
-
+                    <Pressable onPress={()=>{
+                        navigation.navigate(PAGES.ACCOUNT)
+                    }}>
                     <Image
                         source={{ uri: 'https://t.ly/Rel6Z' }}
                         style={{
@@ -178,6 +180,7 @@ function BalanceScreen({ navigation }) {
                             marginLeft: calcWidth(headerIconSize),
                         }}
                     />
+                    </Pressable>
                 </View>
             </View>
             <View

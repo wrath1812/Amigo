@@ -5,7 +5,9 @@ import COLOR from '../../constants/Colors';
 import { Octicons, Foundation } from '@expo/vector-icons';
 const color = COLOR.BUTTON; // Example color, replace with actual color needed.
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-
+import Expense from "../../assets/icons/expense.png";
+import SelectedExpense from "../../assets/icons/selectedExpense.png"; 
+import { Image } from 'react-native';
 export default ({ size, focused, screen }) => {
     const icons = {
         [PAGES.BALANCE]: focused ? (
@@ -28,9 +30,15 @@ export default ({ size, focused, screen }) => {
         ),
 
         [PAGES.SETTINGS]: focused ? (
-            <EvilIcons name="gear" size={size} color={color} />
+            <Image style={{
+                width:size,
+                height:size
+            }} source={SelectedExpense}/>
         ) : (
-            <EvilIcons name="gear" size={size} color={color} />
+            <Image style={{
+                width:size,
+                height:size
+            }} source={Expense}/>
         ),
     };
 

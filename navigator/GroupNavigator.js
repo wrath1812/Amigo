@@ -20,6 +20,7 @@ import GroupBalance from '../pages/GroupBalanceScreen';
 import PaymentScreen from '../pages/PaymentScreen';
 import BalanceScreen from '../pages/BalanceScreen';
 import SearchScreen from "../pages/Search";
+import AccountScreen from '../pages/AccountScreen';
 function GroupNavigator() {
     return (
         <Stack.Navigator initialRouteName={PAGES.BALANCE}>
@@ -60,6 +61,18 @@ function GroupNavigator() {
                     // headerShown: false,
                 }}
             />
+            <Stack.Screen
+                name={PAGES.ACCOUNT}
+                component={AccountScreen}
+                options={{
+                    headerStyle: {
+                        backgroundColor: COLOR.APP_BACKGROUND,
+                        
+                    },
+                    headerTintColor: '#fff'
+                }}
+            />
+            
             <Stack.Screen
                 name={PAGES.PAYMENT}
                 component={PaymentScreen}

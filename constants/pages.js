@@ -20,7 +20,8 @@ const PAGES = {
     GROUP_BALANCE: 'Group Balance',
     PAYMENT: 'Payment',
     SEARCH:"Search",
-    EXPENSE:"Expense"
+    EXPENSE:"Expense",
+    ACCOUNT:"Account"
 };
 
 export default PAGES;
