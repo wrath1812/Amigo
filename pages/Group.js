@@ -72,7 +72,7 @@ function GroupScreen({
                 activityType:'chat',
                 createdAt:Date(),
                 creator:{
-                   "_id":user.id,
+                   "_id":user._id,
                    "name":user.name
                 },
                 group:group._id,
