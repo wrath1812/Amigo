@@ -16,16 +16,14 @@ import Loader from '../components/Loader';
 import PAGES from '../constants/pages';
 import FabIcon from '../components/FabIcon';
 import { useFocusEffect } from '@react-navigation/native';
-import TransactionCard from '../components/TransactionCard';
 import LoginIcon from '../assets/Login.png';
 import GroupIcon from '../components/GroupIcon';
 import COLOR from '../constants/Colors';
 import { calcHeight, calcWidth } from '../helper/res';
 import { getFontSizeByWindowWidth } from '../helper/res';
 import { useTransaction } from '../context/TransactionContext';
-import PaymentCard from '../components/PaymentCard';
 import { useAuth } from '../context/AuthContext';
-import ChatCard from '../components/ChatCard';
+import Feed from '../components/Feed';
 function getMembersString(members) {
     let names = [];
     for (let i = 0; i < members.length; i++) {
@@ -91,25 +89,6 @@ function GroupScreen({
         });
     }
 
-    const renderActivity = ({ item }) => {
-        if (item.activityType === 'transaction') {
-            return <TransactionCard transaction={item.relatedId} />;
-        } else if (item.activityType === 'payment') {
-            return (
-                <PaymentCard
-                    creator={item.creator}
-                    createdAt={item.createdAt}
-                    payer={item.relatedId.payer}
-                    receiver={item.relatedId.receiver}
-                    amount={item.relatedId.amount}
-                />
-            );
-        }
-        else if (item.activityType === 'chat'){
-            return (<ChatCard message={item.relatedId.message} creator={item.creator} createdAt={item.createdAt}/>);
-        }
-    };
-
     if (isLoading) {
         return <Loader />;
     }
@@ -123,13 +102,14 @@ function GroupScreen({
                         flexDirection: 'row',
                         alignItems: 'center',
                         justifyContent: 'space-between',
+                        height:calcHeight(8)
                     }}
                 >
                     <Pressable onPress={() => navigation.goBack()}>
                         <Ionicons
                             name="chevron-back"
                             size={calcHeight(3)}
-                            color="#87CEEB"
+                            color="white"
                         />
                     </Pressable>
                     <GroupIcon image={LoginIcon} />
@@ -153,7 +133,7 @@ function GroupScreen({
                 inverted
                 data={activities}
                 keyExtractor={(item) => item._id}
-                renderItem={renderActivity}
+                renderItem={({item})=><Feed {...item}/>}
                 style={{
                     height: calcHeight(75),
                 }}
