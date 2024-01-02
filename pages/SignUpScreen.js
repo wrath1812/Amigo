@@ -5,6 +5,7 @@ import {
     TextInput,
     StyleSheet,
     SafeAreaView,
+    KeyboardAvoidingView,
     Image,
 } from 'react-native';
 import SignUpImage from '../assets/SignUp.png'; // Make sure you have an image for the sign-up
@@ -25,7 +26,9 @@ const SignUpScreen = ({ navigation }) => {
     });
 
     return (
-        <SafeAreaView style={styles.container}>
+        <KeyboardAvoidingView style={styles.container}
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        >
             <View style={styles.innerContainer}>
                 <View style={styles.header}>
                     <Image
@@ -51,6 +54,9 @@ const SignUpScreen = ({ navigation }) => {
                         placeholderTextColor="#D3D3D3"
                     />
                 </View>
+                <View style={{
+                    alignItems:"center"
+                }}>
                 <Button
                     title="Verify"
                     onPress={() => {
@@ -58,8 +64,9 @@ const SignUpScreen = ({ navigation }) => {
                         navigation.navigate(PAGES.GROUP_LIST);
                     }}
                 />
+                </View>
             </View>
-        </SafeAreaView>
+        </KeyboardAvoidingView>
     );
 };
 
