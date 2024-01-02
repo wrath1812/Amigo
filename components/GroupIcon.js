@@ -1,5 +1,6 @@
 import { StyleSheet, View, Image } from 'react-native';
 import { calcHeight, calcWidth } from '../helper/res';
+import LoginIcon from "../assets/Login.png";
 import COLOR from '../constants/Colors';
 function GroupIcon({ image, backgroundColor }) {
     return (
@@ -9,7 +10,7 @@ function GroupIcon({ image, backgroundColor }) {
                 backgroundColor ? { backgroundColor } : {},
             ]}
         >
-            <Image source={image} style={styles.image} resizeMode="contain" />
+            <Image source={image||LoginIcon} style={styles.image} resizeMode="contain" />
         </View>
     );
 }
@@ -24,6 +25,6 @@ const styles = StyleSheet.create({
     imageContainer: {
         padding: calcWidth(2),
         borderRadius: calcHeight(10),
-        backgroundColor: COLOR.BUTTON,
+        backgroundColor: COLOR.BUTTON
     },
 });
