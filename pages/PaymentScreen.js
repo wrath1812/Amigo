@@ -151,7 +151,7 @@ const styles = StyleSheet.create({
     header: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        margin: calcHeight(10),
+        margin: calcHeight(5),
     },
     headerItem: {
         alignItems: 'center',
