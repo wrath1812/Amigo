@@ -39,7 +39,6 @@ function isNumber(text) {
     return !isNaN(+text);
 }
 
-
 function GroupScreen({
     navigation,
     route: {
@@ -51,7 +50,7 @@ function GroupScreen({
     const [isLoading, setIsLoading] = useState(false);
     const { setTransactionData, resetTransaction } = useTransaction();
     const [amount, setAmount] = useState('');
-    const {user}=useAuth();
+    const { user } = useAuth();
 
     const fetchActivities = useCallback(async () => {
         setIsLoading(true);
@@ -66,26 +65,26 @@ function GroupScreen({
 
     useFocusEffect(fetchActivities);
 
-    async function addChat(){
-        setActivities((prev)=>[
+    async function addChat() {
+        setActivities((prev) => [
             {
-                activityType:'chat',
-                createdAt:Date(),
-                creator:{
-                   "_id":user._id,
-                   "name":user.name
+                activityType: 'chat',
+                createdAt: Date(),
+                creator: {
+                    _id: user._id,
+                    name: user.name,
                 },
-                group:group._id,
-                "onModel":"Chat",
-                "relatedId":{
-                   "message":amount
+                group: group._id,
+                onModel: 'Chat',
+                relatedId: {
+                    message: amount,
                 },
             },
-            ...prev
+            ...prev,
         ]);
         setAmount('');
-        const { data } = await apiHelper.post(`/group/${group._id}/chat`,{
-            message:amount
+        const { data } = await apiHelper.post(`/group/${group._id}/chat`, {
+            message: amount,
         });
     }
 
@@ -102,7 +101,7 @@ function GroupScreen({
                         flexDirection: 'row',
                         alignItems: 'center',
                         justifyContent: 'space-between',
-                        height:calcHeight(8)
+                        height: calcHeight(8),
                     }}
                 >
                     <Pressable onPress={() => navigation.goBack()}>
@@ -133,7 +132,7 @@ function GroupScreen({
                 inverted
                 data={activities}
                 keyExtractor={(item) => item._id}
-                renderItem={({item})=><Feed {...item}/>}
+                renderItem={({ item }) => <Feed {...item} />}
                 style={{
                     height: calcHeight(75),
                 }}
@@ -147,7 +146,14 @@ function GroupScreen({
                 }}
             >
                 <Pressable
-                    style={[styles.inputContainer,{width: isNumber(amount)?calcWidth(60):calcWidth(75)}]}
+                    style={[
+                        styles.inputContainer,
+                        {
+                            width: isNumber(amount)
+                                ? calcWidth(60)
+                                : calcWidth(75),
+                        },
+                    ]}
                     onPress={() => textRef.current.focus()}
                 >
                     <TextInput
@@ -160,23 +166,30 @@ function GroupScreen({
                         onChangeText={setAmount}
                     />
                 </Pressable>
-                {isNumber(amount) ? <TouchableOpacity
-                    style={styles.button}
-                    onPress={() => {
-                        resetTransaction();
-                        setTransactionData((prev) => ({
-                            ...prev,
-                            group,
-                            amount,
-                        }));
-                        navigation.navigate(PAGES.ADD_TRANSACTION);
-                    }}
-                >
-                    <Text style={styles.buttonText}>+ Expense</Text>
-                </TouchableOpacity>:
-                <TouchableOpacity
-                onPress={addChat}
-                ><AntDesign name="enter" size={calcHeight(4)} color={COLOR.BUTTON} /></TouchableOpacity>}
+                {isNumber(amount) ? (
+                    <TouchableOpacity
+                        style={styles.button}
+                        onPress={() => {
+                            resetTransaction();
+                            setTransactionData((prev) => ({
+                                ...prev,
+                                group,
+                                amount,
+                            }));
+                            navigation.navigate(PAGES.ADD_TRANSACTION);
+                        }}
+                    >
+                        <Text style={styles.buttonText}>+ Expense</Text>
+                    </TouchableOpacity>
+                ) : (
+                    <TouchableOpacity onPress={addChat}>
+                        <AntDesign
+                            name="enter"
+                            size={calcHeight(4)}
+                            color={COLOR.BUTTON}
+                        />
+                    </TouchableOpacity>
+                )}
             </View>
         </SafeAreaView>
     );

@@ -161,25 +161,29 @@ function BalanceScreen({ navigation }) {
                         justifyContent: 'space-between',
                     }}
                 >
-                    <Pressable onPress={()=>navigation.navigate(PAGES.SEARCH)}>
-                    <Ionicons
-                        name="search"
-                        size={calcWidth(headerIconSize)}
-                        color="white"
-                    />
+                    <Pressable
+                        onPress={() => navigation.navigate(PAGES.SEARCH)}
+                    >
+                        <Ionicons
+                            name="search"
+                            size={calcWidth(headerIconSize)}
+                            color="white"
+                        />
                     </Pressable>
-                    <Pressable onPress={()=>{
-                        navigation.navigate(PAGES.ACCOUNT)
-                    }}>
-                    <Image
-                        source={{ uri: 'https://t.ly/Rel6Z' }}
-                        style={{
-                            width: calcWidth(headerIconSize),
-                            height: calcWidth(headerIconSize),
-                            borderRadius: calcWidth(headerIconSize),
-                            marginLeft: calcWidth(headerIconSize),
+                    <Pressable
+                        onPress={() => {
+                            navigation.navigate(PAGES.ACCOUNT);
                         }}
-                    />
+                    >
+                        <Image
+                            source={{ uri: 'https://t.ly/Rel6Z' }}
+                            style={{
+                                width: calcWidth(headerIconSize),
+                                height: calcWidth(headerIconSize),
+                                borderRadius: calcWidth(headerIconSize),
+                                marginLeft: calcWidth(headerIconSize),
+                            }}
+                        />
                     </Pressable>
                 </View>
             </View>

@@ -1,53 +1,52 @@
-import React, { useEffect, useState, useRef  } from 'react';
+import React, { useEffect, useState, useRef, useLayoutEffect } from 'react';
 import {
     View,
     Text,
     StyleSheet,
     FlatList,
     TouchableOpacity,
-    Pressable,
     Image,
     TextInput,
+    Pressable,
 } from 'react-native';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useTransaction } from '../context/TransactionContext';
 import COLOR from '../constants/Colors';
-import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
-import LoginImage from '../assets/Login.png';
 import PAGES from '../constants/pages';
+import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
 import sliceText from '../helper/sliceText';
-import { useLayoutEffect } from 'react';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
+import LoginImage from '../assets/Login.png';
 
 const GroupSplitScreen = ({ navigation }) => {
     const { transactionData, setTransactionData } = useTransaction();
     const [members, setMembers] = useState([]);
     const membersRef = useRef(members);
 
-    useEffect(()=>{
-        const parsedMembers=[];
+    useEffect(() => {
+        const parsedMembers = [];
 
-        for (i of transactionData.group.members)
-        {
-            const memberAmount=transactionData.splitAmong.find(({user})=>user._id==i._id)?.amount;
+        for (i of transactionData.group.members) {
+            const memberAmount = transactionData.splitAmong.find(
+                ({ user }) => user._id == i._id,
+            )?.amount;
             parsedMembers.push({
-                amount:memberAmount || 0,
-                user:i,
+                amount: memberAmount || 0,
+                user: i,
                 included: memberAmount && true,
-                isAmountManuallyEntered: false
-            })
+                isAmountManuallyEntered: false,
+            });
         }
 
         setMembers([...parsedMembers]);
-
-    },[])
+    }, []);
     useEffect(() => {
         membersRef.current = members;
     }, [members]);
-    
 
     const submitSplit = () => {
-        const includedMembers = membersRef.current.filter((member) => member.included);
-
+        const includedMembers = membersRef.current.filter(
+            (member) => member.included,
+        );
         setTransactionData((prev) => ({
             ...prev,
             splitAmong: includedMembers.map(({ user, amount }) => ({
@@ -55,8 +54,6 @@ const GroupSplitScreen = ({ navigation }) => {
                 amount,
             })),
         }));
-
-        // Navigate back to the previous screen after updating
         navigation.goBack();
     };
 

@@ -19,9 +19,9 @@ const PAGES = {
     GROUP_SPLIT_SCREEN: 'Group Split Screen',
     GROUP_BALANCE: 'Group Balance',
     PAYMENT: 'Payment',
-    SEARCH:"Search",
-    EXPENSE:"Expense",
-    ACCOUNT:"Account"
+    SEARCH: 'Search',
+    EXPENSE: 'Expense',
+    ACCOUNT: 'Account',
 };
 
 export default PAGES;

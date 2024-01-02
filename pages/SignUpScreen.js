@@ -26,8 +26,9 @@ const SignUpScreen = ({ navigation }) => {
     });
 
     return (
-        <KeyboardAvoidingView style={styles.container}
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        <KeyboardAvoidingView
+            style={styles.container}
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         >
             <View style={styles.innerContainer}>
                 <View style={styles.header}>
@@ -54,16 +55,18 @@ const SignUpScreen = ({ navigation }) => {
                         placeholderTextColor="#D3D3D3"
                     />
                 </View>
-                <View style={{
-                    alignItems:"center"
-                }}>
-                <Button
-                    title="Verify"
-                    onPress={() => {
-                        addName(name);
-                        navigation.navigate(PAGES.GROUP_LIST);
+                <View
+                    style={{
+                        alignItems: 'center',
                     }}
-                />
+                >
+                    <Button
+                        title="Verify"
+                        onPress={() => {
+                            addName(name);
+                            navigation.navigate(PAGES.GROUP_LIST);
+                        }}
+                    />
                 </View>
             </View>
         </KeyboardAvoidingView>

@@ -19,7 +19,7 @@ import SelectPaidBy from '../pages/SelectPaidBy';
 import GroupBalance from '../pages/GroupBalanceScreen';
 import PaymentScreen from '../pages/PaymentScreen';
 import BalanceScreen from '../pages/BalanceScreen';
-import SearchScreen from "../pages/Search";
+import SearchScreen from '../pages/Search';
 import AccountScreen from '../pages/AccountScreen';
 function GroupNavigator() {
     return (
@@ -54,12 +54,14 @@ function GroupNavigator() {
                     headerShown: false,
                 }}
             />
-             <Stack.Screen
+            <Stack.Screen
                 name={PAGES.SEARCH}
                 component={SearchScreen}
-                options={{
-                    // headerShown: false,
-                }}
+                options={
+                    {
+                        // headerShown: false,
+                    }
+                }
             />
             <Stack.Screen
                 name={PAGES.ACCOUNT}
@@ -67,12 +69,11 @@ function GroupNavigator() {
                 options={{
                     headerStyle: {
                         backgroundColor: COLOR.APP_BACKGROUND,
-                        
                     },
-                    headerTintColor: '#fff'
+                    headerTintColor: '#fff',
                 }}
             />
-            
+
             <Stack.Screen
                 name={PAGES.PAYMENT}
                 component={PaymentScreen}

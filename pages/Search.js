@@ -9,7 +9,7 @@ import {
     Button,
 } from 'react-native';
 import Loader from '../components/Loader';
-import Search from "../components/Search";
+import Search from '../components/Search';
 import apiHelper from '../helper/apiHelper';
 
 const SearchScreen = ({ navigation }) => {
@@ -22,7 +22,7 @@ const SearchScreen = ({ navigation }) => {
     // Debounce function
     const debounce = (func, delay) => {
         let inDebounce;
-        return function() {
+        return function () {
             const context = this;
             const args = arguments;
             clearTimeout(inDebounce);
@@ -31,18 +31,21 @@ const SearchScreen = ({ navigation }) => {
     };
 
     // Handler for performing the search
-    const handleSearch = useCallback(debounce(async () => {
-        setLoading(true);
-        try {
-            const response = await apiHelper.get(`/group/search`, {
-                params: { searchString, size, page }
-            });
-            setSearchResults(response.data.groups); // Assuming the API returns an array of groups
-        } catch (e) {
-            Alert.alert('Error', 'Failed to fetch search results.');
-        }
-        setLoading(false);
-    }, 500), [page, size]); // 500ms delay, re-run on page/size change
+    const handleSearch = useCallback(
+        debounce(async () => {
+            setLoading(true);
+            try {
+                const response = await apiHelper.get(`/group/search`, {
+                    params: { searchString, size, page },
+                });
+                setSearchResults(response.data.groups); // Assuming the API returns an array of groups
+            } catch (e) {
+                Alert.alert('Error', 'Failed to fetch search results.');
+            }
+            setLoading(false);
+        }, 500),
+        [page, size],
+    ); // 500ms delay, re-run on page/size change
 
     useEffect(() => {
         handleSearch();
@@ -50,17 +53,17 @@ const SearchScreen = ({ navigation }) => {
 
     // Pagination handlers
     const handleNextPage = () => {
-        setPage(prevPage => prevPage + 1);
+        setPage((prevPage) => prevPage + 1);
     };
 
     const handlePrevPage = () => {
-        setPage(prevPage => Math.max(prevPage - 1, 1));
+        setPage((prevPage) => Math.max(prevPage - 1, 1));
     };
 
     return (
         <SafeAreaView style={styles.container}>
-            <Search setSearch={setSearchString} search={searchString}/>
-            <ScrollView style={{width: '100%'}}>
+            <Search setSearch={setSearchString} search={searchString} />
+            <ScrollView style={{ width: '100%' }}>
                 {searchResults.map((group, index) => (
                     <View key={index} style={styles.groupItem}>
                         <Text style={styles.groupText}>{group.name}</Text>
@@ -68,7 +71,11 @@ const SearchScreen = ({ navigation }) => {
                 ))}
             </ScrollView>
             <View style={styles.pagination}>
-                <Button title="Previous" onPress={handlePrevPage} disabled={page === 1} />
+                <Button
+                    title="Previous"
+                    onPress={handlePrevPage}
+                    disabled={page === 1}
+                />
                 <Text style={styles.pageNumber}>Page: {page}</Text>
                 <Button title="Next" onPress={handleNextPage} />
             </View>
