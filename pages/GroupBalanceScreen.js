@@ -29,7 +29,7 @@ function GroupBalanceScreen({ navigation, route }) {
 
         const handlePress = () => {
             const payment = {
-                group: group.id,
+                group: group._id,
                 amount: item.amount,
                 from: isBorrower ? item : user,
                 to: isBorrower ? user : item,

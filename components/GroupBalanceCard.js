@@ -10,7 +10,6 @@ import GroupIcon from './GroupIcon';
 
 function GroupBalanceCard({ group }) {
     const navigation = useNavigation();
-
     return (
         <Pressable
             onPress={() => {
