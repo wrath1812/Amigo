@@ -23,8 +23,8 @@ function GroupBalanceCard({ group }) {
                 <Text style={styles.nameText}>{group.name}</Text>
                 <Text style={styles.memberText}>
                     {group.totalBalance < 0
-                        ? `${group.lenderNumber} participants owe you money`
-                        : `You owe mony to ${group.borrowerNumber} participants`}
+                        ? `${group.lenderCount} participants owe you money`
+                        : `You owe mony to ${group.borrowerCount} participants`}
                 </Text>
             </View>
             <Text
