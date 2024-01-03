@@ -78,13 +78,13 @@ function ExpenseScreen({ navigation }) {
                     alignItems: 'center',
                 }}
             >
-                <Button
+                {/* <Button
                     onPress={() => setOpen(true)}
                     uppercase={false}
                     mode="outlined"
                 >
                     Pick range
-                </Button>
+                </Button> */}
                 <DatePickerModal
                     locale="en"
                     mode="range"
