@@ -177,7 +177,7 @@ function BalanceScreen({ navigation }) {
                     margin: calcWidth(headerIconSize),
                 }}
             >
-                <View>
+                <Pressable onPress={()=>navigation.navigate(PAGES.SCANNER)}>
                     <Image
                         source={ScanIcon}
                         style={{
@@ -185,7 +185,7 @@ function BalanceScreen({ navigation }) {
                             height: calcWidth(headerIconSize),
                         }}
                     />
-                </View>
+                </Pressable>
                 <View
                     style={{
                         flexDirection: 'row',

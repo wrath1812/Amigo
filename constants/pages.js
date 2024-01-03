@@ -22,6 +22,7 @@ const PAGES = {
     SEARCH: 'Search',
     EXPENSE: 'Expense',
     ACCOUNT: 'Account',
+    SCANNER:"Scanner"
 };
 
 export default PAGES;

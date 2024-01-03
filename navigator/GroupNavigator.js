@@ -21,6 +21,7 @@ import PaymentScreen from '../pages/PaymentScreen';
 import BalanceScreen from '../pages/BalanceScreen';
 import SearchScreen from '../pages/Search';
 import AccountScreen from '../pages/AccountScreen';
+import QRCodeScanner from '../pages/QRCodeScanner';
 function GroupNavigator() {
     return (
         <Stack.Navigator initialRouteName={PAGES.BALANCE}>
@@ -46,6 +47,11 @@ function GroupNavigator() {
                     },
                     title: null,
                 }}
+            />
+            <Stack.Screen
+            name={PAGES.SCANNER}
+            component={QRCodeScanner}
+            
             />
             <Stack.Screen
                 name={PAGES.GROUP_BALANCE}
