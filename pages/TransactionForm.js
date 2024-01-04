@@ -23,7 +23,7 @@ import { useTransaction } from '../context/TransactionContext';
 import getPreviousPageName from '../helper/getPreviousPageName';
 function TransactionFormScreen({ navigation }) {
     const [loading, setIsLoading] = useState(false);
-    const { transactionData, setTransactionData, resetTransaction,upiParams } =
+    const { transactionData, setTransactionData, resetTransaction,upiParams,setUpiParams } =
         useTransaction();
     const descriptionRef = useRef();
     useEffect(() => {
@@ -51,10 +51,10 @@ function TransactionFormScreen({ navigation }) {
         else (getPreviousPageName(navigation) == PAGES.SCANNER)
         {
             resetTransaction();
-            if(upiParams.amount)
+            if(upiParams.am)
             setTransactionData((prev)=>({
         ...prev,
-        amount:upiParams.amount
+        amount:upiParams.am
         }));
         }
     }, []);
@@ -98,12 +98,20 @@ function TransactionFormScreen({ navigation }) {
                 })),
             };
 
-            
 
             const { data } = await apiHelper.post(
                 '/transaction',
                 modifiedTransactionData,
             );
+
+            if(upiParams.receiverId){
+                setUpiParams((prev)=>({
+                    ...prev,
+                    am:modifiedTransactionData.amount
+                }));
+            navigation.navigate(PAGES.UPI_APP_SELECTION);
+            return;
+            }
             Alert.alert('Success', JSON.stringify(data));
             navigation.goBack();
         } catch (error) {

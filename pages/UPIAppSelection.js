@@ -2,43 +2,52 @@ import React, { useState } from 'react';
 import {
     View,
     Text,
-    TextInput,
     TouchableOpacity,
     StyleSheet,
     SafeAreaView,
     Image,
+    Linking,
 } from 'react-native';
-import Loader from '../components/Loader';
+import COLOR from '../constants/Colors';
+import UPIApps from '../constants/UpiApps';
+import { useTransaction  } from '../context/TransactionContext';
+import { getFontSizeByWindowWidth } from '../helper/res';
+import PAGES from "../constants/pages";
 
-import PAGES from '../constants/pages';
-import apiHelper from '../helper/apiHelper';
+const UPIAppSelection = ({ navigation }) => {
+    const [selectedUPIApp, setSelectedUPIApp] = useState('');
+    const {upiParams}=useTransaction();
 
-const UPIAppSelection= ({ navigation }) => {
-    const [groupId, setGroupId] = useState('');
-    const [loading, setLoading] = useState(false);
-
-    const handleJoin = async () => {
-        setLoading(true);
-        try {
-            await apiHelper.post(`group/${groupId}/join`);
-        } catch (e) {}
-        setLoading(false);
-        navigation.navigate(PAGES.GROUP_LIST);
+    const handleSelectApp = (appName, generateDeeplink) => {
+        setSelectedUPIApp(appName);
+        const deepLink = generateDeeplink(upiParams);
+        try{
+        if(Linking.canOpenURL(deepLink))
+        {
+            Linking.openURL(deepLink);
+            navigation.navigate(PAGES.BALANCE);
+        }
+        else{
+            alert("App not found");
+        }}
+        catch(e)
+        {
+            alert("App not found");
+        }
     };
 
-    return loading ? (
-        <Loader />
-    ) : (
+    return (
         <SafeAreaView style={styles.container}>
-            <TextInput
-                style={styles.input}
-                placeholder="Group Id"
-                onChangeText={setGroupId}
-                value={groupId}
-            />
-            <TouchableOpacity style={styles.button} onPress={handleJoin}>
-                <Text style={styles.buttonText}>Join</Text>
-            </TouchableOpacity>
+            {UPIApps.map((app, index) => (
+                <TouchableOpacity
+                    key={index}
+                    style={styles.button}
+                    onPress={() => handleSelectApp(app.name, app.generateDeeplink)}
+                >
+                    {app.icon}
+                    <Text style={styles.text}>{app.name}</Text>
+                </TouchableOpacity>
+            ))}
         </SafeAreaView>
     );
 };
@@ -46,44 +55,15 @@ const UPIAppSelection= ({ navigation }) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    innerContainer: {
-        width: '80%',
-        alignItems: 'center',
-    },
-    image: {
-        width: 200,
-        height: 200,
-        borderRadius: 100, // Add rounded border to the image
-    },
-    title: {
-        fontSize: 24,
-        marginBottom: 20,
-        color: 'white', // Set text color to white
-    },
-    input: {
-        width: '100%', // Adjusted input width to be responsive
-        height: 40,
-        borderWidth: 1,
-        borderColor: '#ccc',
-        borderRadius: 5,
-        marginBottom: 10,
-        padding: 10,
-        backgroundColor: 'white', // Set input background color to white
+        backgroundColor: COLOR.APP_BACKGROUND,
     },
     button: {
-        width: '100%', // Adjusted button width to be responsive
-        height: 40,
-        backgroundColor: 'blue',
-        borderRadius: 5,
-        justifyContent: 'center',
+        flexDirection: 'row',
         alignItems: 'center',
     },
-    buttonText: {
-        color: 'white',
-        fontSize: 16,
+    text: {
+        color:"white",
+        fontSize:getFontSizeByWindowWidth(20)
     },
 });
 

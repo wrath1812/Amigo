@@ -22,6 +22,8 @@ import BalanceScreen from '../pages/BalanceScreen';
 import SearchScreen from '../pages/Search';
 import AccountScreen from '../pages/AccountScreen';
 import QRCodeScanner from '../pages/QRCodeScanner';
+import UPIAppSelection from '../pages/UPIAppSelection';
+
 function GroupNavigator() {
     return (
         <Stack.Navigator initialRouteName={PAGES.BALANCE}>
@@ -79,6 +81,17 @@ function GroupNavigator() {
             <Stack.Screen
                 name={PAGES.ACCOUNT}
                 component={AccountScreen}
+                options={{
+                    headerStyle: {
+                        backgroundColor: COLOR.APP_BACKGROUND,
+                    },
+                    headerTintColor: '#fff',
+                }}
+            />
+
+<Stack.Screen
+                name={PAGES.UPI_APP_SELECTION}
+                component={UPIAppSelection}
                 options={{
                     headerStyle: {
                         backgroundColor: COLOR.APP_BACKGROUND,

@@ -22,7 +22,8 @@ const PAGES = {
     SEARCH: 'Search',
     EXPENSE: 'Expense',
     ACCOUNT: 'Account',
-    SCANNER:"Scanner"
+    SCANNER:"Scanner",
+    UPI_APP_SELECTION:"UPI App Selection"
 };
 
 export default PAGES;

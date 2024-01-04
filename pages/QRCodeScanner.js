@@ -37,58 +37,45 @@ const QRCodeScanner = ({ navigation }) => {
     setHasPermission(status === "granted");
   };
 
+  const parseQueryString = (queryString) => {
+    const pairs = queryString.substring(1).split('&');
+    const params = {};
+    for (let i = 0; i < pairs.length; i++) {
+      const pair = pairs[i].split('=');
+      params[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1] || '');
+    }
+    return params;
+  };
+  
   const handleBarCodeScanned = ({ data }) => {
     try {
-      const url = new URL(data, true); // 'true' for parsing query string
-      const params = url.query; // Query parameters are parsed into an object
+      const url = new URL(data); 
   
-      // Initialize an object to store the extracted parameters
-      const extractedParams = {};
+      const params = parseQueryString(url.query);
   
-      // Check the URL host to identify the UPI app
-      const host = url.host.toLowerCase();
-      if (host.includes('gpay')) {
-        // Parse parameters specific to Google Pay URLs
-        extractedParams.transactionId = params.transactionId; // Transaction ID
-        extractedParams.receiverId = params.receiverId; // Receiver ID
-        extractedParams.amount = params.amount; // Amount
-        // Add more parameters as per Google Pay's URL structure
-      } else if (host.includes('phonepe')) {
-        // Parse parameters specific to PhonePe URLs
-        extractedParams.merchantCode = params.merchantCode; // Merchant code
-        extractedParams.transactionId = params.transactionId; // Transaction ID
-        extractedParams.amount = params.amount; // Amount
-        // Add more parameters as per PhonePe's URL structure
-      } else if (host.includes('paytm')) {
-        // Parse parameters specific to Paytm URLs
-        extractedParams.paytmUser = params.user; // Paytm User
-        extractedParams.orderId = params.orderId; // Order ID
-        extractedParams.amount = params.amount; // Amount
-        // Add more parameters as per Paytm's URL structure
-      } else if (url.protocol === 'upi:') {
-        // Handle generic UPI URLs
-        extractedParams.upiId = url.pathname;
-        Object.assign(extractedParams, params); // Copy all parsed parameters
+      // Initialize an object to store extracted parameters
+      const extractedParams = {
+        receiverId: ''
+        // Add other common parameters here
+      };
+  
+      // Check the URL scheme to identify UPI and extract relevant data
+      if (url.protocol === 'gpay:') {
+        extractedParams.receiverId = params['pa'] || ''; // Use 'pa' parameter as receiverId
+        Object.assign(extractedParams, params); 
+        console.log(extractedParams);
+        setUpiParams(extractedParams); // Ensure setUpiParams is defined and available
+        navigation.navigate(PAGES.ADD_TRANSACTION); // Ensure navigation and PAGES are defined and available
       } else {
-        // Fallback for other types or unrecognized formats
-        Object.assign(extractedParams, params); // Copy all parsed parameters
+        alert("Not a valid UPI URL");
+        return;
       }
-  
-      setUpiParams(extractedParams);
-      navigation.navigate(PAGES.ADD_TRANSACTION);
-  
     } catch (error) {
       console.error('Error processing scanned data:', error);
       // Handle error (e.g., show an error message)
     }
   };
   
-  
-  
-  
-
-  
-
   return (
     <View style={styles.container}>
       {!hasPermission ? (
