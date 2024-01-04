@@ -23,7 +23,7 @@ import { useTransaction } from '../context/TransactionContext';
 import getPreviousPageName from '../helper/getPreviousPageName';
 function TransactionFormScreen({ navigation }) {
     const [loading, setIsLoading] = useState(false);
-    const { transactionData, setTransactionData, resetTransaction } =
+    const { transactionData, setTransactionData, resetTransaction,upiParams } =
         useTransaction();
     const descriptionRef = useRef();
     useEffect(() => {
@@ -48,6 +48,15 @@ function TransactionFormScreen({ navigation }) {
     useEffect(() => {
         if (getPreviousPageName(navigation) == PAGES.BALANCE)
             resetTransaction();
+        else (getPreviousPageName(navigation) == PAGES.SCANNER)
+        {
+            resetTransaction();
+            if(upiParams.amount)
+            setTransactionData((prev)=>({
+        ...prev,
+        amount:upiParams.amount
+        }));
+        }
     }, []);
 
     const handleInputChange = (field, value) => {
@@ -88,6 +97,8 @@ function TransactionFormScreen({ navigation }) {
                     user: user.user._id || user.user.id,
                 })),
             };
+
+            
 
             const { data } = await apiHelper.post(
                 '/transaction',
