@@ -21,6 +21,7 @@ const UPIAppSelection = ({ navigation }) => {
     const handleSelectApp = (appName, generateDeeplink) => {
         setSelectedUPIApp(appName);
         const deepLink = generateDeeplink(upiParams);
+        console.log(deepLink);
         try{
         if(Linking.canOpenURL(deepLink))
         {

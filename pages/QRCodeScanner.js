@@ -60,7 +60,7 @@ const QRCodeScanner = ({ navigation }) => {
       };
   
       // Check the URL scheme to identify UPI and extract relevant data
-      if (url.protocol === 'gpay:') {
+      if (url.protocol === 'upi:') {
         extractedParams.receiverId = params['pa'] || ''; // Use 'pa' parameter as receiverId
         Object.assign(extractedParams, params); 
         console.log(extractedParams);
