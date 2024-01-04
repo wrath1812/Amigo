@@ -51,6 +51,13 @@ function GroupNavigator() {
             <Stack.Screen
             name={PAGES.SCANNER}
             component={QRCodeScanner}
+            options={{
+                headerStyle: {
+                    backgroundColor: COLOR.APP_BACKGROUND,
+                    
+                },
+                headerTintColor: '#fff',
+            }}
             
             />
             <Stack.Screen
