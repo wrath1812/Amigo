@@ -38,14 +38,14 @@ const headerIconSize = 6;
 function groupDataItemsByGroup(dataItems) {
     const groups = {};
 
-    dataItems.forEach(item => {
+    dataItems.forEach((item) => {
         const groupId = item.group._id.toString();
 
         if (!groups[groupId]) {
             groups[groupId] = {
                 _id: item.group._id,
                 name: item.group.name,
-                documents: []
+                documents: [],
             };
         }
 
@@ -53,7 +53,7 @@ function groupDataItemsByGroup(dataItems) {
             _id: item._id,
             lender: item.lender,
             borrower: item.borrower,
-            amount: item.amount
+            amount: item.amount,
             // Additional fields can be added as needed
         });
     });
@@ -74,20 +74,20 @@ function calculateUserBalanceInGroup(group, userId) {
     let lenderCount = 0;
     let totalBalance = 0;
 
-    group.documents.forEach(document => {
+    group.documents.forEach((document) => {
         if (document.lender._id === userId) {
             borrowers.push({
                 name: document.borrower.name,
                 _id: document.borrower._id,
-                amount: document.amount
+                amount: document.amount,
             });
             totalBalance += document.amount;
             borrowerCount++;
-        } else if(document.borrower._id === userId){
+        } else if (document.borrower._id === userId) {
             lenders.push({
                 name: document.lender.name,
                 _id: document.lender._id,
-                amount: document.amount
+                amount: document.amount,
             });
             totalBalance -= document.amount;
             lenderCount++;
@@ -101,7 +101,7 @@ function calculateUserBalanceInGroup(group, userId) {
         lenderCount,
         totalBalance,
         name: group.name,
-        _id: group._id
+        _id: group._id,
     };
 }
 
@@ -116,7 +116,7 @@ function groupBalancesAndCalculateTotal(balances, userId) {
     let userTotalBalance = 0;
     const userGroups = [];
 
-    groupedBalances.forEach(group => {
+    groupedBalances.forEach((group) => {
         const groupBalanceDetails = calculateUserBalanceInGroup(group, userId);
         userGroups.push(groupBalanceDetails);
         userTotalBalance += groupBalanceDetails.totalBalance;
@@ -153,10 +153,8 @@ function BalanceScreen({ navigation }) {
             (async () => {
                 setLoading(true);
                 const { data } = await apiHelper('/balance');
-                const { groups, userTotalBalance } = groupBalancesAndCalculateTotal(
-                    data,
-                    user._id,
-                );
+                const { groups, userTotalBalance } =
+                    groupBalancesAndCalculateTotal(data, user._id);
 
                 setBalance(parseInt(userTotalBalance));
                 setBalances(groups);
@@ -177,7 +175,7 @@ function BalanceScreen({ navigation }) {
                     margin: calcWidth(headerIconSize),
                 }}
             >
-                <Pressable onPress={()=>navigation.navigate(PAGES.SCANNER)}>
+                <Pressable onPress={() => navigation.navigate(PAGES.SCANNER)}>
                     <Image
                         source={ScanIcon}
                         style={{

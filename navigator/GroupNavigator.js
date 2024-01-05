@@ -51,16 +51,14 @@ function GroupNavigator() {
                 }}
             />
             <Stack.Screen
-            name={PAGES.SCANNER}
-            component={QRCodeScanner}
-            options={{
-                headerStyle: {
-                    backgroundColor: COLOR.APP_BACKGROUND,
-                    
-                },
-                headerTintColor: '#fff',
-            }}
-            
+                name={PAGES.SCANNER}
+                component={QRCodeScanner}
+                options={{
+                    headerStyle: {
+                        backgroundColor: COLOR.APP_BACKGROUND,
+                    },
+                    headerTintColor: '#fff',
+                }}
             />
             <Stack.Screen
                 name={PAGES.GROUP_BALANCE}
@@ -89,7 +87,7 @@ function GroupNavigator() {
                 }}
             />
 
-<Stack.Screen
+            <Stack.Screen
                 name={PAGES.UPI_APP_SELECTION}
                 component={UPIAppSelection}
                 options={{

@@ -6,7 +6,7 @@ import { useAuth } from './AuthContext';
 export const TransactionProvider = ({ children }) => {
     const { user } = useAuth();
     const [transactionData, setTransactionData] = useState({});
-    const [upiParams,setUpiParams]=useState({});
+    const [upiParams, setUpiParams] = useState({});
 
     const resetTransaction = () => {
         setTransactionData((prev) => ({
@@ -27,7 +27,8 @@ export const TransactionProvider = ({ children }) => {
                 transactionData,
                 setTransactionData,
                 resetTransaction,
-                upiParams,setUpiParams
+                upiParams,
+                setUpiParams,
             }}
         >
             {children}

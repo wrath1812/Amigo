@@ -23,8 +23,13 @@ import { useTransaction } from '../context/TransactionContext';
 import getPreviousPageName from '../helper/getPreviousPageName';
 function TransactionFormScreen({ navigation }) {
     const [loading, setIsLoading] = useState(false);
-    const { transactionData, setTransactionData, resetTransaction,upiParams,setUpiParams } =
-        useTransaction();
+    const {
+        transactionData,
+        setTransactionData,
+        resetTransaction,
+        upiParams,
+        setUpiParams,
+    } = useTransaction();
     const descriptionRef = useRef();
     useEffect(() => {
         const { group } = transactionData;
@@ -48,14 +53,14 @@ function TransactionFormScreen({ navigation }) {
     useEffect(() => {
         if (getPreviousPageName(navigation) == PAGES.BALANCE)
             resetTransaction();
-        else (getPreviousPageName(navigation) == PAGES.SCANNER)
+        else getPreviousPageName(navigation) == PAGES.SCANNER;
         {
             resetTransaction();
-            if(upiParams.am)
-            setTransactionData((prev)=>({
-        ...prev,
-        amount:upiParams.am
-        }));
+            if (upiParams.am)
+                setTransactionData((prev) => ({
+                    ...prev,
+                    amount: upiParams.am,
+                }));
         }
     }, []);
 
@@ -98,19 +103,18 @@ function TransactionFormScreen({ navigation }) {
                 })),
             };
 
-
             const { data } = await apiHelper.post(
                 '/transaction',
                 modifiedTransactionData,
             );
 
-            if(upiParams.receiverId){
-                setUpiParams((prev)=>({
+            if (upiParams.receiverId) {
+                setUpiParams((prev) => ({
                     ...prev,
-                    am:modifiedTransactionData.amount
+                    am: modifiedTransactionData.amount,
                 }));
-            navigation.navigate(PAGES.UPI_APP_SELECTION);
-            return;
+                navigation.navigate(PAGES.UPI_APP_SELECTION);
+                return;
             }
             Alert.alert('Success', JSON.stringify(data));
             navigation.goBack();
