@@ -10,7 +10,7 @@ export default [
     {
         "name": "Google Pay",
         "generateDeeplink": function(params) {
-            return `gpay://pay?am=${params.am}&cu=${params.cu}&mc=${params.mc}&pa=${params.pa}&pn=${params.pn}&tn=${params.tn}&tr=${params.tr}`;
+            return `tez://upi/pay?am=${params.am}&cu=${params.cu}&mc=${params.mc}&pa=${params.pa}&pn=${params.pn}&tn=${params.tn}&tr=${params.tr}`;
         },
         "icon": <Image source={GPayLogo}  style={style} />
     },
@@ -24,7 +24,7 @@ export default [
     {
         "name": "Paytm",
         "generateDeeplink": function(params) {
-            return `paytm://pay?am=${params.am}&cu=${params.cu}&mc=${params.mc}&pa=${params.pa}&pn=${params.pn}&tn=${params.tn}&tr=${params.tr}`;
+            return `paytmmp://pay?am=${params.am}&cu=${params.cu}&mc=${params.mc}&pa=${params.pa}&pn=${params.pn}&tn=${params.tn}&tr=${params.tr}`;
         },
         "icon": <Image source={{uri: "https://commons.wikimedia.org/wiki/File:Paytm_Logo_(standalone).svg"}} style={style}/>
     },
@@ -38,8 +38,15 @@ export default [
     {
         "name": "CRED",
         "generateDeeplink": function(params) {
-            return `cred://pay?am=${params.am}&cu=${params.cu}&mc=${params.mc}&pa=${params.pa}&pn=${params.pn}&tn=${params.tn}&tr=${params.tr}`;
+            return `cred://upi/pay?am=${params.am}&cu=${params.cu}&mc=${params.mc}&pa=${params.pa}&pn=${params.pn}&tn=${params.tn}&tr=${params.tr}`;
         },
         "icon": <Image source={{uri: "https://logotaglines.com/cred-logo-tagline/"}} style={style} />
+    },
+    {
+        "name": "BHIM UPI",
+        "generateDeeplink": function(params) {
+            return `bhim://upi/pay?am=${params.am}&cu=${params.cu}&mc=${params.mc}&pa=${params.pa}&pn=${params.pn}&tn=${params.tn}&tr=${params.tr}`;
+        },
+        "icon": <Image source={BHIMLogo} style={style} />
     }
 ]
