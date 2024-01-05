@@ -109,7 +109,7 @@ const TransactionDetail = ({
                         marginTop: calcHeight(5),
                     }}
                 >
-                    $ {transaction.amount}
+                    ₹ {transaction.amount}
                 </Text>
                 <Text
                     style={{
@@ -184,7 +184,7 @@ const TransactionDetail = ({
                                 : transaction.paidBy.name}
                         </Text>
                         <Text style={styles.userAmount}>
-                            $ {transaction.amount}
+                            ₹ {transaction.amount}
                         </Text>
                     </View>
                 </View>
@@ -210,7 +210,7 @@ const TransactionDetail = ({
                                         {user.name || 'Anonymous'}
                                     </Text>
                                     <Text style={styles.sharedAmount}>
-                                        $ {parseInt(amount)}
+                                        ₹ {parseInt(amount)}
                                     </Text>
                                 </View>
                             ),

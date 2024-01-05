@@ -245,7 +245,7 @@ function BalanceScreen({ navigation }) {
                             fontWeight: 'bold',
                         }}
                     >
-                        $ {balance}
+                        ₹ {balance}
                     </Text>
                 </View>
             </View>

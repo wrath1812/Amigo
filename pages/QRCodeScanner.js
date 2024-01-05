@@ -66,7 +66,6 @@ const QRCodeScanner = ({ navigation }) => {
             if (url.protocol === 'upi:') {
                 extractedParams.receiverId = params['pa'] || ''; // Use 'pa' parameter as receiverId
                 Object.assign(extractedParams, params);
-                console.log(extractedParams);
                 setUpiParams(extractedParams); // Ensure setUpiParams is defined and available
                 navigation.navigate(PAGES.ADD_TRANSACTION); // Ensure navigation and PAGES are defined and available
             } else {

@@ -108,7 +108,7 @@ function TransactionActivity({ transaction, navigation, createdAt }) {
                 text={`${transaction.splitAmong?.length}`}
             />
             <View style={styles.flexContainer}>
-                <Text style={styles.amount}>$</Text>
+                <Text style={styles.amount}>₹</Text>
                 <View>
                     <Text style={styles.amount}>{transaction.amount}</Text>
                     <Text style={styles.description}>

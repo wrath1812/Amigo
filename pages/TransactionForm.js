@@ -130,7 +130,7 @@ function TransactionFormScreen({ navigation }) {
     ) : (
         <ScrollView style={styles.container}>
             <View style={styles.rowCentered}>
-                <Text style={styles.amount}>$</Text>
+                <Text style={styles.amount}>₹</Text>
                 <TextInput
                     style={styles.amount}
                     onChangeText={(text) => handleInputChange('amount', text)}

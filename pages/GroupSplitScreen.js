@@ -216,7 +216,7 @@ const GroupSplitScreen = ({ navigation }) => {
                 </View>
 
                 <View style={styles.rowCentered}>
-                    <Text style={styles.amount}>$</Text>
+                    <Text style={styles.amount}>₹</Text>
                     <TextInput
                         style={styles.amount}
                         value={String(item.amount)}
@@ -233,7 +233,7 @@ const GroupSplitScreen = ({ navigation }) => {
         <View style={styles.container}>
             <View style={styles.header}>
                 <Text style={styles.headerText}>
-                    ${transactionData.amount || 0} Paid by
+                    ₹{transactionData.amount || 0} Paid by
                 </Text>
                 <Pressable
                     onPress={() => navigation.navigate(PAGES.SELECT_PAID_BY)}

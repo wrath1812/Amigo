@@ -89,7 +89,7 @@ function GroupScreen({
                 </View>
             </View>
             <View style={styles.rowCentered}>
-                <Text style={styles.amount}>$</Text>
+                <Text style={styles.amount}>₹</Text>
                 <TextInput
                     style={styles.amount}
                     onChangeText={(text) => setAmount(text)}

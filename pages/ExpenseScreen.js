@@ -177,7 +177,7 @@ function ExpenseScreen({ navigation }) {
                                     fontSize: getFontSizeByWindowWidth(15),
                                 }}
                             >
-                                ${item.amount}
+                                ₹{item.amount}
                             </Text>
                         </View>
                     )}

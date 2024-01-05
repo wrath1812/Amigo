@@ -42,7 +42,7 @@ function GroupBalanceScreen({ navigation, route }) {
                 <GroupIcon image={group.icon || LoginImage} />
                 <Text style={styles.itemName}>{sliceText(item.name, 10)}</Text>
                 <Text style={[styles.amountText, { color: balanceColor }]}>
-                    ${item.amount}
+                    ₹{item.amount}
                 </Text>
                 <Ionicons
                     name="chevron-forward"
@@ -73,7 +73,7 @@ function GroupBalanceScreen({ navigation, route }) {
                 <Text style={styles.subBalanceText}>
                     {group.totalBalance < 0 ? 'you owe' : 'you receive'}
                 </Text>
-                <Text style={styles.balanceAmount}>${group.totalBalance}</Text>
+                <Text style={styles.balanceAmount}>₹{group.totalBalance}</Text>
             </View>
 
             {/* List */}

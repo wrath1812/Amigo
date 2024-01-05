@@ -32,7 +32,7 @@ function GroupBalanceCard({ group }) {
                     fontWeight: 'bold',
                 }}
             >
-                $ {Math.abs(parseInt(group.totalBalance))}
+                ₹ {Math.abs(parseInt(group.totalBalance))}
             </Text>
         </Pressable>
     );
