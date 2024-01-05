@@ -1,75 +1,59 @@
-import React from 'react';
 import { Image } from 'react-native';
 import { calcHeight } from '../helper/res';
+import GPayLogo from '../assets/icons/upi/gPay.png';
+import PhonePeLogo from '../assets/icons/upi/phonePe.png';
 
-// Common style for icons
 const style = {
     width: calcHeight(10),
     height: calcHeight(10),
 };
 
-// Function to generate deeplinks with checks for undefined parameters
-// Updated function to generate the correct UPI link format
-const generateDeeplink = (params) => {
-    let queryString = '';
+const createIcon = (source) => (
+    <Image source={source} style={style} />
+);
 
-    for (const key in params) {
-        if (params.hasOwnProperty(key) && params[key] !== undefined) {
-            queryString += `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}&`;
-        }
-    }
-
-    // Remove the last '&' character from the queryString
-    queryString = queryString.slice(0, -1);
-
-    return `upi://pay?${queryString}`;
+const generateDeeplink = (baseURL, params) => {
+    const queryParams = Object.entries(params)
+                              .filter(([_, value]) => value !== undefined)
+                              .map(([key, value]) => `${key}=${encodeURIComponent(value)}`)
+                              .join('&');
+    return `${baseURL}${queryParams}`;
 };
 
-// Data for each payment option
-const paymentOptions = [
+export default [
     {
         name: 'Google Pay',
-        baseURL: 'tez',
-        iconURI: '../assets/icons/upi/gPay.png',
+        generateDeeplink: (params) => generateDeeplink('tez://upi/pay?', params),
+        icon: createIcon(GPayLogo),
     },
     {
         name: 'PhonePe',
-        baseURL: 'phonepe',
-        iconURI: '../assets/icons/upi/phonePe.png',
+        generateDeeplink: (params) => generateDeeplink('phonepe://pay?', params),
+        icon: createIcon(PhonePeLogo),
     },
     {
         name: 'Paytm',
-        baseURL: 'paytmmp',
-        iconURI: 'https://commons.wikimedia.org/wiki/File:Paytm_Logo_(standalone).svg',
+        generateDeeplink: (params) => generateDeeplink('paytmmp://pay?', params),
+        icon: createIcon({ uri: 'https://commons.wikimedia.org/wiki/File:Paytm_Logo_(standalone).svg' }),
     },
     {
         name: 'Amazon Pay',
-        baseURL: 'amazonpay',
-        iconURI: 'https://commons.wikimedia.org/wiki/File:Amazon_Pay_logo.svg',
+        generateDeeplink: (params) => generateDeeplink('amazonpay://pay?', params),
+        icon: createIcon({ uri: 'https://commons.wikimedia.org/wiki/File:Amazon_Pay_logo.svg' }),
     },
     {
         name: 'CRED',
-        baseURL: 'cred',
-        iconURI: 'https://logotaglines.com/cred-logo-tagline/',
+        generateDeeplink: (params) => generateDeeplink('cred://upi/pay?', params),
+        icon: createIcon({ uri: 'https://logotaglines.com/cred-logo-tagline/' }),
     },
     {
         name: 'BHIM UPI',
-        baseURL: 'bhim',
-        iconURI: 'https://commons.wikimedia.org/wiki/File:BHIM_logo.svg',
+        generateDeeplink: (params) => generateDeeplink('bhim://upi/pay?', params),
+        icon: createIcon({ uri: 'https://commons.wikimedia.org/wiki/File:BHIM_logo.svg' }),
     },
     {
         name: 'Default UPI App',
-        baseURL: 'upi',
-        iconURI: 'https://example.com/default-upi-app-logo.svg', // Replace with actual URI
+        generateDeeplink: (params) => generateDeeplink('upi://pay?', params),
+        icon: createIcon({ uri: 'https://example.com/default_upi_app_logo.svg' }), // Replace with actual logo URI
     },
 ];
-
-// Map over the data to create the final array of payment methods
-// Updated to use the new generateDeeplink function
-const paymentMethods = paymentOptions.map((option) => ({
-    name: option.name,
-    generateDeeplink: (params) => generateDeeplink(params),
-    icon: <Image source={{ uri: option.iconURI }} style={style} />,
-}));
-
-export default paymentMethods;
