@@ -9,21 +9,20 @@ const style = {
 };
 
 // Function to generate deeplinks with checks for undefined parameters
-const generateDeeplink = (baseURL, params) => {
+// Updated function to generate the correct UPI link format
+const generateDeeplink = (params) => {
     let queryString = '';
 
     for (const key in params) {
         if (params.hasOwnProperty(key) && params[key] !== undefined) {
-            queryString += `${encodeURIComponent(key)}=${encodeURIComponent(
-                params[key],
-            )}&`;
+            queryString += `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}&`;
         }
     }
 
     // Remove the last '&' character from the queryString
     queryString = queryString.slice(0, -1);
 
-    return `${baseURL}://upi/pay?${queryString}`;
+    return `upi://pay?${queryString}`;
 };
 
 // Data for each payment option
@@ -41,8 +40,7 @@ const paymentOptions = [
     {
         name: 'Paytm',
         baseURL: 'paytmmp',
-        iconURI:
-            'https://commons.wikimedia.org/wiki/File:Paytm_Logo_(standalone).svg',
+        iconURI: 'https://commons.wikimedia.org/wiki/File:Paytm_Logo_(standalone).svg',
     },
     {
         name: 'Amazon Pay',
@@ -67,9 +65,10 @@ const paymentOptions = [
 ];
 
 // Map over the data to create the final array of payment methods
+// Updated to use the new generateDeeplink function
 const paymentMethods = paymentOptions.map((option) => ({
     name: option.name,
-    generateDeeplink: (params) => generateDeeplink(option.baseURL, params),
+    generateDeeplink: (params) => generateDeeplink(params),
     icon: <Image source={{ uri: option.iconURI }} style={style} />,
 }));
 
