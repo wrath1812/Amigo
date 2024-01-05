@@ -66,7 +66,14 @@ export default [
         generateDeeplink: function (params) {
             return `bhim://upi/pay?am=${params.am}&cu=${params.cu}&mc=${params.mc}&pa=${params.pa}&pn=${params.pn}&tn=${params.tn}&tr=${params.tr}`;
         },
-        icon: <Image source={BHIMLogo} style={style} />,
+        icon: (
+            <Image
+                source={{
+                    uri: 'https://commons.wikimedia.org/wiki/File:Amazon_Pay_logo.svg',
+                }}
+                style={style}
+            />
+        ),
     },
 
     {
@@ -74,6 +81,13 @@ export default [
         generateDeeplink: function (params) {
             return `upi://pay??am=${params.am}&cu=${params.cu}&mc=${params.mc}&pa=${params.pa}&pn=${params.pn}&tn=${params.tn}&tr=${params.tr}`;
         },
-        icon: <Image source={DefaultUPIAppLogo} style={style} />, // Replace 'DefaultUPIAppLogo' with the actual logo import
+        icon: (
+            <Image
+                source={{
+                    uri: 'https://commons.wikimedia.org/wiki/File:Amazon_Pay_logo.svg',
+                }}
+                style={style}
+            />
+        ), // Replace 'DefaultUPIAppLogo' with the actual logo import
     },
 ];
