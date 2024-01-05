@@ -38,7 +38,6 @@ function GroupListScreen({ navigation }) {
         useCallback(() => {
             (async () => {
                 setLoading(true);
-                console.log(groups.members);
                 const { data } = await apiHelper('/group');
                 setGroups(data);
                 setLoading(false);
