@@ -36,39 +36,42 @@ async function getNamesFromContacts() {
 }
 
 
-async function getNames(usersArray, currentUserId) {
+/**
+ * Updates the names of users in the given array based on certain conditions.
+ * @param {Array} usersArray - Array of user objects to update.
+ * @param {string} currentUserId - The ID of the current user.
+ * @returns {Array} The updated usersArray with modified names.
+ */
+async function editNames(usersArray, currentUserId) {
     // Validate input parameters
     if (!Array.isArray(usersArray) || typeof currentUserId !== 'string') {
-        console.error('Invalid input to getNames function');
+        console.error('Invalid input to updateNamesInArray function');
         return [];
     }
 
     try {
-        const names = [];
         const contacts = await getNamesFromContacts();
         const contactsMap = new Map(Object.entries(contacts));
 
         for (let user of usersArray) {
-            let name;
-
             if (user._id === currentUserId) {
-                name = "You";
+                user.name = "You";
             } else if (user.phoneNumber && contactsMap.has(user.phoneNumber)) {
-                name = sliceText(contactsMap.get(user.phoneNumber));
+                user.name = sliceText(contactsMap.get(user.phoneNumber));
             } else if (user.name) {
-                name = sliceText(user.name);
+                user.name = sliceText(user.name);
             } else {
-                name = user.phoneNumber || 'Unknown';
+                user.name = user.phoneNumber || 'Unknown';
             }
-
-            names.push(name);
         }
 
-        return names;
+        return usersArray;
     } catch (error) {
-        console.error('Error in getNames function:', error);
+        console.error('Error in updateNamesInArray function:', error);
         return [];
     }
 }
 
-export default getNames;
+export default editNames;
+
+

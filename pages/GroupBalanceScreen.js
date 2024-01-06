@@ -18,8 +18,8 @@ import sliceText from '../helper/sliceText';
 import LoginImage from '../assets/Login.png';
 import Cross from '../assets/icons/cross.png';
 import { Feather } from '@expo/vector-icons';
-import getName from '../helper/getNames';
-// 2. GroupBalanceScreen Functional Component
+import getName from '../helper/editNames';
+
 function GroupBalanceScreen({ navigation, route }) {
     const { group } = route.params;
     const { user } = useAuth();

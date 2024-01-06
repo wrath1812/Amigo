@@ -27,7 +27,7 @@ import { useEffect } from 'react';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
 import Search from '../components/Search';
 import tabBarStyle from '../constants/tabBarStyle';
-
+import editNames from "../helper/editNames";
 const headerIconSize = 6;
 
 /**
@@ -113,16 +113,19 @@ function calculateUserBalanceInGroup(group, userId) {
  * @param {string} userId - ID of the user for whom to calculate the total balance.
  * @returns {Object} An object containing grouped balances and the user's total balance.
  */
-function groupBalancesAndCalculateTotal(balances, userId) {
+async function groupBalancesAndCalculateTotal(balances, userId) {
     const groupedBalances = groupDataItemsByGroup(balances);
     let userTotalBalance = 0;
     const userGroups = [];
 
-    groupedBalances.forEach((group) => {
+    // Use for...of loop for async/await
+    for (const group of groupedBalances) {
         const groupBalanceDetails = calculateUserBalanceInGroup(group, userId);
+        groupBalanceDetails.lenders = await editNames(groupBalanceDetails.lenders, userId);
+        groupBalanceDetails.borrowers= await editNames(groupBalanceDetails.borrowers, userId);
         userGroups.push(groupBalanceDetails);
         userTotalBalance += groupBalanceDetails.totalBalance;
-    });
+    }
 
     return { groups: userGroups, userTotalBalance };
 }
@@ -155,9 +158,7 @@ function BalanceScreen({ navigation }) {
             (async () => {
                 setLoading(true);
                 const { data } = await apiHelper('/balance');
-                const { groups, userTotalBalance } =
-                    groupBalancesAndCalculateTotal(data, user._id);
-
+                const { groups, userTotalBalance } = await groupBalancesAndCalculateTotal(data, user._id);
                 setBalance(parseInt(userTotalBalance));
                 setBalances(groups);
                 setLoading(false);
