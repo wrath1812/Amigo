@@ -20,12 +20,16 @@ import GroupSelectCard from '../components/GroupSelectCard';
 import { useTransaction } from '../context/TransactionContext';
 import GroupIcon from '../components/GroupIcon';
 import CreateGroupIcon from '../assets/icons/createGroup.png';
+import getNamesFromContacts from "../helper/getNamesFromContacts";
+import { useAuth } from '../context/AuthContext';
+import editNames from "../helper/editNames";
 
 function GroupListScreen({ navigation }) {
     const [groups, setGroups] = useState([]);
     const [loading, setLoading] = useState(false);
     const [search, setSearch] = useState('');
     const { setTransactionData } = useTransaction();
+    const {user}=useAuth();
 
     const filterGroups = () =>
         search === ''
@@ -39,6 +43,9 @@ function GroupListScreen({ navigation }) {
             (async () => {
                 setLoading(true);
                 const { data } = await apiHelper('/group');
+                const contacts=await getNamesFromContacts();
+                for(let group of data)
+                group.members=editNames(group.members,user._id,contacts);
                 setGroups(data);
                 setLoading(false);
             })();

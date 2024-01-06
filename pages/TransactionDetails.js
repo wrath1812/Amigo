@@ -12,7 +12,7 @@ import generateRandomColor from '../helper/generateRandomColor';
 import { useAuth } from '../context/AuthContext';
 import { getCategoryIcon } from '../constants/Categories';
 import { Alert } from 'react-native';
-import { FontAwesome5, AntDesign } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons';
 import apiHelper from '../helper/apiHelper';
 function formatDate(dateString) {
     // Parse the input string to a Date object
