@@ -18,6 +18,7 @@ import sliceText from '../helper/sliceText';
 import LoginImage from '../assets/Login.png';
 import Cross from '../assets/icons/cross.png';
 import { Feather } from '@expo/vector-icons';
+import getName from '../helper/getNames';
 // 2. GroupBalanceScreen Functional Component
 function GroupBalanceScreen({ navigation, route }) {
     const { group } = route.params;
@@ -121,7 +122,7 @@ function GroupBalanceScreen({ navigation, route }) {
                     <View
                         style={{
                             marginLeft: calcWidth(2),
-                            padding: calcWidth(0.5),
+                            padding: calcWidth(0.1),
                             backgroundColor: '#00C83D',
                             borderRadius: calcWidth(2),
                         }}

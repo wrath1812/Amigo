@@ -1,4 +1,4 @@
-function sliceText(text, length) {
+function sliceText(text, length=10) {
     if (!text || text.length == 0) return '';
     // First, trim the text to remove any leading or trailing white spaces
     text = text.trim();

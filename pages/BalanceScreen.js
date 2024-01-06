@@ -80,6 +80,7 @@ function calculateUserBalanceInGroup(group, userId) {
                 name: document.borrower.name,
                 _id: document.borrower._id,
                 amount: document.amount,
+                phoneNumber:document.borrower.phoneNumber
             });
             totalBalance += document.amount;
             borrowerCount++;
@@ -88,6 +89,7 @@ function calculateUserBalanceInGroup(group, userId) {
                 name: document.lender.name,
                 _id: document.lender._id,
                 amount: document.amount,
+                phoneNumber:document.lender.phoneNumber
             });
             totalBalance -= document.amount;
             lenderCount++;
