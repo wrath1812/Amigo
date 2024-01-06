@@ -12,29 +12,34 @@ function GroupBalanceCard({ group }) {
     const navigation = useNavigation();
     return (
         <Pressable
-            onPress={() => {
-                navigation.navigate(PAGES.GROUP_BALANCE, { group });
-            }}
-            style={styles.container}
-        >
-            <GroupIcon image={LoginImage} />
-            <View style={styles.textContainer}>
-                <Text style={styles.nameText}>{group.name}</Text>
-                <Text style={styles.memberText}>
-                    {group.totalBalance < 0
-                        ? `${group.lenderCount} participants owe you money`
-                        : `You owe mony to ${group.borrowerCount} participants`}
-                </Text>
-            </View>
-            <Text
-                style={{
-                    color: group.totalBalance > 0 ? 'green' : 'red',
-                    fontWeight: 'bold',
-                }}
-            >
-                ₹ {Math.abs(parseInt(group.totalBalance))}
+        onPress={() => {
+            navigation.navigate(PAGES.GROUP_BALANCE, { group });
+        }}
+        style={styles.container}
+    >
+        <View style={{
+            flexDirection:"row"
+        }}>
+        <GroupIcon image={LoginImage} />
+        <View style={styles.textContainer}>
+            <Text style={styles.nameText}>{group.name}</Text>
+            <Text style={styles.memberText}>
+                {group.totalBalance < 0
+                    ? `${group.lenderCount} participants owe you money`
+                    : `You owe money to ${group.borrowerCount} participants`}
             </Text>
-        </Pressable>
+        </View>
+        </View>
+        <Text
+            style={{
+                color: group.totalBalance > 0 ? 'green' : 'red',
+                fontWeight: 'bold',
+            }}
+        >
+            ₹ {Math.abs(parseInt(group.totalBalance))}
+        </Text>
+    </Pressable>
+    
     );
 }
 
@@ -48,9 +53,9 @@ const styles = StyleSheet.create({
         padding: calcWidth(5),
         borderBottomColor: 'rgba(255, 255, 255, 0.13)',
         borderBottomWidth: 1,
+        justifyContent:"space-between"
     },
     textContainer: {
-        width: calcWidth(60),
         marginLeft: calcWidth(5),
     },
     nameText: {
