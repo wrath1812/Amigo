@@ -6,7 +6,7 @@ import { useAuth } from '../context/AuthContext';
 import { useNavigation } from '@react-navigation/native';
 import PAGES from '../constants/pages';
 import GroupIcon from './GroupIcon';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { MaterialIcons } from '@expo/vector-icons';
 
 function convertToCustomFormat(dateString) {

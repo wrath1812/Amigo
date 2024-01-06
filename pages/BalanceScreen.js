@@ -27,7 +27,7 @@ import { useEffect } from 'react';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
 import Search from '../components/Search';
 import tabBarStyle from '../constants/tabBarStyle';
-import editNames from "../helper/editNames";
+import editNamesAsync from "../helper/editNamesAsync";
 const headerIconSize = 6;
 
 /**
@@ -121,8 +121,8 @@ async function groupBalancesAndCalculateTotal(balances, userId) {
     // Use for...of loop for async/await
     for (const group of groupedBalances) {
         const groupBalanceDetails = calculateUserBalanceInGroup(group, userId);
-        groupBalanceDetails.lenders = await editNames(groupBalanceDetails.lenders, userId);
-        groupBalanceDetails.borrowers= await editNames(groupBalanceDetails.borrowers, userId);
+        groupBalanceDetails.lenders = await editNamesAsync(groupBalanceDetails.lenders, userId);
+        groupBalanceDetails.borrowers= await editNamesAsync(groupBalanceDetails.borrowers, userId);
         userGroups.push(groupBalanceDetails);
         userTotalBalance += groupBalanceDetails.totalBalance;
     }

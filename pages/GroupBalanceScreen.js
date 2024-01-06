@@ -16,7 +16,7 @@ import { useAuth } from '../context/AuthContext';
 import sliceText from '../helper/sliceText';
 import LoginImage from '../assets/Login.png';
 import Cross from '../assets/icons/cross.png';
-import getName from '../helper/editNames';
+import getName from '../helper/editNamesAsync';
 
 function GroupBalanceScreen({ navigation, route }) {
     const { group } = route.params;
