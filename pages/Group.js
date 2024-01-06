@@ -101,11 +101,11 @@ function GroupScreen({
             <View style={styles.header}>
                 <View
                     style={{
-                        width: '40%',
                         flexDirection: 'row',
                         alignItems: 'center',
                         justifyContent: 'space-between',
                         height: calcHeight(8),
+                        gap:calcWidth(5)
                     }}
                 >
                     <Pressable onPress={() => navigation.goBack()}>
@@ -212,7 +212,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     groupNameContainer: {
-        marginLeft: calcWidth(5),
+        // marginLeft: calcWidth(5),
     },
     groupName: {
         color: 'white',
