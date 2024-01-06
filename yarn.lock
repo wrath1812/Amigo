@@ -5116,6 +5116,11 @@ expo-modules-core@1.5.12:
     compare-versions "^3.4.0"
     invariant "^2.2.4"
 
+expo-network@^5.6.0:
+  version "5.6.0"
+  resolved "https://registry.yarnpkg.com/expo-network/-/expo-network-5.6.0.tgz#3562d969e38482af29498a497d0724092d5482fe"
+  integrity sha512-e5K6u3SIkUegagRZ8TflEiZxv7E4PJDUx7wrbzcwjtvdP73fm7HgAxbeAZf8AjsPyRudBu9tv4X/ebRunV3eBw==
+
 expo-notifications@~0.20.1:
   version "0.20.1"
   resolved "https://registry.npmjs.org/expo-notifications/-/expo-notifications-0.20.1.tgz"
