@@ -41,7 +41,6 @@ const TransactionDetail = ({
     },
 }) => {
     const [date, setDate] = useState(new Date(transaction.date));
-    const { user } = useAuth();
 
     const handleDeleteTransaction = async () => {
         Alert.alert(
@@ -154,10 +153,7 @@ const TransactionDetail = ({
                         color: COLOR.TEXT,
                     }}
                 >
-                    Create By{' '}
-                    {user._id == transaction.creator._id
-                        ? 'You'
-                        : transaction.creator.name}
+                    Create By {transaction.creator.name}
                 </Text>
             </View>
             <View style={styles.boxContainer}>
@@ -179,9 +175,7 @@ const TransactionDetail = ({
                             ]}
                         />
                         <Text style={styles.userName}>
-                            {user._id == transaction.paidBy._id
-                                ? 'You'
-                                : transaction.paidBy.name}
+                            {transaction.paidBy.name}
                         </Text>
                         <Text style={styles.userAmount}>
                             ₹ {transaction.amount}
@@ -207,7 +201,7 @@ const TransactionDetail = ({
                                         ]}
                                     />
                                     <Text style={styles.sharedUser}>
-                                        {user.name || 'Anonymous'}
+                                        {user.name}
                                     </Text>
                                     <Text style={styles.sharedAmount}>
                                         ₹ {parseInt(amount)}

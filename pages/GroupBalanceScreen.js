@@ -41,15 +41,26 @@ function GroupBalanceScreen({ navigation, route }) {
             <Pressable onPress={handlePress} style={styles.listItem}>
                 <View style={styles.listItemLeft}>
                     <GroupIcon image={group.icon || LoginImage} />
-                    <Text style={styles.itemName}>{sliceText(item.name, 10)}</Text>
+                    <Text style={styles.itemName}>
+                        {sliceText(item.name, 10)}
+                    </Text>
                 </View>
                 <View style={styles.listItemRight}>
                     <View style={styles.amountView}>
-                        <Text style={[styles.amountText, { color: balanceColor }]}>
+                        <Text
+                            style={[styles.amountText, { color: balanceColor }]}
+                        >
                             ₹{item.amount}
                         </Text>
-                        <Text style={[styles.subAmountText, { color: balanceColor }]}>
-                            {group.totalBalance < 0 ? 'you owe' : 'you get back'}
+                        <Text
+                            style={[
+                                styles.subAmountText,
+                                { color: balanceColor },
+                            ]}
+                        >
+                            {group.totalBalance < 0
+                                ? 'you owe'
+                                : 'you get back'}
                         </Text>
                     </View>
                     <Ionicons
@@ -73,21 +84,37 @@ function GroupBalanceScreen({ navigation, route }) {
             </View>
             <View style={styles.balanceInfo}>
                 <View style={styles.balanceInfoLeft}>
-                    <View style={[styles.indicator,
-                        {backgroundColor: group.totalBalance > 0 ? '#00C83D' : 'red'}
-                    ]} />
+                    <View
+                        style={[
+                            styles.indicator,
+                            {
+                                backgroundColor:
+                                    group.totalBalance > 0 ? '#00C83D' : 'red',
+                            },
+                        ]}
+                    />
                     <View style={styles.balanceTextContainer}>
-                        <Text style={styles.balanceText}>Total Split Balance</Text>
+                        <Text style={styles.balanceText}>
+                            Total Split Balance
+                        </Text>
                         <Text style={styles.subBalanceText}>
-                            {group.totalBalance < 0 ? 'you owe' : 'you get back'}
+                            {group.totalBalance < 0
+                                ? 'you owe'
+                                : 'you get back'}
                         </Text>
                     </View>
                 </View>
                 <View style={styles.balanceAmountContainer}>
-                    <Text style={styles.balanceAmount}>₹{group.totalBalance}</Text>
+                    <Text style={styles.balanceAmount}>
+                        ₹{group.totalBalance}
+                    </Text>
                     <View style={styles.arrowIconContainer}>
                         <Feather
-                            name={group.totalBalance > 0 ? 'arrow-up-right' : 'arrow-down-left'}
+                            name={
+                                group.totalBalance > 0
+                                    ? 'arrow-up-right'
+                                    : 'arrow-down-left'
+                            }
                             size={calcWidth(2)}
                             color="white"
                         />
@@ -156,21 +183,21 @@ const styles = StyleSheet.create({
         padding: calcWidth(4),
         gap: calcWidth(5),
         borderBottomRightRadius: calcWidth(2),
-        borderBottomLeftRadius:calcWidth(2),
-        backgroundColor:"#31254D"
+        borderBottomLeftRadius: calcWidth(2),
+        backgroundColor: '#31254D',
     },
     listItemLeft: {
-        flexDirection: "row",
-        alignItems: "center",
+        flexDirection: 'row',
+        alignItems: 'center',
         gap: calcWidth(5), // Adjust as needed
     },
     listItemRight: {
-        flexDirection: "row",
-        alignItems: "center",
-        gap:calcWidth(5)
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: calcWidth(5),
     },
     amountView: {
-        alignItems: "center"
+        alignItems: 'center',
     },
     subAmountText: {
         fontSize: getFontSizeByWindowWidth(8),
@@ -212,10 +239,9 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         paddingVertical: calcHeight(3),
         backgroundColor: 'rgba(33, 24, 45, 0.58)',
-        borderBottomWidth:1,
-        borderBottomColor:'rgba(255, 255, 255, 0.1)'
-    }
+        borderBottomWidth: 1,
+        borderBottomColor: 'rgba(255, 255, 255, 0.1)',
+    },
 });
-
 
 export default GroupBalanceScreen;

@@ -8,7 +8,7 @@ import PAGES from '../constants/pages';
 import GroupIcon from './GroupIcon';
 import React, { useEffect } from 'react';
 import { MaterialIcons } from '@expo/vector-icons';
-import editNames from "../helper/editNames";
+import editNames from '../helper/editNames';
 
 function convertToCustomFormat(dateString) {
     // Parse the date string into a Date object
@@ -93,15 +93,28 @@ function ActivityHeader({ icon, iconName, size, text }) {
     );
 }
 
-function TransactionActivity({ transaction, navigation, createdAt,contacts }) {
-    const {user}=useAuth();
+function TransactionActivity({ transaction, navigation, createdAt, contacts }) {
+    const { user } = useAuth();
     return (
         <Pressable
-            onPress={() =>
+            onPress={() => {
+                const editedTransaction = transaction;
+                for (let i in editedTransaction.splitAmong) {
+                    editedTransaction.splitAmong[i].user = editNames(
+                        [transaction.splitAmong[i].user],
+                        user._id,
+                        contacts,
+                    )[0];
+                }
+                editedTransaction.paidBy = editNames(
+                    [transaction.paidBy],
+                    user._id,
+                    contacts,
+                )[0];
                 navigation.navigate(PAGES.TRANSACTION_DETAIL, {
-                    transaction: transaction,
-                })
-            }
+                    transaction: editedTransaction,
+                });
+            }}
         >
             <ActivityHeader
                 icon={Octicons}
@@ -130,16 +143,24 @@ function TransactionActivity({ transaction, navigation, createdAt,contacts }) {
                     {getDateAndMonth(createdAt)}
                 </Text>
                 <Text style={styles.description}>
-                    Created By {editNames([transaction.creator],user._id,contacts)[0].name}
+                    Created By{' '}
+                    {
+                        editNames([transaction.creator], user._id, contacts)[0]
+                            .name
+                    }
                 </Text>
             </View>
         </Pressable>
     );
 }
 
-function PaymentActivity({ payment,contacts }) {
-    const {user}=useAuth();
-    const [payer,receiver]=editNames([payment.payer,payment.receiver],user._id,contacts);
+function PaymentActivity({ payment, contacts }) {
+    const { user } = useAuth();
+    const [payer, receiver] = editNames(
+        [payment.payer, payment.receiver],
+        user._id,
+        contacts,
+    );
     return (
         <View>
             <Text style={styles.description}>
@@ -164,9 +185,9 @@ function ChatActivity({ chat }) {
     );
 }
 
-function Feed({ creator, createdAt, relatedId, activityType,contacts }) {
+function Feed({ creator, createdAt, relatedId, activityType, contacts }) {
     const navigation = useNavigation();
-    const {user}=useAuth();
+    const { user } = useAuth();
     const renderActivity = () => {
         switch (activityType) {
             case 'transaction':
@@ -179,7 +200,9 @@ function Feed({ creator, createdAt, relatedId, activityType,contacts }) {
                     />
                 );
             case 'payment':
-                return <PaymentActivity payment={relatedId} contacts={contacts}/>;
+                return (
+                    <PaymentActivity payment={relatedId} contacts={contacts} />
+                );
             case 'chat':
                 return (
                     <ChatActivity

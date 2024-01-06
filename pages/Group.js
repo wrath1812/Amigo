@@ -23,7 +23,7 @@ import { calcHeight, calcWidth } from '../helper/res';
 import { getFontSizeByWindowWidth } from '../helper/res';
 import { useTransaction } from '../context/TransactionContext';
 import { useAuth } from '../context/AuthContext';
-import getNamesFromContacts from "../helper/getNamesFromContacts";
+import getNamesFromContacts from '../helper/getNamesFromContacts';
 import Feed from '../components/Feed';
 function getMembersString(members) {
     let names = [];
@@ -51,14 +51,14 @@ function GroupScreen({
     const [isLoading, setIsLoading] = useState(false);
     const { setTransactionData, resetTransaction } = useTransaction();
     const [amount, setAmount] = useState('');
-    const [contacts,setContacts]=useState([]);
+    const [contacts, setContacts] = useState([]);
     const { user } = useAuth();
 
     const fetchActivities = useCallback(async () => {
         setIsLoading(true);
         try {
             const { data } = await apiHelper(`/activity-feed/${group._id}`);
-            const contactsData=await getNamesFromContacts();
+            const contactsData = await getNamesFromContacts();
             setContacts(contactsData);
             setActivities(data);
         } catch (error) {
@@ -136,7 +136,9 @@ function GroupScreen({
                 inverted
                 data={activities}
                 keyExtractor={(item) => item._id}
-                renderItem={({ item }) => <Feed {...item} contacts={contacts}/>}
+                renderItem={({ item }) => (
+                    <Feed {...item} contacts={contacts} />
+                )}
                 style={{
                     height: calcHeight(75),
                 }}

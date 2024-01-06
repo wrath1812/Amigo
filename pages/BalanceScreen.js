@@ -27,7 +27,7 @@ import { useEffect } from 'react';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
 import Search from '../components/Search';
 import tabBarStyle from '../constants/tabBarStyle';
-import editNamesAsync from "../helper/editNamesAsync";
+import editNamesAsync from '../helper/editNamesAsync';
 const headerIconSize = 6;
 
 /**
@@ -80,7 +80,7 @@ function calculateUserBalanceInGroup(group, userId) {
                 name: document.borrower.name,
                 _id: document.borrower._id,
                 amount: document.amount,
-                phoneNumber:document.borrower.phoneNumber
+                phoneNumber: document.borrower.phoneNumber,
             });
             totalBalance += document.amount;
             borrowerCount++;
@@ -89,7 +89,7 @@ function calculateUserBalanceInGroup(group, userId) {
                 name: document.lender.name,
                 _id: document.lender._id,
                 amount: document.amount,
-                phoneNumber:document.lender.phoneNumber
+                phoneNumber: document.lender.phoneNumber,
             });
             totalBalance -= document.amount;
             lenderCount++;
@@ -121,8 +121,14 @@ async function groupBalancesAndCalculateTotal(balances, userId) {
     // Use for...of loop for async/await
     for (const group of groupedBalances) {
         const groupBalanceDetails = calculateUserBalanceInGroup(group, userId);
-        groupBalanceDetails.lenders = await editNamesAsync(groupBalanceDetails.lenders, userId);
-        groupBalanceDetails.borrowers= await editNamesAsync(groupBalanceDetails.borrowers, userId);
+        groupBalanceDetails.lenders = await editNamesAsync(
+            groupBalanceDetails.lenders,
+            userId,
+        );
+        groupBalanceDetails.borrowers = await editNamesAsync(
+            groupBalanceDetails.borrowers,
+            userId,
+        );
         userGroups.push(groupBalanceDetails);
         userTotalBalance += groupBalanceDetails.totalBalance;
     }
@@ -158,7 +164,8 @@ function BalanceScreen({ navigation }) {
             (async () => {
                 setLoading(true);
                 const { data } = await apiHelper('/balance');
-                const { groups, userTotalBalance } = await groupBalancesAndCalculateTotal(data, user._id);
+                const { groups, userTotalBalance } =
+                    await groupBalancesAndCalculateTotal(data, user._id);
                 setBalance(parseInt(userTotalBalance));
                 setBalances(groups);
                 setLoading(false);

@@ -1,6 +1,6 @@
 import sliceText from './sliceText';
 import getNamesFromContacts from './getNamesFromContacts';
-import editNames from "./editNames";
+import editNames from './editNames';
 /**
  * Updates the names of users in the given array based on certain conditions.
  * @param {Array} usersArray - Array of user objects to update.
@@ -8,12 +8,8 @@ import editNames from "./editNames";
  * @returns {Array} The updated usersArray with modified names.
  */
 async function editNamesAsync(usersArray, currentUserId) {
-    
-        const contacts = await getNamesFromContacts();
-        return editNames(usersArray, currentUserId,contacts);
+    const contacts = await getNamesFromContacts();
+    return editNames(usersArray, currentUserId, contacts);
 }
 
-
 export default editNamesAsync;
-
-

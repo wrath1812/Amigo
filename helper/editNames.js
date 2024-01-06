@@ -1,7 +1,7 @@
 import * as Contacts from 'expo-contacts';
 import sliceText from './sliceText';
 
-function editNames(usersArray, currentUserId,contacts) {
+function editNames(usersArray, currentUserId, contacts) {
     if (!Array.isArray(usersArray) || typeof currentUserId !== 'string') {
         console.error('Invalid input to updateNamesInArray function');
         return [];
@@ -12,7 +12,7 @@ function editNames(usersArray, currentUserId,contacts) {
 
         for (let user of usersArray) {
             if (user._id === currentUserId) {
-                user.name = "You";
+                user.name = 'You';
             } else if (user.phoneNumber && contactsMap.has(user.phoneNumber)) {
                 user.name = sliceText(contactsMap.get(user.phoneNumber));
             } else if (user.name) {
@@ -29,7 +29,4 @@ function editNames(usersArray, currentUserId,contacts) {
     }
 }
 
-
 export default editNames;
-
-
