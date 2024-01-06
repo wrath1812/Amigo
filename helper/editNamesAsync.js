@@ -10,8 +10,7 @@ import editNames from "./editNames";
 async function editNamesAsync(usersArray, currentUserId) {
     
         const contacts = await getNamesFromContacts();
-        const edited=await editNames(usersArray, currentUserId,contacts);
-        return edited;
+        return editNames(usersArray, currentUserId,contacts);
 }
 
 

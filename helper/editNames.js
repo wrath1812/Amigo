@@ -1,7 +1,7 @@
 import * as Contacts from 'expo-contacts';
 import sliceText from './sliceText';
 
-async function editNames(usersArray, currentUserId,contacts) {
+function editNames(usersArray, currentUserId,contacts) {
     if (!Array.isArray(usersArray) || typeof currentUserId !== 'string') {
         console.error('Invalid input to updateNamesInArray function');
         return [];
