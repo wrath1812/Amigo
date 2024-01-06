@@ -173,7 +173,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         paddingVertical: calcHeight(2),
-        backgroundColor: 'rgb(33, 24, 45)'
+        backgroundColor: 'rgba(33, 24, 45, 0.58)'
     },
     balanceText: {
         color: COLOR.TEXT,
