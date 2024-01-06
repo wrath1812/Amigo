@@ -24,16 +24,22 @@ import { useEffect } from 'react';
 import { useNavigation, useIsFocused } from '@react-navigation/native';
 import Search from '../components/Search';
 import tabBarStyle from '../constants/tabBarStyle';
+import editNames from "../helper/editNames";
+import {useAuth} from "../context/AuthContext";
 function GroupListScreen({ navigation }) {
     const [groups, setGroups] = useState([]);
     const [loading, setLoading] = useState(false);
     const [search, setSearch] = useState('');
+    const{user}=useAuth();
 
     useFocusEffect(
         useCallback(() => {
             (async () => {
                 setLoading(true);
                 const { data } = await apiHelper('/group');
+                for(let group of data)
+                group.members=await editNames(group.members,user._id);
+                
                 setGroups(data);
                 setLoading(false);
             })();
