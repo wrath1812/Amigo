@@ -1,4 +1,3 @@
-// 1. Import Statements
 import React from 'react';
 import {
     Text,
@@ -9,7 +8,7 @@ import {
     FlatList,
     Image,
 } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons, Feather } from '@expo/vector-icons';
 import GroupIcon from '../components/GroupIcon';
 import COLOR from '../constants/Colors';
 import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
@@ -17,7 +16,6 @@ import { useAuth } from '../context/AuthContext';
 import sliceText from '../helper/sliceText';
 import LoginImage from '../assets/Login.png';
 import Cross from '../assets/icons/cross.png';
-import { Feather } from '@expo/vector-icons';
 import getName from '../helper/editNames';
 
 function GroupBalanceScreen({ navigation, route }) {
@@ -41,16 +39,25 @@ function GroupBalanceScreen({ navigation, route }) {
 
         return (
             <Pressable onPress={handlePress} style={styles.listItem}>
-                <GroupIcon image={group.icon || LoginImage} />
-                <Text style={styles.itemName}>{sliceText(item.name, 10)}</Text>
-                <Text style={[styles.amountText, { color: balanceColor }]}>
-                    ₹{item.amount}
-                </Text>
-                <Ionicons
-                    name="chevron-forward"
-                    size={calcHeight(1.5)}
-                    color="white"
-                />
+                <View style={styles.listItemLeft}>
+                    <GroupIcon image={group.icon || LoginImage} />
+                    <Text style={styles.itemName}>{sliceText(item.name, 10)}</Text>
+                </View>
+                <View style={styles.listItemRight}>
+                    <View style={styles.amountView}>
+                        <Text style={[styles.amountText, { color: balanceColor }]}>
+                            ₹{item.amount}
+                        </Text>
+                        <Text style={[styles.subAmountText, { color: balanceColor }]}>
+                            {group.totalBalance < 0 ? 'you owe' : 'you get back'}
+                        </Text>
+                    </View>
+                    <Ionicons
+                        name="chevron-forward"
+                        size={calcHeight(2)}
+                        color="white"
+                    />
+                </View>
             </Pressable>
         );
     };
@@ -59,80 +66,28 @@ function GroupBalanceScreen({ navigation, route }) {
         <SafeAreaView style={styles.container}>
             <View style={styles.header}>
                 <Pressable onPress={() => navigation.goBack()}>
-                    <Image
-                        style={{
-                            height: calcHeight(3),
-                            width: calcHeight(3),
-                        }}
-                        source={Cross}
-                    />
+                    <Image style={styles.crossIcon} source={Cross} />
                 </Pressable>
                 <GroupIcon image={group.icon || LoginImage} />
                 <Text style={styles.groupName}>{group.name}</Text>
             </View>
             <View style={styles.balanceInfo}>
-                <View
-                    style={{
-                        flexDirection: 'row',
-                    }}
-                >
-                    <View>
-                        <View
-                            style={{
-                                backgroundColor:
-                                    group.totalBalance > 0
-                                        ? group.totalBalance > 0
-                                            ? '#00C83D'
-                                            : 'red'
-                                        : 'red',
-                                width: calcWidth(1),
-                                borderTopRightRadius: calcWidth(3),
-                                borderBottomRightRadius: calcWidth(3),
-                                flex: 1,
-                            }}
-                        />
-                    </View>
-
-                    <View
-                        style={{
-                            gap: calcHeight(1),
-                            marginLeft: calcHeight(3),
-                        }}
-                    >
-                        <Text style={styles.balanceText}>
-                            Total Split Balance
-                        </Text>
+                <View style={styles.balanceInfoLeft}>
+                    <View style={[styles.indicator,
+                        {backgroundColor: group.totalBalance > 0 ? '#00C83D' : 'red'}
+                    ]} />
+                    <View style={styles.balanceTextContainer}>
+                        <Text style={styles.balanceText}>Total Split Balance</Text>
                         <Text style={styles.subBalanceText}>
-                            {group.totalBalance < 0
-                                ? 'you owe'
-                                : 'you get back'}
+                            {group.totalBalance < 0 ? 'you owe' : 'you get back'}
                         </Text>
                     </View>
                 </View>
-                <View
-                    style={{
-                        marginRight: calcWidth(5),
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                    }}
-                >
-                    <Text style={styles.balanceAmount}>
-                        ₹{group.totalBalance}
-                    </Text>
-                    <View
-                        style={{
-                            marginLeft: calcWidth(2),
-                            padding: calcWidth(0.1),
-                            backgroundColor: '#00C83D',
-                            borderRadius: calcWidth(2),
-                        }}
-                    >
+                <View style={styles.balanceAmountContainer}>
+                    <Text style={styles.balanceAmount}>₹{group.totalBalance}</Text>
+                    <View style={styles.arrowIconContainer}>
                         <Feather
-                            name={
-                                group.totalBalance > 0
-                                    ? 'arrow-up-right'
-                                    : 'arrow-down-left'
-                            }
+                            name={group.totalBalance > 0 ? 'arrow-up-right' : 'arrow-down-left'}
                             size={calcWidth(2)}
                             color="white"
                         />
@@ -151,35 +106,12 @@ function GroupBalanceScreen({ navigation, route }) {
     );
 }
 
-// 3. StyleSheet
+// // StyleSheet
 const styles = StyleSheet.create({
+    // ... existing styles
     container: {
         flex: 1,
         backgroundColor: COLOR.APP_BACKGROUND,
-    },
-    header: {
-        width: '100%',
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'flex-start',
-        padding: calcWidth(4),
-        gap: calcWidth(5),
-        borderBottomRightRadius: calcWidth(2),
-        borderBottomLeftRadius:calcWidth(2),
-        backgroundColor:"#31254D"
-    },
-    groupName: {
-        color: 'white',
-        fontWeight: 'bold',
-        fontSize: getFontSizeByWindowWidth(13),
-    },
-    balanceInfo: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        paddingVertical: calcHeight(3),
-        backgroundColor: 'rgba(33, 24, 45, 0.58)',
-        borderBottomWidth:1,
-        borderBottomColor:'rgba(255, 255, 255, 0.1)'
     },
     balanceText: {
         color: COLOR.TEXT,
@@ -216,7 +148,74 @@ const styles = StyleSheet.create({
         fontSize: getFontSizeByWindowWidth(12),
         fontWeight: 'bold',
     },
+    header: {
+        width: '100%',
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'flex-start',
+        padding: calcWidth(4),
+        gap: calcWidth(5),
+        borderBottomRightRadius: calcWidth(2),
+        borderBottomLeftRadius:calcWidth(2),
+        backgroundColor:"#31254D"
+    },
+    listItemLeft: {
+        flexDirection: "row",
+        alignItems: "center",
+        gap: calcWidth(5), // Adjust as needed
+    },
+    listItemRight: {
+        flexDirection: "row",
+        alignItems: "center",
+        gap:calcWidth(5)
+    },
+    amountView: {
+        alignItems: "center"
+    },
+    subAmountText: {
+        fontSize: getFontSizeByWindowWidth(8),
+    },
+    crossIcon: {
+        height: calcHeight(3),
+        width: calcHeight(3),
+    },
+    balanceInfoLeft: {
+        flexDirection: 'row',
+    },
+    indicator: {
+        width: calcWidth(1),
+        borderTopRightRadius: calcWidth(3),
+        borderBottomRightRadius: calcWidth(3),
+        flex: 1,
+    },
+    balanceTextContainer: {
+        marginLeft: calcHeight(3),
+    },
+    balanceAmountContainer: {
+        marginRight: calcWidth(5),
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    arrowIconContainer: {
+        marginLeft: calcWidth(2),
+        padding: calcWidth(0.1),
+        backgroundColor: '#00C83D',
+        borderRadius: calcWidth(2),
+    },
+    groupName: {
+        color: 'white',
+        fontWeight: 'bold',
+        fontSize: getFontSizeByWindowWidth(13),
+    },
+    balanceInfo: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        paddingVertical: calcHeight(3),
+        backgroundColor: 'rgba(33, 24, 45, 0.58)',
+        borderBottomWidth:1,
+        borderBottomColor:'rgba(255, 255, 255, 0.1)'
+    }
 });
 
-// 4. Export Statement
+
 export default GroupBalanceScreen;
