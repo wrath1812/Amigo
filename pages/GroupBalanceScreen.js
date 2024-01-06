@@ -162,7 +162,10 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'flex-start',
         padding: calcWidth(4),
-        gap: calcWidth(5)
+        gap: calcWidth(5),
+        borderBottomRightRadius: calcWidth(2),
+        borderBottomLeftRadius:calcWidth(2),
+        backgroundColor:"#31254D"
     },
     groupName: {
         color: 'white',
@@ -172,8 +175,10 @@ const styles = StyleSheet.create({
     balanceInfo: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        paddingVertical: calcHeight(2),
-        backgroundColor: 'rgba(33, 24, 45, 0.58)'
+        paddingVertical: calcHeight(3),
+        backgroundColor: 'rgba(33, 24, 45, 0.58)',
+        borderBottomWidth:1,
+        borderBottomColor:'rgba(255, 255, 255, 0.1)'
     },
     balanceText: {
         color: COLOR.TEXT,
@@ -190,7 +195,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
     list: {
-        marginTop: calcHeight(5),
+        marginTop: calcHeight(2),
     },
     listItem: {
         flexDirection: 'row',
