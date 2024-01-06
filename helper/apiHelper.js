@@ -2,7 +2,7 @@ import axios from 'axios';
 import { API_URL } from '@env';
 import { TOKEN } from '../constants/string';
 import { getLocalStoreData, setLocalStoreData } from './localStorage';
-import getNetworkStateAsync from "./getNetworkStateAsync";
+import getNetworkStateAsync from './getNetworkStateAsync';
 
 const config = {
     baseURL: API_URL,

@@ -221,34 +221,33 @@ function BalanceScreen({ navigation }) {
                     padding: calcWidth(2),
                 }}
             >
-               <View
-    style={{
-        flexDirection: 'row',
-        backgroundColor: COLOR.BUTTON,
-        padding: calcHeight(2),
-        borderRadius: 10,
-        justifyContent: 'space-between',
-        marginTop: calcHeight(1),
-    }}
->
-    <Text
-        style={{
-            color: COLOR.TEXT,
-            fontWeight: 'bold',
-        }}
-    >
-        Total Balance
-    </Text>
-    <Text
-        style={{
-            color: COLOR.TEXT,
-            fontWeight: 'bold',
-        }}
-    >
-        ₹ {balance}
-    </Text>
-</View>
-
+                <View
+                    style={{
+                        flexDirection: 'row',
+                        backgroundColor: COLOR.BUTTON,
+                        padding: calcHeight(2),
+                        borderRadius: 10,
+                        justifyContent: 'space-between',
+                        marginTop: calcHeight(1),
+                    }}
+                >
+                    <Text
+                        style={{
+                            color: COLOR.TEXT,
+                            fontWeight: 'bold',
+                        }}
+                    >
+                        Total Balance
+                    </Text>
+                    <Text
+                        style={{
+                            color: COLOR.TEXT,
+                            fontWeight: 'bold',
+                        }}
+                    >
+                        ₹ {balance}
+                    </Text>
+                </View>
             </View>
             {balances.length == 0 ? (
                 <EmptyScreen
