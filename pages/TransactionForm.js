@@ -53,7 +53,7 @@ function TransactionFormScreen({ navigation }) {
     useEffect(() => {
         if (getPreviousPageName(navigation) == PAGES.BALANCE)
             resetTransaction();
-        else getPreviousPageName(navigation) == PAGES.SCANNER;
+        else if(getPreviousPageName(navigation) == PAGES.SCANNER)
         {
             resetTransaction();
             if (upiParams.am)

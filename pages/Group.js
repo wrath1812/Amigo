@@ -176,6 +176,7 @@ function GroupScreen({
                     <TouchableOpacity
                         style={styles.button}
                         onPress={() => {
+                            setAmount("");
                             resetTransaction();
                             setTransactionData((prev) => ({
                                 ...prev,
