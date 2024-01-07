@@ -25,6 +25,7 @@ import { useTransaction } from '../context/TransactionContext';
 import { useAuth } from '../context/AuthContext';
 import getNamesFromContacts from '../helper/getNamesFromContacts';
 import Feed from '../components/Feed';
+import useSocket from "../hooks/useSocket";
 function getMembersString(members) {
     let names = [];
     for (let i = 0; i < members.length; i++) {
@@ -68,6 +69,9 @@ function GroupScreen({
     }, [group]);
 
     useFocusEffect(fetchActivities);
+    useSocket("activity created",(receivedData)=>{
+        console.log("event received from backend",receivedData);
+    })
 
     async function addChat() {
         setActivities((prev) => [
