@@ -2,89 +2,194 @@ import { EvilIcons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import GroupNavigator from './GroupNavigator';
 import { useAuth } from '../context/AuthContext';
-import BalanceScreen from '../pages/BalanceScreen';
-import Settings from '../pages/Settings';
 import PAGES from '../constants/pages';
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 import SignUpScreen from '../pages/SignUpScreen';
 import COLOR from '../constants/Colors';
-import { calcHeight } from '../helper/res';
 import TabBarIcon from '../components/TabBarIcon';
-import tabBarStyle from '../constants/tabBarStyle';
+import TransactionDetail from '../pages/TransactionDetails';
+import SelectGroup from '../pages/SelectGroup';
+import GroupSplitScreen from '../pages/GroupSplitScreen';
+import SelectPaidBy from '../pages/SelectPaidBy';
+import GroupBalance from '../pages/GroupBalanceScreen';
+import PaymentScreen from '../pages/PaymentScreen';
+import BalanceScreen from '../pages/BalanceScreen';
+import SearchScreen from '../pages/Search';
+import AccountScreen from '../pages/AccountScreen';
+import QRCodeScanner from '../pages/QRCodeScanner';
+import UPIAppSelection from '../pages/UPIAppSelection';
+import TabNavigator from './TabNavigator';
+import Group from '../pages/Group';
+import CreateGroup from '../pages/CreateGroup';
+import { calcHeight, getFontSizeByWindowWidth } from '../helper/res';
 import GroupListScreen from '../pages/GroupListScreen';
-import ExpenseScreen from '../pages/ExpenseScreen';
-
+import TransactionFormScreen from '../pages/TransactionForm';
+import CreateGroupScreen from '../pages/CreateGroup';
+import JoinGroup from '../pages/JoinGroup';
 const AppNavigator = () => {
     const { user } = useAuth();
-    return user.name ? (
-        <Tab.Navigator
-            screenOptions={{
-                headerShown: false,
-                tabBarLabel: () => null, // Add this line to disable labels
-                tabBarStyle,
+    return (<Stack.Navigator>
+        {user.name ? (
+            <Stack.Group> 
+                  <Stack.Screen
+             name={PAGES.TAB_NAVIGATOR}
+             options={{
+                 headerShown: false,
+                 tabBarIcon: (tabBarProps) => (
+                     <TabBarIcon
+                         tabBarProps={tabBarProps}
+                         screen={PAGES.BALANCE}
+                     />
+                 ),
+             }}
+             component={TabNavigator}
+         /><Stack.Screen
+            name={PAGES.SELECT_PAID_BY}
+            component={SelectPaidBy}
+            options={{
+                headerStyle: {
+                    backgroundColor: COLOR.APP_BACKGROUND,
+                },
+                title: null,
             }}
-        >
-            <Tab.Group>
-                <Tab.Screen
-                    name={PAGES.GROUP_NAVIGATOR}
-                    options={{
-                        tabBarIcon: (tabBarProps) => (
-                            <TabBarIcon
-                                tabBarProps={tabBarProps}
-                                screen={PAGES.BALANCE}
-                            />
-                        ),
-                        headerShown: false,
-                        tabBarStyle: { display: 'none' },
-                    }}
-                    component={GroupNavigator}
-                />
+        />
+        <Stack.Screen
+            name={PAGES.SCANNER}
+            component={QRCodeScanner}
+            options={{
+                headerStyle: {
+                    backgroundColor: COLOR.APP_BACKGROUND,
+                },
+                headerTintColor: '#fff',
+            }}
+        />
+        <Stack.Screen
+            name={PAGES.GROUP_BALANCE}
+            component={GroupBalance}
+            options={{
+                headerShown: false,
+            }}
+        />
+        <Stack.Screen
+            name={PAGES.SEARCH}
+            component={SearchScreen}
+            options={
+                {
+                    // headerShown: false,
+                }
+            }
+        />
+        <Stack.Screen
+            name={PAGES.ACCOUNT}
+            component={AccountScreen}
+            options={{
+                headerStyle: {
+                    backgroundColor: COLOR.APP_BACKGROUND,
+                },
+                headerTintColor: '#fff',
+            }}
+        />
 
-                <Tab.Screen
-                    name={PAGES.GROUP_LIST}
-                    component={GroupListScreen}
-                    options={{
-                        headerStyle: {
-                            backgroundColor: COLOR.APP_BACKGROUND,
-                        },
-                        title: null,
-                        tabBarIcon: (tabBarProps) => (
-                            <TabBarIcon
-                                tabBarProps={tabBarProps}
-                                screen={PAGES.GROUP_LIST}
-                            />
-                        ),
-                    }}
-                />
+        <Stack.Screen
+            name={PAGES.UPI_APP_SELECTION}
+            component={UPIAppSelection}
+            options={{
+                headerStyle: {
+                    backgroundColor: COLOR.APP_BACKGROUND,
+                },
+                headerTintColor: '#fff',
+            }}
+        />
 
-                <Tab.Screen
-                    name={PAGES.EXPENSE}
-                    component={ExpenseScreen}
-                    options={{
-                        tabBarIcon: (tabBarProps) => (
-                            <TabBarIcon
-                                tabBarProps={tabBarProps}
-                                screen={PAGES.SETTINGS}
-                            />
-                        ),
-                    }}
-                />
-            </Tab.Group>
-        </Tab.Navigator>
-    ) : (
-        <Stack.Navigator>
-            <Stack.Group>
+        <Stack.Screen
+            name={PAGES.PAYMENT}
+            component={PaymentScreen}
+            options={{
+                headerStyle: {
+                    backgroundColor: COLOR.APP_BACKGROUND,
+                },
+                headerTitleAlign: 'left', // Aligns the title to the left
+                headerTintColor: '#fff', // Sets the title color to white
+            }}
+        />
+
+        <Stack.Screen
+            name={PAGES.GROUP}
+            component={Group}
+            options={{
+                headerShown: false,
+            }}
+        />
+        <Stack.Screen
+            name={PAGES.GROUP_SPLIT_SCREEN}
+            component={GroupSplitScreen}
+            options={{
+                headerStyle: {
+                    backgroundColor: COLOR.APP_BACKGROUND,
+                },
+                title: null,
+            }}
+        />
+        <Stack.Screen
+            name={PAGES.SELECT_GROUP}
+            component={SelectGroup}
+            options={{
+                headerStyle: {
+                    backgroundColor: COLOR.APP_BACKGROUND,
+                },
+                headerTitle: 'Add groups',
+                headerTitleStyle: {
+                    color: 'white', // Sets the title color to white
+                    fontWeight: 'bold', // Makes the title bold
+                    fontSize: getFontSizeByWindowWidth(20),
+                },
+            }}
+        />
+
+        <Stack.Screen
+            name={PAGES.ADD_TRANSACTION}
+            component={TransactionFormScreen}
+            options={{
+                headerStyle: {
+                    backgroundColor: COLOR.APP_BACKGROUND,
+                },
+                title: null,
+            }}
+        />
+        <Stack.Screen
+            name={PAGES.CREATE_GROUP}
+            component={CreateGroup}
+            options={{
+                headerStyle: {
+                    backgroundColor: COLOR.APP_BACKGROUND,
+                },
+                title: null,
+            }}
+        />
+        <Stack.Screen
+            name={PAGES.TRANSACTION_DETAIL}
+            component={TransactionDetail}
+            options={{
+                headerStyle: {
+                    backgroundColor: COLOR.APP_BACKGROUND,
+                },
+                title: null,
+            }}
+        />
+        <Stack.Screen name={PAGES.JOIN_GROUP} component={JoinGroup} /></Stack.Group>
+
+         
+        ):(
+        
                 <Stack.Screen
                     name={PAGES.SIGN_UP}
                     options={{
                         headerShown: false,
                     }}
                     component={SignUpScreen}
-                />
-            </Stack.Group>
+                />)}
         </Stack.Navigator>
     );
 };

@@ -1,7 +1,6 @@
 const PAGES = {
     LOGGED_OUT: 'Logged Out',
     GROUP_LIST: 'Groups',
-    GROUP_NAVIGATOR: 'Group Navigator',
     LOGIN: 'Login',
     SIGN_UP: 'Sign Up',
     GROUP: 'Group',
@@ -24,6 +23,7 @@ const PAGES = {
     ACCOUNT: 'Account',
     SCANNER: 'Scanner',
     UPI_APP_SELECTION: 'UPI App Selection',
+    TAB_NAVIGATOR:'Tab Navigation'
 };
 
 export default PAGES;
