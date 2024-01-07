@@ -3,6 +3,7 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import {
     setLocalStoreData,
     removeLocalStoreData,
+    clearAllLocalStoreData
 } from '../helper/localStorage';
 import apiHelper from '../helper/apiHelper';
 import { TOKEN } from '../constants/string';
@@ -32,7 +33,7 @@ export const AuthProvider = ({ children }) => {
     };
     const logout = () => {
         setUser('');
-        removeLocalStoreData(TOKEN);
+        clearAllLocalStoreData();
     };
 
     async function verifyOTP(phoneNumber, countryCode, otp) {

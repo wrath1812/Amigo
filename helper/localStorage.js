@@ -32,5 +32,14 @@ export const getLocalStoreData = async (key) => {
     }
 };
 
+export const clearAllLocalStoreData = async () => {
+    try {
+        const keys = await AsyncStorage.getAllKeys();
+        await AsyncStorage.multiRemove(keys);
+        return { status: true };
+    } catch (error) {
+        return { status: false, error };
+    }
+};
+
 // removeLocalStoreData('token');
-export default { setLocalStoreData, getLocalStoreData, removeLocalStoreData };
