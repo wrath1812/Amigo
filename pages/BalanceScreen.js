@@ -1,10 +1,9 @@
-import React, { useCallback, useState, useLayoutEffect } from 'react';
+import React, { useCallback, useState } from 'react';
 import {
     StyleSheet,
     SafeAreaView,
     View,
     Text,
-    ScrollView,
     FlatList,
     Pressable,
     Image,
@@ -22,11 +21,6 @@ import GroupBalanceCard from '../components/GroupBalanceCard';
 import { useAuth } from '../context/AuthContext';
 import { Ionicons } from '@expo/vector-icons';
 import ScanIcon from '../assets/icons/scan.png';
-import plusIconStyle from '../constants/plusIconStyle';
-import { useEffect } from 'react';
-import { useNavigation, useIsFocused } from '@react-navigation/native';
-import Search from '../components/Search';
-import tabBarStyle from '../constants/tabBarStyle';
 import editNamesAsync from '../helper/editNamesAsync';
 const headerIconSize = 6;
 
@@ -142,22 +136,7 @@ function BalanceScreen({ navigation }) {
     const [balance, setBalance] = useState(0);
     const { user } = useAuth();
 
-    const isFocused = useIsFocused();
-
-    useEffect(() => {
-        if (isFocused) {
-            // Show the tab bar when this screen is focused
-            navigation.getParent()?.setOptions({
-                tabBarStyle: { display: 'flex', ...tabBarStyle },
-            });
-        } else {
-            // Optional: Hide the tab bar when this screen is not focused
-            // You can remove this part if you only want to show the tab bar in this screen
-            navigation.getParent()?.setOptions({
-                tabBarStyle: { display: 'none' },
-            });
-        }
-    }, [isFocused, navigation]);
+  
 
     useFocusEffect(
         useCallback(() => {
