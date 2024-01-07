@@ -51,7 +51,7 @@ function TransactionFormScreen({ navigation }) {
     }, [transactionData.amount, transactionData.group]);
 
     useEffect(() => {
-        if (getPreviousPageName(navigation) == PAGES.BALANCE)
+        if (getPreviousPageName(navigation) == PAGES.TAB_NAVIGATOR)
             resetTransaction();
         else if(getPreviousPageName(navigation) == PAGES.SCANNER)
         {
