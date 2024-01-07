@@ -9,7 +9,6 @@ import GroupIcon from './GroupIcon';
 import { AntDesign } from '@expo/vector-icons';
 
 function GroupSelectCard({ name, onPress, image }) {
-    const navigation = useNavigation();
     return (
         <Pressable style={styles.container} onPress={onPress}>
             {image || <GroupIcon image={LoginImage} />}
