@@ -55,7 +55,6 @@ function TransactionFormScreen({ navigation }) {
             resetTransaction();
         else if(getPreviousPageName(navigation) == PAGES.SCANNER)
         {
-            resetTransaction();
             if (upiParams.am)
                 setTransactionData((prev) => ({
                     ...prev,

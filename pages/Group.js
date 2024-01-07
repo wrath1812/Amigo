@@ -123,6 +123,13 @@ function GroupScreen({
                         </Text>
                     </View>
                 </View>
+                <Pressable onPress={()=>{
+                    setTransactionData((prev)=>({
+                        ...prev,
+                        group
+                    }))
+                    navigation.navigate(PAGES.SCANNER);
+                }}>
                 <AntDesign
                     name="scan1"
                     size={24}
@@ -131,6 +138,7 @@ function GroupScreen({
                         marginRight: calcWidth(5),
                     }}
                 />
+                </Pressable>
             </View>
             <FlatList
                 inverted
