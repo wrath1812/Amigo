@@ -26,6 +26,7 @@ import { useAuth } from '../context/AuthContext';
 import getNamesFromContacts from '../helper/getNamesFromContacts';
 import Feed from '../components/Feed';
 import useSocket from "../hooks/useSocket";
+import editNames from '../helper/editNames';
 function getMembersString(members) {
     let names = [];
     for (let i = 0; i < members.length; i++) {
@@ -61,6 +62,8 @@ function GroupScreen({
             const { data } = await apiHelper(`/activity-feed?groupId=${group._id}`);
             const contactsData = await getNamesFromContacts();
             setContacts(contactsData);
+            for(let activity of data)
+            editNames([activity.creator],user._id,contactsData)[0];
             setActivities(data);
         } catch (error) {
             console.error('Error fetching activities:', error);
