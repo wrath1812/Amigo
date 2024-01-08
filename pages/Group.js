@@ -68,10 +68,18 @@ function GroupScreen({
         setIsLoading(false);
     }, [group]);
 
+    const fetchActivity = useCallback(async (activity) => {
+        if(activity.creator==user._id)
+        return;
+
+        setActivities((prev) => [
+           activity,
+            ...prev,
+        ]);
+    }, []);
+
     useFocusEffect(fetchActivities);
-    useSocket("activity created",(receivedData)=>{
-        console.log("event received from backend",receivedData);
-    })
+    useSocket("activity created",fetchActivity);
 
     async function addChat() {
         setActivities((prev) => [
