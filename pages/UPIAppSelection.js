@@ -15,11 +15,9 @@ import { getFontSizeByWindowWidth } from '../helper/res';
 import PAGES from '../constants/pages';
 
 const UPIAppSelection = ({ navigation }) => {
-    const [selectedUPIApp, setSelectedUPIApp] = useState('');
     const { upiParams } = useTransaction();
 
     const handleSelectApp = (appName, generateDeeplink) => {
-        setSelectedUPIApp(appName);
         const deepLink = generateDeeplink(upiParams);
         console.log(deepLink);
         try {

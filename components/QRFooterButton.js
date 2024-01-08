@@ -1,5 +1,5 @@
 // note(bacon): Purposefully skip using the themed icons since we want the icons to change color based on toggle state.
-import Ionicons from '@expo/vector-icons/build/Ionicons';
+import Ionicons from '@expo/vector-icons/Ionicons';
 import { BlurView } from 'expo-blur';
 import * as Haptics from 'expo-haptics';
 import React from 'react';
@@ -7,7 +7,6 @@ import { Platform, StyleSheet } from 'react-native';
 // @ts-expect-error
 import TouchableBounce from 'react-native/Libraries/Components/Touchable/TouchableBounce';
 
-import Colors from '../constants/Colors';
 
 const shouldUseHaptics = Platform.OS === 'ios';
 
@@ -23,7 +22,7 @@ export default function QRFooterButton({
     iconSize = 36,
 }) {
     const tint = isActive ? 'default' : 'dark';
-    const iconColor = isActive ? Colors.light.tintColor : '#ffffff';
+    const iconColor = isActive ? '##4e9bde' : '#ffffff';
 
     const onPressIn = React.useCallback(() => {
         if (shouldUseHaptics)
