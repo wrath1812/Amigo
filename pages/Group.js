@@ -25,7 +25,7 @@ import { useTransaction } from '../context/TransactionContext';
 import { useAuth } from '../context/AuthContext';
 import getNamesFromContacts from '../helper/getNamesFromContacts';
 import Feed from '../components/Feed';
-import useSocket from "../hooks/useSocket";
+import useSocket from '../hooks/useSocket';
 import editNames from '../helper/editNames';
 function getMembersString(members) {
     let names = [];
@@ -59,11 +59,13 @@ function GroupScreen({
     const fetchActivities = useCallback(async () => {
         setIsLoading(true);
         try {
-            const { data } = await apiHelper(`/activity-feed?groupId=${group._id}`);
+            const { data } = await apiHelper(
+                `/activity-feed?groupId=${group._id}`,
+            );
             const contactsData = await getNamesFromContacts();
             setContacts(contactsData);
-            for(let activity of data)
-            editNames([activity.creator],user._id,contactsData)[0];
+            for (let activity of data)
+                editNames([activity.creator], user._id, contactsData);
             setActivities(data);
         } catch (error) {
             console.error('Error fetching activities:', error);
@@ -72,17 +74,13 @@ function GroupScreen({
     }, [group]);
 
     const fetchActivity = useCallback(async (activity) => {
-        if(activity.creator==user._id)
-        return;
-
-        setActivities((prev) => [
-           activity,
-            ...prev,
-        ]);
+        if (activity.creator == user._id) return;
+        editNames([activity.creator], user._id, contacts);
+        setActivities((prev) => [activity, ...prev]);
     }, []);
 
     useFocusEffect(fetchActivities);
-    useSocket("activity created",fetchActivity);
+    useSocket('activity created', fetchActivity);
 
     async function addChat() {
         setActivities((prev) => [
@@ -120,7 +118,7 @@ function GroupScreen({
                         alignItems: 'center',
                         justifyContent: 'space-between',
                         height: calcHeight(8),
-                        gap:calcWidth(5)
+                        gap: calcWidth(5),
                     }}
                 >
                     <Pressable onPress={() => navigation.goBack()}>
@@ -138,21 +136,23 @@ function GroupScreen({
                         </Text>
                     </View>
                 </View>
-                <Pressable onPress={()=>{
-                    setTransactionData((prev)=>({
-                        ...prev,
-                        group
-                    }))
-                    navigation.navigate(PAGES.SCANNER);
-                }}>
-                <AntDesign
-                    name="scan1"
-                    size={24}
-                    color="white"
-                    style={{
-                        marginRight: calcWidth(5),
+                <Pressable
+                    onPress={() => {
+                        setTransactionData((prev) => ({
+                            ...prev,
+                            group,
+                        }));
+                        navigation.navigate(PAGES.SCANNER);
                     }}
-                />
+                >
+                    <AntDesign
+                        name="scan1"
+                        size={24}
+                        color="white"
+                        style={{
+                            marginRight: calcWidth(5),
+                        }}
+                    />
                 </Pressable>
             </View>
             <FlatList
@@ -199,7 +199,7 @@ function GroupScreen({
                     <TouchableOpacity
                         style={styles.button}
                         onPress={() => {
-                            setAmount("");
+                            setAmount('');
                             resetTransaction();
                             setTransactionData((prev) => ({
                                 ...prev,

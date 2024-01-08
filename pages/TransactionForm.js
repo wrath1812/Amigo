@@ -53,8 +53,7 @@ function TransactionFormScreen({ navigation }) {
     useEffect(() => {
         if (getPreviousPageName(navigation) == PAGES.TAB_NAVIGATOR)
             resetTransaction();
-        else if(getPreviousPageName(navigation) == PAGES.SCANNER)
-        {
+        else if (getPreviousPageName(navigation) == PAGES.SCANNER) {
             if (upiParams.am)
                 setTransactionData((prev) => ({
                     ...prev,

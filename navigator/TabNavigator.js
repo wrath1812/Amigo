@@ -18,19 +18,19 @@ const TabNavigator = () => {
             }}
         >
             <Tab.Group>
-            <Tab.Screen
-                name={PAGES.BALANCE}
-                options={{
-                    headerShown: false,
-                    tabBarIcon: (tabBarProps) => (
-                        <TabBarIcon
-                            tabBarProps={tabBarProps}
-                            screen={PAGES.BALANCE}
-                        />
-                    ),
-                }}
-                component={BalanceScreen}
-            />
+                <Tab.Screen
+                    name={PAGES.BALANCE}
+                    options={{
+                        headerShown: false,
+                        tabBarIcon: (tabBarProps) => (
+                            <TabBarIcon
+                                tabBarProps={tabBarProps}
+                                screen={PAGES.BALANCE}
+                            />
+                        ),
+                    }}
+                    component={BalanceScreen}
+                />
 
                 <Tab.Screen
                     name={PAGES.GROUP_LIST}
@@ -63,7 +63,6 @@ const TabNavigator = () => {
                 />
             </Tab.Group>
         </Tab.Navigator>
-   
     );
 };
 

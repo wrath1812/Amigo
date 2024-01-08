@@ -30,7 +30,7 @@ const useSocket = (eventName, listener) => {
                 socket.current.disconnect();
             }
         };
-    }, []); 
+    }, []);
 
     return socket;
 };

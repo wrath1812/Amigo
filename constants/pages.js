@@ -23,7 +23,7 @@ const PAGES = {
     ACCOUNT: 'Account',
     SCANNER: 'Scanner',
     UPI_APP_SELECTION: 'UPI App Selection',
-    TAB_NAVIGATOR:'Tab Navigation'
+    TAB_NAVIGATOR: 'Tab Navigation',
 };
 
 export default PAGES;

@@ -136,8 +136,6 @@ function BalanceScreen({ navigation }) {
     const [balance, setBalance] = useState(0);
     const { user } = useAuth();
 
-  
-
     useFocusEffect(
         useCallback(() => {
             (async () => {

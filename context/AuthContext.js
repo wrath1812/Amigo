@@ -3,7 +3,7 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import {
     setLocalStoreData,
     removeLocalStoreData,
-    clearAllLocalStoreData
+    clearAllLocalStoreData,
 } from '../helper/localStorage';
 import apiHelper from '../helper/apiHelper';
 import { TOKEN } from '../constants/string';

@@ -17,7 +17,7 @@ export const TransactionProvider = ({ children }) => {
             type: 'General',
             splitAmong: [],
             group: {},
-            paidBy: { _id: user?._id, name: "You" },
+            paidBy: { _id: user?._id, name: 'You' },
         }));
     };
 
