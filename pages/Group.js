@@ -58,7 +58,7 @@ function GroupScreen({
     const fetchActivities = useCallback(async () => {
         setIsLoading(true);
         try {
-            const { data } = await apiHelper(`/activity-feed/${group._id}`);
+            const { data } = await apiHelper(`/activity-feed?groupId=${group._id}`);
             const contactsData = await getNamesFromContacts();
             setContacts(contactsData);
             setActivities(data);
