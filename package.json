@@ -51,7 +51,6 @@
         "prettier": "^3.0.3",
         "react": "18.2.0",
         "react-native": "0.72.6",
-        "react-native-avatar-generator": "^1.0.2",
         "react-native-country-codes-picker": "^2.3.4",
         "react-native-dotenv": "^3.4.9",
         "react-native-keychain": "^8.1.2",
