@@ -8,12 +8,13 @@ import {
 } from 'react-native';
 import COLOR from '../constants/Colors';
 import { calcWidth, calcHeight, getFontSizeByWindowWidth } from '../helper/res';
-import generateRandomColor from '../helper/generateRandomColor';
 import { useAuth } from '../context/AuthContext';
 import { getCategoryIcon } from '../constants/Categories';
 import { Alert } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import apiHelper from '../helper/apiHelper';
+import uuidToColor from "../helper/uuidToColor";
+import useCustomColor from '../hooks/useCustomColor';
 function formatDate(dateString) {
     // Parse the input string to a Date object
     let date = new Date(dateString);
@@ -40,7 +41,11 @@ const TransactionDetail = ({
         params: { transaction },
     },
 }) => {
+    const {user}=useAuth();
     const [date, setDate] = useState(new Date(transaction.date));
+
+  
+    const generateColor=useCustomColor();
 
     const handleDeleteTransaction = async () => {
         Alert.alert(
@@ -171,7 +176,7 @@ const TransactionDetail = ({
                         <View
                             style={[
                                 styles.circle,
-                                { backgroundColor: generateRandomColor() },
+                                { backgroundColor: generateColor(transaction.paidBy._id) },
                             ]}
                         />
                         <Text style={styles.userName}>
@@ -196,7 +201,7 @@ const TransactionDetail = ({
                                             styles.circle,
                                             {
                                                 backgroundColor:
-                                                    generateRandomColor(),
+                                                    generateColor(user._id),
                                             },
                                         ]}
                                     />
