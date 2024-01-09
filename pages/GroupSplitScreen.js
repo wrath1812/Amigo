@@ -48,18 +48,34 @@ const GroupSplitScreen = ({ navigation }) => {
     }, [members]);
 
     const submitSplit = () => {
-        const includedMembers = membersRef.current.filter(
-            (member) => member.included,
-        );
-        setTransactionData((prev) => ({
+        let totalSplitAmount = 0;
+        const includedMembers = [];
+    
+        // Single iteration for filtering and summing
+        membersRef.current.forEach(member => {
+            if (member.included) {
+                includedMembers.push({
+                    user: member.user,
+                    amount: member.amount
+                });
+                totalSplitAmount += member.amount;
+            }
+        });
+    
+        // Compare with the total transaction amount
+        if (totalSplitAmount != transactionData.amount) {
+            alert('The split amounts do not sum up to the total transaction amount.');
+            return; // Stop the function execution
+        }
+    
+        // Proceed if amounts are equal
+        setTransactionData(prev => ({
             ...prev,
-            splitAmong: includedMembers.map(({ user, amount }) => ({
-                user,
-                amount,
-            })),
+            splitAmong: includedMembers
         }));
         navigation.goBack();
     };
+    
 
     const toggleMemberIncluded = (memberId) => {
         setMembers((prevMembers) => {
