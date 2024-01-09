@@ -74,7 +74,7 @@ function GroupScreen({
     }, [group]);
 
     const fetchActivity = useCallback(async (activity) => {
-        if (activity.creator == user._id) return;
+        if (activity.creator._id == user._id) return;
         editNames([activity.creator], user._id, contacts);
         setActivities((prev) => [activity, ...prev]);
     }, []);
