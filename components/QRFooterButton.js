@@ -7,7 +7,6 @@ import { Platform, StyleSheet } from 'react-native';
 // @ts-expect-error
 import TouchableBounce from 'react-native/Libraries/Components/Touchable/TouchableBounce';
 
-
 const shouldUseHaptics = Platform.OS === 'ios';
 
 const size = 64;

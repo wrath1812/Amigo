@@ -22,6 +22,10 @@ const GroupSplitScreen = ({ navigation }) => {
     const [members, setMembers] = useState([]);
     const membersRef = useRef(members);
 
+    function allSelected() {
+        return !members.find((member) => member.included == false);
+    }
+
     useEffect(() => {
         const parsedMembers = [];
 
@@ -186,6 +190,7 @@ const GroupSplitScreen = ({ navigation }) => {
                     style={{
                         flexDirection: 'row',
                         alignItems: 'center',
+                        gap: calcWidth(10),
                     }}
                 >
                     <TouchableOpacity
@@ -197,22 +202,28 @@ const GroupSplitScreen = ({ navigation }) => {
                                     ? 'checkbox-marked'
                                     : 'checkbox-blank-outline'
                             }
-                            size={24}
+                            size={calcWidth(7)}
                             color={item.included ? COLOR.BUTTON : COLOR.TEXT}
                         />
                     </TouchableOpacity>
-                    <Image
-                        source={LoginImage}
+                    <View
                         style={{
-                            width: calcHeight(4),
-                            height: calcHeight(4),
-                            padding: calcWidth(3),
-                            backgroundColor: COLOR.BUTTON,
-                            borderRadius: calcHeight(2),
-                            marginHorizontal: calcWidth(1),
+                            flexDirection: 'row',
                         }}
-                    />
-                    <Text style={styles.memberName}>{item.user.name}</Text>
+                    >
+                        <Image
+                            source={LoginImage}
+                            style={{
+                                width: calcHeight(4),
+                                height: calcHeight(4),
+                                padding: calcWidth(3),
+                                backgroundColor: COLOR.BUTTON,
+                                borderRadius: calcHeight(2),
+                                marginHorizontal: calcWidth(1),
+                            }}
+                        />
+                        <Text style={styles.memberName}>{item.user.name}</Text>
+                    </View>
                 </View>
 
                 <View style={styles.rowCentered}>
@@ -269,17 +280,53 @@ const GroupSplitScreen = ({ navigation }) => {
                 </Pressable>
             </View>
 
-            <Text
+            <View
                 style={{
-                    fontSize: getFontSizeByWindowWidth(15),
-                    color: COLOR.TEXT,
-                    fontWeight: 'bold',
-                    padding: calcWidth(5),
+                    paddingHorizontal: calcWidth(5),
+                    paddingBottom: calcHeight(2),
+                    marginTop: calcHeight(5),
+                    borderBottomColor: 'rgba(255, 255, 255, 0.13)',
+                    borderBottomWidth: 1,
                 }}
             >
-                Split between
-            </Text>
-
+                <Text
+                    style={{
+                        color: COLOR.TEXT,
+                        fontSize: getFontSizeByWindowWidth(15),
+                        fontWeight: 'bold',
+                    }}
+                >
+                    Split between
+                </Text>
+            </View>
+            <View style={styles.memberContainer}>
+                <TouchableOpacity
+                    onPress={()=>{
+                        if(allSelected())
+                        {
+                            members.map((member)=>{
+                                toggleMemberIncluded(member.user._id);
+                            })
+                        }
+                        else{
+                            members.map((member)=>{
+                                if(!member.included)
+                                toggleMemberIncluded(member.user._id);
+                            })
+                        }
+                    }}
+                >
+                    <MaterialCommunityIcons
+                        name={
+                            allSelected()
+                                ? 'checkbox-marked'
+                                : 'checkbox-blank-outline'
+                        }
+                        size={calcWidth(7)}
+                        color={allSelected() ? COLOR.BUTTON : COLOR.TEXT}
+                    />
+                </TouchableOpacity>
+            </View>
             <FlatList
                 data={members}
                 renderItem={renderItem}
@@ -293,7 +340,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         backgroundColor: COLOR.APP_BACKGROUND,
-        padding: calcHeight(2),
     },
     header: {
         padding: calcWidth(5),
@@ -303,11 +349,13 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         flexDirection: 'row',
         justifyContent: 'space-between',
+        marginHorizontal: calcHeight(2),
+        marginVertical: calcHeight(4),
     },
     headerText: {
         color: '#fff',
         fontWeight: 'bold',
-        fontSize: 18,
+        fontSize: getFontSizeByWindowWidth(14),
     },
     memberContainer: {
         flexDirection: 'row',

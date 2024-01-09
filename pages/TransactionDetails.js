@@ -13,7 +13,7 @@ import { getCategoryIcon } from '../constants/Categories';
 import { Alert } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import apiHelper from '../helper/apiHelper';
-import uuidToColor from "../helper/uuidToColor";
+import uuidToColor from '../helper/uuidToColor';
 import useCustomColor from '../hooks/useCustomColor';
 function formatDate(dateString) {
     // Parse the input string to a Date object
@@ -41,11 +41,10 @@ const TransactionDetail = ({
         params: { transaction },
     },
 }) => {
-    const {user}=useAuth();
+    const { user } = useAuth();
     const [date, setDate] = useState(new Date(transaction.date));
 
-  
-    const generateColor=useCustomColor();
+    const generateColor = useCustomColor();
 
     const handleDeleteTransaction = async () => {
         Alert.alert(
@@ -176,7 +175,11 @@ const TransactionDetail = ({
                         <View
                             style={[
                                 styles.circle,
-                                { backgroundColor: generateColor(transaction.paidBy._id) },
+                                {
+                                    backgroundColor: generateColor(
+                                        transaction.paidBy._id,
+                                    ),
+                                },
                             ]}
                         />
                         <Text style={styles.userName}>
@@ -200,8 +203,9 @@ const TransactionDetail = ({
                                         style={[
                                             styles.circle,
                                             {
-                                                backgroundColor:
-                                                    generateColor(user._id),
+                                                backgroundColor: generateColor(
+                                                    user._id,
+                                                ),
                                             },
                                         ]}
                                     />
