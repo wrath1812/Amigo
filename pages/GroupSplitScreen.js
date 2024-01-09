@@ -24,17 +24,16 @@ const GroupSplitScreen = ({ navigation }) => {
     const membersRef = useRef(members);
 
     function countIncludedMembers() {
-        return members.filter(member => member.included).length;
+        return members.filter((member) => member.included).length;
     }
-    
+
     function allSelected() {
         return countIncludedMembers() === members.length;
     }
-    
+
     function selectionFraction() {
         return `${countIncludedMembers()}/${members.length}`;
     }
-    
 
     useEffect(() => {
         const parsedMembers = [];
@@ -60,64 +59,69 @@ const GroupSplitScreen = ({ navigation }) => {
     const submitSplit = () => {
         let totalSplitAmount = 0;
         const includedMembers = [];
-    
+
         // Single iteration for filtering and summing
-        membersRef.current.forEach(member => {
+        membersRef.current.forEach((member) => {
             if (member.included) {
                 includedMembers.push({
                     user: member.user,
-                    amount: member.amount
+                    amount: member.amount,
                 });
                 totalSplitAmount += member.amount;
             }
         });
-    
+
         // Compare with the total transaction amount
         if (totalSplitAmount != transactionData.amount) {
-            alert('The split amounts do not sum up to the total transaction amount.');
+            alert(
+                'The split amounts do not sum up to the total transaction amount.',
+            );
             return; // Stop the function execution
         }
-    
+
         // Proceed if amounts are equal
-        setTransactionData(prev => ({
+        setTransactionData((prev) => ({
             ...prev,
-            splitAmong: includedMembers
+            splitAmong: includedMembers,
         }));
         navigation.goBack();
     };
-    
+
     const splitEqually = () => {
         // Count the number of included members
-        const includedCount = members.filter(member => member.included).length;
-    
+        const includedCount = members.filter(
+            (member) => member.included,
+        ).length;
+
         if (includedCount === 0) {
             return; // Exit if no members are included
         }
-    
+
         // Calculate the amount to be assigned to each included member
         const totalAmount = transactionData.amount || 0;
         const equalShare = Math.floor(totalAmount / includedCount);
         let remainder = totalAmount % includedCount;
-    
+
         // Update the members state
-        setMembers(prevMembers => prevMembers.map(member => {
-            if (member.included) {
-                // Distribute the remainder among the first few members
-                let adjustedAmount = equalShare;
-                if (remainder > 0) {
-                    adjustedAmount += 1;
-                    remainder--;
+        setMembers((prevMembers) =>
+            prevMembers.map((member) => {
+                if (member.included) {
+                    // Distribute the remainder among the first few members
+                    let adjustedAmount = equalShare;
+                    if (remainder > 0) {
+                        adjustedAmount += 1;
+                        remainder--;
+                    }
+                    return {
+                        ...member,
+                        amount: adjustedAmount,
+                        isAmountManuallyEntered: false,
+                    };
                 }
-                return {
-                    ...member,
-                    amount: adjustedAmount,
-                    isAmountManuallyEntered: false
-                };
-            }
-            return member;
-        }));
+                return member;
+            }),
+        );
     };
-    
 
     const toggleMemberIncluded = (memberId) => {
         setMembers((prevMembers) => {
@@ -217,7 +221,7 @@ const GroupSplitScreen = ({ navigation }) => {
                         ...member,
                         amount: newAmount,
                         isAmountManuallyEntered: true,
-                        included:true
+                        included: true,
                     };
                 } else if (!member.isAmountManuallyEntered && member.included) {
                     let adjustedAmount = perUserPayment;
@@ -360,18 +364,16 @@ const GroupSplitScreen = ({ navigation }) => {
             </View>
             <View style={styles.memberContainer}>
                 <TouchableOpacity
-                    onPress={()=>{
-                        if(allSelected())
-                        {
-                            members.map((member)=>{
+                    onPress={() => {
+                        if (allSelected()) {
+                            members.map((member) => {
                                 toggleMemberIncluded(member.user._id);
-                            })
-                        }
-                        else{
-                            members.map((member)=>{
-                                if(!member.included)
-                                toggleMemberIncluded(member.user._id);
-                            })
+                            });
+                        } else {
+                            members.map((member) => {
+                                if (!member.included)
+                                    toggleMemberIncluded(member.user._id);
+                            });
                         }
                     }}
                 >
@@ -385,22 +387,33 @@ const GroupSplitScreen = ({ navigation }) => {
                         color={allSelected() ? COLOR.BUTTON : COLOR.TEXT}
                     />
                 </TouchableOpacity>
-                <Text style={{
-                    color:"#FFFFFF"
-                }}>
+                <Text
+                    style={{
+                        color: '#FFFFFF',
+                    }}
+                >
                     {selectionFraction()} Selected
                 </Text>
-                <TouchableOpacity onPress={()=>splitEqually()} style={
-                    {
-                        flexDirection:"row",
-                        alignItems:"center",
-                        gap:calcWidth(1)
-                    }
-                }>
-                <FontAwesome5 name="redo" size={calcWidth(3)} color={COLOR.BUTTON} />
-                    <Text style={{
-                        color:COLOR.BUTTON
-                    }}>Split Equally</Text>
+                <TouchableOpacity
+                    onPress={() => splitEqually()}
+                    style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        gap: calcWidth(1),
+                    }}
+                >
+                    <FontAwesome5
+                        name="redo"
+                        size={calcWidth(3)}
+                        color={COLOR.BUTTON}
+                    />
+                    <Text
+                        style={{
+                            color: COLOR.BUTTON,
+                        }}
+                    >
+                        Split Equally
+                    </Text>
                 </TouchableOpacity>
             </View>
             <FlatList
@@ -437,7 +450,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         padding: calcHeight(3),
-        alignItems:"center"
+        alignItems: 'center',
     },
     memberName: {
         fontSize: getFontSizeByWindowWidth(15),

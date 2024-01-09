@@ -21,6 +21,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 import { useTransaction } from '../context/TransactionContext';
 import getPreviousPageName from '../helper/getPreviousPageName';
+import { useAuth } from '../context/AuthContext';
 function TransactionFormScreen({ navigation }) {
     const [loading, setIsLoading] = useState(false);
     const {
@@ -31,6 +32,7 @@ function TransactionFormScreen({ navigation }) {
         setUpiParams,
     } = useTransaction();
     const descriptionRef = useRef();
+    const {user}=useAuth();
     useEffect(() => {
         const { group } = transactionData;
         if (group && group.members) {
@@ -45,10 +47,18 @@ function TransactionFormScreen({ navigation }) {
                 splitAmong: group.members.map((user, index) => ({
                     amount: perUserPayment + (index < remainder ? 1 : 0),
                     user,
+                    paidBy: { _id: user?._id, name: 'You' },
                 })),
             }));
         }
     }, [transactionData.amount, transactionData.group]);
+
+    useEffect(() => {
+        setTransactionData((prev) => ({
+            ...prev,
+            paidBy: { _id: user?._id, name: 'You' },
+        }));
+    }, [transactionData.group]);
 
     useEffect(() => {
         if (getPreviousPageName(navigation) == PAGES.TAB_NAVIGATOR)
@@ -72,7 +82,7 @@ function TransactionFormScreen({ navigation }) {
     const handleCategorySelect = (category) => {
         setTransactionData((prev) => ({
             ...prev,
-            category: category,
+            type: category,
         }));
     };
 
@@ -171,7 +181,7 @@ function TransactionFormScreen({ navigation }) {
                         key={index}
                         style={[
                             styles.categoryItem,
-                            transactionData.category === item.name &&
+                            transactionData.type === item.name &&
                                 styles.selectedCategory,
                         ]}
                         onPress={() => handleCategorySelect(item.name)}
@@ -180,7 +190,7 @@ function TransactionFormScreen({ navigation }) {
                         <Text
                             style={[
                                 styles.categoryText,
-                                transactionData.category === item.name && {
+                                transactionData.type === item.name && {
                                     color: 'black',
                                 },
                             ]}
@@ -258,7 +268,7 @@ function TransactionFormScreen({ navigation }) {
                                 color: 'white',
                             }}
                         >
-                            Paid By {transactionData.paidBy.name}
+                            Paid By {transactionData.paidBy?.name}
                         </Text>
                     </Pressable>
                     <Pressable
