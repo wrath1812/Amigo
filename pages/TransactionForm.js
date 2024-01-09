@@ -67,7 +67,8 @@ function TransactionFormScreen({ navigation }) {
             if (upiParams.am)
                 setTransactionData((prev) => ({
                     ...prev,
-                    amount: upiParams.am,
+                    amount: upiParams.am||"",
+                    description:""
                 }));
         }
     }, []);
