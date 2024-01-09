@@ -14,7 +14,7 @@
         "production": {
             "env": {
                 "ENV": "production",
-                "API_URL": "http://34.193.8.8:3000"
+                "API_URL": "https://b168-2405-201-13-305f-e0b9-ed62-d381-5124.ngrok-free.app/"
             }
         }
     },
