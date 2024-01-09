@@ -16,15 +16,25 @@ import PAGES from '../constants/pages';
 import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
 import sliceText from '../helper/sliceText';
 import LoginImage from '../assets/Login.png';
+import { FontAwesome5 } from '@expo/vector-icons';
 
 const GroupSplitScreen = ({ navigation }) => {
     const { transactionData, setTransactionData } = useTransaction();
     const [members, setMembers] = useState([]);
     const membersRef = useRef(members);
 
-    function allSelected() {
-        return !members.find((member) => member.included == false);
+    function countIncludedMembers() {
+        return members.filter(member => member.included).length;
     }
+    
+    function allSelected() {
+        return countIncludedMembers() === members.length;
+    }
+    
+    function selectionFraction() {
+        return `${countIncludedMembers()}/${members.length}`;
+    }
+    
 
     useEffect(() => {
         const parsedMembers = [];
@@ -375,8 +385,22 @@ const GroupSplitScreen = ({ navigation }) => {
                         color={allSelected() ? COLOR.BUTTON : COLOR.TEXT}
                     />
                 </TouchableOpacity>
-                <TouchableOpacity onPress={()=>splitEqually()}>
-                    <Text>dcs</Text>
+                <Text style={{
+                    color:"#FFFFFF"
+                }}>
+                    {selectionFraction()} Selected
+                </Text>
+                <TouchableOpacity onPress={()=>splitEqually()} style={
+                    {
+                        flexDirection:"row",
+                        alignItems:"center",
+                        gap:calcWidth(1)
+                    }
+                }>
+                <FontAwesome5 name="redo" size={calcWidth(3)} color={COLOR.BUTTON} />
+                    <Text style={{
+                        color:COLOR.BUTTON
+                    }}>Split Equally</Text>
                 </TouchableOpacity>
             </View>
             <FlatList
@@ -412,7 +436,8 @@ const styles = StyleSheet.create({
     memberContainer: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        padding: 20,
+        padding: calcHeight(3),
+        alignItems:"center"
     },
     memberName: {
         fontSize: getFontSizeByWindowWidth(15),
