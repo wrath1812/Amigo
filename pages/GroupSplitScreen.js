@@ -76,6 +76,38 @@ const GroupSplitScreen = ({ navigation }) => {
         navigation.goBack();
     };
     
+    const splitEqually = () => {
+        // Count the number of included members
+        const includedCount = members.filter(member => member.included).length;
+    
+        if (includedCount === 0) {
+            return; // Exit if no members are included
+        }
+    
+        // Calculate the amount to be assigned to each included member
+        const totalAmount = transactionData.amount || 0;
+        const equalShare = Math.floor(totalAmount / includedCount);
+        let remainder = totalAmount % includedCount;
+    
+        // Update the members state
+        setMembers(prevMembers => prevMembers.map(member => {
+            if (member.included) {
+                // Distribute the remainder among the first few members
+                let adjustedAmount = equalShare;
+                if (remainder > 0) {
+                    adjustedAmount += 1;
+                    remainder--;
+                }
+                return {
+                    ...member,
+                    amount: adjustedAmount,
+                    isAmountManuallyEntered: false
+                };
+            }
+            return member;
+        }));
+    };
+    
 
     const toggleMemberIncluded = (memberId) => {
         setMembers((prevMembers) => {
@@ -175,6 +207,7 @@ const GroupSplitScreen = ({ navigation }) => {
                         ...member,
                         amount: newAmount,
                         isAmountManuallyEntered: true,
+                        included:true
                     };
                 } else if (!member.isAmountManuallyEntered && member.included) {
                     let adjustedAmount = perUserPayment;
@@ -341,6 +374,9 @@ const GroupSplitScreen = ({ navigation }) => {
                         size={calcWidth(7)}
                         color={allSelected() ? COLOR.BUTTON : COLOR.TEXT}
                     />
+                </TouchableOpacity>
+                <TouchableOpacity onPress={()=>splitEqually()}>
+                    <Text>dcs</Text>
                 </TouchableOpacity>
             </View>
             <FlatList
