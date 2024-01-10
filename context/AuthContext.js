@@ -48,6 +48,17 @@ export const AuthProvider = ({ children }) => {
         setLocalStoreData(TOKEN, token);
     }
 
+    async function editUser(editedUser)
+    {
+        setUser((prev)=>{
+            apiHelper.put("/user",editUser);
+            return {
+                ...prev,
+                ...editedUser
+            };
+        });
+    }
+
     return (
         <AuthContext.Provider
             value={{
@@ -57,6 +68,7 @@ export const AuthProvider = ({ children }) => {
                 verifyOTP,
                 addName,
                 logout,
+                editUser
             }}
         >
             {children}

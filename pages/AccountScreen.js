@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useLayoutEffect, useState} from 'react';
 import {
     StyleSheet,
     SafeAreaView,
@@ -6,6 +6,8 @@ import {
     Text,
     Image,
     Pressable,
+    TextInput,
+    TouchableOpacity
 } from 'react-native';
 import { useAuth } from '../context/AuthContext';
 import COLOR from '../constants/Colors';
@@ -18,27 +20,15 @@ import {
     MaterialCommunityIcons,
     MaterialIcons,
 } from '@expo/vector-icons';
+import  MenuOption  from "../components/AccountPageOption"
+import apiHelper from "../helper/apiHelper";
 
-function MenuOption({
-    iconName,
-    label,
-    IconComponent,
-    additionalStyle,
-    onPress,
-}) {
-    return (
-        <Pressable
-            style={[styles.menuOption, additionalStyle]}
-            onPress={onPress}
-        >
-            <IconComponent name={iconName} size={calcHeight(3)} color="white" />
-            <Text style={styles.menuText}>{label}</Text>
-        </Pressable>
-    );
-}
 
 function ProfileScreen({ navigation }) {
-    const { user, logout } = useAuth();
+    const { user, logout,editUser } = useAuth();
+    const [editMode, setEditMode] = useState(false);
+    const [name, setName] = useState(user.name);
+    const [phoneNumber, setPhoneNumber] = useState(user.phoneNumber);
 
     const menuOptions = [
         {
@@ -58,16 +48,64 @@ function ProfileScreen({ navigation }) {
         },
     ];
 
+    useLayoutEffect(() => {
+        navigation.setOptions({
+            headerLeft: () => (
+                editMode ? (
+                    <TouchableOpacity 
+                        onPress={() => setEditMode(false)}
+                    >
+                        <Text style={[styles.bottomBarText, { fontWeight: "bold" }]}>
+                            Cancel
+                        </Text>
+                    </TouchableOpacity>
+                ) : undefined
+            ),
+            headerRight: () => (
+                editMode ? (
+                    <TouchableOpacity 
+                        onPress={() => {
+                            editUser({phoneNumber,name});
+                            setEditMode(false);
+                        }}
+                    >
+                        <Text style={[styles.bottomBarText, { fontWeight: "bold" }]}>
+                            Done
+                        </Text>
+                    </TouchableOpacity>
+                ) : undefined
+            ),
+        });
+    }, [navigation, editMode]);
+
     return (
         <SafeAreaView style={styles.container}>
-            {/* User Info */}
             <View style={styles.userInfo}>
                 <Image source={SignUpImage} style={styles.userImage} />
                 <View>
-                    <Text style={styles.userName}>{user.name}</Text>
-                    <Text style={styles.userPhone}>{user.phoneNumber}</Text>
+                    {editMode ? (
+                        <TextInput 
+                            style={styles.userName} 
+                            value={name} 
+                            onChangeText={setName} 
+                        />
+                    ) : (
+                        <Text style={styles.userName}>{name}</Text>
+                    )}
+                    {editMode ? (
+                        <TextInput 
+                            style={styles.userPhone} 
+                            value={phoneNumber} 
+                            onChangeText={setPhoneNumber} 
+                            keyboardType="numeric"
+                        />
+                    ) : (
+                        <Text style={styles.userPhone}>{phoneNumber}</Text>
+                    )}
                 </View>
-                <Pressable>
+                <Pressable onPress={() => {
+                    setEditMode(!editMode)
+                    }}>
                     <Feather
                         name="edit-3"
                         size={calcHeight(3)}
@@ -76,7 +114,6 @@ function ProfileScreen({ navigation }) {
                 </Pressable>
             </View>
 
-            {/* Invite Friends */}
             <Pressable style={styles.inviteFriends}>
                 <Octicons
                     name="cross-reference"
@@ -86,7 +123,6 @@ function ProfileScreen({ navigation }) {
                 <Text style={styles.menuText}>Invite Friends</Text>
             </Pressable>
 
-            {/* Other Menu Options */}
             {menuOptions.map((option, index) => (
                 <MenuOption
                     key={index}
@@ -96,7 +132,6 @@ function ProfileScreen({ navigation }) {
                 />
             ))}
 
-            {/* Logout */}
             <MenuOption
                 label="Logout"
                 iconName="logout"
@@ -137,12 +172,6 @@ const styles = StyleSheet.create({
         fontSize: getFontSizeByWindowWidth(10),
         paddingTop: calcHeight(1),
     },
-    menuOption: {
-        flexDirection: 'row',
-        margin: calcWidth(5),
-        alignItems: 'center',
-        gap: calcWidth(10),
-    },
     inviteFriends: {
         alignItems: 'center',
         margin: calcHeight(2),
@@ -163,6 +192,9 @@ const styles = StyleSheet.create({
         color: 'white',
         fontWeight: 'bold',
     },
+    bottomBarText:{
+        color:COLOR.BUTTON
+    }
 });
 
 export default ProfileScreen;
