@@ -166,7 +166,7 @@ function PaymentActivity({ payment, contacts }) {
             <Text style={styles.description}>
                 {payer.name} paid {receiver.name}
             </Text>
-            <Text style={styles.amount}>${payment.amount}</Text>
+            <Text style={styles.amount}>₹ {payment.amount}</Text>
         </View>
     );
 }
