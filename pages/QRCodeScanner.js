@@ -5,6 +5,7 @@ import CameraScanner from '../components/CameraScanner';
 import { useTransaction } from '../context/TransactionContext';
 import URL from 'url-parse';
 import PAGES from '../constants/pages';
+
 const QRCodeScanner = ({ navigation }) => {
     const [hasPermission, setHasPermission] = useState(null);
     const [isLit, setIsLit] = useState(false);

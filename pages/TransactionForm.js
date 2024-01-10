@@ -61,16 +61,15 @@ function TransactionFormScreen({ navigation }) {
     }, [transactionData.group]);
 
     useEffect(() => {
-        if (getPreviousPageName(navigation) == PAGES.TAB_NAVIGATOR)
-            resetTransaction();
-        else if (getPreviousPageName(navigation) == PAGES.SCANNER) {
-            if (upiParams.am)
+            if (upiParams.am){
                 setTransactionData((prev) => ({
                     ...prev,
-                    amount: upiParams.am||"",
-                    description:""
+                    amount: upiParams.am||""
                 }));
-        }
+    }
+    return () => {
+        resetTransaction();
+    };
     }, []);
 
     const handleInputChange = (field, value) => {
