@@ -30,6 +30,21 @@ function ProfileScreen({ navigation }) {
     const [name, setName] = useState(user.name);
     const [phoneNumber, setPhoneNumber] = useState(user.phoneNumber);
 
+    function submitUserData()
+    {
+        if(phoneNumber.length!=10){
+            alert("Invalid Phone Number")
+        return;
+        }
+        if(!name || name=="")
+        {
+            alert("Empty Name")
+        return;
+        }
+        editUser({phoneNumber,name});
+        setEditMode(false);
+    }
+
     const menuOptions = [
         {
             label: 'Account Settings',
@@ -64,20 +79,7 @@ function ProfileScreen({ navigation }) {
             headerRight: () => (
                 editMode ? (
                     <TouchableOpacity 
-                        onPress={() => {
-                            if(phoneNumber.length!=10){
-                                alert("Invalid Phone Number")
-                            return;
-                            }
-                            if(!name || name=="")
-                            {
-                                alert("Empty Name")
-                            return;
-                            }
-                            
-                            editUser({phoneNumber,name});
-                            setEditMode(false);
-                        }}
+                        onPress={submitUserData}
                     >
                         <Text style={[styles.bottomBarText, { fontWeight: "bold" }]}>
                             Done

@@ -51,7 +51,7 @@ export const AuthProvider = ({ children }) => {
     async function editUser(editedUser)
     {
         setUser((prev)=>{
-            apiHelper.put("/user",editUser);
+            apiHelper.put("/user",editedUser);
             return {
                 ...prev,
                 ...editedUser
