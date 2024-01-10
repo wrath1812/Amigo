@@ -9,7 +9,7 @@ import {
     FlatList,
     TouchableOpacity,
     TextInput,
-    KeyboardAvoidingView
+    KeyboardAvoidingView,
 } from 'react-native';
 import { Ionicons, AntDesign, SimpleLineIcons } from '@expo/vector-icons';
 import apiHelper from '../helper/apiHelper';
@@ -168,7 +168,6 @@ function GroupScreen({
                 }}
             />
             <KeyboardAvoidingView
-                    
                 style={{
                     flex: 1,
                     flexDirection: 'row',
@@ -176,7 +175,7 @@ function GroupScreen({
                     justifyContent: 'space-evenly',
                 }}
                 behavior={Platform.OS === 'ios' ? 'padding' : undefined}
-                    keyboardVerticalOffset={calcHeight(9)}
+                keyboardVerticalOffset={calcHeight(9)}
             >
                 <Pressable
                     style={[

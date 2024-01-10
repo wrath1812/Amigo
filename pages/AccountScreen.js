@@ -1,4 +1,4 @@
-import React,{useLayoutEffect, useRef, useState} from 'react';
+import React, { useLayoutEffect, useEffect, useRef, useState } from 'react';
 import {
     StyleSheet,
     SafeAreaView,
@@ -7,7 +7,7 @@ import {
     Image,
     Pressable,
     TextInput,
-    TouchableOpacity
+    TouchableOpacity,
 } from 'react-native';
 import { useAuth } from '../context/AuthContext';
 import COLOR from '../constants/Colors';
@@ -20,30 +20,37 @@ import {
     MaterialCommunityIcons,
     MaterialIcons,
 } from '@expo/vector-icons';
-import  MenuOption  from "../components/AccountPageOption"
-import apiHelper from "../helper/apiHelper";
-
+import MenuOption from '../components/AccountPageOption';
 
 function ProfileScreen({ navigation }) {
-    const { user, logout,editUser } = useAuth();
+    const { user, logout, editUser } = useAuth();
     const [editMode, setEditMode] = useState(false);
     const [name, setName] = useState(user.name);
     const [phoneNumber, setPhoneNumber] = useState(user.phoneNumber);
 
-    function submitUserData()
-    {
-        if(phoneNumber.length!=10){
-            alert("Invalid Phone Number")
-        return;
-        }
-        if(!name || name=="")
-        {
-            alert("Empty Name")
-        return;
-        }
-        editUser({phoneNumber,name});
-        setEditMode(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
+
+    function submitUserData() {
+        setIsSubmitting(true);
     }
+
+    useEffect(() => {
+        if (isSubmitting) {
+            if (phoneNumber.length !== 10) {
+                alert('Invalid Phone Number');
+                setIsSubmitting(false);
+                return;
+            }
+            if (!name || name === '') {
+                alert('Empty Name');
+                setIsSubmitting(false);
+                return;
+            }
+            editUser({ phoneNumber, name });
+            setEditMode(false);
+            setIsSubmitting(false);
+        }
+    }, [isSubmitting, name, phoneNumber]);
 
     const menuOptions = [
         {
@@ -65,28 +72,32 @@ function ProfileScreen({ navigation }) {
 
     useLayoutEffect(() => {
         navigation.setOptions({
-            headerLeft: () => (
+            headerLeft: () =>
                 editMode ? (
-                    <TouchableOpacity 
-                        onPress={() => setEditMode(false)}
-                    >
-                        <Text style={[styles.bottomBarText, { fontWeight: "bold" }]}>
+                    <TouchableOpacity onPress={() => setEditMode(false)}>
+                        <Text
+                            style={[
+                                styles.bottomBarText,
+                                { fontWeight: 'bold' },
+                            ]}
+                        >
                             Cancel
                         </Text>
                     </TouchableOpacity>
-                ) : undefined
-            ),
-            headerRight: () => (
+                ) : undefined,
+            headerRight: () =>
                 editMode ? (
-                    <TouchableOpacity 
-                        onPress={submitUserData}
-                    >
-                        <Text style={[styles.bottomBarText, { fontWeight: "bold" }]}>
+                    <TouchableOpacity onPress={submitUserData}>
+                        <Text
+                            style={[
+                                styles.bottomBarText,
+                                { fontWeight: 'bold' },
+                            ]}
+                        >
                             Done
                         </Text>
                     </TouchableOpacity>
-                ) : undefined
-            ),
+                ) : undefined,
         });
     }, [navigation, editMode]);
 
@@ -96,19 +107,19 @@ function ProfileScreen({ navigation }) {
                 <Image source={SignUpImage} style={styles.userImage} />
                 <View>
                     {editMode ? (
-                        <TextInput 
-                            style={styles.userName} 
-                            value={name} 
-                            onChangeText={setName} 
+                        <TextInput
+                            style={styles.userName}
+                            value={name}
+                            onChangeText={setName}
                         />
                     ) : (
                         <Text style={styles.userName}>{name}</Text>
                     )}
                     {editMode ? (
-                        <TextInput 
-                            style={styles.userPhone} 
-                            value={phoneNumber} 
-                            onChangeText={setPhoneNumber} 
+                        <TextInput
+                            style={styles.userPhone}
+                            value={phoneNumber}
+                            onChangeText={setPhoneNumber}
                             keyboardType="numeric"
                             autoFocus
                         />
@@ -116,9 +127,11 @@ function ProfileScreen({ navigation }) {
                         <Text style={styles.userPhone}>{phoneNumber}</Text>
                     )}
                 </View>
-                <Pressable onPress={() => {
-                    setEditMode((prev)=>!prev)
-                    }}>
+                <Pressable
+                    onPress={() => {
+                        setEditMode((prev) => !prev);
+                    }}
+                >
                     <Feather
                         name="edit-3"
                         size={calcHeight(3)}
@@ -205,9 +218,9 @@ const styles = StyleSheet.create({
         color: 'white',
         fontWeight: 'bold',
     },
-    bottomBarText:{
-        color:COLOR.BUTTON
-    }
+    bottomBarText: {
+        color: COLOR.BUTTON,
+    },
 });
 
 export default ProfileScreen;

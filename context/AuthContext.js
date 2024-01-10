@@ -48,13 +48,12 @@ export const AuthProvider = ({ children }) => {
         setLocalStoreData(TOKEN, token);
     }
 
-    async function editUser(editedUser)
-    {
-        setUser((prev)=>{
-            apiHelper.put("/user",editedUser);
+    async function editUser(editedUser) {
+        setUser((prev) => {
+            apiHelper.put('/user', editedUser);
             return {
                 ...prev,
-                ...editedUser
+                ...editedUser,
             };
         });
     }
@@ -68,7 +67,7 @@ export const AuthProvider = ({ children }) => {
                 verifyOTP,
                 addName,
                 logout,
-                editUser
+                editUser,
             }}
         >
             {children}

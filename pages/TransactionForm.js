@@ -32,7 +32,7 @@ function TransactionFormScreen({ navigation }) {
         setUpiParams,
     } = useTransaction();
     const descriptionRef = useRef();
-    const {user}=useAuth();
+    const { user } = useAuth();
     useEffect(() => {
         const { group } = transactionData;
         if (group && group.members) {
@@ -61,15 +61,15 @@ function TransactionFormScreen({ navigation }) {
     }, [transactionData.group]);
 
     useEffect(() => {
-            if (upiParams.am){
-                setTransactionData((prev) => ({
-                    ...prev,
-                    amount: upiParams.am||""
-                }));
-    }
-    return () => {
-        resetTransaction();
-    };
+        if (upiParams.am) {
+            setTransactionData((prev) => ({
+                ...prev,
+                amount: upiParams.am || '',
+            }));
+        }
+        return () => {
+            resetTransaction();
+        };
     }, []);
 
     const handleInputChange = (field, value) => {
