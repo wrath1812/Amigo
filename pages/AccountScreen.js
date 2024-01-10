@@ -1,4 +1,4 @@
-import React,{useLayoutEffect, useState} from 'react';
+import React,{useLayoutEffect, useRef, useState} from 'react';
 import {
     StyleSheet,
     SafeAreaView,
@@ -110,13 +110,14 @@ function ProfileScreen({ navigation }) {
                             value={phoneNumber} 
                             onChangeText={setPhoneNumber} 
                             keyboardType="numeric"
+                            autoFocus
                         />
                     ) : (
                         <Text style={styles.userPhone}>{phoneNumber}</Text>
                     )}
                 </View>
                 <Pressable onPress={() => {
-                    setEditMode(!editMode)
+                    setEditMode((prev)=>!prev)
                     }}>
                     <Feather
                         name="edit-3"
