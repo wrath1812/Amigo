@@ -65,6 +65,16 @@ function ProfileScreen({ navigation }) {
                 editMode ? (
                     <TouchableOpacity 
                         onPress={() => {
+                            if(phoneNumber.length!=10){
+                                alert("Invalid Phone Number")
+                            return;
+                            }
+                            if(!name || name=="")
+                            {
+                                alert("Empty Name")
+                            return;
+                            }
+                            
                             editUser({phoneNumber,name});
                             setEditMode(false);
                         }}
