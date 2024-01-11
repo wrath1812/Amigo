@@ -112,7 +112,12 @@ function GroupScreen({
 
     return (
         <SafeAreaView style={styles.container}>
-            <View style={styles.header}>
+            <Pressable
+                style={styles.header}
+                onPress={() => {
+                    navigation.navigate(PAGES.GROUP_SETTINGS, { group });
+                }}
+            >
                 <View
                     style={{
                         flexDirection: 'row',
@@ -155,7 +160,7 @@ function GroupScreen({
                         }}
                     />
                 </Pressable>
-            </View>
+            </Pressable>
             <FlatList
                 inverted
                 data={activities}

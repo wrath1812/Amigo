@@ -6,6 +6,7 @@ const COLOR = {
     ERROR_BORDER: 'red',
     BUTTON_DISABLED: 'grey',
     PAYMENT_BACKGROUND: '#342F4F',
+    BORDER_COLOR: 'rgba(255,255,255,0.2)',
 };
 
 export default COLOR;

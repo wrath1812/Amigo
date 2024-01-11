@@ -22,6 +22,7 @@ import CreateGroup from '../pages/CreateGroup';
 import { getFontSizeByWindowWidth } from '../helper/res';
 import TransactionFormScreen from '../pages/TransactionForm';
 import JoinGroup from '../pages/JoinGroup';
+import GroupSettings from '../pages/GroupSettings';
 const AppNavigator = () => {
     const { user } = useAuth();
     return (
@@ -49,6 +50,16 @@ const AppNavigator = () => {
                                 backgroundColor: COLOR.APP_BACKGROUND,
                             },
                             title: null,
+                        }}
+                    />
+                    <Stack.Screen
+                        name={PAGES.GROUP_SETTINGS}
+                        component={GroupSettings}
+                        options={{
+                            headerStyle: {
+                                backgroundColor: COLOR.APP_BACKGROUND,
+                            },
+                            headerTintColor: '#fff',
                         }}
                     />
                     <Stack.Screen

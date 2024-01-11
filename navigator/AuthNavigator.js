@@ -5,7 +5,6 @@ import PAGES from '../constants/pages';
 import LoginScreen from '../pages/LoginScreen';
 import OTPScreen from '../pages/OTPScreen';
 const Stack = createNativeStackNavigator();
-import SelectPaidBy from '../pages/SelectPaidBy';
 import OnboardingScreen from '../pages/OnBoardingScreen';
 const AuthNavigator = (
     <Stack.Navigator>
