@@ -54,11 +54,6 @@ function ProfileScreen({ navigation }) {
 
     const menuOptions = [
         {
-            label: 'Account Settings',
-            iconName: 'settings-outline',
-            IconComponent: Ionicons,
-        },
-        {
             label: 'Help & Support',
             iconName: 'message-square',
             IconComponent: Feather,
