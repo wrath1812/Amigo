@@ -1,5 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, FlatList, ScrollView } from 'react-native';
+/**
+ * The above code is a React Native component that represents a screen for displaying and managing a
+ * group, including its members and settings.
+ */
+import React, { useEffect, useState,useLayoutEffect,useRef } from 'react';
+import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, FlatList, ScrollView,TextInput } from 'react-native';
 import { MaterialCommunityIcons, SimpleLineIcons } from '@expo/vector-icons';
 
 import GroupIcon from '../components/GroupIcon';
@@ -20,14 +24,50 @@ const MemberItem = ({ icon, name, phone, isIcon }) => (
 );
 
 const GroupScreen = ({ navigation, route: { params: { group } } }) => {
-    const [groupMembers, setGroupMembers] = useState([
-        { name: 'You', phoneNumber: '+911234567890', isAdmin: true },
-        { name: 'Binny', phoneNumber: '+911234567890', isAdmin: false },
-    ]);
+    const [groupMembers, setGroupMembers] = useState();
+    const [isEditing, setIsEditing] = useState();
+    const [groupName, setGroupName] = useState();
+    const groupRef=useRef();
 
     useEffect(() => {
         setGroupMembers(group.members);
+        setIsEditing(false);
+        setGroupName(group.name);
     }, [group]);
+
+    const submitGroupData=async()=>{
+        console.log("Inside",groupRef.current,groupName,a);
+    };
+
+    useLayoutEffect(() => {
+        navigation.setOptions({
+            headerLeft: () =>
+            isEditing ? (
+                    <TouchableOpacity onPress={() => setIsEditing(false)}>
+                        <Text
+                            style={[
+                                styles.bottomBarText,
+                                { fontWeight: 'bold' },
+                            ]}
+                        >
+                            Cancel
+                        </Text>
+                    </TouchableOpacity>
+                ) : undefined,
+            headerRight: () => isEditing ? (
+                    <TouchableOpacity onPress={()=>submitGroupData()}>
+                        <Text
+                            style={[
+                                styles.bottomBarText,
+                                { fontWeight: 'bold' },
+                            ]}
+                        >
+                            Done
+                        </Text>
+                    </TouchableOpacity>
+                ) : undefined
+        });
+    }, [navigation, isEditing]);
 
     const renderMemberItem = ({ item }) => (
         <MemberItem name={item.name} phone={item.phoneNumber} icon={GroupSettingsIcon} isIcon/>
@@ -36,17 +76,25 @@ const GroupScreen = ({ navigation, route: { params: { group } } }) => {
     return (
         <SafeAreaView style={styles.container}>
             <ScrollView>
-                <View style={styles.centeredView}>
+                <TouchableOpacity onPress={()=>submitGroupData()} style={styles.centeredView}>
                     <GroupIcon size={{ width: calcWidth(20), height: calcWidth(20) }} image={GroupSettingsIcon} isIcon={true}/>
-                </View>
+                </TouchableOpacity>
                 <View style={styles.header}>
                     <View style={styles.groupInfo}>
                         <View style={styles.spacing}>
-                            <Text style={styles.groupName}>Miami trip</Text>
+                            {isEditing?(<TextInput
+                    onChangeText={(text)=>{setGroupName(text);
+                        groupRef.current=text;
+                    }}
+                    value={groupName}
+                    autoFocus
+                    style={styles.groupName}
+                />):(<Text style={styles.groupName}>{groupName}</Text>)}
+                            
                             <Text style={styles.groupCreatedAt}>Created on 25 Dec 2023, 10:32 PM</Text>
                         </View>
                     </View>
-                    <TouchableOpacity onPress={() => {}}>
+                    <TouchableOpacity onPress={() => {setIsEditing((prev)=>!prev)}}>
                         <SimpleLineIcons name="pencil" size={calcHeight(3)} color="white"/>
                     </TouchableOpacity>
                 </View>
