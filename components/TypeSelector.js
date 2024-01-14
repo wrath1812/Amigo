@@ -1,6 +1,6 @@
 import React from 'react';
 import { TouchableOpacity, Text, Image } from 'react-native';
-import { getFontSizeByWindowWidth } from '../helper/res';
+import { calcWidth, getFontSizeByWindowWidth } from '../helper/res';
 import COLOR from '../constants/Colors';
 import typeIcon from '../assets/icons/type.png'; // Make sure this path is correct
 
@@ -11,6 +11,8 @@ const TypeSelector = ({ setType }) => {
                 backgroundColor: '#342F4F',
                 padding: 10,
                 flexDirection: 'row',
+                gap:calcWidth(8),
+                alignItems:"center"
             }}
             onPress={() => {/* Implement type selection logic here */}}
         >
@@ -24,8 +26,8 @@ const TypeSelector = ({ setType }) => {
             </Text>
             <Image
                 style={{
-                    height: 20,
-                    width: 20,
+                    height: calcWidth(3),
+                    width: calcWidth(5),
                 }}
                 source={typeIcon}
             />

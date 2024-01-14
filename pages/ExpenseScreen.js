@@ -55,7 +55,8 @@ const styles = StyleSheet.create({
     },
     selectorContainer: {
         flexDirection: "row",
-        justifyContent: "space-around",
+        gap:calcWidth(8),
+        margin:calcWidth(5),
         alignItems: 'center',
     },
     noTransactionsText: {
