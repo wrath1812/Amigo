@@ -37,7 +37,7 @@ const InvitationLandingScreen = ({ navigation, route:{
             <TouchableOpacity style={styles.button} onPress={handleJoin}>
                 <Text style={styles.buttonText}>Join</Text>
             </TouchableOpacity> */}
-            <Text>jknjknk</Text>
+            <Text>{groupId}</Text>
         </SafeAreaView>
     );
 };
