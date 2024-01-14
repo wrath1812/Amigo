@@ -23,6 +23,7 @@ import { getFontSizeByWindowWidth } from '../helper/res';
 import TransactionFormScreen from '../pages/TransactionForm';
 import JoinGroup from '../pages/JoinGroup';
 import GroupSettings from '../pages/GroupSettings';
+import FAQ from '../pages/FAQ';
 const AppNavigator = () => {
     const { user } = useAuth();
     return (
@@ -98,6 +99,16 @@ const AppNavigator = () => {
                             headerTintColor: '#fff',
                         }}
                     />
+                    <Stack.Screen 
+                    name={PAGES.FAQ}
+                    component={FAQ}
+                    options={{
+                        headerStyle: {
+                            backgroundColor: COLOR.APP_BACKGROUND,
+                        },
+                        headerTintColor: '#fff',
+                    }}
+                />
 
                     <Stack.Screen
                         name={PAGES.UPI_APP_SELECTION}

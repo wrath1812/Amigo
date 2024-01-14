@@ -21,6 +21,7 @@ import {
     MaterialIcons,
 } from '@expo/vector-icons';
 import MenuOption from '../components/AccountPageOption';
+import PAGES from '../constants/pages';
 
 function ProfileScreen({ navigation }) {
     const { user, logout, editUser } = useAuth();
@@ -54,9 +55,10 @@ function ProfileScreen({ navigation }) {
 
     const menuOptions = [
         {
-            label: 'Help & Support',
+            label: 'FAQ',
             iconName: 'message-square',
             IconComponent: Feather,
+            onPress:()=>navigation.navigate(PAGES.FAQ)
         },
         {
             label: 'About',
@@ -150,6 +152,7 @@ function ProfileScreen({ navigation }) {
                     label={option.label}
                     iconName={option.iconName}
                     IconComponent={option.IconComponent}
+                    onPress={option.onPress}
                 />
             ))}
 
