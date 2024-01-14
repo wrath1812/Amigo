@@ -4,15 +4,13 @@ import Loader from '../components/Loader'; // Assuming you have a Loader compone
 import PAGES from '../constants/pages'; // Ensure you have the relevant pages constant
 import apiHelper from '../helper/apiHelper'; // And the apiHelper for your API calls
 
-const InvitationLandingScreen = ({ navigation, route }) => {
-    const [groupId, setGroupId] = useState('');
+const InvitationLandingScreen = ({ navigation, route:{
+    params:{groupId}
+} }) => {
     const [loading, setLoading] = useState(false);
-
     useEffect(() => {
-        if (route.params?.groupId) {
-            setGroupId(route.params.groupId);
-        }
-    }, [route.params?.groupId]);
+        console.log(groupId);
+    }, [groupId]);
 
     const handleJoin = async () => {
         setLoading(true);
@@ -30,7 +28,7 @@ const InvitationLandingScreen = ({ navigation, route }) => {
         <Loader />
     ) : (
         <SafeAreaView style={styles.container}>
-            <TextInput
+            {/* <TextInput
                 style={styles.input}
                 placeholder="Group Id"
                 onChangeText={setGroupId}
@@ -38,7 +36,8 @@ const InvitationLandingScreen = ({ navigation, route }) => {
             />
             <TouchableOpacity style={styles.button} onPress={handleJoin}>
                 <Text style={styles.buttonText}>Join</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
+            <Text>jknjknk</Text>
         </SafeAreaView>
     );
 };
