@@ -7,6 +7,7 @@ import {
     FlatList,
     Image,
     Pressable,
+    TouchableOpacity,
 } from 'react-native';
 import { Button } from 'react-native-paper';
 import Loader from '../components/Loader';
@@ -18,17 +19,8 @@ import { useAuth } from '../context/AuthContext';
 import { Ionicons } from '@expo/vector-icons';
 import GroupIcon from '../components/GroupIcon';
 import { DatePickerModal } from 'react-native-paper-dates';
-function convertISODateToCustomFormat(isoDate) {
-    const date = new Date(isoDate);
-    const day = date.getDate().toString().padStart(2, '0');
-    const month = (date.getMonth() + 1).toString().padStart(2, '0'); // Months are zero-indexed
-    const year = date.getFullYear();
-    const hours = date.getHours();
-    const minutes = date.getMinutes().toString().padStart(2, '0');
-    const ampm = hours >= 12 ? 'PM' : 'AM';
-    const formattedHour = hours % 12 || 12; // Convert 24h to 12h format and treat 0 as 12
-    return `${day}/${month}/${year} at ${formattedHour}:${minutes} ${ampm}`;
-}
+import typeIcon from '../assets/icons/type.png';
+import ExpenseCard from '../components/ExpenseCard';
 
 function ExpenseScreen({ navigation }) {
     const [loading, setLoading] = useState(false);
@@ -38,6 +30,7 @@ function ExpenseScreen({ navigation }) {
         startDate: undefined,
         endDate: undefined,
     });
+    const [type, setType] = useState(undefined);
     const [open, setOpen] = React.useState(false);
 
     const onDismiss = React.useCallback(() => {
@@ -51,12 +44,23 @@ function ExpenseScreen({ navigation }) {
         },
         [setOpen, setRange],
     );
+
     useFocusEffect(
         useCallback(() => {
             (async () => {
                 setLoading(true);
                 try {
-                    const { data } = await apiHelper('/transaction/expenses');
+                    // Construct the filter object based on range and type
+                    const filter = {
+                        startDate: range.startDate,
+                        endDate: range.endDate,
+                        type,
+                    };
+
+                    const { data } = await apiHelper('/transaction/expenses', {
+                        params: filter,
+                    });
+
                     setTransactions(data);
                 } catch (error) {
                     console.error(error);
@@ -64,7 +68,7 @@ function ExpenseScreen({ navigation }) {
                     setLoading(false);
                 }
             })();
-        }, [user.id]),
+        }, [user.id, range]), // Include 'range' in the dependencies
     );
 
     return (
@@ -78,13 +82,48 @@ function ExpenseScreen({ navigation }) {
                     alignItems: 'center',
                 }}
             >
-                {/* <Button
-                    onPress={() => setOpen(true)}
-                    uppercase={false}
-                    mode="outlined"
+                <TouchableOpacity
+                    style={{
+                        backgroundColor: '#342F4F',
+                        padding: calcWidth(1),
+                        flex: 1,
+                        flexDirection: 'row',
+                    }}
                 >
-                    Pick range
-                </Button> */}
+                    <Text
+                        style={{
+                            fontSize: getFontSizeByWindowWidth(15),
+                            flex: 1,
+                        }}
+                    >
+                        Type
+                    </Text>
+                    <Image
+                        style={{
+                            height: calcHeight(1),
+                            width: calcHeight(2),
+                        }}
+                        source={typeIcon}
+                    />
+                </TouchableOpacity>
+                <TouchableOpacity
+                    style={{
+                        backgroundColor: '#342F4F',
+                        padding: calcWidth(1),
+                        flex: 1,
+                        flexDirection: 'row',
+                    }}
+                    onPress={() => setOpen(true)}
+                >
+                    <Text
+                        style={{
+                            fontSize: getFontSizeByWindowWidth(15),
+                            flex: 1,
+                        }}
+                    >
+                        Date
+                    </Text>
+                </TouchableOpacity>
                 <DatePickerModal
                     locale="en"
                     mode="range"
@@ -94,8 +133,6 @@ function ExpenseScreen({ navigation }) {
                     endDate={range.endDate}
                     onConfirm={onConfirm}
                 />
-                <Text>{JSON.stringify(range?.startDate)}</Text>
-                <Text>{JSON.stringify(range?.endDate)}</Text>
             </View>
 
             {loading ? (
@@ -108,79 +145,7 @@ function ExpenseScreen({ navigation }) {
                 <FlatList
                     data={transactions}
                     keyExtractor={(item, index) => item.id || index.toString()}
-                    renderItem={({ item }) => (
-                        <View
-                            style={{
-                                flexDirection: 'row',
-                                paddingVertical: calcHeight(1),
-                                justifyContent: 'space-around',
-                                borderBottomWidth: 1,
-                                borderBottomColor: 'rgba(255, 255, 255, 0.13)',
-                                alignItems: 'center',
-                            }}
-                        >
-                            <View
-                                style={{
-                                    flexDirection: 'row',
-                                    paddingVertical: calcHeight(1),
-                                    justifyContent: 'space-around',
-                                    alignItems: 'center',
-                                    width: '50%',
-                                }}
-                            >
-                                <View>
-                                    <GroupIcon
-                                        size={{
-                                            width: calcHeight(5),
-                                            height: calcHeight(5),
-                                        }}
-                                    />
-                                </View>
-                                <View
-                                    style={{
-                                        gap: calcHeight(1),
-                                    }}
-                                >
-                                    <Text
-                                        style={{
-                                            color: COLOR.BUTTON,
-                                            fontWeight: 'bold',
-                                            fontSize:
-                                                getFontSizeByWindowWidth(15),
-                                        }}
-                                    >
-                                        {item.description}
-                                    </Text>
-                                    <Text
-                                        style={{
-                                            color: 'white',
-                                        }}
-                                    >
-                                        {item.group}
-                                    </Text>
-                                    <Text
-                                        style={{
-                                            color: 'white',
-                                            fontSize:
-                                                getFontSizeByWindowWidth(8),
-                                        }}
-                                    >
-                                        {convertISODateToCustomFormat(
-                                            item.date,
-                                        )}
-                                    </Text>
-                                </View>
-                            </View>
-                            <Text
-                                style={{
-                                    color: 'white',
-                                    fontSize: getFontSizeByWindowWidth(15),
-                                }}
-                            >
-                                ₹{item.amount}
-                            </Text>
-                        </View>
-                    )}
+                    renderItem={({ item }) => <ExpenseCard item={item} />}
                     style={styles.list}
                 />
             )}

@@ -58,13 +58,13 @@ function ProfileScreen({ navigation }) {
             label: 'FAQ',
             iconName: 'message-square',
             IconComponent: Feather,
-            onPress:()=>navigation.navigate(PAGES.FAQ)
+            onPress: () => navigation.navigate(PAGES.FAQ),
         },
         {
             label: 'About',
             iconName: 'cellphone-dock',
             IconComponent: MaterialCommunityIcons,
-            onPress:()=>navigation.navigate(PAGES.ABOUT)
+            onPress: () => navigation.navigate(PAGES.ABOUT),
         },
     ];
 
