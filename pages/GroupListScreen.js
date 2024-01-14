@@ -26,6 +26,7 @@ import Search from '../components/Search';
 import tabBarStyle from '../constants/tabBarStyle';
 import editNamesAsync from '../helper/editNamesAsync';
 import { useAuth } from '../context/AuthContext';
+
 function GroupListScreen({ navigation }) {
     const [groups, setGroups] = useState([]);
     const [loading, setLoading] = useState(false);

@@ -26,9 +26,11 @@ import GroupSettings from '../pages/GroupSettings';
 import FAQ from '../pages/FAQ';
 import About from '../pages/About';
 import { TransactionProvider } from '../context/TransactionContext';
+import { GroupProvider } from '../context/GroupContext';
 const AppNavigator = () => {
     const { user } = useAuth();
     return (
+        <GroupProvider>
         <TransactionProvider>
         <Stack.Navigator>
             {user.name ? (
@@ -228,6 +230,7 @@ const AppNavigator = () => {
             )}
         </Stack.Navigator>
         </TransactionProvider>
+        </GroupProvider>
     );
 };
 

@@ -28,6 +28,7 @@ import getNamesFromContacts from '../helper/getNamesFromContacts';
 import Feed from '../components/Feed';
 import useSocket from '../hooks/useSocket';
 import editNames from '../helper/editNames';
+import { useGroup } from '../context/GroupContext';
 function getMembersString(members) {
     let names = [];
     for (let i = 0; i < members.length; i++) {
@@ -44,11 +45,9 @@ function isNumber(text) {
 }
 
 function GroupScreen({
-    navigation,
-    route: {
-        params: { group },
-    },
+    navigation
 }) {
+    const {group}=useGroup();
     const textRef = useRef();
     const [activities, setActivities] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
@@ -115,7 +114,7 @@ function GroupScreen({
             <Pressable
                 style={styles.header}
                 onPress={() => {
-                    navigation.navigate(PAGES.GROUP_SETTINGS, { group });
+                    navigation.navigate(PAGES.GROUP_SETTINGS);
                 }}
             >
                 <View
