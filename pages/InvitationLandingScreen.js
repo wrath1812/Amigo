@@ -1,29 +1,29 @@
-import React, { useState } from 'react';
-import {
-    View,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    StyleSheet,
-    SafeAreaView,
-    Image,
-} from 'react-native';
-import Loader from '../components/Loader';
+import React, { useState, useEffect } from 'react';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, SafeAreaView } from 'react-native';
+import Loader from '../components/Loader'; // Assuming you have a Loader component
+import PAGES from '../constants/pages'; // Ensure you have the relevant pages constant
+import apiHelper from '../helper/apiHelper'; // And the apiHelper for your API calls
 
-import PAGES from '../constants/pages';
-import apiHelper from '../helper/apiHelper';
-
-const JoinScreen = ({ navigation }) => {
+const InvitationLandingScreen = ({ navigation, route }) => {
     const [groupId, setGroupId] = useState('');
     const [loading, setLoading] = useState(false);
+
+    useEffect(() => {
+        if (route.params?.groupId) {
+            setGroupId(route.params.groupId);
+        }
+    }, [route.params?.groupId]);
 
     const handleJoin = async () => {
         setLoading(true);
         try {
             await apiHelper.post(`group/${groupId}/join`);
-        } catch (e) {}
-        setLoading(false);
-        navigation.navigate(PAGES.GROUP_LIST);
+            navigation.navigate(PAGES.GROUP_LIST);
+        } catch (e) {
+            // Handle the error (e.g., show an alert)
+        } finally {
+            setLoading(false);
+        }
     };
 
     return loading ? (
@@ -49,32 +49,17 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
-    innerContainer: {
-        width: '80%',
-        alignItems: 'center',
-    },
-    image: {
-        width: 200,
-        height: 200,
-        borderRadius: 100, // Add rounded border to the image
-    },
-    title: {
-        fontSize: 24,
-        marginBottom: 20,
-        color: 'white', // Set text color to white
-    },
     input: {
-        width: '100%', // Adjusted input width to be responsive
+        width: '80%',
         height: 40,
         borderWidth: 1,
         borderColor: '#ccc',
         borderRadius: 5,
         marginBottom: 10,
         padding: 10,
-        backgroundColor: 'white', // Set input background color to white
     },
     button: {
-        width: '100%', // Adjusted button width to be responsive
+        width: '80%',
         height: 40,
         backgroundColor: 'blue',
         borderRadius: 5,
@@ -87,4 +72,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default JoinScreen;
+export default InvitationLandingScreen;

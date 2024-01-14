@@ -21,7 +21,7 @@ import Group from '../pages/Group';
 import CreateGroup from '../pages/CreateGroup';
 import { getFontSizeByWindowWidth } from '../helper/res';
 import TransactionFormScreen from '../pages/TransactionForm';
-import JoinGroup from '../pages/JoinGroup';
+import InvitationLandingScreen from '../pages/InvitationLandingScreen';
 import GroupSettings from '../pages/GroupSettings';
 import FAQ from '../pages/FAQ';
 import About from '../pages/About';
@@ -214,8 +214,8 @@ const AppNavigator = () => {
                         }}
                     />
                     <Stack.Screen
-                        name={PAGES.JOIN_GROUP}
-                        component={JoinGroup}
+                        name={PAGES.INVITATION_LANDING_PAGE}
+                        component={InvitationLandingScreen}
                     />
                    
                 </Stack.Group> 

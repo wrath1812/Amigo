@@ -7,7 +7,6 @@ const PAGES = {
     ADD_TRANSACTION: 'Add Transaction',
     ADD_GROUP: 'Add Group',
     SETTINGS: 'Settings',
-    JOIN_GROUP: 'Join group',
     ONBOARDING: 'Onboarding',
     OTP: 'OTP',
     CREATE_GROUP: 'Create Group',
@@ -27,6 +26,7 @@ const PAGES = {
     GROUP_SETTINGS: 'Group Settings',
     FAQ: 'FAQ',
     ABOUT: 'About',
+    INVITATION_LANDING_PAGE:"Invitation Landing Page"
 };
 
 export default PAGES;
