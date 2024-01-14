@@ -1,142 +1,36 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import {
-    StyleSheet,
-    SafeAreaView,
-    View,
-    Text,
-    FlatList,
-    Image,
-    TouchableOpacity,
-} from 'react-native';
-import { Button } from 'react-native-paper';
+import React, { useState, useCallback } from 'react';
+import { StyleSheet, SafeAreaView, View, Text, FlatList, TouchableOpacity, Image } from 'react-native';
+import { useAuth } from '../context/AuthContext';
+import { useExpense } from '../hooks/useExpense'; // Custom hook for fetching transactions
+import ExpenseCard from '../components/ExpenseCard';
+import DatePickerSelector from '../components/DatePickerSelector'; // Separate component for date picker
+import TypeSelector from '../components/TypeSelector'; // Separate component for type selector
 import Loader from '../components/Loader';
-import apiHelper from '../helper/apiHelper';
-import { useFocusEffect } from '@react-navigation/native';
 import COLOR from '../constants/Colors';
 import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
-import { useAuth } from '../context/AuthContext';
-import { DatePickerModal } from 'react-native-paper-dates';
-import typeIcon from '../assets/icons/type.png';
-import ExpenseCard from '../components/ExpenseCard';
 
-function ExpenseScreen({ navigation }) {
+
+
+function ExpenseScreen() {
     const [loading, setLoading] = useState(false);
-    const [transactions, setTransactions] = useState([]);
     const { user } = useAuth();
-    const [range, setRange] = React.useState({
-        startDate: undefined,
-        endDate: undefined,
-    });
-    const [type, setType] = useState(undefined);
-    const [open, setOpen] = React.useState(false);
+    const { expense, range, setRange, type, setType, open, setOpen } = useExpense(user.id, setLoading);
 
-    const onDismiss = React.useCallback(() => {
-        setOpen(false);
-    }, [setOpen]);
-
-    const onConfirm = React.useCallback(
-        ({ startDate, endDate }) => {
-            setOpen(false);
-            setRange({ startDate, endDate });
-        },
-        [setOpen, setRange],
-    );
-
-    useFocusEffect(
-        useCallback(() => {
-            (async () => {
-                setLoading(true);
-                try {
-                    // Construct the filter object based on range and type
-                    const filter = {
-                        startDate: range.startDate,
-                        endDate: range.endDate,
-                        type,
-                    };
-
-                    const { data } = await apiHelper('/transaction/expenses', {
-                        params: filter,
-                    });
-
-                    setTransactions(data);
-                } catch (error) {
-                    console.error(error);
-                } finally {
-                    setLoading(false);
-                }
-            })();
-        }, [user.id, range]), // Include 'range' in the dependencies
-    );
     if (loading) return <Loader />;
     return (
         <SafeAreaView style={styles.container}>
             <Text style={styles.header}>Expense Summary</Text>
 
-            <View
-                style={{
-                    flexDirection:"row",
-                    justifyContent: "space-around",
-                    alignItems: 'center',
-                }}
-            >
-                <TouchableOpacity
-                    style={{
-                        backgroundColor: '#342F4F',
-                        padding: calcWidth(1),
-                        flexDirection: 'row',
-                        
-                    }}
-                >
-                    <Text
-                        style={{
-                            fontSize: getFontSizeByWindowWidth(15),
-                            color:COLOR.TEXT
-                        }}
-                    >
-                        Type
-                    </Text>
-                    <Image
-                        style={{
-                            height: calcHeight(1),
-                            width: calcHeight(2),
-                        }}
-                        source={typeIcon}
-                    />
-                </TouchableOpacity>
-                <TouchableOpacity
-                    style={{
-                        backgroundColor: '#342F4F',
-                        padding: calcWidth(1),
-                        flexDirection: 'row',
-                    }}
-                    onPress={() => setOpen(true)}
-                >
-                    <Text
-                        style={{
-                            fontSize: getFontSizeByWindowWidth(15),
-                        }}
-                    >
-                        Date
-                    </Text>
-                </TouchableOpacity>
-                <DatePickerModal
-                    locale="en"
-                    mode="range"
-                    visible={open}
-                    onDismiss={onDismiss}
-                    startDate={range.startDate}
-                    endDate={range.endDate}
-                    onConfirm={onConfirm}
-                />
+            <View style={styles.selectorContainer}>
+                <TypeSelector setType={setType} />
+                <DatePickerSelector range={range} setRange={setRange} open={open} setOpen={setOpen} />
             </View>
 
-            {transactions.length === 0 ? (
-                <Text style={styles.noTransactionsText}>
-                    No Transactions Found
-                </Text>
+            {expense.length === 0 ? (
+                <Text style={styles.noTransactionsText}>No Transactions Found</Text>
             ) : (
                 <FlatList
-                    data={transactions}
+                    data={expense}
                     keyExtractor={(item, index) => item.id || index.toString()}
                     renderItem={({ item }) => <ExpenseCard item={item} />}
                     style={styles.list}
@@ -145,6 +39,8 @@ function ExpenseScreen({ navigation }) {
         </SafeAreaView>
     );
 }
+
+export default ExpenseScreen;
 
 const styles = StyleSheet.create({
     container: {
@@ -156,7 +52,20 @@ const styles = StyleSheet.create({
         color: COLOR.TEXT,
         fontWeight: 'bold',
         margin: calcHeight(3),
-    }
+    },
+    selectorContainer: {
+        flexDirection: "row",
+        justifyContent: "space-around",
+        alignItems: 'center',
+    },
+    noTransactionsText: {
+        fontSize: getFontSizeByWindowWidth(15),
+        color: COLOR.TEXT,
+        textAlign: 'center',
+        marginTop: 20,
+    },
+    list: {
+        // Add styles for your FlatList if needed
+    },
+    // Add other styles that you might have used in your component
 });
-
-export default ExpenseScreen;
