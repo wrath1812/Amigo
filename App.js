@@ -14,9 +14,9 @@ function App() {
         >
             <StatusBar style="auto" />
             <AuthProvider>
-                <TransactionProvider>
+                {/* <TransactionProvider> */}
                     <RootNavigator />
-                </TransactionProvider>
+                {/* </TransactionProvider> */}
             </AuthProvider>
         </SafeAreaProvider>
     );

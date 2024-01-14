@@ -74,7 +74,8 @@ function ExpenseScreen({ navigation }) {
 
             <View
                 style={{
-                    justifyContent: 'center',
+                    flexDirection:"row",
+                    justifyContent: "space-around",
                     alignItems: 'center',
                 }}
             >
@@ -82,14 +83,14 @@ function ExpenseScreen({ navigation }) {
                     style={{
                         backgroundColor: '#342F4F',
                         padding: calcWidth(1),
-                        flex: 1,
                         flexDirection: 'row',
+                        
                     }}
                 >
                     <Text
                         style={{
                             fontSize: getFontSizeByWindowWidth(15),
-                            flex: 1,
+                            color:COLOR.TEXT
                         }}
                     >
                         Type
@@ -106,7 +107,6 @@ function ExpenseScreen({ navigation }) {
                     style={{
                         backgroundColor: '#342F4F',
                         padding: calcWidth(1),
-                        flex: 1,
                         flexDirection: 'row',
                     }}
                     onPress={() => setOpen(true)}
@@ -114,7 +114,6 @@ function ExpenseScreen({ navigation }) {
                     <Text
                         style={{
                             fontSize: getFontSizeByWindowWidth(15),
-                            flex: 1,
                         }}
                     >
                         Date
@@ -156,8 +155,8 @@ const styles = StyleSheet.create({
         fontSize: getFontSizeByWindowWidth(19),
         color: COLOR.TEXT,
         fontWeight: 'bold',
-        margin: calcHeight(5),
-    },
+        margin: calcHeight(3),
+    }
 });
 
 export default ExpenseScreen;

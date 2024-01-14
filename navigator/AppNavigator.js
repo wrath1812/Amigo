@@ -25,12 +25,15 @@ import JoinGroup from '../pages/JoinGroup';
 import GroupSettings from '../pages/GroupSettings';
 import FAQ from '../pages/FAQ';
 import About from '../pages/About';
+import { TransactionProvider } from '../context/TransactionContext';
 const AppNavigator = () => {
     const { user } = useAuth();
     return (
+        <TransactionProvider>
         <Stack.Navigator>
             {user.name ? (
                 <Stack.Group>
+                    
                     <Stack.Screen
                         name={PAGES.TAB_NAVIGATOR}
                         options={{
@@ -212,7 +215,8 @@ const AppNavigator = () => {
                         name={PAGES.JOIN_GROUP}
                         component={JoinGroup}
                     />
-                </Stack.Group>
+                   
+                </Stack.Group> 
             ) : (
                 <Stack.Screen
                     name={PAGES.SIGN_UP}
@@ -223,6 +227,7 @@ const AppNavigator = () => {
                 />
             )}
         </Stack.Navigator>
+        </TransactionProvider>
     );
 };
 

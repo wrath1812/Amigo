@@ -23,11 +23,9 @@ function ExpenseCard({ item }) {
     return (
         <View style={styles.cardContainer}>
             <View style={styles.cardInnerContainer}>
-                <View>
                     <GroupIcon
                         size={{ width: calcHeight(5), height: calcHeight(5) }}
                     />
-                </View>
                 <View style={styles.textContainer}>
                     <Text style={styles.descriptionText}>
                         {item.description}
@@ -50,20 +48,21 @@ const styles = StyleSheet.create({
     cardContainer: {
         flexDirection: 'row',
         paddingVertical: calcHeight(1),
-        justifyContent: 'space-around',
+        justifyContent: 'space-between',
         borderBottomWidth: 1,
-        borderBottomColor: 'rgba(255, 255, 255, 0.13)',
+        borderBottomColor: COLOR.BORDER_COLOR,
         alignItems: 'center',
+        paddingHorizontal:calcWidth(5)
     },
     cardInnerContainer: {
         flexDirection: 'row',
         paddingVertical: calcHeight(1),
         justifyContent: 'space-around',
         alignItems: 'center',
-        width: '50%',
     },
     textContainer: {
         gap: calcHeight(1),
+        marginLeft:calcWidth(5)
     },
     descriptionText: {
         color: COLOR.BUTTON,
