@@ -12,10 +12,11 @@ import COLOR from '../constants/Colors';
 import GroupSettingsIcon from '../assets/GroupSettings.png';
 import AddContactIcon from "../assets/addContact.png";
 import ShareIcon from "../assets/share.png";
+import apiHelper from "../helper/apiHelper";
 
 const MemberItem = ({ icon, name, phone, isIcon }) => (
     <View style={styles.memberItem}>
-        {isIcon ? <GroupIcon image={icon}/> : <MaterialCommunityIcons name="delete-outline" size={24} color={"rgba(253,64,64,0.59)"} />}
+        {isIcon ? <GroupIcon image={icon}/> : icon}
         <View style={styles.memberInfo}>
             <Text style={styles.memberName}>{name}</Text>
             <Text style={styles.memberPhone}>{phone}</Text>
@@ -36,7 +37,8 @@ const GroupScreen = ({ navigation, route: { params: { group } } }) => {
     }, [group]);
 
     const submitGroupData=async()=>{
-        console.log("Inside",groupRef.current,groupName,a);
+        setIsEditing(false);
+        apiHelper.patch(`/group?id=${group._id}`,{groupName:groupRef.current});
     };
 
     useLayoutEffect(() => {
@@ -46,8 +48,7 @@ const GroupScreen = ({ navigation, route: { params: { group } } }) => {
                     <TouchableOpacity onPress={() => setIsEditing(false)}>
                         <Text
                             style={[
-                                styles.bottomBarText,
-                                { fontWeight: 'bold' },
+                                { fontWeight: 'bold',color:COLOR.TEXT },
                             ]}
                         >
                             Cancel
@@ -58,8 +59,7 @@ const GroupScreen = ({ navigation, route: { params: { group } } }) => {
                     <TouchableOpacity onPress={()=>submitGroupData()}>
                         <Text
                             style={[
-                                styles.bottomBarText,
-                                { fontWeight: 'bold' },
+                                { fontWeight: 'bold',color:COLOR.TEXT },
                             ]}
                         >
                             Done
@@ -113,7 +113,7 @@ const GroupScreen = ({ navigation, route: { params: { group } } }) => {
                                 <MemberItem icon={ShareIcon} name="Share group Link" phone="Help members find the group" isIcon/>
                             </>
                         }
-                        ListFooterComponent={<MemberItem name="Delete group" phone=""/>}
+                        // ListFooterComponent={<MemberItem name="Delete group" phone=""/>}
                     />
                 </View>
             </ScrollView>
