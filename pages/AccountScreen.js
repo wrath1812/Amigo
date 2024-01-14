@@ -64,6 +64,7 @@ function ProfileScreen({ navigation }) {
             label: 'About',
             iconName: 'cellphone-dock',
             IconComponent: MaterialCommunityIcons,
+            onPress:()=>navigation.navigate(PAGES.ABOUT)
         },
     ];
 

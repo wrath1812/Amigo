@@ -25,7 +25,8 @@ const PAGES = {
     UPI_APP_SELECTION: 'UPI App Selection',
     TAB_NAVIGATOR: 'Tab Navigation',
     GROUP_SETTINGS: 'Group Settings',
-    FAQ:"FAQ"
+    FAQ:"FAQ",
+    ABOUT:"About"
 };
 
 export default PAGES;
