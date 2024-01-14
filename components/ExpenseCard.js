@@ -1,11 +1,20 @@
 // React Native Components and Utilities
 import React from 'react';
-import { StyleSheet, SafeAreaView, View, Text, FlatList, Image, Pressable, TouchableOpacity } from 'react-native';
+import {
+    StyleSheet,
+    SafeAreaView,
+    View,
+    Text,
+    FlatList,
+    Image,
+    Pressable,
+    TouchableOpacity,
+} from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 
 // Custom Components and Utility Functions
 import GroupIcon from '../components/GroupIcon';
-import  convertISODateToCustomFormat  from '../helper/convertISODateToCustomFormat'; // Assuming you move this function to a utils.js file
+import convertISODateToCustomFormat from '../helper/convertISODateToCustomFormat'; // Assuming you move this function to a utils.js file
 import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
 import COLOR from '../constants/Colors';
 
@@ -15,12 +24,18 @@ function ExpenseCard({ item }) {
         <View style={styles.cardContainer}>
             <View style={styles.cardInnerContainer}>
                 <View>
-                    <GroupIcon size={{ width: calcHeight(5), height: calcHeight(5) }} />
+                    <GroupIcon
+                        size={{ width: calcHeight(5), height: calcHeight(5) }}
+                    />
                 </View>
                 <View style={styles.textContainer}>
-                    <Text style={styles.descriptionText}>{item.description}</Text>
+                    <Text style={styles.descriptionText}>
+                        {item.description}
+                    </Text>
                     <Text style={styles.groupText}>{item.group}</Text>
-                    <Text style={styles.dateText}>{convertISODateToCustomFormat(item.date)}</Text>
+                    <Text style={styles.dateText}>
+                        {convertISODateToCustomFormat(item.date)}
+                    </Text>
                 </View>
             </View>
             <Text style={styles.amountText}>₹{item.amount}</Text>

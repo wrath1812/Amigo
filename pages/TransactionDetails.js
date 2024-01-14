@@ -13,7 +13,6 @@ import { getCategoryIcon } from '../constants/Categories';
 import { Alert } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import apiHelper from '../helper/apiHelper';
-import uuidToColor from '../helper/uuidToColor';
 import useCustomColor from '../hooks/useCustomColor';
 function formatDate(dateString) {
     // Parse the input string to a Date object

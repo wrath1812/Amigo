@@ -19,13 +19,12 @@ import GroupIcon from '../components/GroupIcon';
 import { calcWidth, calcHeight, getFontSizeByWindowWidth } from '../helper/res';
 import COLOR from '../constants/Colors';
 import GroupSettingsIcon from '../assets/GroupSettings.png';
-import AddContactIcon from '../assets/addContact.png';
-import ShareIcon from '../assets/share.png';
 import apiHelper from '../helper/apiHelper';
+import UserAvatar from '../components/UserAvatar';
 
-const MemberItem = ({ icon, name, phone, isIcon }) => (
+const MemberItem = ({ name, phone, _id }) => (
     <View style={styles.memberItem}>
-        {isIcon ? <GroupIcon image={icon} /> : icon}
+        {name && _id && <UserAvatar user={{ name, _id }} />}
         <View style={styles.memberInfo}>
             <Text style={styles.memberName}>{name}</Text>
             <Text style={styles.memberPhone}>{phone}</Text>
@@ -83,12 +82,7 @@ const GroupScreen = ({
     }, [navigation, isEditing]);
 
     const renderMemberItem = ({ item }) => (
-        <MemberItem
-            name={item.name}
-            phone={item.phoneNumber}
-            icon={GroupSettingsIcon}
-            isIcon
-        />
+        <MemberItem name={item.name} phone={item.phoneNumber} _id={item._id} />
     );
 
     return (
@@ -151,21 +145,21 @@ const GroupScreen = ({
                         data={groupMembers}
                         keyExtractor={(item, index) => index.toString()}
                         renderItem={renderMemberItem}
-                        ListHeaderComponent={
-                            <>
-                                <MemberItem
-                                    icon={AddContactIcon}
-                                    name="Add new members"
-                                    isIcon
-                                />
-                                <MemberItem
-                                    icon={ShareIcon}
-                                    name="Share group Link"
-                                    phone="Help members find the group"
-                                    isIcon
-                                />
-                            </>
-                        }
+                        // ListHeaderComponent={
+                        //     <>
+                        //         <MemberItem
+                        //             icon={AddContactIcon}
+                        //             name="Add new members"
+                        //             isIcon
+                        //         />
+                        //         <MemberItem
+                        //             icon={ShareIcon}
+                        //             name="Share group Link"
+                        //             phone="Help members find the group"
+                        //             isIcon
+                        //         />
+                        //     </>
+                        // }
                         // ListFooterComponent={<MemberItem name="Delete group" phone=""/>}
                     />
                 </View>

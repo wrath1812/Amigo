@@ -6,7 +6,6 @@ import {
     Text,
     FlatList,
     Image,
-    Pressable,
     TouchableOpacity,
 } from 'react-native';
 import { Button } from 'react-native-paper';
@@ -16,8 +15,6 @@ import { useFocusEffect } from '@react-navigation/native';
 import COLOR from '../constants/Colors';
 import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
 import { useAuth } from '../context/AuthContext';
-import { Ionicons } from '@expo/vector-icons';
-import GroupIcon from '../components/GroupIcon';
 import { DatePickerModal } from 'react-native-paper-dates';
 import typeIcon from '../assets/icons/type.png';
 import ExpenseCard from '../components/ExpenseCard';
@@ -70,7 +67,7 @@ function ExpenseScreen({ navigation }) {
             })();
         }, [user.id, range]), // Include 'range' in the dependencies
     );
-
+    if (loading) return <Loader />;
     return (
         <SafeAreaView style={styles.container}>
             <Text style={styles.header}>Expense Summary</Text>
@@ -78,7 +75,6 @@ function ExpenseScreen({ navigation }) {
             <View
                 style={{
                     justifyContent: 'center',
-                    flex: 1,
                     alignItems: 'center',
                 }}
             >
@@ -135,9 +131,7 @@ function ExpenseScreen({ navigation }) {
                 />
             </View>
 
-            {loading ? (
-                <Loader />
-            ) : transactions.length === 0 ? (
+            {transactions.length === 0 ? (
                 <Text style={styles.noTransactionsText}>
                     No Transactions Found
                 </Text>
@@ -164,7 +158,6 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         margin: calcHeight(5),
     },
-    // ... other styles
 });
 
 export default ExpenseScreen;
