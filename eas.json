@@ -23,13 +23,15 @@
             },
             "env": {
                 "ENV": "production",
-                "API_URL": "https://b168-2405-201-13-305f-e0b9-ed62-d381-5124.ngrok-free.app/"
+                "API_URL": "https://b168-2405-201-13-305f-e0b9-ed62-d381-5124.ngrok-free.app/",
+                "DEEP_LINK_URL":"https://bhaumik-tandan.github.io/Split-IT-Home"
             }
         },
         "production": {
             "env": {
                 "ENV": "production",
-                "API_URL": "https://b168-2405-201-13-305f-e0b9-ed62-d381-5124.ngrok-free.app/"
+                "API_URL": "https://b168-2405-201-13-305f-e0b9-ed62-d381-5124.ngrok-free.app/",
+                "DEEP_LINK_URL":"https://bhaumik-tandan.github.io/Split-IT-Home"
             }
         }
     },
