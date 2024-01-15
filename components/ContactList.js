@@ -5,7 +5,7 @@ import { View, Text, FlatList, Pressable } from 'react-native';
 import ContactCard from './ContactCard';
 import Search from './Search';
 import { useContacts } from '../hooks/useContacts';
-
+import { calcHeight, calcWidth } from '../helper/res';
 const ContactList = () => {
     const {
         search,
@@ -18,6 +18,9 @@ const ContactList = () => {
         <View>
             <Search search={search} setSearch={setSearch} />
             <FlatList
+                style={{
+                    marginTop: calcHeight(5),
+                }}
                 data={contacts}
                 keyExtractor={(item) => item.id}
                 renderItem={({ item }) => (
