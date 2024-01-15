@@ -18,61 +18,20 @@ import apiHelper from '../helper/apiHelper';
 import generateRandomColor from '../helper/generateRandomColor';
 import Search from '../components/Search';
 import Loader from '../components/Loader';
+import {useContacts} from "../hooks/useContacts";
 
 const CreateGroup = ({ navigation }) => {
-    const [contacts, setContacts] = useState([]);
-    const [search, setSearch] = useState('');
-    const [groupName, setGroupName] = useState('');
-    const [selectedContacts, setSelectedContacts] = useState([]);
-    const [isLoading, setIsLoading] = useState(false);
-    const nameRef = useRef();
-
-    useEffect(() => {
-        const loadContacts = async () => {
-            const { status } = await Contacts.requestPermissionsAsync();
-            if (status === 'granted') {
-                const { data } = await Contacts.getContactsAsync({
-                    fields: [
-                        Contacts.Fields.Name,
-                        Contacts.Fields.PhoneNumbers,
-                        Contacts.Fields.Image,
-                    ],
-                });
-
-                if (data.length > 0) {
-                    const seenPhoneNumbers = new Set();
-                    const uniqueContacts = data.filter((contact) => {
-                        const phoneNumber =
-                            contact.phoneNumbers?.[0].number.replace(/\D/g, '');
-                        return (
-                            phoneNumber &&
-                            !seenPhoneNumbers.has(phoneNumber) &&
-                            seenPhoneNumbers.add(phoneNumber)
-                        );
-                    });
-
-                    const simplifiedContacts = uniqueContacts.map(
-                        (contact) => ({
-                            id: contact.id,
-                            name: contact.name || '',
-                            phoneNumber: contact.phoneNumbers[0].number.replace(
-                                /\D/g,
-                                '',
-                            ),
-                            imageURI: contact.imageAvailable
-                                ? contact.image.uri
-                                : '',
-                            color: generateRandomColor(),
-                        }),
-                    );
-
-                    setContacts(simplifiedContacts);
-                }
-            }
-        };
-
-        loadContacts();
-    }, []);
+    const {
+        search,
+        setSearch,
+        selectedContacts,
+        handleSelectContact,
+        filterContacts,
+      } = useContact();  // Use the useContact component
+    
+      const [groupName, setGroupName] = useState('');
+      const [isLoading, setIsLoading] = useState(false);
+      const nameRef = useRef();
 
     const createGroupAsync = async () => {
         setIsLoading(true);
@@ -86,30 +45,6 @@ const CreateGroup = ({ navigation }) => {
         });
         navigation.goBack({ group });
     };
-
-    const handleSelectContact = (contact) => {
-        const isSelected = selectedContacts.some(
-            (selected) => selected.id === contact.id,
-        );
-        setSelectedContacts(
-            isSelected
-                ? selectedContacts.filter(
-                      (selected) => selected.id !== contact.id,
-                  )
-                : [...selectedContacts, contact],
-        );
-    };
-
-    const filterContacts = () =>
-        search === ''
-            ? contacts
-            : contacts.filter(
-                  (contact) =>
-                      contact.name
-                          .toLowerCase()
-                          .includes(search.toLowerCase()) ||
-                      contact.phoneNumber.includes(search),
-              );
 
     return isLoading ? (
         <Loader />
