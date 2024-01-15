@@ -63,7 +63,13 @@ const CreateGroup = ({ navigation }) => {
                 <View style={styles.title}>
                     <Text style={styles.titleText}>Add members</Text>
                 </View>
+                <View style={{
+                    marginHorizontal: calcWidth(5),
+                    alignItems:"center"
+                }}>
                 <ContactList />
+                </View>
+                
                 <View style={styles.button}>
                     <Button
                         title="Create Group"
@@ -94,7 +100,7 @@ const styles = StyleSheet.create({
     },
     scroll: {
         marginHorizontal: calcWidth(5),
-        justifyContent: 'flex-end',
+        
     },
     heading: {
         color: COLOR.PRIMARY,
@@ -127,6 +133,7 @@ const styles = StyleSheet.create({
     },
     button: {
         alignItems: 'center',
+        flex:1
     },
     contactLabel: {
         marginVertical: calcHeight(4),

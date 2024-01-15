@@ -100,7 +100,6 @@ const GroupScreen = ({ navigation }) => {
         <SafeAreaView style={styles.container}>
             <ScrollView>
                 <TouchableOpacity
-                    onPress={() => submitGroupData()}
                     style={styles.centeredView}
                 >
                     <GroupIcon
