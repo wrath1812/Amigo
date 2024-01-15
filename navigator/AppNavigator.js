@@ -28,6 +28,7 @@ import About from '../pages/About';
 import { TransactionProvider } from '../context/TransactionContext';
 import { GroupProvider } from '../context/GroupContext';
 import AddPeople from '../pages/AddPeople';
+
 const AppNavigator = () => {
     const { user } = useAuth();
     return (

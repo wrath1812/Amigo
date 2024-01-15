@@ -1,9 +1,39 @@
-import React from 'react';
-import { View, StyleSheet, SafeAreaView } from 'react-native';
+import React, { useLayoutEffect } from 'react';
+import {
+    View,
+    StyleSheet,
+    SafeAreaView,
+    TouchableOpacity,
+    Text,
+} from 'react-native';
 import COLOR from '../constants/Colors';
-import { calcHeight } from '../helper/res';
+import { calcHeight, getFontSizeByWindowWidth } from '../helper/res';
 import ContactList from '../components/ContactList';
-const AddPeople = () => {
+import { useContacts } from '../hooks/useContacts';
+const AddPeople = ({ navigation }) => {
+    const { selectedContacts } = useContacts();
+    useLayoutEffect(() => {
+        navigation.setOptions({
+            headerRight: () => (
+                <TouchableOpacity
+                    onPress={() => {
+                        console.log(selectedContacts);
+                    }}
+                >
+                    <Text
+                        style={[
+                            {
+                                color: COLOR.BUTTON,
+                                fontSize: getFontSizeByWindowWidth(15),
+                            },
+                        ]}
+                    >
+                        Done
+                    </Text>
+                </TouchableOpacity>
+            )
+        });
+    }, [navigation]);
     return (
         <SafeAreaView style={styles.container}>
             <View
