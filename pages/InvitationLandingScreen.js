@@ -1,12 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, SafeAreaView } from 'react-native';
+import {
+    View,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    StyleSheet,
+    SafeAreaView,
+} from 'react-native';
 import Loader from '../components/Loader'; // Assuming you have a Loader component
 import PAGES from '../constants/pages'; // Ensure you have the relevant pages constant
 import apiHelper from '../helper/apiHelper'; // And the apiHelper for your API calls
 
-const InvitationLandingScreen = ({ navigation, route:{
-    params:{groupId}
-} }) => {
+const InvitationLandingScreen = ({
+    navigation,
+    route: {
+        params: { groupId },
+    },
+}) => {
     const [loading, setLoading] = useState(false);
     useEffect(() => {
         console.log(groupId);

@@ -26,7 +26,7 @@ const PAGES = {
     GROUP_SETTINGS: 'Group Settings',
     FAQ: 'FAQ',
     ABOUT: 'About',
-    INVITATION_LANDING_PAGE:"Invitation Landing Page"
+    INVITATION_LANDING_PAGE: 'Invitation Landing Page',
 };
 
 export default PAGES;

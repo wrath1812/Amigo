@@ -23,9 +23,9 @@ function ExpenseCard({ item }) {
     return (
         <View style={styles.cardContainer}>
             <View style={styles.cardInnerContainer}>
-                    <GroupIcon
-                        size={{ width: calcHeight(5), height: calcHeight(5) }}
-                    />
+                <GroupIcon
+                    size={{ width: calcHeight(5), height: calcHeight(5) }}
+                />
                 <View style={styles.textContainer}>
                     <Text style={styles.descriptionText}>
                         {item.description}
@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
         borderBottomWidth: 1,
         borderBottomColor: COLOR.BORDER_COLOR,
         alignItems: 'center',
-        paddingHorizontal:calcWidth(5)
+        paddingHorizontal: calcWidth(5),
     },
     cardInnerContainer: {
         flexDirection: 'row',
@@ -62,7 +62,7 @@ const styles = StyleSheet.create({
     },
     textContainer: {
         gap: calcHeight(1),
-        marginLeft:calcWidth(5)
+        marginLeft: calcWidth(5),
     },
     descriptionText: {
         color: COLOR.BUTTON,

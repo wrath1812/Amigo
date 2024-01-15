@@ -11,10 +11,12 @@ const TypeSelector = ({ setType }) => {
                 backgroundColor: '#342F4F',
                 padding: 10,
                 flexDirection: 'row',
-                gap:calcWidth(8),
-                alignItems:"center"
+                gap: calcWidth(8),
+                alignItems: 'center',
             }}
-            onPress={() => {/* Implement type selection logic here */}}
+            onPress={() => {
+                /* Implement type selection logic here */
+            }}
         >
             <Text
                 style={{

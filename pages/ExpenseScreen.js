@@ -1,5 +1,13 @@
 import React, { useState, useCallback } from 'react';
-import { StyleSheet, SafeAreaView, View, Text, FlatList, TouchableOpacity, Image } from 'react-native';
+import {
+    StyleSheet,
+    SafeAreaView,
+    View,
+    Text,
+    FlatList,
+    TouchableOpacity,
+    Image,
+} from 'react-native';
 import { useAuth } from '../context/AuthContext';
 import { useExpense } from '../hooks/useExpense'; // Custom hook for fetching transactions
 import ExpenseCard from '../components/ExpenseCard';
@@ -9,12 +17,11 @@ import Loader from '../components/Loader';
 import COLOR from '../constants/Colors';
 import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
 
-
-
 function ExpenseScreen() {
     const [loading, setLoading] = useState(false);
     const { user } = useAuth();
-    const { expense, range, setRange, type, setType, open, setOpen } = useExpense(user.id, setLoading);
+    const { expense, range, setRange, type, setType, open, setOpen } =
+        useExpense(user.id, setLoading);
 
     if (loading) return <Loader />;
     return (
@@ -23,11 +30,18 @@ function ExpenseScreen() {
 
             <View style={styles.selectorContainer}>
                 <TypeSelector setType={setType} />
-                <DatePickerSelector range={range} setRange={setRange} open={open} setOpen={setOpen} />
+                <DatePickerSelector
+                    range={range}
+                    setRange={setRange}
+                    open={open}
+                    setOpen={setOpen}
+                />
             </View>
 
             {expense.length === 0 ? (
-                <Text style={styles.noTransactionsText}>No Transactions Found</Text>
+                <Text style={styles.noTransactionsText}>
+                    No Transactions Found
+                </Text>
             ) : (
                 <FlatList
                     data={expense}
@@ -54,9 +68,9 @@ const styles = StyleSheet.create({
         margin: calcHeight(3),
     },
     selectorContainer: {
-        flexDirection: "row",
-        gap:calcWidth(8),
-        margin:calcWidth(5),
+        flexDirection: 'row',
+        gap: calcWidth(8),
+        margin: calcWidth(5),
         alignItems: 'center',
     },
     noTransactionsText: {

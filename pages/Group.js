@@ -44,10 +44,8 @@ function isNumber(text) {
     return !isNaN(+text);
 }
 
-function GroupScreen({
-    navigation
-}) {
-    const {group}=useGroup();
+function GroupScreen({ navigation }) {
+    const { group } = useGroup();
     const textRef = useRef();
     const [activities, setActivities] = useState([]);
     const [isLoading, setIsLoading] = useState(false);

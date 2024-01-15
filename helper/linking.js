@@ -1,5 +1,5 @@
 import * as Linking from 'expo-linking';
-import PAGES from "../constants/pages";
+import PAGES from '../constants/pages';
 const prefix = Linking.createURL('/');
 const linking = {
     prefixes: [prefix, 'split-cash://'],
@@ -20,12 +20,12 @@ const linking = {
     config: {
         screens: {
             [PAGES.INVITATION_LANDING_PAGE]: {
-                path: "join",
+                path: 'join',
                 parse: {
                     groupId: (groupId) => `${groupId}`,
                 },
-            }
-        }
+            },
+        },
     },
 };
 export default linking;

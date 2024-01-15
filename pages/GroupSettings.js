@@ -21,7 +21,7 @@ import COLOR from '../constants/Colors';
 import GroupSettingsIcon from '../assets/GroupSettings.png';
 import apiHelper from '../helper/apiHelper';
 import UserAvatar from '../components/UserAvatar';
-import {useGroup} from "../context/GroupContext";
+import { useGroup } from '../context/GroupContext';
 
 const MemberItem = ({ name, phone, _id }) => (
     <View style={styles.memberItem}>
@@ -33,10 +33,8 @@ const MemberItem = ({ name, phone, _id }) => (
     </View>
 );
 
-const GroupScreen = ({
-    navigation
-}) => {
-    const {group,setGroup}=useGroup();
+const GroupScreen = ({ navigation }) => {
+    const { group, setGroup } = useGroup();
     const [groupMembers, setGroupMembers] = useState();
     const [isEditing, setIsEditing] = useState();
     const [groupName, setGroupName] = useState();
@@ -53,7 +51,7 @@ const GroupScreen = ({
         apiHelper.patch(`/group?id=${group._id}`, {
             groupName: groupRef.current,
         });
-        setGroup((prev)=>({...prev,name:groupRef.current}));
+        setGroup((prev) => ({ ...prev, name: groupRef.current }));
     };
 
     useLayoutEffect(() => {

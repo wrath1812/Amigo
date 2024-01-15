@@ -6,7 +6,7 @@ import LoginImage from '../assets/Login.png';
 import { useNavigation } from '@react-navigation/native';
 import PAGES from '../constants/pages';
 import GroupIcon from './GroupIcon';
-import {useGroup} from "../context/GroupContext";
+import { useGroup } from '../context/GroupContext';
 function getMembersString(members) {
     let names = [];
 
@@ -23,7 +23,7 @@ function getMembersString(members) {
 
 function GroupCard({ group }) {
     const navigation = useNavigation();
-    const {setGroup}=useGroup();
+    const { setGroup } = useGroup();
     return (
         <Pressable
             onPress={() => {
