@@ -17,9 +17,8 @@ const InvitationLandingScreen = ({
         params: { groupId },
     },
 }) => {
-    const [loading, setLoading] = useState(false);
     useEffect(() => {
-        console.log(groupId);
+        handleJoin();
     }, [groupId]);
 
     const handleJoin = async () => {
@@ -34,22 +33,7 @@ const InvitationLandingScreen = ({
         }
     };
 
-    return loading ? (
-        <Loader />
-    ) : (
-        <SafeAreaView style={styles.container}>
-            {/* <TextInput
-                style={styles.input}
-                placeholder="Group Id"
-                onChangeText={setGroupId}
-                value={groupId}
-            />
-            <TouchableOpacity style={styles.button} onPress={handleJoin}>
-                <Text style={styles.buttonText}>Join</Text>
-            </TouchableOpacity> */}
-            <Text>{groupId}</Text>
-        </SafeAreaView>
-    );
+    return <Loader />;
 };
 
 const styles = StyleSheet.create({
