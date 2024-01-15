@@ -22,7 +22,8 @@ import { useAuth } from '../context/AuthContext';
 import { Ionicons } from '@expo/vector-icons';
 import ScanIcon from '../assets/icons/scan.png';
 import editNamesAsync from '../helper/editNamesAsync';
-const headerIconSize = 6;
+import UserAvatar from '../components/UserAvatar';
+const headerIconSize = calcHeight(1);
 
 /**
  * Groups data items by their group ID and name.
@@ -177,7 +178,7 @@ function BalanceScreen({ navigation }) {
                         justifyContent: 'space-between',
                     }}
                 >
-                    <Pressable
+                    {/* <Pressable
                         onPress={() => navigation.navigate(PAGES.SEARCH)}
                     >
                         <Ionicons
@@ -185,21 +186,13 @@ function BalanceScreen({ navigation }) {
                             size={calcWidth(headerIconSize)}
                             color="white"
                         />
-                    </Pressable>
+                    </Pressable> */}
                     <Pressable
                         onPress={() => {
                             navigation.navigate(PAGES.ACCOUNT);
                         }}
                     >
-                        <Image
-                            source={{ uri: 'https://t.ly/Rel6Z' }}
-                            style={{
-                                width: calcWidth(headerIconSize),
-                                height: calcWidth(headerIconSize),
-                                borderRadius: calcWidth(headerIconSize),
-                                marginLeft: calcWidth(headerIconSize),
-                            }}
-                        />
+                        <UserAvatar user={user}/>
                     </Pressable>
                 </View>
             </View>

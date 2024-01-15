@@ -266,7 +266,7 @@ function Feed({ creator, createdAt, relatedId, activityType, contacts }) {
                         {
                             backgroundColor:
                                 user._id === creator._id
-                                    ? COLOR.BUTTON
+                                    ? "#663CAB"
                                     : '#342F4F',
                             borderRadius:
                                 user._id === creator._id
