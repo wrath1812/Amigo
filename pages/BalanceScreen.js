@@ -19,7 +19,6 @@ import EmptyScreen from '../components/EmptyScreen';
 import NoBalance from '../assets/NoBalance.png';
 import GroupBalanceCard from '../components/GroupBalanceCard';
 import { useAuth } from '../context/AuthContext';
-import { Ionicons } from '@expo/vector-icons';
 import ScanIcon from '../assets/icons/scan.png';
 import editNamesAsync from '../helper/editNamesAsync';
 import UserAvatar from '../components/UserAvatar';

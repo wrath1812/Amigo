@@ -60,12 +60,13 @@ const CreateGroup = ({ navigation }) => {
                         ref={nameRef}
                     />
                 </Pressable>
-                <View style={styles.title}>
+                <View>
                     <Text style={styles.titleText}>Add members</Text>
                 </View>
                 <View style={{
-                    marginHorizontal: calcWidth(5),
-                    alignItems:"center"
+                    margin: calcWidth(5),
+                    alignItems:"center",
+                    height:calcHeight(50)
                 }}>
                 <ContactList />
                 </View>
@@ -96,11 +97,10 @@ const CreateGroup = ({ navigation }) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: COLOR.APP_BACKGROUND,
+        backgroundColor: COLOR.APP_BACKGROUND
     },
     scroll: {
         marginHorizontal: calcWidth(5),
-        
     },
     heading: {
         color: COLOR.PRIMARY,
@@ -118,12 +118,7 @@ const styles = StyleSheet.create({
         marginVertical: calcHeight(2),
     },
     input: {
-        flex: 1,
         color: 'white',
-    },
-    title: {
-        alignSelf: 'flex-start',
-        marginVertical: calcHeight(2),
     },
     titleText: {
         color: COLOR.PRIMARY,
@@ -133,12 +128,7 @@ const styles = StyleSheet.create({
     },
     button: {
         alignItems: 'center',
-        flex:1
-    },
-    contactLabel: {
-        marginVertical: calcHeight(4),
-        color: 'rgba(255, 255, 255, 0.65)',
-    },
+    }
 });
 
 export default CreateGroup;
