@@ -13,10 +13,10 @@ import {
     ScrollView,
     TextInput,
     Image,
-    Share
+    Share,
 } from 'react-native';
 import { MaterialCommunityIcons, SimpleLineIcons } from '@expo/vector-icons';
-import {DEEP_LINK_URL} from "@env";
+import { DEEP_LINK_URL } from '@env';
 import GroupIcon from '../components/GroupIcon';
 import { calcWidth, calcHeight, getFontSizeByWindowWidth } from '../helper/res';
 import COLOR from '../constants/Colors';
@@ -24,8 +24,8 @@ import GroupSettingsIcon from '../assets/GroupSettings.png';
 import apiHelper from '../helper/apiHelper';
 import UserAvatar from '../components/UserAvatar';
 import { useGroup } from '../context/GroupContext';
-import AddMembersIcon from "../assets/icons/addMembers.png";
-import ShareIcon from "../assets/icons/share.png";
+import AddMembersIcon from '../assets/icons/addMembers.png';
+import ShareIcon from '../assets/icons/share.png';
 
 const MemberItem = ({ name, phone, _id }) => (
     <View style={styles.memberItem}>
@@ -58,9 +58,13 @@ const GroupScreen = ({ navigation }) => {
         setGroup((prev) => ({ ...prev, name: groupRef.current }));
     };
 
-    const shareGroupLink=()=>{
-        Share.share({message:"Join the group at Amigo: "+`${DEEP_LINK_URL}join?groupId=${group._id}`});
-    }
+    const shareGroupLink = () => {
+        Share.share({
+            message:
+                'Join the group at Amigo: ' +
+                `${DEEP_LINK_URL}join?groupId=${group._id}`,
+        });
+    };
 
     useLayoutEffect(() => {
         navigation.setOptions({
@@ -153,43 +157,58 @@ const GroupScreen = ({ navigation }) => {
                         renderItem={renderMemberItem}
                         ListHeaderComponent={
                             <>
-                            <TouchableOpacity style={styles.memberItem}>
-                                
-                                <Image 
-                                source={AddMembersIcon}
-                                style={{
-                                    height:calcHeight(5),
-                                    width:calcHeight(5)
-                                }}
-                                />
-                                <Text style={{
-                                    color:COLOR.BUTTON,
-                                    fontSize:getFontSizeByWindowWidth(15),
-                                    fontWeight:"bold"
-                                }}>Add new members</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity style={styles.memberItem}
-                            onPress={shareGroupLink}
-                            >
-                                
-                                <Image 
-                                source={ShareIcon}
-                                style={{
-                                    height:calcHeight(5),
-                                    width:calcHeight(5)
-                                }}
-                                />
-                                <View>
-                                <Text style={{
-                                    color:COLOR.BUTTON,
-                                    fontSize:getFontSizeByWindowWidth(15),
-                                    fontWeight:"bold"
-                                }}>Share Group Link</Text>
-                                <Text style={{
-                                    color:COLOR.TEXT
-                                }}>Help members find this group</Text>
-                                </View>
-                            </TouchableOpacity>
+                                <TouchableOpacity style={styles.memberItem}>
+                                    <Image
+                                        source={AddMembersIcon}
+                                        style={{
+                                            height: calcHeight(5),
+                                            width: calcHeight(5),
+                                        }}
+                                    />
+                                    <Text
+                                        style={{
+                                            color: COLOR.BUTTON,
+                                            fontSize:
+                                                getFontSizeByWindowWidth(15),
+                                            fontWeight: 'bold',
+                                        }}
+                                    >
+                                        Add new members
+                                    </Text>
+                                </TouchableOpacity>
+                                <TouchableOpacity
+                                    style={styles.memberItem}
+                                    onPress={shareGroupLink}
+                                >
+                                    <Image
+                                        source={ShareIcon}
+                                        style={{
+                                            height: calcHeight(5),
+                                            width: calcHeight(5),
+                                        }}
+                                    />
+                                    <View>
+                                        <Text
+                                            style={{
+                                                color: COLOR.BUTTON,
+                                                fontSize:
+                                                    getFontSizeByWindowWidth(
+                                                        15,
+                                                    ),
+                                                fontWeight: 'bold',
+                                            }}
+                                        >
+                                            Share Group Link
+                                        </Text>
+                                        <Text
+                                            style={{
+                                                color: COLOR.TEXT,
+                                            }}
+                                        >
+                                            Help members find this group
+                                        </Text>
+                                    </View>
+                                </TouchableOpacity>
                             </>
                         }
                         // ListFooterComponent={<MemberItem name="Delete group" phone=""/>}

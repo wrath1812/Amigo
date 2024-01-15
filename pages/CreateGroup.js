@@ -18,20 +18,15 @@ import apiHelper from '../helper/apiHelper';
 import generateRandomColor from '../helper/generateRandomColor';
 import Search from '../components/Search';
 import Loader from '../components/Loader';
-import {useContacts} from "../hooks/useContacts";
+import { useContacts } from '../hooks/useContacts';
 
+import ContactList from '../components/ContactList';
 const CreateGroup = ({ navigation }) => {
-    const {
-        search,
-        setSearch,
-        selectedContacts,
-        handleSelectContact,
-        filterContacts,
-      } = useContact();  // Use the useContact component
-    
-      const [groupName, setGroupName] = useState('');
-      const [isLoading, setIsLoading] = useState(false);
-      const nameRef = useRef();
+    const { selectedContacts } = useContact(); // Use the useContact component
+
+    const [groupName, setGroupName] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
+    const nameRef = useRef();
 
     const createGroupAsync = async () => {
         setIsLoading(true);
@@ -68,24 +63,7 @@ const CreateGroup = ({ navigation }) => {
                 <View style={styles.title}>
                     <Text style={styles.titleText}>Add members</Text>
                 </View>
-                <Search search={search} setSearch={setSearch} />
-                <Text style={styles.contactLabel}>Contacts</Text>
-                <FlatList
-                    data={filterContacts()}
-                    style={styles.flatList}
-                    keyExtractor={(item) => item.id}
-                    renderItem={({ item }) => (
-                        <Pressable onPress={() => handleSelectContact(item)}>
-                            <ContactCard
-                                {...item}
-                                selected={selectedContacts.some(
-                                    (selected) => selected.id === item.id,
-                                )}
-                            />
-                        </Pressable>
-                    )}
-                    showsVerticalScrollIndicator={false}
-                />
+                <ContactList />
                 <View style={styles.button}>
                     <Button
                         title="Create Group"
