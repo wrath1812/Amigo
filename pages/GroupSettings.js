@@ -24,6 +24,7 @@ import apiHelper from '../helper/apiHelper';
 import UserAvatar from '../components/UserAvatar';
 import { useGroup } from '../context/GroupContext';
 import AddMembersIcon from "../assets/icons/addMembers.png";
+import ShareIcon from "../assets/icons/share.png";
 
 const MemberItem = ({ name, phone, _id }) => (
     <View style={styles.memberItem}>
@@ -165,7 +166,7 @@ const GroupScreen = ({ navigation }) => {
                             <TouchableOpacity style={styles.memberItem}>
                                 
                                 <Image 
-                                source={AddMembersIcon}
+                                source={ShareIcon}
                                 style={{
                                     height:calcHeight(5),
                                     width:calcHeight(5)
