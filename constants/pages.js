@@ -27,6 +27,7 @@ const PAGES = {
     FAQ: 'FAQ',
     ABOUT: 'About',
     INVITATION_LANDING_PAGE: 'Invitation Landing Page',
+    ADD_PEOPLE: 'Add People',
 };
 
 export default PAGES;

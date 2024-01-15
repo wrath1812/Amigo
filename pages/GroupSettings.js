@@ -26,6 +26,7 @@ import UserAvatar from '../components/UserAvatar';
 import { useGroup } from '../context/GroupContext';
 import AddMembersIcon from '../assets/icons/addMembers.png';
 import ShareIcon from '../assets/icons/share.png';
+import PAGES from '../constants/pages';
 
 const MemberItem = ({ name, phone, _id }) => (
     <View style={styles.memberItem}>
@@ -157,7 +158,9 @@ const GroupScreen = ({ navigation }) => {
                         renderItem={renderMemberItem}
                         ListHeaderComponent={
                             <>
-                                <TouchableOpacity style={styles.memberItem}>
+                                <TouchableOpacity onPress={()=>{
+                                    navigation.navigate(PAGES.ADD_PEOPLE)
+                                }} style={styles.memberItem}>
                                     <Image
                                         source={AddMembersIcon}
                                         style={{

@@ -12,7 +12,11 @@ import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
 import { MaterialIcons } from '@expo/vector-icons';
 import ContactList from '../components/ContactList';
 const AddPeople = () => {
-    return <SafeAreaView style={styles.container}></SafeAreaView>;
+    return (
+        <SafeAreaView style={styles.container}>
+            <ContactList />
+        </SafeAreaView>
+    );
 };
 
 const styles = StyleSheet.create({

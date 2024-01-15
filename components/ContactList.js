@@ -14,7 +14,6 @@ const ContactList = () => {
         selectedContacts,
         handleSelectContact,
     } = useContacts();
-
     return (
         <View>
             <Search search={search} setSearch={setSearch} />

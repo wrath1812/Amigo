@@ -27,6 +27,7 @@ import FAQ from '../pages/FAQ';
 import About from '../pages/About';
 import { TransactionProvider } from '../context/TransactionContext';
 import { GroupProvider } from '../context/GroupContext';
+import AddPeople from '../pages/AddPeople';
 const AppNavigator = () => {
     const { user } = useAuth();
     return (
@@ -129,6 +130,17 @@ const AppNavigator = () => {
                             <Stack.Screen
                                 name={PAGES.UPI_APP_SELECTION}
                                 component={UPIAppSelection}
+                                options={{
+                                    headerStyle: {
+                                        backgroundColor: COLOR.APP_BACKGROUND,
+                                    },
+                                    headerTintColor: '#fff',
+                                }}
+                            />
+
+<Stack.Screen
+                                name={PAGES.ADD_PEOPLE}
+                                component={AddPeople}
                                 options={{
                                     headerStyle: {
                                         backgroundColor: COLOR.APP_BACKGROUND,

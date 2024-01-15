@@ -22,7 +22,7 @@ import { useContacts } from '../hooks/useContacts';
 
 import ContactList from '../components/ContactList';
 const CreateGroup = ({ navigation }) => {
-    const { selectedContacts } = useContact(); // Use the useContact component
+    const { selectedContacts } = useContacts(); // Use the useContact component
 
     const [groupName, setGroupName] = useState('');
     const [isLoading, setIsLoading] = useState(false);
