@@ -132,7 +132,7 @@ const TypeSelector = ({ setType, type }) => {
                             borderTopRightRadius: 20,
                             padding: calcHeight(4),
                             backgroundColor: COLOR.APP_BACKGROUND,
-                            paddingBottom: calcHeight(8),
+                            paddingBottom: calcHeight(7),
                         }}
                     >
                         <View

@@ -12,6 +12,7 @@ import {
     FlatList,
     ScrollView,
     TextInput,
+    Image
 } from 'react-native';
 import { MaterialCommunityIcons, SimpleLineIcons } from '@expo/vector-icons';
 
@@ -22,6 +23,7 @@ import GroupSettingsIcon from '../assets/GroupSettings.png';
 import apiHelper from '../helper/apiHelper';
 import UserAvatar from '../components/UserAvatar';
 import { useGroup } from '../context/GroupContext';
+import AddMembersIcon from "../assets/icons/addMembers.png";
 
 const MemberItem = ({ name, phone, _id }) => (
     <View style={styles.memberItem}>
@@ -143,21 +145,45 @@ const GroupScreen = ({ navigation }) => {
                         data={groupMembers}
                         keyExtractor={(item, index) => index.toString()}
                         renderItem={renderMemberItem}
-                        // ListHeaderComponent={
-                        //     <>
-                        //         <MemberItem
-                        //             icon={AddContactIcon}
-                        //             name="Add new members"
-                        //             isIcon
-                        //         />
-                        //         <MemberItem
-                        //             icon={ShareIcon}
-                        //             name="Share group Link"
-                        //             phone="Help members find the group"
-                        //             isIcon
-                        //         />
-                        //     </>
-                        // }
+                        ListHeaderComponent={
+                            <>
+                            <TouchableOpacity style={styles.memberItem}>
+                                
+                                <Image 
+                                source={AddMembersIcon}
+                                style={{
+                                    height:calcHeight(5),
+                                    width:calcHeight(5)
+                                }}
+                                />
+                                <Text style={{
+                                    color:COLOR.BUTTON,
+                                    fontSize:getFontSizeByWindowWidth(15),
+                                    fontWeight:"bold"
+                                }}>Add new members</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity style={styles.memberItem}>
+                                
+                                <Image 
+                                source={AddMembersIcon}
+                                style={{
+                                    height:calcHeight(5),
+                                    width:calcHeight(5)
+                                }}
+                                />
+                                <View>
+                                <Text style={{
+                                    color:COLOR.BUTTON,
+                                    fontSize:getFontSizeByWindowWidth(15),
+                                    fontWeight:"bold"
+                                }}>Share Group Link</Text>
+                                <Text style={{
+                                    color:COLOR.TEXT
+                                }}>Help members find this group</Text>
+                                </View>
+                            </TouchableOpacity>
+                            </>
+                        }
                         // ListFooterComponent={<MemberItem name="Delete group" phone=""/>}
                     />
                 </View>
@@ -205,7 +231,7 @@ const styles = StyleSheet.create({
         padding: calcWidth(5),
         borderBottomWidth: 1,
         borderBottomColor: COLOR.BORDER_COLOR,
-        marginHorizontal: calcWidth(5),
+        marginHorizontal: calcWidth(2),
     },
     memberInfo: {
         flex: 1,
