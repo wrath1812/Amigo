@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 import * as Contacts from 'expo-contacts';
 import generateRandomColor from '../helper/generateRandomColor';
 
-export const useContacts = () => {
+const ContactsContext = createContext();
+
+export const ContactsProvider = ({ children }) => {
     const [allContacts, setAllContacts] = useState([]);
     const [filteredContacts, setFilteredContacts] = useState([]);
     const [search, setSearch] = useState('');
@@ -91,12 +93,22 @@ export const useContacts = () => {
         );
     };
 
-    return {
-        contacts: filteredContacts, // Use filteredContacts instead of allContacts
-        search,
-        setSearch,
-        selectedContacts,
-        handleSelectContact,
-        loading,
-    };
+    return (
+        <ContactsContext.Provider
+            value={{
+                contacts: filteredContacts,
+                search,
+                setSearch,
+                selectedContacts,
+                handleSelectContact,
+                loading,
+            }}
+        >
+            {children}
+        </ContactsContext.Provider>
+    );
+};
+
+export const useContacts = () => {
+    return useContext(ContactsContext);
 };
