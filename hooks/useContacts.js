@@ -1,7 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import * as Contacts from 'expo-contacts';
 import generateRandomColor from '../helper/generateRandomColor';
-
 const ContactsContext = createContext();
 
 export const ContactsProvider = ({ children }) => {

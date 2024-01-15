@@ -31,7 +31,7 @@ const AddPeople = ({ navigation }) => {
                         Done
                     </Text>
                 </TouchableOpacity>
-            )
+            ),
         });
     }, [navigation]);
     return (
