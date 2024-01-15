@@ -1,6 +1,6 @@
 // ContactList.js
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { View, Text, FlatList, Pressable } from 'react-native';
 import ContactCard from './ContactCard';
 import Search from './Search';
@@ -13,7 +13,12 @@ const ContactList = () => {
         contacts,
         selectedContacts,
         handleSelectContact,
+        setSelectedContacts
     } = useContacts();
+
+    useEffect(()=>{
+        setSelectedContacts([]);
+    },[])
     return (
         <View>
             <Search search={search} setSearch={setSearch} />
