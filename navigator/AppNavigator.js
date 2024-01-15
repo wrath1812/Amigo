@@ -138,7 +138,7 @@ const AppNavigator = () => {
                                 }}
                             />
 
-<Stack.Screen
+                            <Stack.Screen
                                 name={PAGES.ADD_PEOPLE}
                                 component={AddPeople}
                                 options={{

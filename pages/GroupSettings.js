@@ -99,9 +99,7 @@ const GroupScreen = ({ navigation }) => {
     return (
         <SafeAreaView style={styles.container}>
             <ScrollView>
-                <TouchableOpacity
-                    style={styles.centeredView}
-                >
+                <TouchableOpacity style={styles.centeredView}>
                     <GroupIcon
                         size={{ width: calcWidth(20), height: calcWidth(20) }}
                         image={GroupSettingsIcon}
@@ -157,9 +155,12 @@ const GroupScreen = ({ navigation }) => {
                         renderItem={renderMemberItem}
                         ListHeaderComponent={
                             <>
-                                <TouchableOpacity onPress={()=>{
-                                    navigation.navigate(PAGES.ADD_PEOPLE)
-                                }} style={styles.memberItem}>
+                                <TouchableOpacity
+                                    onPress={() => {
+                                        navigation.navigate(PAGES.ADD_PEOPLE);
+                                    }}
+                                    style={styles.memberItem}
+                                >
                                     <Image
                                         source={AddMembersIcon}
                                         style={{
