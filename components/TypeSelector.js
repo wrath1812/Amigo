@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     TouchableOpacity,
     Text,
@@ -7,12 +7,14 @@ import {
     View,
     FlatList,
 } from 'react-native';
-import { calcWidth, getFontSizeByWindowWidth } from '../helper/res';
+import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
 import COLOR from '../constants/Colors';
 import typeIcon from '../assets/icons/type.png';
 import Categories from '../constants/Categories';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons';
 
-const TypeSelector = ({ setType,type }) => {
+const TypeSelector = ({ setType, type }) => {
     const [modalVisible, setModalVisible] = useState(false);
     const [selectedTypes, setSelectedTypes] = useState([]);
 
@@ -21,10 +23,13 @@ const TypeSelector = ({ setType,type }) => {
 
         if (isSelected) {
             setSelectedTypes((prevSelectedTypes) =>
-                prevSelectedTypes.filter((type) => type !== item)
+                prevSelectedTypes.filter((type) => type !== item),
             );
         } else {
-            setSelectedTypes((prevSelectedTypes) => [...prevSelectedTypes, item]);
+            setSelectedTypes((prevSelectedTypes) => [
+                ...prevSelectedTypes,
+                item,
+            ]);
         }
     };
 
@@ -38,24 +43,38 @@ const TypeSelector = ({ setType,type }) => {
     const renderItem = ({ item }) => (
         <TouchableOpacity
             style={{
-                padding: 10,
-                flexDirection: 'row',
-                gap: calcWidth(8),
+                paddingVertical: calcHeight(2),
                 alignItems: 'center',
-                backgroundColor: selectedTypes.includes(item)
-                    ? 'rgba(52, 47, 79, 0.3)' // Highlight selected items
-                    : 'transparent',
+                flexDirection: 'row',
+                justifyContent: 'space-between',
             }}
             onPress={() => toggleTypeSelection(item)}
         >
-            <Text
+            <View
                 style={{
-                    fontSize: getFontSizeByWindowWidth(15),
-                    color: COLOR.TEXT,
+                    flexDirection: 'row',
+                    gap: calcWidth(8),
                 }}
             >
-                {item}
-            </Text>
+                {item.icon}
+                <Text
+                    style={{
+                        fontSize: getFontSizeByWindowWidth(12),
+                        color: COLOR.TEXT,
+                    }}
+                >
+                    {item.name}
+                </Text>
+            </View>
+            <AntDesign
+                name={
+                    selectedTypes.includes(item)
+                        ? 'checkcircle'
+                        : 'checkcircleo'
+                }
+                size={calcWidth(7)}
+                color={selectedTypes.includes(item) ? COLOR.BUTTON : COLOR.TEXT}
+            />
         </TouchableOpacity>
     );
 
@@ -111,52 +130,46 @@ const TypeSelector = ({ setType,type }) => {
                         style={{
                             borderTopLeftRadius: 20,
                             borderTopRightRadius: 20,
-                            padding: 16,
+                            padding: calcHeight(4),
+                            backgroundColor: COLOR.APP_BACKGROUND,
+                            paddingBottom: calcHeight(8),
                         }}
                     >
+                        <View
+                            style={{
+                                flexDirection: 'row',
+                                justifyContent: 'space-between',
+                                marginBottom: calcHeight(2),
+                            }}
+                        >
+                            <Text
+                                style={{
+                                    fontSize: getFontSizeByWindowWidth(15),
+                                    fontWeight: 'bold',
+                                    color: COLOR.TEXT,
+                                }}
+                            >
+                                Type
+                            </Text>
+                            <TouchableOpacity
+                                onPress={applySelectionAndCloseModal}
+                            >
+                                <Text
+                                    style={{
+                                        fontSize: getFontSizeByWindowWidth(15),
+                                        fontWeight: 'bold',
+                                        color: COLOR.BUTTON,
+                                    }}
+                                >
+                                    Done
+                                </Text>
+                            </TouchableOpacity>
+                        </View>
                         <FlatList
-                            data={Categories.map((category) => category.name)}
+                            data={Categories}
                             renderItem={renderItem}
                             keyExtractor={(item) => item}
                         />
-                        <TouchableOpacity
-                            onPress={applySelectionAndCloseModal}
-                            style={{
-                                marginTop: 16,
-                                padding: 10,
-                                backgroundColor: '#342F4F',
-                                alignItems: 'center',
-                                borderRadius: 8,
-                            }}
-                        >
-                            <Text
-                                style={{
-                                    fontSize: getFontSizeByWindowWidth(15),
-                                    color: COLOR.TEXT,
-                                }}
-                            >
-                                Apply Selection
-                            </Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            onPress={() => setModalVisible(false)}
-                            style={{
-                                marginTop: 8,
-                                padding: 10,
-                                backgroundColor: '#342F4F',
-                                alignItems: 'center',
-                                borderRadius: 8,
-                            }}
-                        >
-                            <Text
-                                style={{
-                                    fontSize: getFontSizeByWindowWidth(15),
-                                    color: COLOR.TEXT,
-                                }}
-                            >
-                                Close
-                            </Text>
-                        </TouchableOpacity>
                     </View>
                 </View>
             </Modal>
