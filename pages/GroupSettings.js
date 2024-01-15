@@ -12,10 +12,11 @@ import {
     FlatList,
     ScrollView,
     TextInput,
-    Image
+    Image,
+    Share
 } from 'react-native';
 import { MaterialCommunityIcons, SimpleLineIcons } from '@expo/vector-icons';
-
+import {DEEP_LINK_URL} from "@env";
 import GroupIcon from '../components/GroupIcon';
 import { calcWidth, calcHeight, getFontSizeByWindowWidth } from '../helper/res';
 import COLOR from '../constants/Colors';
@@ -56,6 +57,10 @@ const GroupScreen = ({ navigation }) => {
         });
         setGroup((prev) => ({ ...prev, name: groupRef.current }));
     };
+
+    const shareGroupLink=()=>{
+        Share.share({message:"Join the group at Amigo: "+`${DEEP_LINK_URL}join?groupId=${group._id}`});
+    }
 
     useLayoutEffect(() => {
         navigation.setOptions({
@@ -163,7 +168,9 @@ const GroupScreen = ({ navigation }) => {
                                     fontWeight:"bold"
                                 }}>Add new members</Text>
                             </TouchableOpacity>
-                            <TouchableOpacity style={styles.memberItem}>
+                            <TouchableOpacity style={styles.memberItem}
+                            onPress={shareGroupLink}
+                            >
                                 
                                 <Image 
                                 source={ShareIcon}
