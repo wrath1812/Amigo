@@ -16,7 +16,7 @@ export function useExpense(userId, setLoading) {
             const filter = {
                 startDate: range.startDate,
                 endDate: range.endDate,
-                type,
+                type: Array.isArray(type) ? type : [type], // Ensure type is an array
             };
             const { data } = await apiHelper('/transaction/expenses', {
                 params: filter,

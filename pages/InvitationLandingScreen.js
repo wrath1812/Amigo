@@ -27,7 +27,6 @@ const InvitationLandingScreen = ({
             await apiHelper.post(`group/${groupId}/join`);
             navigation.navigate(PAGES.GROUP_LIST);
         } catch (e) {
-            // Handle the error (e.g., show an alert)
         } finally {
             setLoading(false);
         }

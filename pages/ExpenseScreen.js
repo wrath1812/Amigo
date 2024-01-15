@@ -29,7 +29,7 @@ function ExpenseScreen() {
             <Text style={styles.header}>Expense Summary</Text>
 
             <View style={styles.selectorContainer}>
-                <TypeSelector setType={setType} />
+                <TypeSelector setType={setType} type={type} />
                 <DatePickerSelector
                     range={range}
                     setRange={setRange}
