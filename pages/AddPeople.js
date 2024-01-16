@@ -10,16 +10,27 @@ import COLOR from '../constants/Colors';
 import { calcHeight, getFontSizeByWindowWidth } from '../helper/res';
 import ContactList from '../components/ContactList';
 import { useContacts } from '../hooks/useContacts';
+import { useGroup } from '../context/GroupContext';
+import apiHelper from '../helper/apiHelper';
+import PAGES from '../constants/pages';
 const AddPeople = ({ navigation }) => {
     const { selectedContacts } = useContacts();
+    const { group } = useGroup();
+    function addMembers() {
+        apiHelper.patch(
+            `/group/${group._id}`,
+            selectedContacts.map((contact) => ({
+                phoneNumber: contact.phoneNumber,
+                countryCode: '91',
+            })),
+        );
+        navigation.navigate(PAGES.GROUP);
+    }
+
     useLayoutEffect(() => {
         navigation.setOptions({
             headerRight: () => (
-                <TouchableOpacity
-                    onPress={() => {
-                        console.log(selectedContacts);
-                    }}
-                >
+                <TouchableOpacity onPress={addMembers}>
                     <Text
                         style={[
                             {
@@ -33,7 +44,7 @@ const AddPeople = ({ navigation }) => {
                 </TouchableOpacity>
             ),
         });
-    }, [navigation]);
+    }, [navigation, selectedContacts]);
     return (
         <SafeAreaView style={styles.container}>
             <View

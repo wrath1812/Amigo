@@ -13,12 +13,12 @@ const ContactList = () => {
         contacts,
         selectedContacts,
         handleSelectContact,
-        setSelectedContacts
+        setSelectedContacts,
     } = useContacts();
 
-    useEffect(()=>{
+    useEffect(() => {
         setSelectedContacts([]);
-    },[])
+    }, []);
     return (
         <View>
             <Search search={search} setSearch={setSearch} />

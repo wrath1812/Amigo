@@ -101,7 +101,7 @@ export const ContactsProvider = ({ children }) => {
                 selectedContacts,
                 handleSelectContact,
                 loading,
-                setSelectedContacts
+                setSelectedContacts,
             }}
         >
             {children}
