@@ -53,7 +53,7 @@ const AddPeople = ({ navigation }) => {
                     margin: calcHeight(5),
                 }}
             >
-                <ContactList />
+                <ContactList eliminatedContacts={group.members}/>
             </View>
         </SafeAreaView>
     );

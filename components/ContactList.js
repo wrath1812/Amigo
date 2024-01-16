@@ -6,7 +6,8 @@ import ContactCard from './ContactCard';
 import Search from './Search';
 import { useContacts } from '../hooks/useContacts';
 import { calcHeight, calcWidth } from '../helper/res';
-const ContactList = () => {
+import { useNavigation } from '@react-navigation/native';
+const ContactList = ({eliminatedContacts}) => {
     const {
         search,
         setSearch,
@@ -19,6 +20,15 @@ const ContactList = () => {
     useEffect(() => {
         setSelectedContacts([]);
     }, []);
+
+    function eliminateContacts()
+    {
+        if(!eliminatedContacts)
+        return contacts;
+        
+        return contacts.filter(contact => !eliminatedContacts.map(member => member.phoneNumber).includes(contact.phoneNumber));
+    }
+
     return (
         <View>
             <Search search={search} setSearch={setSearch} />
@@ -26,7 +36,7 @@ const ContactList = () => {
                 style={{
                     marginTop: calcHeight(5),
                 }}
-                data={contacts}
+                data={eliminateContacts()}
                 keyExtractor={(item) => item.id}
                 renderItem={({ item }) => (
                     <Pressable onPress={() => handleSelectContact(item)}>
