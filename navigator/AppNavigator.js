@@ -26,7 +26,8 @@ import GroupSettings from '../pages/GroupSettings';
 import FAQ from '../pages/FAQ';
 import About from '../pages/About';
 import AddPeople from '../pages/AddPeople';
-
+import LoginScreen from '../pages/LoginScreen';
+import OTPScreen from '../pages/OTPScreen';
 const AppNavigator = () => {
     const { user } = useAuth();
     return (
@@ -224,6 +225,27 @@ const AppNavigator = () => {
                     <Stack.Screen
                         name={PAGES.INVITATION_LANDING_PAGE}
                         component={InvitationLandingScreen}
+                    />
+                    <Stack.Screen
+                        name={PAGES.LOGIN}
+                        component={LoginScreen}
+                        options={{
+                            headerStyle: {
+                                backgroundColor: COLOR.APP_BACKGROUND,
+                            },
+                            title: null,
+                        }}
+                    />
+
+                    <Stack.Screen
+                        name={PAGES.OTP}
+                        options={{
+                            headerStyle: {
+                                backgroundColor: COLOR.APP_BACKGROUND,
+                            },
+                            title: null,
+                        }}
+                        component={OTPScreen}
                     />
                 </Stack.Group>
             ) : (
