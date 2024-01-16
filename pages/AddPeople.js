@@ -1,4 +1,4 @@
-import React, { useLayoutEffect } from 'react';
+import React, { useLayoutEffect,useState } from 'react';
 import {
     View,
     StyleSheet,
@@ -13,18 +13,22 @@ import { useContacts } from '../hooks/useContacts';
 import { useGroup } from '../context/GroupContext';
 import apiHelper from '../helper/apiHelper';
 import PAGES from '../constants/pages';
+import Loader from "../components/Loader";
 const AddPeople = ({ navigation }) => {
     const { selectedContacts } = useContacts();
-    const { group } = useGroup();
-    function addMembers() {
-        apiHelper.patch(
+    const { group,setGroup } = useGroup();
+    const [loading,setLoading]=useState(false);
+    async function addMembers() {
+        setLoading(true);
+        const {data}=await apiHelper.patch(
             `/group/${group._id}`,
             selectedContacts.map((contact) => ({
                 phoneNumber: contact.phoneNumber,
                 countryCode: '91',
             })),
         );
-        navigation.navigate(PAGES.GROUP);
+        setLoading(false);
+        navigation.navigate(PAGES.GROUP_LIST);
     }
 
     useLayoutEffect(() => {
@@ -45,6 +49,8 @@ const AddPeople = ({ navigation }) => {
             ),
         });
     }, [navigation, selectedContacts]);
+    if(loading)
+    return <Loader/>
     return (
         <SafeAreaView style={styles.container}>
             <View
