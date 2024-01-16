@@ -37,17 +37,12 @@ function ProfileScreen({ navigation }) {
 
     useEffect(() => {
         if (isSubmitting) {
-            if (phoneNumber.length !== 10) {
-                alert('Invalid Phone Number');
-                setIsSubmitting(false);
-                return;
-            }
             if (!name || name === '') {
                 alert('Empty Name');
                 setIsSubmitting(false);
                 return;
             }
-            editUser({ phoneNumber, name });
+            editUser({ name });
             setEditMode(false);
             setIsSubmitting(false);
         }
@@ -66,6 +61,12 @@ function ProfileScreen({ navigation }) {
             IconComponent: MaterialCommunityIcons,
             onPress: () => navigation.navigate(PAGES.ABOUT),
         },
+        {
+            label: 'Change Phone Number',
+            iconName: 'smartphone',
+            IconComponent: Feather,
+            onPress: () => navigation.navigate(PAGES.ABOUT),
+        }
     ];
 
     useLayoutEffect(() => {
@@ -109,21 +110,12 @@ function ProfileScreen({ navigation }) {
                             style={styles.userName}
                             value={name}
                             onChangeText={setName}
+                            autoFocus
                         />
                     ) : (
                         <Text style={styles.userName}>{name}</Text>
                     )}
-                    {editMode ? (
-                        <TextInput
-                            style={styles.userPhone}
-                            value={phoneNumber}
-                            onChangeText={setPhoneNumber}
-                            keyboardType="numeric"
-                            autoFocus
-                        />
-                    ) : (
                         <Text style={styles.userPhone}>{phoneNumber}</Text>
-                    )}
                 </View>
                 <Pressable
                     onPress={() => {
