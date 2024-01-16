@@ -66,7 +66,7 @@ function ProfileScreen({ navigation }) {
             iconName: 'smartphone',
             IconComponent: Feather,
             onPress: () => navigation.navigate(PAGES.ABOUT),
-        }
+        },
     ];
 
     useLayoutEffect(() => {
@@ -115,7 +115,7 @@ function ProfileScreen({ navigation }) {
                     ) : (
                         <Text style={styles.userName}>{name}</Text>
                     )}
-                        <Text style={styles.userPhone}>{phoneNumber}</Text>
+                    <Text style={styles.userPhone}>{phoneNumber}</Text>
                 </View>
                 <Pressable
                     onPress={() => {

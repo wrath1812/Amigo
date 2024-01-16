@@ -7,7 +7,7 @@ import Search from './Search';
 import { useContacts } from '../hooks/useContacts';
 import { calcHeight, calcWidth } from '../helper/res';
 import { useNavigation } from '@react-navigation/native';
-const ContactList = ({eliminatedContacts}) => {
+const ContactList = ({ eliminatedContacts }) => {
     const {
         search,
         setSearch,
@@ -21,12 +21,15 @@ const ContactList = ({eliminatedContacts}) => {
         setSelectedContacts([]);
     }, []);
 
-    function eliminateContacts()
-    {
-        if(!eliminatedContacts)
-        return contacts;
-        
-        return contacts.filter(contact => !eliminatedContacts.map(member => member.phoneNumber).includes(contact.phoneNumber));
+    function eliminateContacts() {
+        if (!eliminatedContacts) return contacts;
+
+        return contacts.filter(
+            (contact) =>
+                !eliminatedContacts
+                    .map((member) => member.phoneNumber)
+                    .includes(contact.phoneNumber),
+        );
     }
 
     return (
