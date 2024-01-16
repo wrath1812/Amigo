@@ -234,6 +234,7 @@ const AppNavigator = () => {
                                 backgroundColor: COLOR.APP_BACKGROUND,
                             },
                             title: null,
+                            headerTintColor: '#fff',
                         }}
                     />
 
@@ -244,6 +245,7 @@ const AppNavigator = () => {
                                 backgroundColor: COLOR.APP_BACKGROUND,
                             },
                             title: null,
+                            headerTintColor: '#fff',
                         }}
                         component={OTPScreen}
                     />
