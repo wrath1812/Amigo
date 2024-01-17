@@ -6,6 +6,7 @@ import {
     Modal,
     View,
     FlatList,
+    Pressable
 } from 'react-native';
 import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
 import COLOR from '../constants/Colors';
@@ -119,12 +120,13 @@ const TypeSelector = ({ setType, type }) => {
                     setModalVisible(false);
                 }}
             >
-                <View
+                <Pressable
                     style={{
                         flex: 1,
                         justifyContent: 'flex-end',
                         backgroundColor: 'rgba(0, 0, 0, 0.5)',
                     }}
+                    onPress={()=>setModalVisible(false)}
                 >
                     <View
                         style={{
@@ -171,7 +173,7 @@ const TypeSelector = ({ setType, type }) => {
                             keyExtractor={(item) => item}
                         />
                     </View>
-                </View>
+                </Pressable>
             </Modal>
         </>
     );

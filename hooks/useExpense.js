@@ -18,7 +18,7 @@ export function useExpense(userId, setLoading) {
                 endDate: range.endDate,
                 type: Array.isArray(type) ? type : [type], // Ensure type is an array
             };
-            console.log(filter)
+            
             const { data } = await apiHelper('/transaction/expenses', {
                 params: filter,
             });
