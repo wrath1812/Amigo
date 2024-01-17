@@ -17,6 +17,7 @@ import { useAuth } from '../context/AuthContext';
 import Loader from '../components/Loader';
 import OTPFilled from '../assets/OTPFilled.png';
 import sendOTP from '../helper/sendOTP';
+import PAGES from '../constants/pages';
 const OTPScreen = ({
     navigation,
     route: {
@@ -28,6 +29,7 @@ const OTPScreen = ({
     const [error, setError] = useState(false);
     const [loading, setLoading] = useState(false);
     const { verifyOTP } = useAuth();
+
     useEffect(() => {
         inputRef.current.focus();
     }, []);
@@ -43,6 +45,7 @@ const OTPScreen = ({
         }
         setLoading(true);
         await verifyOTP(phoneNumber, countryCode, otp);
+        navigation.navigate(PAGES.ACCOUNT);
         setLoading(false);
         setOtp('');
         setError(true);
