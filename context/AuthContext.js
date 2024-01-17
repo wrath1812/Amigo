@@ -44,7 +44,10 @@ export const AuthProvider = ({ children }) => {
             otp,
         });
         if(user){
-        setUser(data);
+        setUser((prev)=>({
+            ...prev,
+            phoneNumber, countryCode
+        }));
         return;
         }
         if (data.status) return;

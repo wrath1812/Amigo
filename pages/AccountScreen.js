@@ -65,7 +65,7 @@ function ProfileScreen({ navigation }) {
             label: 'Change Phone Number',
             iconName: 'smartphone',
             IconComponent: Feather,
-            onPress: () => navigation.navigate(PAGES.LOGIN),
+            onPress: () => navigation.navigate(PAGES.EDIT_PHONE_NUMBER),
         },
     ];
 

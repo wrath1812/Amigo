@@ -18,6 +18,7 @@ import Loader from '../components/Loader';
 import OTPFilled from '../assets/OTPFilled.png';
 import sendOTP from '../helper/sendOTP';
 import PAGES from '../constants/pages';
+import getPreviousPageName from '../helper/getPreviousPageName';
 const OTPScreen = ({
     navigation,
     route: {
@@ -45,6 +46,7 @@ const OTPScreen = ({
         }
         setLoading(true);
         await verifyOTP(phoneNumber, countryCode, otp);
+        navigation.navigate(PAGES.BALANCE);
         setLoading(false);
         setOtp('');
         setError(true);
