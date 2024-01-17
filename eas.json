@@ -30,7 +30,7 @@
         "production": {
             "env": {
                 "ENV": "production",
-                "API_URL": "https://bec4-2405-201-13-305f-79cb-b173-11d9-82ed.ngrok-free.app/",
+                "API_URL": "https://5a62-2405-201-13-305f-d972-e4a0-b21a-889b.ngrok-free.app/",
                 "DEEP_LINK_URL": "https://bhaumik-tandan.github.io/Split-IT-Home/#/"
             }
         }
