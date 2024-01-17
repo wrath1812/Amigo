@@ -48,7 +48,7 @@ const TypeSelector = ({ setType, type }) => {
                 flexDirection: 'row',
                 justifyContent: 'space-between',
             }}
-            onPress={() => toggleTypeSelection(item)}
+            onPress={() => toggleTypeSelection(item.name)}
         >
             <View
                 style={{
@@ -68,12 +68,12 @@ const TypeSelector = ({ setType, type }) => {
             </View>
             <AntDesign
                 name={
-                    selectedTypes.includes(item)
+                    selectedTypes.includes(item.name)
                         ? 'checkcircle'
                         : 'checkcircleo'
                 }
                 size={calcWidth(7)}
-                color={selectedTypes.includes(item) ? COLOR.BUTTON : COLOR.TEXT}
+                color={selectedTypes.includes(item.name) ? COLOR.BUTTON : COLOR.TEXT}
             />
         </TouchableOpacity>
     );

@@ -28,9 +28,10 @@ export const AuthProvider = ({ children }) => {
     }, []);
 
     const addName = (name) => {
-        apiHelper.patch('/user/name', { name });
+        apiHelper.put('/user', { name });
         setUser((prev) => ({ ...prev, name }));
     };
+    
     const logout = () => {
         setUser('');
         clearAllLocalStoreData();
