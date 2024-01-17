@@ -37,7 +37,8 @@ export const AuthProvider = ({ children }) => {
     };
 
     async function verifyOTP(phoneNumber, countryCode, otp) {
-        const { data } = await apiHelper.post(`/auth/${user?"editPhoneNumber":"verifyOTP"}`, {
+        const endpoint=user?"editPhoneNumber":"verifyOTP";
+        const { data } = await apiHelper.post(`/auth/${endpoint}`, {
             phoneNumber,
             countryCode,
             otp,

@@ -38,7 +38,7 @@ const LoginScreen = ({ navigation }) => {
             return;
         }
         sendOTP('91' + phoneNumber);
-        navigation.navigate(PAGES.OTP, { countryCode: '91', phoneNumber });
+        navigation.navigate(PAGES.OTP_LOGGED_OUT, { countryCode: '91', phoneNumber });
     };
 
     return (

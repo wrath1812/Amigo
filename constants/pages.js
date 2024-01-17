@@ -9,6 +9,7 @@ const PAGES = {
     SETTINGS: 'Settings',
     ONBOARDING: 'Onboarding',
     OTP: 'OTP',
+    OTP_LOGGED_OUT: 'OTP Logged Out',
     CREATE_GROUP: 'Create Group',
     TRANSACTION_DETAIL: 'Transaction Detail',
     BALANCE: 'Balance',
@@ -28,6 +29,7 @@ const PAGES = {
     ABOUT: 'About',
     INVITATION_LANDING_PAGE: 'Invitation Landing Page',
     ADD_PEOPLE: 'Add People',
+    EDIT_PHONE_NUMBER:'Edit Phone Number'
 };
 
 export default PAGES;

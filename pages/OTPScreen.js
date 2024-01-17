@@ -45,7 +45,6 @@ const OTPScreen = ({
         }
         setLoading(true);
         await verifyOTP(phoneNumber, countryCode, otp);
-        navigation.navigate(PAGES.ACCOUNT);
         setLoading(false);
         setOtp('');
         setError(true);
