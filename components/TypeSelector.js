@@ -12,8 +12,8 @@ import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
 import COLOR from '../constants/Colors';
 import typeIcon from '../assets/icons/type.png';
 import Categories from '../constants/Categories';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
+import CheckBox from "../components/CheckBox";
 
 const TypeSelector = ({ setType, type }) => {
     const [modalVisible, setModalVisible] = useState(false);
@@ -67,14 +67,8 @@ const TypeSelector = ({ setType, type }) => {
                     {item.name}
                 </Text>
             </View>
-            <AntDesign
-                name={
-                    selectedTypes.includes(item.name)
-                        ? 'checkcircle'
-                        : 'checkcircleo'
-                }
-                size={calcWidth(7)}
-                color={selectedTypes.includes(item.name) ? COLOR.BUTTON : COLOR.TEXT}
+            <CheckBox 
+            selected={selectedTypes.includes(item.name) }
             />
         </TouchableOpacity>
     );
@@ -170,7 +164,7 @@ const TypeSelector = ({ setType, type }) => {
                         <FlatList
                             data={Categories}
                             renderItem={renderItem}
-                            keyExtractor={(item) => item}
+                            keyExtractor={(item) => item.name}
                         />
                     </View>
                 </Pressable>
