@@ -31,25 +31,26 @@ export const AuthProvider = ({ children }) => {
         apiHelper.put('/user', { name });
         setUser((prev) => ({ ...prev, name }));
     };
-    
+
     const logout = () => {
         setUser('');
         clearAllLocalStoreData();
     };
 
     async function verifyOTP(phoneNumber, countryCode, otp) {
-        const endpoint=user?"editPhoneNumber":"verifyOTP";
+        const endpoint = user ? 'editPhoneNumber' : 'verifyOTP';
         const { data } = await apiHelper.post(`/auth/${endpoint}`, {
             phoneNumber,
             countryCode,
             otp,
         });
-        if(user){
-        setUser((prev)=>({
-            ...prev,
-            phoneNumber, countryCode
-        }));
-        return;
+        if (user) {
+            setUser((prev) => ({
+                ...prev,
+                phoneNumber,
+                countryCode,
+            }));
+            return;
         }
         if (data.status) return;
         const { userData, token } = data;

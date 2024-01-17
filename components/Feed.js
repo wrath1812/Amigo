@@ -9,6 +9,7 @@ import GroupIcon from './GroupIcon';
 import React, { useEffect } from 'react';
 import { MaterialIcons } from '@expo/vector-icons';
 import editNames from '../helper/editNames';
+import UserAvatar from '../components/UserAvatar';
 
 function convertToCustomFormat(dateString) {
     // Parse the date string into a Date object
@@ -229,11 +230,7 @@ function Feed({ creator, createdAt, relatedId, activityType, contacts }) {
                 },
             ]}
         >
-            {user._id !== creator._id && (
-                <View>
-                    <GroupIcon />
-                </View>
-            )}
+            {user._id !== creator._id && <UserAvatar user={creator} />}
             <View>
                 {user._id !== creator._id && (
                     <View

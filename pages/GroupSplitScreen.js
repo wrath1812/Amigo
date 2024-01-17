@@ -17,7 +17,7 @@ import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
 import sliceText from '../helper/sliceText';
 import LoginImage from '../assets/Login.png';
 import { FontAwesome5 } from '@expo/vector-icons';
-import UserAvatar from "../components/UserAvatar";
+import UserAvatar from '../components/UserAvatar';
 
 const GroupSplitScreen = ({ navigation }) => {
     const { transactionData, setTransactionData } = useTransaction();
@@ -273,12 +273,10 @@ const GroupSplitScreen = ({ navigation }) => {
                     <View
                         style={{
                             flexDirection: 'row',
-                            alignItems:"center"
+                            alignItems: 'center',
                         }}
                     >
-                        <UserAvatar
-                        user={item.user}
-                        />
+                        <UserAvatar user={item.user} />
                         <Text style={styles.memberName}>{item.user.name}</Text>
                     </View>
                 </View>

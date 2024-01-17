@@ -23,7 +23,7 @@ const CountryCodeInput = ({ countryCode }) => (
 const LoginScreen = ({ navigation }) => {
     const [phoneNumber, setPhoneNumber] = useState('');
     const [countryCode, setCountryCode] = useState('+91');
-    const {user} =useAuth();
+    const { user } = useAuth();
     const [isPhoneFocused, setIsPhoneFocused] = useState(false);
     const [error, setError] = useState(false);
     const getTextInputStyle = (isFocused) => ({
@@ -39,10 +39,13 @@ const LoginScreen = ({ navigation }) => {
             return;
         }
         sendOTP('91' + phoneNumber);
-        if(user)
-        navigation.navigate(PAGES.OTP, { countryCode: '91', phoneNumber });
+        if (user)
+            navigation.navigate(PAGES.OTP, { countryCode: '91', phoneNumber });
         else
-        navigation.navigate(PAGES.OTP_LOGGED_OUT, { countryCode: '91', phoneNumber });
+            navigation.navigate(PAGES.OTP_LOGGED_OUT, {
+                countryCode: '91',
+                phoneNumber,
+            });
     };
 
     return (

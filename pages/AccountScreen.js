@@ -13,6 +13,7 @@ import { useAuth } from '../context/AuthContext';
 import COLOR from '../constants/Colors';
 import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
 import SignUpImage from '../assets/SignUp.png';
+import UserAvatar from '../components/UserAvatar';
 import {
     Feather,
     Octicons,
@@ -103,7 +104,7 @@ function ProfileScreen({ navigation }) {
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.userInfo}>
-                <Image source={SignUpImage} style={styles.userImage} />
+                <UserAvatar user={user} size={7} />
                 <View>
                     {editMode ? (
                         <TextInput
