@@ -55,6 +55,7 @@ const AppNavigator = () => {
                                 backgroundColor: COLOR.APP_BACKGROUND,
                             },
                             title: null,
+                            headerTintColor: '#fff',
                         }}
                     />
                     <Stack.Screen

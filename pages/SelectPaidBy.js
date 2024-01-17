@@ -25,6 +25,7 @@ import NoGroupsImage from '../assets/NoGroups.png';
 import Search from '../components/Search';
 import GroupSelectCard from '../components/GroupSelectCard';
 import { useTransaction } from '../context/TransactionContext';
+import UserAvatar from "../components/UserAvatar";
 function GroupListScreen({ navigation }) {
     const { setTransactionData, transactionData } = useTransaction();
     return (
@@ -40,6 +41,9 @@ function GroupListScreen({ navigation }) {
                             }));
                             navigation.goBack();
                         }}
+                        image={<UserAvatar
+                        user={member}
+                        />}
                     />
                 ))}
             </ScrollView>
