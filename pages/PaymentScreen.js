@@ -16,6 +16,7 @@ import Button from '../components/Button';
 import PAGES from '../constants/pages';
 import apiHelper from '../helper/apiHelper';
 import Loader from '../components/Loader';
+import UserAvatar from "../components/UserAvatar";
 
 // GroupScreen Component
 function GroupScreen({
@@ -53,7 +54,7 @@ function GroupScreen({
         <SafeAreaView style={styles.container}>
             <View style={styles.header}>
                 <View style={styles.headerItem}>
-                    <GroupIcon image={require('../assets/Login.png')} />
+                     <UserAvatar user={payment.from}/>
                     <Text
                         style={{
                             // marginTop:calcHeight(2),
@@ -76,7 +77,7 @@ function GroupScreen({
                     <AntDesign name="arrowright" size={24} color="white" />
                 </View>
                 <View style={styles.headerItem}>
-                    <GroupIcon image={require('../assets/Login.png')} />
+                <UserAvatar user={payment.to}/>
                     <Text
                         style={{
                             // marginTop:calcHeight(2),
@@ -119,9 +120,10 @@ function GroupScreen({
             <View
                 style={{
                     alignItems: 'center',
+                    marginTop:calcHeight(5)
                 }}
             >
-                <View>
+                {/* <View>
                     <Button
                         styleOverwrite={{
                             backgroundColor: 'rgba(135, 64, 253, 0.11)',
@@ -132,7 +134,7 @@ function GroupScreen({
                         }}
                         title="Remind"
                     />
-                </View>
+                </View> */}
                 <Button
                     onPress={submitPayment}
                     title="Record as  Cash Payment"
