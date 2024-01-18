@@ -24,7 +24,8 @@ function ExpenseCard({ item }) {
         <View style={styles.cardContainer}>
             <View style={styles.cardInnerContainer}>
                 <GroupIcon
-                    size={{ width: calcHeight(5), height: calcHeight(5) }}
+                size={5}
+                groupId={item.group._id}
                 />
                 <View style={styles.textContainer}>
                     <Text style={styles.descriptionText}>

@@ -16,7 +16,7 @@ import { useAuth } from '../context/AuthContext';
 import sliceText from '../helper/sliceText';
 import LoginImage from '../assets/Login.png';
 import Cross from '../assets/icons/cross.png';
-import getName from '../helper/editNamesAsync';
+import UserAvatar from "../components/UserAvatar";
 
 function GroupBalanceScreen({ navigation, route }) {
     const { group } = route.params;
@@ -40,7 +40,7 @@ function GroupBalanceScreen({ navigation, route }) {
         return (
             <Pressable onPress={handlePress} style={styles.listItem}>
                 <View style={styles.listItemLeft}>
-                    <GroupIcon image={group.icon || LoginImage} />
+                    <UserAvatar user={item}/>
                     <Text style={styles.itemName}>
                         {sliceText(item.name, 10)}
                     </Text>

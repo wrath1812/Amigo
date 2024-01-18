@@ -101,9 +101,8 @@ const GroupScreen = ({ navigation }) => {
             <ScrollView>
                 <TouchableOpacity style={styles.centeredView}>
                     <GroupIcon
-                        size={{ width: calcWidth(20), height: calcWidth(20) }}
-                        image={GroupSettingsIcon}
-                        isIcon={true}
+                        size={15}
+                        groupId={group._id}
                     />
                 </TouchableOpacity>
                 <View style={styles.header}>
