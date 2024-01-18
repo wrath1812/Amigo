@@ -22,7 +22,6 @@ function ExpenseScreen() {
     const { user } = useAuth();
     const { expense, range, setRange, type, setType, open, setOpen } =
         useExpense(user.id, setLoading);
-
     if (loading) return <Loader />;
     return (
         <SafeAreaView style={styles.container}>

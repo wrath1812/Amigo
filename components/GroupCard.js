@@ -32,7 +32,7 @@ function GroupCard({ group }) {
             }}
             style={styles.container}
         >
-            <GroupIcon image={LoginImage} />
+            <GroupIcon groupId={group._id}/>
             <View style={styles.textContainer}>
                 <Text style={styles.nameText}>{group.name}</Text>
                 <Text style={styles.memberText}>

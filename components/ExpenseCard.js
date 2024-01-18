@@ -31,7 +31,7 @@ function ExpenseCard({ item }) {
                     <Text style={styles.descriptionText}>
                         {item.description}
                     </Text>
-                    <Text style={styles.groupText}>{item.group}</Text>
+                    <Text style={styles.groupText}>{item.group.name}</Text>
                     <Text style={styles.dateText}>
                         {convertISODateToCustomFormat(item.date)}
                     </Text>
