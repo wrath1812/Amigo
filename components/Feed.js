@@ -5,7 +5,6 @@ import { Octicons, EvilIcons } from '@expo/vector-icons';
 import { useAuth } from '../context/AuthContext';
 import { useNavigation } from '@react-navigation/native';
 import PAGES from '../constants/pages';
-import GroupIcon from './GroupIcon';
 import React, { useEffect } from 'react';
 import { MaterialIcons } from '@expo/vector-icons';
 import editNames from '../helper/editNames';

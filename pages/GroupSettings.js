@@ -15,7 +15,7 @@ import {
     Image,
     Share,
 } from 'react-native';
-import { MaterialCommunityIcons, SimpleLineIcons } from '@expo/vector-icons';
+import {  SimpleLineIcons } from '@expo/vector-icons';
 import { DEEP_LINK_URL } from '@env';
 import GroupIcon from '../components/GroupIcon';
 import { calcWidth, calcHeight, getFontSizeByWindowWidth } from '../helper/res';
