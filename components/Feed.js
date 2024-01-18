@@ -231,7 +231,11 @@ function Feed({ creator, createdAt, relatedId, activityType, contacts }) {
             ]}
         >
             {user._id !== creator._id && <UserAvatar user={creator} />}
-            <View>
+            <View
+                style={{
+                    marginLeft: user._id === creator._id ? 0 : calcWidth(2),
+                }}
+            >
                 {user._id !== creator._id && (
                     <View
                         style={{
@@ -241,7 +245,7 @@ function Feed({ creator, createdAt, relatedId, activityType, contacts }) {
                     >
                         <Text
                             style={{
-                                color: '#8740FD',
+                                color: COLOR.BUTTON,
                             }}
                         >
                             {' '}
@@ -283,16 +287,15 @@ const styles = StyleSheet.create({
     transactionContainer: {
         flex: 1,
         flexDirection: 'row',
-        marginHorizontal: calcWidth(3),
+        margin: calcWidth(3),
     },
     transactionCard: {
         padding: calcWidth(5),
         width: calcWidth(70),
         backgroundColor: '#342F4F',
-        margin: calcWidth(2),
-        marginVertical: calcHeight(3),
         borderBottomLeftRadius: calcHeight(1),
         borderBottomRightRadius: calcHeight(1),
+        marginTop: calcHeight(1),
     },
     description: {
         fontSize: getFontSizeByWindowWidth(10),
