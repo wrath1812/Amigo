@@ -15,6 +15,7 @@ import {
     Image,
     Share,
 } from 'react-native';
+import Loader from "../components/Loader";
 import {  SimpleLineIcons } from '@expo/vector-icons';
 import { DEEP_LINK_URL } from '@env';
 import GroupIcon from '../components/GroupIcon';
@@ -27,7 +28,7 @@ import { useGroup } from '../context/GroupContext';
 import AddMembersIcon from '../assets/icons/addMembers.png';
 import ShareIcon from '../assets/icons/share.png';
 import PAGES from '../constants/pages';
-
+import { Ionicons } from '@expo/vector-icons';
 const MemberItem = ({ name, phone, _id }) => (
     <View style={styles.memberItem}>
         {name && _id && <UserAvatar user={{ name, _id }} />}
@@ -44,6 +45,7 @@ const GroupScreen = ({ navigation }) => {
     const [isEditing, setIsEditing] = useState();
     const [groupName, setGroupName] = useState();
     const groupRef = useRef();
+    const [loading,setLoading]=useState(false);
 
     useEffect(() => {
         setGroupMembers(group.members);
@@ -66,6 +68,14 @@ const GroupScreen = ({ navigation }) => {
                 `${DEEP_LINK_URL}join?groupId=${group._id}`,
         });
     };
+
+     const leaveGroup=async()=>{
+        setLoading(true);
+        await apiHelper.delete(`/group/${group._id}`);
+        navigation.navigate(PAGES.GROUP_LIST);
+        setLoading(false);
+
+    }
 
     useLayoutEffect(() => {
         navigation.setOptions({
@@ -96,7 +106,7 @@ const GroupScreen = ({ navigation }) => {
         <MemberItem name={item.name} phone={item.phoneNumber} _id={item._id} />
     );
 
-    return (
+    return loading?<Loader/>:(
         <SafeAreaView style={styles.container}>
             <ScrollView>
                 <TouchableOpacity style={styles.centeredView}>
@@ -213,7 +223,22 @@ const GroupScreen = ({ navigation }) => {
                                 </TouchableOpacity>
                             </>
                         }
-                        // ListFooterComponent={<MemberItem name="Delete group" phone=""/>}
+                        ListFooterComponent={
+                       !group.balance && (<TouchableOpacity
+                            style={styles.memberItem}
+                            onPress={leaveGroup}
+                        >
+                            <Ionicons name="exit-outline" size={calcHeight(5)} color="red" />
+                            <View>
+                                <Text
+                                    style={{
+                                        color: "red",
+                                    }}
+                                >
+                                   Leave Group
+                                </Text>
+                            </View>
+                        </TouchableOpacity>)}
                     />
                 </View>
             </ScrollView>

@@ -3,7 +3,7 @@ const GroupContext = createContext();
 
 export const GroupProvider = ({ children }) => {
     const [group, setGroup] = useState({});
-
+    
     return (
         <GroupContext.Provider
             value={{
