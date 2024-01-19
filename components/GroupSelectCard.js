@@ -2,16 +2,12 @@ import React from 'react';
 import { StyleSheet, View, Text, Image, Pressable } from 'react-native';
 import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
 import COLOR from '../constants/Colors';
-import LoginImage from '../assets/Login.png';
-import { useNavigation } from '@react-navigation/native';
-import PAGES from '../constants/pages';
-import GroupIcon from './GroupIcon';
 import { AntDesign } from '@expo/vector-icons';
 
 function GroupSelectCard({ name, onPress, image }) {
     return (
         <Pressable style={styles.container} onPress={onPress}>
-            {image || <GroupIcon image={LoginImage} />}
+            {image}
             <View style={styles.textContainer}>
                 <Text style={styles.nameText}>{name}</Text>
             </View>

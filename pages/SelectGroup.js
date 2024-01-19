@@ -23,7 +23,7 @@ import CreateGroupIcon from '../assets/icons/createGroup.png';
 import getNamesFromContacts from '../helper/getNamesFromContacts';
 import { useAuth } from '../context/AuthContext';
 import editNames from '../helper/editNames';
-
+import { Octicons } from '@expo/vector-icons';
 function GroupListScreen({ navigation }) {
     const [groups, setGroups] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -73,10 +73,16 @@ function GroupListScreen({ navigation }) {
                     <GroupSelectCard
                         name={'Create new group'}
                         image={
-                            <GroupIcon
-                                backgroundColor="white"
-                                image={CreateGroupIcon}
-                            />
+                            <View style={{
+                                backgroundColor:"white",
+                                height: calcHeight(5),
+                                width: calcHeight(5),
+                                borderRadius: calcHeight(5),
+                                alignItems:"center",
+                                justifyContent:"center"
+                            }}>
+                                <Octicons name="people" size={calcHeight(3)} color="black" />
+                            </View>
                         }
                         onPress={() => {
                             navigation.navigate(PAGES.CREATE_GROUP);
@@ -90,6 +96,10 @@ function GroupListScreen({ navigation }) {
                             setTransactionData((prev) => ({ ...prev, group }));
                             navigation.navigate(PAGES.ADD_TRANSACTION);
                         }}
+                        image={<GroupIcon
+                        groupId={group._id}
+                        
+                        />}
                     />
                 )}
             />
