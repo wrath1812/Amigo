@@ -131,7 +131,7 @@ function GroupScreen({ navigation }) {
                             color="white"
                         />
                     </Pressable>
-                    <GroupIcon image={LoginIcon} />
+                    <GroupIcon groupId={group._id} />
                     <View style={styles.groupNameContainer}>
                         <Text style={styles.groupName}>{group.name}</Text>
                         <Text style={styles.groupMembers}>
