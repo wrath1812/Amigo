@@ -3,6 +3,7 @@ import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
 import COLOR from '../constants/Colors';
 import uuidToColor from '../helper/uuidToColor';
 const selectorSize = 5;
+import getAvatarColor from '../constants/getAvatarColor';
 
 function UserAvar({ user: { name, _id }, size = selectorSize }) {
     return (
@@ -15,7 +16,7 @@ function UserAvar({ user: { name, _id }, size = selectorSize }) {
                     justifyContent: 'center',
                     alignItems: 'center',
                 },
-                { backgroundColor: uuidToColor(_id, COLOR.APP_BACKGROUND) },
+                { backgroundColor: getAvatarColor(_id) },
             ]}
         >
             <Text
