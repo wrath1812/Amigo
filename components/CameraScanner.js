@@ -41,7 +41,6 @@ const CameraScanner = ({ handleBarCodeScanned, isLit, setIsLit }) => {
                 <QRFooterButton
                     onPress={getImage}
                     iconName="ios-images"
-                    iconSize={48}
                 />
             </View>
         </View>

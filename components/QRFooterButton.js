@@ -9,7 +9,7 @@ import TouchableBounce from 'react-native/Libraries/Components/Touchable/Touchab
 
 const shouldUseHaptics = Platform.OS === 'ios';
 
-const size = 64;
+const size = 50;
 const slop = 40;
 
 const hitSlop = { top: slop, bottom: slop, right: slop, left: slop };
@@ -18,7 +18,7 @@ export default function QRFooterButton({
     onPress,
     isActive = false,
     iconName,
-    iconSize = 36,
+    iconSize = 25,
 }) {
     const tint = isActive ? 'default' : 'dark';
     const iconColor = isActive ? '##4e9bde' : '#ffffff';
