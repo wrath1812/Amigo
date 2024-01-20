@@ -47,7 +47,7 @@ function isNumber(text) {
 }
 
 function GroupScreen({ navigation }) {
-    const { group } = useGroup();
+    const { group,setGroup } = useGroup();
     const textRef = useRef();
     const [activities, setActivities] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
@@ -55,7 +55,6 @@ function GroupScreen({ navigation }) {
     const [amount, setAmount] = useState('');
     const [contacts, setContacts] = useState([]);
     const { user } = useAuth();
-    const [balances,setBalances]=useState([]);
     const [totalBalance,setTotalBalance]=useState();
 
     const fetchActivities = useCallback(async () => {
@@ -90,11 +89,15 @@ function GroupScreen({ navigation }) {
             return;
             const { groups }=await groupBalancesAndCalculateTotal(data, user._id);
             setTotalBalance(groups[0].totalBalance)
+            setGroup((prev)=>({
+                ...prev,
+                ...groups[0]
+            }));
             
         } catch (error) {
             console.error('Error fetching activities:', error);
         }
-    },[group]);
+    },[navigation]);
 
     useFocusEffect(fetchActivities);
     useFocusEffect(fetchBalances);
@@ -178,7 +181,12 @@ function GroupScreen({ navigation }) {
                     />
                 </Pressable>
             </Pressable>
-            <Pressable style={styles.balanceInfo}>
+            <Pressable style={styles.balanceInfo} 
+            onPress={()=>{
+                navigation.navigate(PAGES.GROUP_BALANCE, { group })
+            }
+            }
+            >
                 <View style={styles.balanceInfoLeft}>
                     <View
                         style={[

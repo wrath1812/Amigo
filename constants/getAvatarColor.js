@@ -2,7 +2,7 @@ const colors=["#4EBFFF", "#FFD84E", "#FF00F5", "#007DFB", "#BF3C5E", "#D17D7D", 
 import generateRandomNumberBasedOnUUIDAndRange from '../helper/generateRandomNumberBasedOnUUIDAndRange';
 function getAvatarColor(userId)
 {
-    const userColor=colors[generateRandomNumberBasedOnUUIDAndRange(userId,0,colors.length)];
+    const userColor=colors[generateRandomNumberBasedOnUUIDAndRange(userId,0,colors.length-1)];
     return userColor;
 }
 
