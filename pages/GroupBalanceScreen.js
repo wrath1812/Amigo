@@ -79,7 +79,7 @@ function GroupBalanceScreen({ navigation, route }) {
                 <Pressable onPress={() => navigation.goBack()}>
                     <Image style={styles.crossIcon} source={Cross} />
                 </Pressable>
-                <GroupIcon image={group.icon || LoginImage} />
+                <GroupIcon groupId={group._id} />
                 <Text style={styles.groupName}>{group.name}</Text>
             </View>
             <View style={styles.balanceInfo}>
@@ -180,7 +180,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'flex-start',
-        padding: calcWidth(4),
+        padding: calcWidth(5),
         gap: calcWidth(5),
         borderBottomRightRadius: calcWidth(2),
         borderBottomLeftRadius: calcWidth(2),
@@ -232,7 +232,7 @@ const styles = StyleSheet.create({
     groupName: {
         color: 'white',
         fontWeight: 'bold',
-        fontSize: getFontSizeByWindowWidth(13),
+        fontSize: getFontSizeByWindowWidth(15),
     },
     balanceInfo: {
         flexDirection: 'row',
