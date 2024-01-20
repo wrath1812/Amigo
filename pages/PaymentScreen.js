@@ -119,7 +119,7 @@ function GroupScreen({
             <View
                 style={{
                     alignItems: 'center',
-                    marginTop:calcHeight(10)
+                    marginTop:calcHeight(7)
                 }}
             >
                 {/* <View>
