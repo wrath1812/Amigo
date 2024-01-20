@@ -14,7 +14,6 @@ import COLOR from '../constants/Colors';
 import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
 import { useAuth } from '../context/AuthContext';
 import sliceText from '../helper/sliceText';
-import LoginImage from '../assets/Login.png';
 import Cross from '../assets/icons/cross.png';
 import UserAvatar from "../components/UserAvatar";
 

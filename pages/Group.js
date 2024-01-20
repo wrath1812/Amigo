@@ -27,6 +27,7 @@ import { useAuth } from '../context/AuthContext';
 import getNamesFromContacts from '../helper/getNamesFromContacts';
 import Feed from '../components/Feed';
 import useSocket from '../hooks/useSocket';
+import { Feather } from '@expo/vector-icons';
 import editNames from '../helper/editNames';
 import { useGroup } from '../context/GroupContext';
 function getMembersString(members) {
@@ -158,6 +159,45 @@ function GroupScreen({ navigation }) {
                     />
                 </Pressable>
             </Pressable>
+            <Pressable style={styles.balanceInfo}>
+                <View style={styles.balanceInfoLeft}>
+                    <View
+                        style={[
+                            styles.indicator,
+                            {
+                                backgroundColor:
+                                    group.totalBalance > 0 ? '#00C83D' : 'red',
+                            },
+                        ]}
+                    />
+                    <View style={styles.balanceTextContainer}>
+                        <Text style={styles.balanceText}>
+                            Total Split Balance
+                        </Text>
+                        <Text style={styles.subBalanceText}>
+                            {group.balance < 0
+                                ? 'you owe'
+                                : 'you get back'}
+                        </Text>
+                    </View>
+                </View>
+                <View style={styles.balanceAmountContainer}>
+                    <Text style={styles.balanceAmount}>
+                        ₹{group.balance}
+                    </Text>
+                    <View style={styles.arrowIconContainer}>
+                        <Feather
+                            name={
+                                group.balance > 0
+                                    ? 'arrow-up-right'
+                                    : 'arrow-down-left'
+                            }
+                            size={calcWidth(2)}
+                            color="white"
+                        />
+                    </View>
+                </View>
+            </Pressable>
             <FlatList
                 inverted
                 data={activities}
@@ -166,7 +206,7 @@ function GroupScreen({ navigation }) {
                     <Feed {...item} contacts={contacts} />
                 )}
                 style={{
-                    height: calcHeight(75),
+                    height: calcHeight(65),
                 }}
             />
             <KeyboardAvoidingView
@@ -278,7 +318,50 @@ const styles = StyleSheet.create({
         color: 'white',
         fontSize: getFontSizeByWindowWidth(10),
     },
+    balanceInfo: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        paddingVertical: calcHeight(1),
+    },
+    balanceInfoLeft: {
+        flexDirection: 'row',
+    },
+    indicator: {
+        width: calcWidth(1),
+        borderTopRightRadius: calcWidth(3),
+        borderBottomRightRadius: calcWidth(3),
+        flex: 1,
+    },
+    balanceTextContainer: {
+        marginLeft: calcHeight(3),
+    },
+    balanceAmountContainer: {
+        marginRight: calcWidth(5),
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    arrowIconContainer: {
+        marginLeft: calcWidth(2),
+        padding: calcWidth(0.1),
+        backgroundColor: '#00C83D',
+        borderRadius: calcWidth(2),
+    },
+    balanceText: {
+        color: COLOR.TEXT,
+        fontSize: getFontSizeByWindowWidth(12),
+        fontWeight: 'bold',
+    },
+    subBalanceText: {
+        color: '#7F7F7F',
+        fontSize: getFontSizeByWindowWidth(8),
+    },
+    balanceAmount: {
+        color: COLOR.TEXT,
+        fontSize: getFontSizeByWindowWidth(12),
+        fontWeight: 'bold',
+    },
 });
+
 
 // 9. Export Statement
 export default GroupScreen;
