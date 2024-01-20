@@ -62,12 +62,12 @@ function ProfileScreen({ navigation }) {
             IconComponent: MaterialCommunityIcons,
             onPress: () => navigation.navigate(PAGES.ABOUT),
         },
-        {
-            label: 'Change Phone Number',
-            iconName: 'smartphone',
-            IconComponent: Feather,
-            onPress: () => navigation.navigate(PAGES.EDIT_PHONE_NUMBER),
-        },
+        // {
+        //     label: 'Change Phone Number',
+        //     iconName: 'smartphone',
+        //     IconComponent: Feather,
+        //     onPress: () => navigation.navigate(PAGES.EDIT_PHONE_NUMBER),
+        // },
     ];
 
     useLayoutEffect(() => {
