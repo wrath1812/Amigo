@@ -57,7 +57,6 @@ function GroupScreen({
                      <UserAvatar user={payment.from}/>
                     <Text
                         style={{
-                            // marginTop:calcHeight(2),
                             color: COLOR.TEXT,
                             fontWeight: 'bold',
                         }}
@@ -120,7 +119,7 @@ function GroupScreen({
             <View
                 style={{
                     alignItems: 'center',
-                    marginTop:calcHeight(5)
+                    marginTop:calcHeight(10)
                 }}
             >
                 {/* <View>
