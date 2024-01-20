@@ -1,13 +1,15 @@
 import * as ImagePicker from 'expo-image-picker';
 import * as FileSystem from 'expo-file-system';
+import Toast from 'react-native-root-toast';
 
 async function getLocalImage() {
     const permissionResult =
         await ImagePicker.requestMediaLibraryPermissionsAsync();
-
     if (!permissionResult.granted) {
-        console.log('Permission to access media library not granted.');
-        throw new Error('Permission not granted');
+        Toast.show("Gallery Permission not given", {
+            duration: Toast.durations.LONG,
+        });
+        return;
     }
 
     const result = await ImagePicker.launchImageLibraryAsync();
