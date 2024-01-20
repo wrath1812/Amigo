@@ -224,7 +224,7 @@ const GroupScreen = ({ navigation }) => {
                             </>
                         }
                         ListFooterComponent={
-                       !group.balance && (<TouchableOpacity
+                       !group.balance && group.balance!=0 && (<TouchableOpacity
                             style={styles.memberItem}
                             onPress={leaveGroup}
                         >

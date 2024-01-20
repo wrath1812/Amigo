@@ -42,4 +42,4 @@ export const clearAllLocalStoreData = async () => {
     }
 };
 
-// removeLocalStoreData('token');
+// clearAllLocalStoreData();
