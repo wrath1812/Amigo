@@ -191,7 +191,7 @@ function BalanceScreen({ navigation }) {
                             navigation.navigate(PAGES.ACCOUNT);
                         }}
                     >
-                        <UserAvatar user={user} size={3} />
+                        <UserAvatar user={user} size={4} />
                     </Pressable>
                 </View>
             </View>

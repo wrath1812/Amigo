@@ -7,11 +7,7 @@ import { AuthProvider } from './context/AuthContext';
 import RootNavigator from './navigator/RootNavigator';
 function App() {
     return (
-        <SafeAreaProvider
-            style={{
-                paddingTop: Constants.statusBarHeight,
-            }}
-        >
+        <SafeAreaProvider >
             <StatusBar style="auto" />
             <AuthProvider>
                 <RootNavigator />
