@@ -10,6 +10,10 @@ import { calcWidth } from '../helper/res';
 const size = calcWidth(5);
 const categories = [
     {
+        name: 'General',
+        icon: <AntDesign name="ellipsis1" size={size} color="#607D8B" />,
+    }, // Blue Grey
+    {
         name: 'Groceries',
         icon: (
             <MaterialIcons
@@ -35,10 +39,6 @@ const categories = [
         name: 'Shopping',
         icon: <Entypo name="shop" size={size} color="#9C27B0" />,
     }, // Purple
-    {
-        name: 'General',
-        icon: <AntDesign name="ellipsis1" size={size} color="#607D8B" />,
-    }, // Blue Grey
 ];
 
 export function getCategoryIcon(name) {
