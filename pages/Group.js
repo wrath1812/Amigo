@@ -30,6 +30,7 @@ import useSocket from '../hooks/useSocket';
 import { Feather } from '@expo/vector-icons';
 import editNames from '../helper/editNames';
 import { useGroup } from '../context/GroupContext';
+import groupBalancesAndCalculateTotal from "../helper/groupBalancesAndCalculateTotal";
 function getMembersString(members) {
     let names = [];
     for (let i = 0; i < members.length; i++) {
@@ -54,6 +55,8 @@ function GroupScreen({ navigation }) {
     const [amount, setAmount] = useState('');
     const [contacts, setContacts] = useState([]);
     const { user } = useAuth();
+    const [balances,setBalances]=useState([]);
+    const [totalBalance,setTotalBalance]=useState();
 
     const fetchActivities = useCallback(async () => {
         setIsLoading(true);
@@ -78,7 +81,23 @@ function GroupScreen({ navigation }) {
         setActivities((prev) => [activity, ...prev]);
     }, []);
 
+    const fetchBalances=useCallback(async () => {
+        try {
+            const { data } = await apiHelper(
+                `/balance?id=${group._id}`,
+            );
+            if(data.length==0)
+            return;
+            const { groups }=await groupBalancesAndCalculateTotal(data, user._id);
+            setTotalBalance(groups[0].totalBalance)
+            
+        } catch (error) {
+            console.error('Error fetching activities:', error);
+        }
+    },[group]);
+
     useFocusEffect(fetchActivities);
+    useFocusEffect(fetchBalances);
     useSocket('activity created', fetchActivity);
 
     async function addChat() {
@@ -166,7 +185,7 @@ function GroupScreen({ navigation }) {
                             styles.indicator,
                             {
                                 backgroundColor:
-                                    group.totalBalance > 0 ? '#00C83D' : 'red',
+                                    totalBalance > 0 ? '#00C83D' : 'red',
                             },
                         ]}
                     />
@@ -175,7 +194,7 @@ function GroupScreen({ navigation }) {
                             Total Split Balance
                         </Text>
                         <Text style={styles.subBalanceText}>
-                            {group.balance < 0
+                            {totalBalance< 0
                                 ? 'you owe'
                                 : 'you get back'}
                         </Text>
@@ -183,12 +202,12 @@ function GroupScreen({ navigation }) {
                 </View>
                 <View style={styles.balanceAmountContainer}>
                     <Text style={styles.balanceAmount}>
-                        ₹{group.balance}
+                        ₹{totalBalance}
                     </Text>
                     <View style={styles.arrowIconContainer}>
                         <Feather
                             name={
-                                group.balance > 0
+                                totalBalance > 0
                                     ? 'arrow-up-right'
                                     : 'arrow-down-left'
                             }
