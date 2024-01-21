@@ -7,6 +7,7 @@ import {
     StyleSheet,
     TextInput,
     Pressable,
+    KeyboardAvoidingView
 } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import GroupIcon from '../components/GroupIcon';
@@ -116,29 +117,24 @@ function GroupScreen({
                     />
                 </Pressable>
             </View>
+            <KeyboardAvoidingView
+  behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+  style={{ flex: 1 }}
+>
             <View
                 style={{
-                    alignItems: 'center',
-                    marginTop:calcHeight(7)
+                    flex: 1,
+      justifyContent: 'flex-end', // Adjust this based on your layout needs
+      alignItems: 'center',
+      marginBottom: calcHeight(15),
                 }}
             >
-                {/* <View>
-                    <Button
-                        styleOverwrite={{
-                            backgroundColor: 'rgba(135, 64, 253, 0.11)',
-                            borderColor: COLOR.BUTTON,
-                            width: calcWidth(70),
-                            height: calcHeight(6),
-                            borderWidth: 1,
-                        }}
-                        title="Remind"
-                    />
-                </View> */}
                 <Button
                     onPress={submitPayment}
                     title="Record as  Cash Payment"
                 />
             </View>
+            </KeyboardAvoidingView>
         </SafeAreaView>
     );
 }
