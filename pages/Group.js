@@ -210,9 +210,9 @@ function GroupScreen({ navigation }) {
                 </View>
                 <View style={styles.balanceAmountContainer}>
                     <Text style={styles.balanceAmount}>
-                        ₹{totalBalance}
+                        ₹{Math.abs(totalBalance)}
                     </Text>
-                    <View style={styles.arrowIconContainer}>
+                    <View style={[styles.arrowIconContainer,{backgroundColor:totalBalance>0?'#00C83D':"red"}]}>
                         <Feather
                             name={
                                 totalBalance > 0

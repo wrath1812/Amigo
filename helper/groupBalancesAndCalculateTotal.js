@@ -8,7 +8,7 @@ import editNamesAsync from "./editNamesAsync";
  */
 function groupDataItemsByGroup(dataItems) {
     const groups = {};
-
+    
     dataItems.forEach((item) => {
         const groupId = item.group._id.toString();
 

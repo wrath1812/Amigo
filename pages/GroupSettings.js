@@ -39,7 +39,7 @@ const MemberItem = ({ name, phone, _id }) => (
     </View>
 );
 
-const GroupScreen = ({ navigation }) => {
+const GroupScreen = ({ navigation,route:{params:{balance}} }) => {
     const { group, setGroup } = useGroup();
     const [groupMembers, setGroupMembers] = useState();
     const [isEditing, setIsEditing] = useState();
@@ -224,7 +224,7 @@ const GroupScreen = ({ navigation }) => {
                             </>
                         }
                         ListFooterComponent={
-                       !group.totalBalance && group.totalBalance!=0 && (<TouchableOpacity
+                       !balance && (<TouchableOpacity
                             style={styles.memberItem}
                             onPress={leaveGroup}
                         >
