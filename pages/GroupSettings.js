@@ -25,7 +25,9 @@ import PAGES from '../constants/pages';
 const MemberItem = ({ name, phone, _id }) => (
     <View style={styles.memberItem}>
         {name && _id && <UserAvatar user={{ name, _id }} />}
-        <View style={styles.memberInfo}>
+        <View style={[styles.memberInfo,{
+            gap:calcHeight(1)
+        }]}>
             <Text style={styles.memberName}>{name}</Text>
             <Text style={styles.memberPhone}>{phone}</Text>
         </View>
@@ -100,14 +102,20 @@ const GroupScreen = ({ navigation, route: { params: { balance } } }) => {
                     source={require('../assets/icons/addMembers.png')}
                     style={{ height: calcHeight(5), width: calcHeight(5) }}
                 />
+                <View style={{
+                    marginLeft:calcWidth(3)
+                }}>
                 <Text style={styles.buttonText}>Add new members</Text>
+                </View>
             </TouchableOpacity>
             <TouchableOpacity style={styles.memberItem} onPress={shareGroupLink}>
                 <Image
                     source={require('../assets/icons/share.png')}
                     style={{ height: calcHeight(5), width: calcHeight(5) }}
                 />
-                <View>
+                <View style={{
+                    marginLeft:calcWidth(3)
+                }}>
                     <Text style={styles.buttonText}>Share Group Link</Text>
                     <Text style={{ color: COLOR.TEXT }}>Help members find this group</Text>
                 </View>
@@ -222,14 +230,16 @@ const styles = StyleSheet.create({
     },
     memberInfo: {
         flex: 1,
+        marginLeft:calcWidth(3)
     },
     memberName: {
-        fontSize: 16,
+        fontSize: getFontSizeByWindowWidth(12),
         color: 'white',
+        fontWeight:"bold"
     },
     memberPhone: {
-        fontSize: 14,
-        color: 'grey',
+        fontSize: getFontSizeByWindowWidth(8),
+        color: 'white',
     },
     centeredView: {
         alignItems: 'center',
