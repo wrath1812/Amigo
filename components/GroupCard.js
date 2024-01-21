@@ -7,20 +7,7 @@ import { useNavigation } from '@react-navigation/native';
 import PAGES from '../constants/pages';
 import GroupIcon from './GroupIcon';
 import { useGroup } from '../context/GroupContext';
-function getMembersString(members) {
-    let names = [];
-
-    for (let i = 0; i < members.length; i++) {
-        if (members[i].hasOwnProperty('name') && members[i].name) {
-            // Split the name string by spaces and take the first part
-            let namePart = members[i].name.split(' ')[0];
-            names.push(namePart);
-        }
-    }
-
-    return names.join(', ');
-}
-
+import getMembersString from '../utility/getMembersString';
 function GroupCard({ group }) {
     const navigation = useNavigation();
     const { setGroup } = useGroup();

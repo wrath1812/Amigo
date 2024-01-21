@@ -31,16 +31,7 @@ import { Feather } from '@expo/vector-icons';
 import editNames from '../helper/editNames';
 import { useGroup } from '../context/GroupContext';
 import groupBalancesAndCalculateTotal from "../helper/groupBalancesAndCalculateTotal";
-function getMembersString(members) {
-    let names = [];
-    for (let i = 0; i < members.length; i++) {
-        if (members[i].hasOwnProperty('name') && members[i].name) {
-            let namePart = members[i].name.split(' ')[0];
-            names.push(namePart);
-        }
-    }
-    return names.join(', ');
-}
+import getMembersString from '../utility/getMembersString';
 
 function isNumber(text) {
     return !isNaN(+text);
