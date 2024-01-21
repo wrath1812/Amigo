@@ -9,7 +9,7 @@ import {
     TextInput,
     TouchableOpacity,
     Platform,
-    Share
+    Share,
 } from 'react-native';
 import { useAuth } from '../context/AuthContext';
 import COLOR from '../constants/Colors';
@@ -63,7 +63,7 @@ function ProfileScreen({ navigation }) {
             iconName: 'cellphone-dock',
             IconComponent: MaterialCommunityIcons,
             onPress: () => navigation.navigate(PAGES.ABOUT),
-        }
+        },
     ];
 
     useLayoutEffect(() => {
@@ -127,12 +127,20 @@ function ProfileScreen({ navigation }) {
                 </Pressable>
             </View>
 
-            <Pressable style={styles.inviteFriends} onPress={()=>{
+            <Pressable
+                style={styles.inviteFriends}
+                onPress={() => {
                     Share.share({
-                        message: 'Download our App: ' + `${Platform.OS=='ios'?"https://apps.apple.com/us/app/qr-generator-app/id6469707187":"https://play.google.com/store/apps/details?id=com.devonetech.android.qrguru&hl=en_IN&gl=US"}`,
+                        message:
+                            'Download our App: ' +
+                            `${
+                                Platform.OS == 'ios'
+                                    ? 'https://apps.apple.com/us/app/qr-generator-app/id6469707187'
+                                    : 'https://play.google.com/store/apps/details?id=com.devonetech.android.qrguru&hl=en_IN&gl=US'
+                            }`,
                     });
-                
-            }}>
+                }}
+            >
                 <Octicons
                     name="cross-reference"
                     size={calcHeight(2)}

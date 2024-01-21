@@ -1,14 +1,26 @@
 import * as ImagePicker from 'expo-image-picker';
 import * as FileSystem from 'expo-file-system';
-import Toast from 'react-native-root-toast';
+import { Alert } from 'react-native';
+import openSettings from './openSettings';
 
 async function getLocalImage() {
     const permissionResult =
         await ImagePicker.requestMediaLibraryPermissionsAsync();
     if (!permissionResult.granted) {
-        Toast.show('Gallery Permission not given', {
-            duration: Toast.durations.LONG,
-        });
+        Alert.alert(
+            'Permission Required',
+            'We need permission to access your photos to get the QR code.',
+            [
+                {
+                    text: 'Cancel',
+                    style: 'cancel',
+                },
+                {
+                    text: 'Open Settings',
+                    onPress: openSettings,
+                },
+            ],
+        );
         return;
     }
 

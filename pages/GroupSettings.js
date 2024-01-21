@@ -26,16 +26,26 @@ import { Octicons } from '@expo/vector-icons';
 const MemberItem = ({ name, phone, _id }) => (
     <View style={styles.memberItem}>
         {name && _id && <UserAvatar user={{ name, _id }} />}
-        <View style={[styles.memberInfo,{
-            gap:calcHeight(1)
-        }]}>
+        <View
+            style={[
+                styles.memberInfo,
+                {
+                    gap: calcHeight(1),
+                },
+            ]}
+        >
             <Text style={styles.memberName}>{name}</Text>
             <Text style={styles.memberPhone}>{phone}</Text>
         </View>
     </View>
 );
 
-const GroupScreen = ({ navigation, route: { params: { balance } } }) => {
+const GroupScreen = ({
+    navigation,
+    route: {
+        params: { balance },
+    },
+}) => {
     const { group, setGroup } = useGroup();
     const [groupMembers, setGroupMembers] = useState();
     const [isEditing, setIsEditing] = useState();
@@ -59,7 +69,9 @@ const GroupScreen = ({ navigation, route: { params: { balance } } }) => {
 
     const shareGroupLink = () => {
         Share.share({
-            message: 'Join the group at Amigo: ' + `${DEEP_LINK_URL}join?groupId=${group._id}`,
+            message:
+                'Join the group at Amigo: ' +
+                `${DEEP_LINK_URL}join?groupId=${group._id}`,
         });
     };
 
@@ -75,13 +87,21 @@ const GroupScreen = ({ navigation, route: { params: { balance } } }) => {
             headerLeft: () =>
                 isEditing ? (
                     <TouchableOpacity onPress={() => setIsEditing(false)}>
-                        <Text style={[{ fontWeight: 'bold', color: COLOR.TEXT }]}>Cancel</Text>
+                        <Text
+                            style={[{ fontWeight: 'bold', color: COLOR.TEXT }]}
+                        >
+                            Cancel
+                        </Text>
                     </TouchableOpacity>
                 ) : undefined,
             headerRight: () =>
                 isEditing ? (
                     <TouchableOpacity onPress={() => submitGroupData()}>
-                        <Text style={[{ fontWeight: 'bold', color: COLOR.TEXT }]}>Done</Text>
+                        <Text
+                            style={[{ fontWeight: 'bold', color: COLOR.TEXT }]}
+                        >
+                            Done
+                        </Text>
                     </TouchableOpacity>
                 ) : undefined,
         });
@@ -103,39 +123,55 @@ const GroupScreen = ({ navigation, route: { params: { balance } } }) => {
                     source={require('../assets/icons/addMembers.png')}
                     style={{ height: calcHeight(5), width: calcHeight(5) }}
                 />
-                <View style={{
-                    marginLeft:calcWidth(3)
-                }}>
-                <Text style={styles.buttonText}>Add new members</Text>
+                <View
+                    style={{
+                        marginLeft: calcWidth(3),
+                    }}
+                >
+                    <Text style={styles.buttonText}>Add new members</Text>
                 </View>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.memberItem} onPress={shareGroupLink}>
+            <TouchableOpacity
+                style={styles.memberItem}
+                onPress={shareGroupLink}
+            >
                 <Image
                     source={require('../assets/icons/share.png')}
                     style={{ height: calcHeight(5), width: calcHeight(5) }}
                 />
-                <View style={{
-                    marginLeft:calcWidth(3)
-                }}>
+                <View
+                    style={{
+                        marginLeft: calcWidth(3),
+                    }}
+                >
                     <Text style={styles.buttonText}>Share Group Link</Text>
-                    <Text style={{ color: COLOR.TEXT }}>Help members find this group</Text>
+                    <Text style={{ color: COLOR.TEXT }}>
+                        Help members find this group
+                    </Text>
                 </View>
             </TouchableOpacity>
         </>
     );
 
-    const renderListFooter = () => (
+    const renderListFooter = () =>
         !balance && (
             <TouchableOpacity style={styles.memberItem} onPress={leaveGroup}>
-                <Ionicons name="exit-outline" size={calcHeight(5)} color="rgba(253 ,64,9, 0.59)" />
-                <View style={{
-                    marginLeft:calcWidth(3)
-                }}>
-                    <Text style={{ color: 'rgba(253 ,64,9, 0.59)' }}>Leave Group</Text>
+                <Ionicons
+                    name="exit-outline"
+                    size={calcHeight(5)}
+                    color="rgba(253 ,64,9, 0.59)"
+                />
+                <View
+                    style={{
+                        marginLeft: calcWidth(3),
+                    }}
+                >
+                    <Text style={{ color: 'rgba(253 ,64,9, 0.59)' }}>
+                        Leave Group
+                    </Text>
                 </View>
             </TouchableOpacity>
-        )
-    );
+        );
 
     return loading ? (
         <Loader />
@@ -159,7 +195,9 @@ const GroupScreen = ({ navigation, route: { params: { balance } } }) => {
                                     style={styles.groupName}
                                 />
                             ) : (
-                                <Text style={styles.groupName}>{groupName}</Text>
+                                <Text style={styles.groupName}>
+                                    {groupName}
+                                </Text>
                             )}
 
                             <Text style={styles.groupCreatedAt}>
@@ -167,14 +205,22 @@ const GroupScreen = ({ navigation, route: { params: { balance } } }) => {
                             </Text>
                         </View>
                     </View>
-                    <TouchableOpacity onPress={() => setIsEditing((prev) => !prev)}>
-                        <Octicons name="pencil" size={calcHeight(3)} color="white" />
+                    <TouchableOpacity
+                        onPress={() => setIsEditing((prev) => !prev)}
+                    >
+                        <Octicons
+                            name="pencil"
+                            size={calcHeight(3)}
+                            color="white"
+                        />
                     </TouchableOpacity>
                 </View>
 
                 <View style={styles.memberListContainer}>
                     <View style={styles.listHeader}>
-                        <Text style={styles.totalMembersTitle}>Total Members</Text>
+                        <Text style={styles.totalMembersTitle}>
+                            Total Members
+                        </Text>
                     </View>
                     <FlatList
                         data={groupMembers}
@@ -188,7 +234,6 @@ const GroupScreen = ({ navigation, route: { params: { balance } } }) => {
         </SafeAreaView>
     );
 };
-
 
 const styles = StyleSheet.create({
     container: {
@@ -233,12 +278,12 @@ const styles = StyleSheet.create({
     },
     memberInfo: {
         flex: 1,
-        marginLeft:calcWidth(3)
+        marginLeft: calcWidth(3),
     },
     memberName: {
         fontSize: getFontSizeByWindowWidth(12),
         color: 'white',
-        fontWeight:"bold"
+        fontWeight: 'bold',
     },
     memberPhone: {
         fontSize: getFontSizeByWindowWidth(8),
@@ -260,8 +305,8 @@ const styles = StyleSheet.create({
     buttonText: {
         color: COLOR.BUTTON,
         fontSize: getFontSizeByWindowWidth(15),
-        fontWeight:"bold"
-    }
+        fontWeight: 'bold',
+    },
 });
 
 export default GroupScreen;
