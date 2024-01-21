@@ -97,7 +97,7 @@ function GroupScreen({ navigation }) {
         } catch (error) {
             console.error('Error fetching activities:', error);
         }
-    },[group]);
+    },[]);
 
     useFocusEffect(fetchActivities);
     useFocusEffect(fetchBalances);
@@ -181,7 +181,7 @@ function GroupScreen({ navigation }) {
                     />
                 </Pressable>
             </Pressable>
-            <Pressable style={styles.balanceInfo} 
+            {totalBalance!=0 && <Pressable style={styles.balanceInfo} 
             onPress={()=>{
                 navigation.navigate(PAGES.GROUP_BALANCE, { group:balances })
             }
@@ -224,7 +224,7 @@ function GroupScreen({ navigation }) {
                         />
                     </View>
                 </View>
-            </Pressable>
+            </Pressable>}
             <FlatList
                 inverted
                 data={activities}
