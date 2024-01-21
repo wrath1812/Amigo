@@ -5,13 +5,13 @@ import {
     Entypo,
     AntDesign,
 } from '@expo/vector-icons';
-import { calcWidth } from '../helper/res';
-
+import {Text} from "react-native";
+import { calcWidth,getFontSizeByWindowWidth } from '../helper/res';
 const size = calcWidth(5);
 const categories = [
     {
         name: 'General',
-        icon: <FontAwesome5 name="money-bill" size={size} color="yellow" />,
+        icon: <Text>💰</Text>,
     }, // Blue Grey
     {
         name: 'Groceries',
