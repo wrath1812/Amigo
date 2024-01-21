@@ -23,10 +23,7 @@ function ExpenseCard({ item }) {
     return (
         <View style={styles.cardContainer}>
             <View style={styles.cardInnerContainer}>
-                <GroupIcon
-                size={5}
-                groupId={item.group._id}
-                />
+                <GroupIcon size={5} groupId={item.group._id} />
                 <View style={styles.textContainer}>
                     <Text style={styles.descriptionText}>
                         {item.description}

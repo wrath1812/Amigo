@@ -5,8 +5,8 @@ import {
     Entypo,
     AntDesign,
 } from '@expo/vector-icons';
-import {Text} from "react-native";
-import { calcWidth,getFontSizeByWindowWidth } from '../helper/res';
+import { Text } from 'react-native';
+import { calcWidth, getFontSizeByWindowWidth } from '../helper/res';
 const size = calcWidth(5);
 const categories = [
     {

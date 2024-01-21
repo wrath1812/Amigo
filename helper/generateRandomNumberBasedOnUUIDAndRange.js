@@ -1,8 +1,8 @@
-import seedrandom from "seedrandom";
+import seedrandom from 'seedrandom';
 
 function generateRandomNumberBasedOnUUIDAndRange(uuid, start, end) {
     if (start >= end) {
-        throw new Error("Start value must be less than end value");
+        throw new Error('Start value must be less than end value');
     }
 
     const rng = seedrandom(uuid);

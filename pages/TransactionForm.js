@@ -193,7 +193,6 @@ function TransactionFormScreen({ navigation }) {
                                 transactionData.type === item.name && {
                                     color: 'black',
                                 },
-
                             ]}
                         >
                             {item.name}
@@ -302,9 +301,13 @@ function TransactionFormScreen({ navigation }) {
                     alignItems: 'center',
                 }}
             >
-                <Button styleOverwrite={{
-                    width:calcWidth(90)
-                }}onPress={handleSubmit} title="Submit" />
+                <Button
+                    styleOverwrite={{
+                        width: calcWidth(90),
+                    }}
+                    onPress={handleSubmit}
+                    title="Submit"
+                />
             </View>
         </ScrollView>
     );

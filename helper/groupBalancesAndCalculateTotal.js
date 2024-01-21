@@ -1,5 +1,4 @@
-import editNamesAsync from "./editNamesAsync";
-
+import editNamesAsync from './editNamesAsync';
 
 /**
  * Groups data items by their group ID and name.
@@ -8,7 +7,7 @@ import editNamesAsync from "./editNamesAsync";
  */
 function groupDataItemsByGroup(dataItems) {
     const groups = {};
-    
+
     dataItems.forEach((item) => {
         const groupId = item.group._id.toString();
 

@@ -287,7 +287,7 @@ const styles = StyleSheet.create({
         flex: 1,
         flexDirection: 'row',
         margin: calcWidth(3),
-        marginVertical:calcHeight(4)
+        marginVertical: calcHeight(4),
     },
     transactionCard: {
         padding: calcWidth(5),

@@ -15,8 +15,8 @@ import {
     Image,
     Share,
 } from 'react-native';
-import Loader from "../components/Loader";
-import {  SimpleLineIcons } from '@expo/vector-icons';
+import Loader from '../components/Loader';
+import { SimpleLineIcons } from '@expo/vector-icons';
 import { DEEP_LINK_URL } from '@env';
 import GroupIcon from '../components/GroupIcon';
 import { calcWidth, calcHeight, getFontSizeByWindowWidth } from '../helper/res';
@@ -39,13 +39,18 @@ const MemberItem = ({ name, phone, _id }) => (
     </View>
 );
 
-const GroupScreen = ({ navigation,route:{params:{balance}} }) => {
+const GroupScreen = ({
+    navigation,
+    route: {
+        params: { balance },
+    },
+}) => {
     const { group, setGroup } = useGroup();
     const [groupMembers, setGroupMembers] = useState();
     const [isEditing, setIsEditing] = useState();
     const [groupName, setGroupName] = useState();
     const groupRef = useRef();
-    const [loading,setLoading]=useState(false);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         setGroupMembers(group.members);
@@ -69,13 +74,12 @@ const GroupScreen = ({ navigation,route:{params:{balance}} }) => {
         });
     };
 
-     const leaveGroup=async()=>{
+    const leaveGroup = async () => {
         setLoading(true);
         await apiHelper.delete(`/group/${group._id}`);
         navigation.navigate(PAGES.GROUP_LIST);
         setLoading(false);
-
-    }
+    };
 
     useLayoutEffect(() => {
         navigation.setOptions({
@@ -106,14 +110,13 @@ const GroupScreen = ({ navigation,route:{params:{balance}} }) => {
         <MemberItem name={item.name} phone={item.phoneNumber} _id={item._id} />
     );
 
-    return loading?<Loader/>:(
+    return loading ? (
+        <Loader />
+    ) : (
         <SafeAreaView style={styles.container}>
             <ScrollView>
                 <TouchableOpacity style={styles.centeredView}>
-                    <GroupIcon
-                        size={15}
-                        groupId={group._id}
-                    />
+                    <GroupIcon size={15} groupId={group._id} />
                 </TouchableOpacity>
                 <View style={styles.header}>
                     <View style={styles.groupInfo}>
@@ -224,21 +227,28 @@ const GroupScreen = ({ navigation,route:{params:{balance}} }) => {
                             </>
                         }
                         ListFooterComponent={
-                       !balance && (<TouchableOpacity
-                            style={styles.memberItem}
-                            onPress={leaveGroup}
-                        >
-                            <Ionicons name="exit-outline" size={calcHeight(5)} color="red" />
-                            <View>
-                                <Text
-                                    style={{
-                                        color: "red",
-                                    }}
+                            !balance && (
+                                <TouchableOpacity
+                                    style={styles.memberItem}
+                                    onPress={leaveGroup}
                                 >
-                                   Leave Group
-                                </Text>
-                            </View>
-                        </TouchableOpacity>)}
+                                    <Ionicons
+                                        name="exit-outline"
+                                        size={calcHeight(5)}
+                                        color="red"
+                                    />
+                                    <View>
+                                        <Text
+                                            style={{
+                                                color: 'red',
+                                            }}
+                                        >
+                                            Leave Group
+                                        </Text>
+                                    </View>
+                                </TouchableOpacity>
+                            )
+                        }
                     />
                 </View>
             </ScrollView>

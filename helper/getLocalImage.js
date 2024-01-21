@@ -6,7 +6,7 @@ async function getLocalImage() {
     const permissionResult =
         await ImagePicker.requestMediaLibraryPermissionsAsync();
     if (!permissionResult.granted) {
-        Toast.show("Gallery Permission not given", {
+        Toast.show('Gallery Permission not given', {
             duration: Toast.durations.LONG,
         });
         return;

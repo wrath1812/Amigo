@@ -7,7 +7,7 @@ import {
     StyleSheet,
     TextInput,
     Pressable,
-    KeyboardAvoidingView
+    KeyboardAvoidingView,
 } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import GroupIcon from '../components/GroupIcon';
@@ -17,7 +17,7 @@ import Button from '../components/Button';
 import PAGES from '../constants/pages';
 import apiHelper from '../helper/apiHelper';
 import Loader from '../components/Loader';
-import UserAvatar from "../components/UserAvatar";
+import UserAvatar from '../components/UserAvatar';
 
 // GroupScreen Component
 function GroupScreen({
@@ -55,7 +55,7 @@ function GroupScreen({
         <SafeAreaView style={styles.container}>
             <View style={styles.header}>
                 <View style={styles.headerItem}>
-                     <UserAvatar user={payment.from}/>
+                    <UserAvatar user={payment.from} />
                     <Text
                         style={{
                             color: COLOR.TEXT,
@@ -77,7 +77,7 @@ function GroupScreen({
                     <AntDesign name="arrowright" size={24} color="white" />
                 </View>
                 <View style={styles.headerItem}>
-                <UserAvatar user={payment.to}/>
+                    <UserAvatar user={payment.to} />
                     <Text
                         style={{
                             // marginTop:calcHeight(2),
@@ -118,22 +118,22 @@ function GroupScreen({
                 </Pressable>
             </View>
             <KeyboardAvoidingView
-  behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-  style={{ flex: 1 }}
->
-            <View
-                style={{
-                    flex: 1,
-      justifyContent: 'flex-end', // Adjust this based on your layout needs
-      alignItems: 'center',
-      marginBottom: calcHeight(15),
-                }}
+                behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+                style={{ flex: 1 }}
             >
-                <Button
-                    onPress={submitPayment}
-                    title="Record as  Cash Payment"
-                />
-            </View>
+                <View
+                    style={{
+                        flex: 1,
+                        justifyContent: 'flex-end', // Adjust this based on your layout needs
+                        alignItems: 'center',
+                        marginBottom: calcHeight(15),
+                    }}
+                >
+                    <Button
+                        onPress={submitPayment}
+                        title="Record as  Cash Payment"
+                    />
+                </View>
             </KeyboardAvoidingView>
         </SafeAreaView>
     );

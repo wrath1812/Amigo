@@ -38,10 +38,7 @@ const CameraScanner = ({ handleBarCodeScanned, isLit, setIsLit }) => {
                     isActive={isLit}
                     iconName="ios-flashlight"
                 />
-                <QRFooterButton
-                    onPress={getImage}
-                    iconName="ios-images"
-                />
+                <QRFooterButton onPress={getImage} iconName="ios-images" />
             </View>
         </View>
     );

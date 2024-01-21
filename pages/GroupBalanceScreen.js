@@ -15,7 +15,7 @@ import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
 import { useAuth } from '../context/AuthContext';
 import sliceText from '../helper/sliceText';
 import Cross from '../assets/icons/cross.png';
-import UserAvatar from "../components/UserAvatar";
+import UserAvatar from '../components/UserAvatar';
 
 function GroupBalanceScreen({ navigation, route }) {
     const { group } = route.params;
@@ -39,7 +39,7 @@ function GroupBalanceScreen({ navigation, route }) {
         return (
             <Pressable onPress={handlePress} style={styles.listItem}>
                 <View style={styles.listItemLeft}>
-                    <UserAvatar user={item}/>
+                    <UserAvatar user={item} />
                     <Text style={styles.itemName}>
                         {sliceText(item.name, 10)}
                     </Text>
@@ -107,7 +107,15 @@ function GroupBalanceScreen({ navigation, route }) {
                     <Text style={styles.balanceAmount}>
                         ₹{Math.abs(group.totalBalance)}
                     </Text>
-                    <View style={[styles.arrowIconContainer,{backgroundColor:group.totalBalance>0?'#00C83D':"red"}]}>
+                    <View
+                        style={[
+                            styles.arrowIconContainer,
+                            {
+                                backgroundColor:
+                                    group.totalBalance > 0 ? '#00C83D' : 'red',
+                            },
+                        ]}
+                    >
                         <Feather
                             name={
                                 group.totalBalance > 0

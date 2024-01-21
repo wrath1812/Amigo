@@ -18,7 +18,7 @@ function editNames(usersArray, currentUserId, contacts) {
             } else if (user.name) {
                 user.name = sliceText(user.name);
             } else {
-                user.name = user.phoneNumber || 'Unknown';
+                user.name = 'Unknown';
             }
         }
 

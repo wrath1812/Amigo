@@ -30,7 +30,7 @@ import useSocket from '../hooks/useSocket';
 import { Feather } from '@expo/vector-icons';
 import editNames from '../helper/editNames';
 import { useGroup } from '../context/GroupContext';
-import groupBalancesAndCalculateTotal from "../helper/groupBalancesAndCalculateTotal";
+import groupBalancesAndCalculateTotal from '../helper/groupBalancesAndCalculateTotal';
 import getMembersString from '../utility/getMembersString';
 
 function isNumber(text) {
@@ -46,8 +46,8 @@ function GroupScreen({ navigation }) {
     const [amount, setAmount] = useState('');
     const [contacts, setContacts] = useState([]);
     const { user } = useAuth();
-    const [totalBalance,setTotalBalance]=useState();
-    const [balances,setBalances]=useState();
+    const [totalBalance, setTotalBalance] = useState();
+    const [balances, setBalances] = useState();
 
     const fetchActivities = useCallback(async () => {
         setIsLoading(true);
@@ -72,23 +72,23 @@ function GroupScreen({ navigation }) {
         setActivities((prev) => [activity, ...prev]);
     }, []);
 
-    const fetchBalances=useCallback(async () => {
+    const fetchBalances = useCallback(async () => {
         try {
-            const { data } = await apiHelper(
-                `/balance/${group._id}`,
-            );
-            if(data.length==0){
+            const { data } = await apiHelper(`/balance/${group._id}`);
+            if (data.length == 0) {
                 setTotalBalance(0);
-            return;
+                return;
             }
-            const { groups }=await groupBalancesAndCalculateTotal(data, user._id);
-            setTotalBalance(groups[0].totalBalance)
+            const { groups } = await groupBalancesAndCalculateTotal(
+                data,
+                user._id,
+            );
+            setTotalBalance(groups[0].totalBalance);
             setBalances(groups[0]);
-            
         } catch (error) {
             console.error('Error fetching activities:', error);
         }
-    },[]);
+    }, []);
 
     useFocusEffect(fetchActivities);
     useFocusEffect(fetchBalances);
@@ -126,7 +126,9 @@ function GroupScreen({ navigation }) {
             <Pressable
                 style={styles.header}
                 onPress={() => {
-                    navigation.navigate(PAGES.GROUP_SETTINGS,{balance:totalBalance!=0});
+                    navigation.navigate(PAGES.GROUP_SETTINGS, {
+                        balance: totalBalance != 0,
+                    });
                 }}
             >
                 <View
@@ -172,50 +174,60 @@ function GroupScreen({ navigation }) {
                     />
                 </Pressable>
             </Pressable>
-            {totalBalance!=0 && <Pressable style={styles.balanceInfo} 
-            onPress={()=>{
-                navigation.navigate(PAGES.GROUP_BALANCE, { group:balances })
-            }
-            }
-            >
-                <View style={styles.balanceInfoLeft}>
-                    <View
-                        style={[
-                            styles.indicator,
-                            {
-                                backgroundColor:
-                                    totalBalance > 0 ? '#00C83D' : 'red',
-                            },
-                        ]}
-                    />
-                    <View style={styles.balanceTextContainer}>
-                        <Text style={styles.balanceText}>
-                            Total Split Balance
-                        </Text>
-                        <Text style={styles.subBalanceText}>
-                            {totalBalance< 0
-                                ? 'you owe'
-                                : 'you get back'}
-                        </Text>
-                    </View>
-                </View>
-                <View style={styles.balanceAmountContainer}>
-                    <Text style={styles.balanceAmount}>
-                        ₹{Math.abs(totalBalance)}
-                    </Text>
-                    <View style={[styles.arrowIconContainer,{backgroundColor:totalBalance>0?'#00C83D':"red"}]}>
-                        <Feather
-                            name={
-                                totalBalance > 0
-                                    ? 'arrow-up-right'
-                                    : 'arrow-down-left'
-                            }
-                            size={calcWidth(2)}
-                            color="white"
+            {totalBalance != 0 && (
+                <Pressable
+                    style={styles.balanceInfo}
+                    onPress={() => {
+                        navigation.navigate(PAGES.GROUP_BALANCE, {
+                            group: balances,
+                        });
+                    }}
+                >
+                    <View style={styles.balanceInfoLeft}>
+                        <View
+                            style={[
+                                styles.indicator,
+                                {
+                                    backgroundColor:
+                                        totalBalance > 0 ? '#00C83D' : 'red',
+                                },
+                            ]}
                         />
+                        <View style={styles.balanceTextContainer}>
+                            <Text style={styles.balanceText}>
+                                Total Split Balance
+                            </Text>
+                            <Text style={styles.subBalanceText}>
+                                {totalBalance < 0 ? 'you owe' : 'you get back'}
+                            </Text>
+                        </View>
                     </View>
-                </View>
-            </Pressable>}
+                    <View style={styles.balanceAmountContainer}>
+                        <Text style={styles.balanceAmount}>
+                            ₹{Math.abs(totalBalance)}
+                        </Text>
+                        <View
+                            style={[
+                                styles.arrowIconContainer,
+                                {
+                                    backgroundColor:
+                                        totalBalance > 0 ? '#00C83D' : 'red',
+                                },
+                            ]}
+                        >
+                            <Feather
+                                name={
+                                    totalBalance > 0
+                                        ? 'arrow-up-right'
+                                        : 'arrow-down-left'
+                                }
+                                size={calcWidth(2)}
+                                color="white"
+                            />
+                        </View>
+                    </View>
+                </Pressable>
+            )}
             <FlatList
                 inverted
                 data={activities}
@@ -379,7 +391,6 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
     },
 });
-
 
 // 9. Export Statement
 export default GroupScreen;

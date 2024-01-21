@@ -175,7 +175,7 @@ const AppNavigator = () => {
                                 backgroundColor: COLOR.APP_BACKGROUND,
                             },
                             title: null,
-                            headerTintColor: '#fff'
+                            headerTintColor: '#fff',
                         }}
                     />
                     <Stack.Screen
@@ -191,7 +191,7 @@ const AppNavigator = () => {
                                 fontWeight: 'bold', // Makes the title bold
                                 fontSize: getFontSizeByWindowWidth(20),
                             },
-                            headerTintColor: '#fff'
+                            headerTintColor: '#fff',
                         }}
                     />
 
@@ -203,7 +203,7 @@ const AppNavigator = () => {
                                 backgroundColor: COLOR.APP_BACKGROUND,
                             },
                             title: null,
-                            headerTintColor: '#fff'
+                            headerTintColor: '#fff',
                         }}
                     />
                     <Stack.Screen
@@ -214,7 +214,7 @@ const AppNavigator = () => {
                                 backgroundColor: COLOR.APP_BACKGROUND,
                             },
                             title: null,
-                            headerTintColor: '#fff'
+                            headerTintColor: '#fff',
                         }}
                     />
                     <Stack.Screen
