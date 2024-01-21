@@ -21,6 +21,7 @@ import { calcWidth, calcHeight, getFontSizeByWindowWidth } from '../helper/res';
 import COLOR from '../constants/Colors';
 import apiHelper from '../helper/apiHelper';
 import PAGES from '../constants/pages';
+import { Octicons } from '@expo/vector-icons';
 
 const MemberItem = ({ name, phone, _id }) => (
     <View style={styles.memberItem}>
@@ -126,9 +127,11 @@ const GroupScreen = ({ navigation, route: { params: { balance } } }) => {
     const renderListFooter = () => (
         !balance && (
             <TouchableOpacity style={styles.memberItem} onPress={leaveGroup}>
-                <Ionicons name="exit-outline" size={calcHeight(5)} color="red" />
-                <View>
-                    <Text style={{ color: 'red' }}>Leave Group</Text>
+                <Ionicons name="exit-outline" size={calcHeight(5)} color="rgba(253 ,64,9, 0.59)" />
+                <View style={{
+                    marginLeft:calcWidth(3)
+                }}>
+                    <Text style={{ color: 'rgba(253 ,64,9, 0.59)' }}>Leave Group</Text>
                 </View>
             </TouchableOpacity>
         )
@@ -140,7 +143,7 @@ const GroupScreen = ({ navigation, route: { params: { balance } } }) => {
         <SafeAreaView style={styles.container}>
             <ScrollView>
                 <TouchableOpacity style={styles.centeredView}>
-                    <GroupIcon size={15} groupId={group._id} />
+                    <GroupIcon size={10} groupId={group._id} />
                 </TouchableOpacity>
                 <View style={styles.header}>
                     <View style={styles.groupInfo}>
@@ -165,7 +168,7 @@ const GroupScreen = ({ navigation, route: { params: { balance } } }) => {
                         </View>
                     </View>
                     <TouchableOpacity onPress={() => setIsEditing((prev) => !prev)}>
-                        <SimpleLineIcons name="pencil" size={calcHeight(3)} color="white" />
+                        <Octicons name="pencil" size={calcHeight(3)} color="white" />
                     </TouchableOpacity>
                 </View>
 
@@ -196,8 +199,8 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        margin: calcHeight(2),
-        padding: calcHeight(3),
+        margin: calcHeight(1),
+        padding: calcHeight(2),
         borderColor: COLOR.BORDER_COLOR,
         borderWidth: 1,
         borderRadius: 10,
@@ -207,12 +210,12 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     groupName: {
-        fontSize: getFontSizeByWindowWidth(17),
+        fontSize: getFontSizeByWindowWidth(15),
         fontWeight: 'bold',
         color: COLOR.TEXT,
     },
     groupCreatedAt: {
-        fontSize: getFontSizeByWindowWidth(8),
+        fontSize: getFontSizeByWindowWidth(10),
         color: COLOR.TEXT,
     },
     totalMembersTitle: {
