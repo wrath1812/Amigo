@@ -9,6 +9,7 @@ export const ContactsProvider = ({ children }) => {
     const [search, setSearch] = useState('');
     const [selectedContacts, setSelectedContacts] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [contactPermission,setContactPermission]=useState(false);
 
     useEffect(() => {
         const loadContacts = async () => {
@@ -16,6 +17,7 @@ export const ContactsProvider = ({ children }) => {
                 const { status } = await Contacts.requestPermissionsAsync();
 
                 if (status === 'granted') {
+                    setContactPermission(true);
                     const { data } = await Contacts.getContactsAsync({
                         fields: [
                             Contacts.Fields.Name,
@@ -59,6 +61,10 @@ export const ContactsProvider = ({ children }) => {
                         setFilteredContacts(simplifiedContacts);
                     }
                 }
+
+                else
+                    setContactPermission(false);
+                
             } catch (error) {
                 console.error('Error loading contacts:', error);
             } finally {
@@ -102,6 +108,7 @@ export const ContactsProvider = ({ children }) => {
                 handleSelectContact,
                 loading,
                 setSelectedContacts,
+                contactPermission
             }}
         >
             {children}

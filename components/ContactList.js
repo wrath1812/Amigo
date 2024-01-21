@@ -1,12 +1,13 @@
 // ContactList.js
 
 import React, { useEffect } from 'react';
-import { View, Text, FlatList, Pressable } from 'react-native';
+import { View, Text, FlatList, Pressable,Alert } from 'react-native';
 import ContactCard from './ContactCard';
 import Search from './Search';
 import { useContacts } from '../hooks/useContacts';
 import { calcHeight, calcWidth } from '../helper/res';
-import { useNavigation } from '@react-navigation/native';
+import openSettings from "../helper/openSettings";
+import { Button } from 'react-native-paper';
 const ContactList = ({ eliminatedContacts }) => {
     const {
         search,
@@ -15,6 +16,7 @@ const ContactList = ({ eliminatedContacts }) => {
         selectedContacts,
         handleSelectContact,
         setSelectedContacts,
+        contactPermission
     } = useContacts();
 
     useEffect(() => {
@@ -32,9 +34,29 @@ const ContactList = ({ eliminatedContacts }) => {
         );
     }
 
+    function askPermission()
+    {
+        Alert.alert(
+            'Permission Required',
+            'We need permission to access your contacts to add people to the group',
+            [
+                {
+                    text: 'Cancel',
+                    style: 'cancel',
+                },
+                {
+                    text: 'Open Settings',
+                    onPress: openSettings,
+                },
+            ],
+        );
+        return;
+    }
+
     return (
         <View>
             <Search search={search} setSearch={setSearch} />
+            {contactPermission?
             <FlatList
                 style={{
                     marginTop: calcHeight(5),
@@ -52,7 +74,15 @@ const ContactList = ({ eliminatedContacts }) => {
                     </Pressable>
                 )}
                 showsVerticalScrollIndicator={false}
-            />
+            />:(
+                <View style={{
+                    flex:1,
+                    justifyContent:"center"
+                }}>
+                <Button onPress={askPermission}>Allow Contact Permission</Button>
+                </View>
+            )
+                            }
         </View>
     );
 };
