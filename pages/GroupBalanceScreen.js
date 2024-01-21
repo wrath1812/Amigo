@@ -105,9 +105,9 @@ function GroupBalanceScreen({ navigation, route }) {
                 </View>
                 <View style={styles.balanceAmountContainer}>
                     <Text style={styles.balanceAmount}>
-                        ₹{group.totalBalance}
+                        ₹{Math.abs(group.totalBalance)}
                     </Text>
-                    <View style={styles.arrowIconContainer}>
+                    <View style={[styles.arrowIconContainer,{backgroundColor:group.totalBalance>0?'#00C83D':"red"}]}>
                         <Feather
                             name={
                                 group.totalBalance > 0
