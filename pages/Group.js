@@ -47,7 +47,7 @@ function isNumber(text) {
 }
 
 function GroupScreen({ navigation }) {
-    const { group,setGroup } = useGroup();
+    const { group } = useGroup();
     const textRef = useRef();
     const [activities, setActivities] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
@@ -56,6 +56,7 @@ function GroupScreen({ navigation }) {
     const [contacts, setContacts] = useState([]);
     const { user } = useAuth();
     const [totalBalance,setTotalBalance]=useState();
+    const [balances,setBalances]=useState();
 
     const fetchActivities = useCallback(async () => {
         setIsLoading(true);
@@ -85,19 +86,18 @@ function GroupScreen({ navigation }) {
             const { data } = await apiHelper(
                 `/balance?id=${group._id}`,
             );
-            if(data.length==0)
+            if(data.length==0){
+                setTotalBalance(0);
             return;
+            }
             const { groups }=await groupBalancesAndCalculateTotal(data, user._id);
             setTotalBalance(groups[0].totalBalance)
-            setGroup((prev)=>({
-                ...prev,
-                ...groups[0]
-            }));
+            setBalances(groups[0]);
             
         } catch (error) {
             console.error('Error fetching activities:', error);
         }
-    },[navigation]);
+    },[group]);
 
     useFocusEffect(fetchActivities);
     useFocusEffect(fetchBalances);
@@ -183,7 +183,7 @@ function GroupScreen({ navigation }) {
             </Pressable>
             <Pressable style={styles.balanceInfo} 
             onPress={()=>{
-                navigation.navigate(PAGES.GROUP_BALANCE, { group })
+                navigation.navigate(PAGES.GROUP_BALANCE, { group:balances })
             }
             }
             >
