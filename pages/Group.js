@@ -1,5 +1,5 @@
 // 1. Import Statements
-import React, { useRef, useState, useCallback } from 'react';
+import React, { useRef, useState, useCallback, useEffect } from 'react';
 import {
     Text,
     StyleSheet,
@@ -135,7 +135,7 @@ function GroupScreen({ navigation }) {
             <Pressable
                 style={styles.header}
                 onPress={() => {
-                    navigation.navigate(PAGES.GROUP_SETTINGS);
+                    navigation.navigate(PAGES.GROUP_SETTINGS,{balance:totalBalance!=0});
                 }}
             >
                 <View
