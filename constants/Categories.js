@@ -11,7 +11,7 @@ const size = calcWidth(5);
 const categories = [
     {
         name: 'General',
-        icon: <AntDesign name="ellipsis1" size={size} color="#607D8B" />,
+        icon: <FontAwesome5 name="money-bill" size={size} color="yellow" />,
     }, // Blue Grey
     {
         name: 'Groceries',

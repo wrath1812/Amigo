@@ -193,6 +193,7 @@ function TransactionFormScreen({ navigation }) {
                                 transactionData.type === item.name && {
                                     color: 'black',
                                 },
+
                             ]}
                         >
                             {item.name}
@@ -301,7 +302,9 @@ function TransactionFormScreen({ navigation }) {
                     alignItems: 'center',
                 }}
             >
-                <Button onPress={handleSubmit} title="Submit" />
+                <Button styleOverwrite={{
+                    width:calcWidth(90)
+                }}onPress={handleSubmit} title="Submit" />
             </View>
         </ScrollView>
     );
@@ -346,7 +349,7 @@ const styles = StyleSheet.create({
     },
     categoryText: {
         color: COLOR.TEXT,
-        fontSize: getFontSizeByWindowWidth(8),
+        fontSize: getFontSizeByWindowWidth(12),
         paddingLeft: calcWidth(1),
     },
     selectedCategory: {
