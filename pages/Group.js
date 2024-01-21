@@ -84,7 +84,7 @@ function GroupScreen({ navigation }) {
     const fetchBalances=useCallback(async () => {
         try {
             const { data } = await apiHelper(
-                `/balance?id=${group._id}`,
+                `/balance/${group._id}`,
             );
             if(data.length==0){
                 setTotalBalance(0);
