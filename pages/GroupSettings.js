@@ -145,9 +145,6 @@ const GroupScreen = ({
                     }}
                 >
                     <Text style={styles.buttonText}>Share Group Link</Text>
-                    <Text style={{ color: COLOR.TEXT }}>
-                        Help members find this group
-                    </Text>
                 </View>
             </TouchableOpacity>
         </>
