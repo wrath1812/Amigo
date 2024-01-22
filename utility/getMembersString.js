@@ -1,4 +1,4 @@
-function getMembersString(members) {
+function getMembersString(members,numberOfCharacters) {
     let names = [];
 
     for (let i = 0; i < members.length; i++) {
@@ -11,8 +11,8 @@ function getMembersString(members) {
 
     let result = names.join(', ');
 
-    if (result.length > 15) {
-        result = result.substring(0, 15) + '..';
+    if (result.length > numberOfCharacters) {
+        result = result.substring(0, numberOfCharacters) + '..';
     }
 
     // Remove trailing comma, if present

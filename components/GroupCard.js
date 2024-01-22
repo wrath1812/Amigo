@@ -23,7 +23,7 @@ function GroupCard({ group }) {
             <View style={styles.textContainer}>
                 <Text style={styles.nameText}>{group.name}</Text>
                 <Text style={styles.memberText}>
-                    {getMembersString(group.members)}
+                    {getMembersString(group.members,30)}
                 </Text>
             </View>
         </Pressable>
