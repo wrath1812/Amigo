@@ -1,4 +1,4 @@
-function getMembersString(members,numberOfCharacters) {
+function getMembersString(members, numberOfCharacters) {
     let names = [];
 
     for (let i = 0; i < members.length; i++) {

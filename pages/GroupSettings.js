@@ -10,6 +10,7 @@ import {
     TextInput,
     Image,
     Share,
+    Alert,
 } from 'react-native';
 import { SimpleLineIcons, Ionicons } from '@expo/vector-icons';
 import { DEEP_LINK_URL } from '@env';
@@ -82,6 +83,27 @@ const GroupScreen = ({
         setLoading(false);
     };
 
+    const leaveGroupAlert = () => {
+        Alert.alert(
+            'Leave Group',
+            'Do you really want to leave the group',
+            [
+                {
+                    text: 'Cancel',
+                    style: 'cancel',
+                },
+                {
+                    text: 'Exit',
+                    onPress: leaveGroup,
+                    style: 'destructive', // Set the style to destructive to make it red
+                },
+            ],
+            {
+                titleStyle: { color: 'red' }, // Set the title text color to red
+            },
+        );
+    };
+
     useLayoutEffect(() => {
         navigation.setOptions({
             headerLeft: () =>
@@ -152,7 +174,10 @@ const GroupScreen = ({
 
     const renderListFooter = () =>
         !balance && (
-            <TouchableOpacity style={styles.memberItem} onPress={leaveGroup}>
+            <TouchableOpacity
+                style={styles.memberItem}
+                onPress={leaveGroupAlert}
+            >
                 <Ionicons
                     name="exit-outline"
                     size={calcHeight(5)}

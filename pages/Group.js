@@ -151,7 +151,7 @@ function GroupScreen({ navigation }) {
                     <View style={styles.groupNameContainer}>
                         <Text style={styles.groupName}>{group.name}</Text>
                         <Text style={styles.groupMembers}>
-                            {getMembersString(group.members,20)}
+                            {getMembersString(group.members, 20)}
                         </Text>
                     </View>
                 </View>
