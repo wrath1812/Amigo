@@ -21,6 +21,7 @@ const DatePickerSelector = ({ range, setRange, open, setOpen }) => {
                     backgroundColor: '#342F4F',
                     padding: 10,
                     flexDirection: 'row',
+                    borderRadius:10
                 }}
                 onPress={() => setOpen(true)}
             >
