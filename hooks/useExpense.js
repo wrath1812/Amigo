@@ -9,6 +9,14 @@ export function useExpense(userId, setLoading) {
     });
     const [type, setType] = useState(undefined);
 
+    const resetParams=()=>{
+        setRange({
+            startDate: undefined,
+            endDate: undefined,
+        });
+        setType(undefined);
+    }
+
     const fetchExpense = useCallback(async () => {
         setLoading(true);
         try {
@@ -33,5 +41,5 @@ export function useExpense(userId, setLoading) {
         fetchExpense();
     }, [fetchExpense]);
 
-    return { expense, range, setRange, type, setType };
+    return { expense, range, setRange, type, setType,resetParams };
 }

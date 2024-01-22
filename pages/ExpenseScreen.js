@@ -16,11 +16,12 @@ import TypeSelector from '../components/TypeSelector'; // Separate component for
 import Loader from '../components/Loader';
 import COLOR from '../constants/Colors';
 import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
+import {FontAwesome5} from "@expo/vector-icons";
 
 function ExpenseScreen() {
     const [loading, setLoading] = useState(false);
     const { user } = useAuth();
-    const { expense, range, setRange, type, setType } = useExpense(
+    const { expense, range, setRange, type, setType,resetParams } = useExpense(
         user.id,
         setLoading,
     );
@@ -29,9 +30,37 @@ function ExpenseScreen() {
         <SafeAreaView style={styles.container}>
             <Text style={styles.header}>Expense Summary</Text>
 
+<View style={{
+    flexDirection:"row",
+    justifyContent:"space-between",
+    margin:calcWidth(5)
+
+}}>
             <View style={styles.selectorContainer}>
                 <TypeSelector setType={setType} type={type} />
                 <DatePickerSelector range={range} setRange={setRange} />
+            </View>
+            <TouchableOpacity
+                    onPress={resetParams}
+                    style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        gap: calcWidth(1),
+                    }}
+                >
+                    <FontAwesome5
+                        name="redo"
+                        size={calcWidth(3)}
+                        color="rgba(255,255,255,0.66)"
+                    />
+                    <Text
+                        style={{
+                            color: COLOR.TEXT,
+                        }}
+                    >
+                        Reset
+                    </Text>
+                </TouchableOpacity>
             </View>
 
             {expense.length === 0 ? (
@@ -66,7 +95,6 @@ const styles = StyleSheet.create({
     selectorContainer: {
         flexDirection: 'row',
         gap: calcWidth(8),
-        margin: calcWidth(5),
         alignItems: 'center',
     },
     noTransactionsText: {
