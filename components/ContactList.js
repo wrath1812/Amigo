@@ -1,14 +1,13 @@
-// ContactList.js
-
-import React, { useEffect } from 'react';
-import { View, Text, FlatList, Pressable, Alert } from 'react-native';
+import React, { useEffect, useRef } from 'react';
+import { View, Text, FlatList, Pressable, Alert, Keyboard } from 'react-native';
 import ContactCard from './ContactCard';
 import Search from './Search';
 import { useContacts } from '../hooks/useContacts';
-import { calcHeight, calcWidth } from '../helper/res';
+import { calcHeight } from '../helper/res';
 import openSettings from '../helper/openSettings';
 import { Button } from 'react-native-paper';
 import COLOR from '../constants/Colors';
+
 const ContactList = ({ eliminatedContacts }) => {
     const {
         search,
@@ -19,6 +18,8 @@ const ContactList = ({ eliminatedContacts }) => {
         setSelectedContacts,
         contactPermission,
     } = useContacts();
+
+    const flatListRef = useRef(null);
 
     useEffect(() => {
         setSelectedContacts([]);
@@ -50,14 +51,18 @@ const ContactList = ({ eliminatedContacts }) => {
                 },
             ],
         );
-        return;
     }
+
+    const handleScroll = () => {
+        Keyboard.dismiss();
+    };
 
     return (
         <View>
             <Search search={search} setSearch={setSearch} />
             {contactPermission ? (
                 <FlatList
+                    ref={flatListRef}
                     style={{
                         marginTop: calcHeight(5),
                     }}
@@ -74,6 +79,7 @@ const ContactList = ({ eliminatedContacts }) => {
                         </Pressable>
                     )}
                     showsVerticalScrollIndicator={false}
+                    onScroll={handleScroll}
                 />
             ) : (
                 <Pressable
