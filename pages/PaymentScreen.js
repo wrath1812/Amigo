@@ -18,6 +18,7 @@ import PAGES from '../constants/pages';
 import apiHelper from '../helper/apiHelper';
 import Loader from '../components/Loader';
 import UserAvatar from '../components/UserAvatar';
+import Toast from 'react-native-root-toast';
 
 // GroupScreen Component
 function GroupScreen({
@@ -41,7 +42,9 @@ function GroupScreen({
                 amount,
                 description,
             });
-            alert(JSON.stringify(data));
+            Toast.show("Payment Added", {
+                duration: Toast.durations.LONG,
+            });
             seIsLoading(false);
             navigation.navigate(PAGES.BALANCE);
         } catch (e) {

@@ -87,14 +87,23 @@ function TransactionFormScreen({ navigation }) {
     };
 
     const handleSubmit = async () => {
+        if(!transactionData.amount)
+        {
+            alert('Amount Missing');
+            return;
+        }
+
+        if(!transactionData.description)
+        {
+            alert('Description Missing');
+            return;
+        }
         if (
             !(
-                transactionData.amount &&
-                transactionData.description &&
                 transactionData.group
             )
         ) {
-            alert('All fiends are required');
+            alert('Group not added');
             return;
         }
         setIsLoading(true);
