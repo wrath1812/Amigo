@@ -13,6 +13,115 @@ const getStartOfWeek = () => {
     return startOfWeek;
 };
 
+const getStartOfMonth = () => {
+    const now = new Date();
+    const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
+    startOfMonth.setHours(0, 0, 0, 0);
+    return startOfMonth;
+};
+
+
+const DatePickerSelector = ({ range, setRange }) => {
+    const [modalState, setModalState] = useState(null);
+
+    const onDismiss = () => {
+        setModalState(null);
+    };
+
+    const onConfirm = ({ startDate, endDate }) => {
+        setModalState(null);
+        setRange({ startDate, endDate });
+    };
+
+    const showCustomDateModal = () => {
+        setModalState('datePicker');
+    };
+
+    const renderButtons = () => (
+        <>
+            <TouchableOpacity
+                style={styles.buttonContainer}
+                onPress={() => setModalState('model')}
+            >
+                <Text style={styles.buttonText}>Date</Text>
+            </TouchableOpacity>
+
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={modalState === 'model'}
+                onRequestClose={() => {
+                    setModalState(null);
+                }}
+            >
+                <Pressable
+                    style={styles.modalContent}
+                    onPress={() => setModalState(null)}
+                >
+                    <View style={styles.modalView}>
+                    <TouchableOpacity
+                            onPress={() =>{
+                                onConfirm({
+                                    startDate:undefined,
+                                    endDate:undefined
+                                })
+                            }
+                                
+                            }
+                            style={styles.dateTypeContainer}
+                        >
+                            <Text style={styles.dateTypeText}>All Transactions</Text>
+                        </TouchableOpacity>
+                    <TouchableOpacity
+                            onPress={() =>{
+                                onConfirm({
+                                    startDate: getStartOfWeek(),
+                                    endDate: new Date(),
+                                })
+                            }
+                            }
+                            style={styles.dateTypeContainer}
+                        >
+                            <Text style={styles.dateTypeText}>This Week</Text>
+                        </TouchableOpacity>
+
+                        <TouchableOpacity
+                            onPress={() =>{
+                                onConfirm({
+                                    startDate: getStartOfMonth(),
+                                    endDate: new Date(),
+                                })
+                            }
+                            }
+                            style={styles.dateTypeContainer}
+                        >
+                            <Text style={styles.dateTypeText}>This Month</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={showCustomDateModal} style={styles.dateTypeContainer}>
+                            <Text style={styles.dateTypeText}>Custom Date</Text>
+                        </TouchableOpacity>
+                    </View>
+                </Pressable>
+            </Modal>
+
+            <DatePickerModal
+                locale="en"
+                mode="range"
+                visible={modalState === 'datePicker'}
+                onDismiss={onDismiss}
+                startDate={range.startDate}
+                endDate={range.endDate}
+                onConfirm={onConfirm}
+            />
+        </>
+    );
+
+    return <View>{renderButtons()}</View>;
+};
+
+export default DatePickerSelector;
+
+
 const styles = {
     buttonContainer: {
         backgroundColor: '#342F4F',
@@ -35,99 +144,13 @@ const styles = {
         backgroundColor: 'white',
         paddingBottom: calcHeight(7),
     },
+    dateTypeText:{
+        fontSize:getFontSizeByWindowWidth(15)
+    },
+    dateTypeContainer:{
+        justifyContent: "center",
+        alignItems: "center",  // Corrected from alignItem
+        alignContent: "center",  // Corrected from alignItem,
+        margin:calcHeight(2)
+    }
 };
-
-const buttonOptions = {
-    customDates: 'Custom Dates',
-    thisWeek: 'This Week',
-    allTransactions:"All Transactions"
-};
-
-const DatePickerSelector = ({ range, setRange }) => {
-    const [modalState, setModalState] = useState(null);
-    const [selectedDateType,setSelectedDateType]=useState(buttonOptions.allTransactions);
-
-    const onDismiss = () => {
-        setModalState(null);
-    };
-
-    const onConfirm = ({ startDate, endDate }) => {
-        setModalState(null);
-        setSelectedDateType(buttonOptions.customDates);
-        setRange({ startDate, endDate });
-    };
-
-    const showCustomDateModal = () => {
-        setModalState('datePicker');
-    };
-
-    const renderButtons = () => (
-        <>
-            <TouchableOpacity
-                style={styles.buttonContainer}
-                onPress={() => setModalState('model')}
-            >
-                <Text style={styles.buttonText}>{selectedDateType}</Text>
-            </TouchableOpacity>
-
-            <Modal
-                animationType="slide"
-                transparent={true}
-                visible={modalState === 'model'}
-                onRequestClose={() => {
-                    setModalState(null);
-                }}
-            >
-                <Pressable
-                    style={styles.modalContent}
-                    onPress={() => setModalState(null)}
-                >
-                    <View style={styles.modalView}>
-                    <TouchableOpacity
-                            onPress={() =>{
-                                onConfirm({
-                                    startDate:undefined,
-                                    endDate:undefined
-                                })
-                                setSelectedDateType(buttonOptions.allTransactions);
-                            }
-                                
-                            }
-                        >
-                            <Text>{buttonOptions.allTransactions}</Text>
-                        </TouchableOpacity>
-                    <TouchableOpacity
-                            onPress={() =>{
-                                onConfirm({
-                                    startDate: getStartOfWeek(),
-                                    endDate: new Date(),
-                                })
-                                setSelectedDateType(buttonOptions.thisWeek);
-                            }
-                            }
-                        >
-                            <Text>{buttonOptions.thisWeek}</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity onPress={showCustomDateModal}>
-                            <Text>{buttonOptions.customDates}</Text>
-                        </TouchableOpacity>
-                    </View>
-                </Pressable>
-            </Modal>
-
-            <DatePickerModal
-                locale="en"
-                mode="range"
-                visible={modalState === 'datePicker'}
-                onDismiss={onDismiss}
-                startDate={range.startDate}
-                endDate={range.endDate}
-                onConfirm={onConfirm}
-            />
-        </>
-    );
-
-    return <View>{renderButtons()}</View>;
-};
-
-export default DatePickerSelector;
