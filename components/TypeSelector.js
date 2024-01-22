@@ -84,7 +84,7 @@ const TypeSelector = ({ setType, type }) => {
                     backgroundColor: '#342F4F',
                     padding: 10,
                     flexDirection: 'row',
-                    gap: calcWidth(8),
+                    gap: calcWidth(4),
                     alignItems: 'center',
                     borderRadius: 5,
                 }}
