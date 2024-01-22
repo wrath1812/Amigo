@@ -8,7 +8,6 @@ export function useExpense(userId, setLoading) {
         endDate: undefined,
     });
     const [type, setType] = useState(undefined);
-    const [open, setOpen] = useState(false);
 
     const fetchExpense = useCallback(async () => {
         setLoading(true);
@@ -34,5 +33,5 @@ export function useExpense(userId, setLoading) {
         fetchExpense();
     }, [fetchExpense]);
 
-    return { expense, range, setRange, type, setType, open, setOpen };
+    return { expense, range, setRange, type, setType };
 }
