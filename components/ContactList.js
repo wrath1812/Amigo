@@ -96,7 +96,7 @@ const ContactList = ({ eliminatedContacts }) => {
                             color: COLOR.TEXT,
                         }}
                     >
-                        Allow Camera Permission
+                        Allow Contact Permission
                     </Text>
                 </Pressable>
             )}
