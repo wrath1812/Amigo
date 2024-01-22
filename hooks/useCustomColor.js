@@ -1,11 +1,11 @@
 import { useAuth } from '../context/AuthContext';
-import uuidToColor from '../helper/uuidToColor';
 import COLOR from '../constants/Colors';
+import getAvatarColor from "../constants/getAvatarColor";
 function useCustomColor() {
     const { user } = useAuth();
 
     const generateColor = (id) => {
-        return id === user._id ? COLOR.BUTTON : uuidToColor(id, COLOR.BUTTON);
+        return id === user._id ? COLOR.BUTTON : getAvatarColor(id);
     };
 
     return generateColor;
