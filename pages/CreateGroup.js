@@ -32,6 +32,9 @@ const CreateGroup = ({ navigation }) => {
             name: groupName,
             phoneNumbers,
         });
+        Toast.show(`${groupName} created`, {
+            duration: Toast.durations.LONG,
+        });
         navigation.goBack({ group });
     };
 
