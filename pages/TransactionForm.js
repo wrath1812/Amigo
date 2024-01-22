@@ -254,7 +254,6 @@ function TransactionFormScreen({ navigation }) {
                             padding: calcWidth(5),
                             borderRadius: 10,
                             flexDirection: 'row',
-                            alignItems: 'center',
                             justifyContent: 'space-evenly',
                             marginTop: calcHeight(5),
                             width: calcWidth(40),
@@ -316,18 +315,14 @@ function TransactionFormScreen({ navigation }) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        padding: calcWidth(5),
+        paddingHorizontal: calcWidth(5),
         backgroundColor: COLOR.APP_BACKGROUND,
-        alignContent: 'center',
     },
     rowCentered: {
         flexDirection: 'row',
         justifyContent: 'center',
-        alignContent: 'center',
     },
     amount: {
-        alignItems: 'center',
-        alignContent: 'center',
         color: COLOR.TEXT,
         fontSize: getFontSizeByWindowWidth(50),
     },
@@ -345,8 +340,6 @@ const styles = StyleSheet.create({
     },
     categoryItem: {
         flexDirection: 'row',
-        justifyContent: 'center',
-        alignContent: 'center',
         alignItems: 'center',
         paddingHorizontal: calcWidth(3),
     },

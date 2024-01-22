@@ -9,7 +9,7 @@ export const ContactsProvider = ({ children }) => {
     const [search, setSearch] = useState('');
     const [selectedContacts, setSelectedContacts] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [contactPermission,setContactPermission]=useState(false);
+    const [contactPermission, setContactPermission] = useState(false);
 
     useEffect(() => {
         const loadContacts = async () => {
@@ -60,11 +60,7 @@ export const ContactsProvider = ({ children }) => {
                         setAllContacts(simplifiedContacts);
                         setFilteredContacts(simplifiedContacts);
                     }
-                }
-
-                else
-                    setContactPermission(false);
-                
+                } else setContactPermission(false);
             } catch (error) {
                 console.error('Error loading contacts:', error);
             } finally {
@@ -108,7 +104,7 @@ export const ContactsProvider = ({ children }) => {
                 handleSelectContact,
                 loading,
                 setSelectedContacts,
-                contactPermission
+                contactPermission,
             }}
         >
             {children}
