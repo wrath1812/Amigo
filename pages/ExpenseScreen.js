@@ -20,8 +20,10 @@ import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
 function ExpenseScreen() {
     const [loading, setLoading] = useState(false);
     const { user } = useAuth();
-    const { expense, range, setRange, type, setType } =
-        useExpense(user.id, setLoading);
+    const { expense, range, setRange, type, setType } = useExpense(
+        user.id,
+        setLoading,
+    );
     if (loading) return <Loader />;
     return (
         <SafeAreaView style={styles.container}>
@@ -29,10 +31,7 @@ function ExpenseScreen() {
 
             <View style={styles.selectorContainer}>
                 <TypeSelector setType={setType} type={type} />
-                <DatePickerSelector
-                    range={range}
-                    setRange={setRange}
-                />
+                <DatePickerSelector range={range} setRange={setRange} />
             </View>
 
             {expense.length === 0 ? (

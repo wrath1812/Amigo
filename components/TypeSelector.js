@@ -86,54 +86,59 @@ const TypeSelector = ({ setType, type }) => {
                     flexDirection: 'row',
                     gap: calcWidth(8),
                     alignItems: 'center',
-                    borderRadius:5
+                    borderRadius: 5,
                 }}
                 onPress={() => setModalVisible(true)}
             >
-                {
-                    selectedTypes.length==0?
+                {selectedTypes.length == 0 ? (
                     <>
-                <Text
-                    style={{
-                        fontSize: getFontSizeByWindowWidth(15),
-                        color: COLOR.TEXT,
-                    }}
-                >
-                    Type
-                </Text>
-                <Image
-                    style={{
-                        height: calcWidth(3),
-                        width: calcWidth(5),
-                    }}
-                    source={typeIcon}
-                /> 
-                </>
-                :  <>
-                {getCategoryIcon(selectedTypes[0])}
-                <Text
-                    style={{
-                        fontSize: getFontSizeByWindowWidth(15),
-                        color: COLOR.TEXT,
-                    }}
-                >
-                    {selectedTypes[0]}
-                </Text>
-                {
-                    selectedTypes.length>1 &&
-                    <View style={{
-                        backgroundColor:COLOR.BUTTON,
-                        padding:calcWidth(1),
-                        borderRadius:calcWidth(5)
-                    }}>
-                        <Text style={{
-                            color:COLOR.TEXT,
-                            fontWeight:"bold"
-                        }}>+{selectedTypes.length-1}</Text>
-                    </View>
-                }
-                </>
-}
+                        <Text
+                            style={{
+                                fontSize: getFontSizeByWindowWidth(15),
+                                color: COLOR.TEXT,
+                            }}
+                        >
+                            Type
+                        </Text>
+                        <Image
+                            style={{
+                                height: calcWidth(3),
+                                width: calcWidth(5),
+                            }}
+                            source={typeIcon}
+                        />
+                    </>
+                ) : (
+                    <>
+                        {getCategoryIcon(selectedTypes[0])}
+                        <Text
+                            style={{
+                                fontSize: getFontSizeByWindowWidth(15),
+                                color: COLOR.TEXT,
+                            }}
+                        >
+                            {selectedTypes[0]}
+                        </Text>
+                        {selectedTypes.length > 1 && (
+                            <View
+                                style={{
+                                    backgroundColor: COLOR.BUTTON,
+                                    padding: calcWidth(1),
+                                    borderRadius: calcWidth(5),
+                                }}
+                            >
+                                <Text
+                                    style={{
+                                        color: COLOR.TEXT,
+                                        fontWeight: 'bold',
+                                    }}
+                                >
+                                    +{selectedTypes.length - 1}
+                                </Text>
+                            </View>
+                        )}
+                    </>
+                )}
             </TouchableOpacity>
             <Modal
                 animationType="slide"

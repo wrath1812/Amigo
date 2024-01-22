@@ -5,110 +5,111 @@ import { getFontSizeByWindowWidth } from '../helper/res';
 import COLOR from '../constants/Colors';
 import { calcHeight } from '../helper/res';
 
+const getStartOfWeek = () => {
+    const now = new Date();
+    const startOfWeek = new Date(now);
+    startOfWeek.setHours(0, 0, 0, 0);
+    startOfWeek.setDate(now.getDate() - now.getDay());
+    return startOfWeek;
+};
+
+const styles = {
+    buttonContainer: {
+        backgroundColor: '#342F4F',
+        padding: 10,
+        flexDirection: 'row',
+        borderRadius: 10,
+    },
+    buttonText: {
+        fontSize: getFontSizeByWindowWidth(15),
+        color: COLOR.TEXT,
+    },
+    modalContent: {
+        flex: 1,
+        justifyContent: 'flex-end',
+    },
+    modalView: {
+        borderTopLeftRadius: 20,
+        borderTopRightRadius: 20,
+        padding: calcHeight(4),
+        backgroundColor: 'white',
+        paddingBottom: calcHeight(7),
+    },
+};
+
+const buttonOptions = {
+    customDates: 'Custom Dates',
+    thisWeek: 'This Week',
+};
+
 const DatePickerSelector = ({ range, setRange }) => {
-  const [open, setOpen] = useState(false);
-  const [showModalVisible, setCustomModalVisible] = useState(false); // New state for custom date modal
+    const [modalState, setModalState] = useState(null);
 
-  const onDismiss = () => {
-    setOpen(false);
-  };
+    const onDismiss = () => {
+        setModalState(null);
+    };
 
-  const onConfirm = ({ startDate, endDate }) => {
-    setOpen(false);
-    setRange({ startDate, endDate });
-  };
+    const onConfirm = ({ startDate, endDate }) => {
+        setModalState(null);
+        setRange({ startDate, endDate });
+    };
 
-  const showCustomDateModal = () => {
-    setCustomModalVisible(true);
-  };
+    const showCustomDateModal = () => {
+        setModalState('datePicker');
+    };
 
-  const hideCustomDateModal = () => {
-    setCustomModalVisible(false);
-  };
-
-  const setCustomDateRange = (customStartDate, customEndDate) => {
-    setRange({ startDate: customStartDate, endDate: customEndDate });
-    hideCustomDateModal();
-  };
-
-  return (
-    <View>
-      <TouchableOpacity
-        style={{
-          backgroundColor: '#342F4F',
-          padding: 10,
-          flexDirection: 'row',
-          borderRadius: 10,
-        }}
-        onPress={() => setOpen(true)}
-      >
-        <Text
-          style={{
-            fontSize: getFontSizeByWindowWidth(15),
-            color: COLOR.TEXT,
-          }}
-        >
-          Date
-        </Text>
-      </TouchableOpacity>
-
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={showModalVisible} // Show the custom date modal
-        onRequestClose={hideCustomDateModal}
-      >
-        {/* Your custom date range modal content here */}
-      </Modal>
-
-      <Modal
-        animationType="slide"
-        transparent={true}
-        visible={showModalVisible}
-        onRequestClose={() => {
-          setModalVisible(false);
-        }}
-      >
-        <Pressable
-          style={{
-            flex: 1,
-            justifyContent: 'flex-end',
-            backgroundColor: 'rgba(0, 0, 0, 0.5)',
-          }}
-          onPress={() => setModalVisible(false)}
-        >
-          <View
-            style={{
-              borderTopLeftRadius: 20,
-              borderTopRightRadius: 20,
-              padding: calcHeight(4),
-              backgroundColor: COLOR.APP_BACKGROUND,
-              paddingBottom: calcHeight(7),
-            }}
-          >
-            <TouchableOpacity onPress={showCustomDateModal}> {/* Open the custom date modal */}
-              <Text>Custom Dates</Text>
+    const renderButtons = () => (
+        <>
+            <TouchableOpacity
+                style={styles.buttonContainer}
+                onPress={() => setModalState('model')}
+            >
+                <Text style={styles.buttonText}>Date</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => setRange(/* Set this week date range logic here */)}>
-              <Text>This Week</Text>
-            </TouchableOpacity>
-            <Text>This Month</Text>
-            <Text>All Transactions</Text>
-          </View>
-        </Pressable>
-      </Modal>
 
-      <DatePickerModal
-        locale="en"
-        mode="range"
-        visible={open}
-        onDismiss={onDismiss}
-        startDate={range.startDate}
-        endDate={range.endDate}
-        onConfirm={onConfirm}
-      />
-    </View>
-  );
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={modalState === 'model'}
+                onRequestClose={() => {
+                    setModalState(null);
+                }}
+            >
+                <Pressable
+                    style={styles.modalContent}
+                    onPress={() => setModalState(null)}
+                >
+                    <View style={styles.modalView}>
+                        <TouchableOpacity onPress={showCustomDateModal}>
+                            <Text>{buttonOptions.customDates}</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            onPress={() =>
+                                onConfirm({
+                                    startDate: getStartOfWeek(),
+                                    endDate: new Date(),
+                                })
+                            }
+                        >
+                            <Text>{buttonOptions.thisWeek}</Text>
+                        </TouchableOpacity>
+                    </View>
+                </Pressable>
+            </Modal>
+
+            <DatePickerModal
+                locale="en"
+                mode="range"
+                visible={modalState === 'datePicker'}
+                onDismiss={onDismiss}
+                startDate={range.startDate}
+                endDate={range.endDate}
+                onConfirm={onConfirm}
+            />
+        </>
+    );
+
+    return <View>{renderButtons()}</View>;
 };
 
 export default DatePickerSelector;
