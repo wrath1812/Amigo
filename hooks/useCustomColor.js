@@ -1,6 +1,6 @@
 import { useAuth } from '../context/AuthContext';
 import COLOR from '../constants/Colors';
-import getAvatarColor from "../constants/getAvatarColor";
+import getAvatarColor from '../constants/getAvatarColor';
 function useCustomColor() {
     const { user } = useAuth();
 

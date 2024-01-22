@@ -8,6 +8,7 @@ import { useContacts } from '../hooks/useContacts';
 import { calcHeight, calcWidth } from '../helper/res';
 import openSettings from '../helper/openSettings';
 import { Button } from 'react-native-paper';
+import COLOR from '../constants/Colors';
 const ContactList = ({ eliminatedContacts }) => {
     const {
         search,
@@ -75,16 +76,23 @@ const ContactList = ({ eliminatedContacts }) => {
                     showsVerticalScrollIndicator={false}
                 />
             ) : (
-                <View
+                <Pressable
                     style={{
-                        flex: 1,
+                        alignContent: 'center',
+                        alignItems: 'center',
                         justifyContent: 'center',
+                        flex: 1,
                     }}
+                    onPress={openSettings}
                 >
-                    <Button onPress={askPermission}>
-                        Allow Contact Permission
-                    </Button>
-                </View>
+                    <Text
+                        style={{
+                            color: COLOR.TEXT,
+                        }}
+                    >
+                        Allow Camera Permission
+                    </Text>
+                </Pressable>
             )}
         </View>
     );

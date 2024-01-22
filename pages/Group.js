@@ -30,7 +30,7 @@ import useSocket from '../hooks/useSocket';
 import { Feather } from '@expo/vector-icons';
 import editNames from '../helper/editNames';
 import { useGroup } from '../context/GroupContext';
-import groupBalancesAndCalculateTotal from '../helper/groupBalancesAndCalculateTotal';
+import groupBalancesAndCalculateTotal from '../utility/groupBalancesAndCalculateTotal';
 import getMembersString from '../utility/getMembersString';
 
 function isNumber(text) {

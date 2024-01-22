@@ -23,7 +23,7 @@ import ScanIcon from '../assets/icons/scan.png';
 import UserAvatar from '../components/UserAvatar';
 const headerIconSize = calcHeight(1);
 
-import groupBalancesAndCalculateTotal from '../helper/groupBalancesAndCalculateTotal';
+import groupBalancesAndCalculateTotal from '../utility/groupBalancesAndCalculateTotal';
 
 function BalanceScreen({ navigation }) {
     const [loading, setLoading] = useState(false);

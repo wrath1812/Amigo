@@ -1,11 +1,21 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, Linking, Button, Image } from 'react-native';
+import {
+    View,
+    StyleSheet,
+    Linking,
+    Button,
+    Image,
+    Pressable,
+    Text,
+} from 'react-native';
 import * as BarCodeScanner from 'expo-barcode-scanner';
 import CameraScanner from '../components/CameraScanner';
 import { useTransaction } from '../context/TransactionContext';
 import URL from 'url-parse';
 import PAGES from '../constants/pages';
+import COLOR from '../constants/Colors';
 import openSettings from '../helper/openSettings';
+import { getFontSizeByWindowWidth } from '../helper/res';
 const QRCodeScanner = ({ navigation }) => {
     const [hasPermission, setHasPermission] = useState(null);
     const [isLit, setIsLit] = useState(false);
@@ -82,10 +92,15 @@ const QRCodeScanner = ({ navigation }) => {
     return (
         <View style={styles.container}>
             {!hasPermission ? (
-                <Button
-                    title="Allow Camera Permission"
-                    onPress={openSettings}
-                />
+                <Pressable onPress={openSettings}>
+                    <Text
+                        style={{
+                            color: COLOR.TEXT,
+                        }}
+                    >
+                        Allow Camera Permission
+                    </Text>
+                </Pressable>
             ) : (
                 <CameraScanner
                     handleBarCodeScanned={handleBarCodeScanned}
@@ -102,6 +117,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
+        backgroundColor: COLOR.APP_BACKGROUND,
     },
 });
 
