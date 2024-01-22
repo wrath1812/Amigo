@@ -22,6 +22,7 @@ import { AntDesign } from '@expo/vector-icons';
 import { useTransaction } from '../context/TransactionContext';
 import getPreviousPageName from '../helper/getPreviousPageName';
 import { useAuth } from '../context/AuthContext';
+import Toast from 'react-native-root-toast';
 function TransactionFormScreen({ navigation }) {
     const [loading, setIsLoading] = useState(false);
     const {
@@ -98,12 +99,15 @@ function TransactionFormScreen({ navigation }) {
             alert('Description Missing');
             return;
         }
-        if (
-            !(
-                transactionData.group
-            )
+        if (transactionData.group=={}
         ) {
             alert('Group not added');
+            return;
+        }
+
+        if(!transactionData.type)
+        {
+            alert('Category Missing');
             return;
         }
         setIsLoading(true);
@@ -133,7 +137,9 @@ function TransactionFormScreen({ navigation }) {
                 navigation.navigate(PAGES.UPI_APP_SELECTION);
                 return;
             }
-            Alert.alert('Success', JSON.stringify(data));
+            Toast.show("Transaction Added", {
+                duration: Toast.durations.LONG,
+            });
             navigation.goBack();
         } catch (error) {
             console.log('error', error);
