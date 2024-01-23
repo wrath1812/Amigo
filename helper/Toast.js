@@ -1,7 +1,6 @@
-import Toast from "react-native-root-toast";
+import Toast from 'react-native-root-toast';
 
-function showToast(message)
-{
+function showToast(message) {
     Toast.show(message, {
         duration: Toast.durations.LONG,
     });

@@ -42,7 +42,7 @@ function GroupScreen({
                 amount,
                 description,
             });
-            Toast.show("Payment Added", {
+            Toast.show('Payment Added', {
                 duration: Toast.durations.LONG,
             });
             seIsLoading(false);

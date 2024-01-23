@@ -88,25 +88,21 @@ function TransactionFormScreen({ navigation }) {
     };
 
     const handleSubmit = async () => {
-        if(!transactionData.amount)
-        {
+        if (!transactionData.amount) {
             alert('Amount Missing');
             return;
         }
 
-        if(!transactionData.description)
-        {
+        if (!transactionData.description) {
             alert('Description Missing');
             return;
         }
-        if (transactionData.group=={}
-        ) {
+        if (transactionData.group == {}) {
             alert('Group not added');
             return;
         }
 
-        if(!transactionData.type)
-        {
+        if (!transactionData.type) {
             alert('Category Missing');
             return;
         }
@@ -137,7 +133,7 @@ function TransactionFormScreen({ navigation }) {
                 navigation.navigate(PAGES.UPI_APP_SELECTION);
                 return;
             }
-            Toast.show("Transaction Added", {
+            Toast.show('Transaction Added', {
                 duration: Toast.durations.LONG,
             });
             navigation.goBack();

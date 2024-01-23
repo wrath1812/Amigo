@@ -23,7 +23,7 @@ const ContactList = ({ eliminatedContacts }) => {
 
     useEffect(() => {
         setSelectedContacts([]);
-        setSearch("");
+        setSearch('');
     }, []);
 
     function eliminateContacts() {

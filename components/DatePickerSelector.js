@@ -20,7 +20,6 @@ const getStartOfMonth = () => {
     return startOfMonth;
 };
 
-
 const DatePickerSelector = ({ range, setRange }) => {
     const [modalState, setModalState] = useState(null);
 
@@ -59,45 +58,46 @@ const DatePickerSelector = ({ range, setRange }) => {
                     onPress={() => setModalState(null)}
                 >
                     <View style={styles.modalView}>
-                    <TouchableOpacity
-                            onPress={() =>{
+                        <TouchableOpacity
+                            onPress={() => {
                                 onConfirm({
-                                    startDate:undefined,
-                                    endDate:undefined
-                                })
-                            }
-                                
-                            }
+                                    startDate: undefined,
+                                    endDate: undefined,
+                                });
+                            }}
                             style={styles.dateTypeContainer}
                         >
-                            <Text style={styles.dateTypeText}>All Transactions</Text>
+                            <Text style={styles.dateTypeText}>
+                                All Transactions
+                            </Text>
                         </TouchableOpacity>
-                    <TouchableOpacity
-                            onPress={() =>{
+                        <TouchableOpacity
+                            onPress={() => {
                                 onConfirm({
                                     startDate: getStartOfWeek(),
                                     endDate: new Date(),
-                                })
-                            }
-                            }
+                                });
+                            }}
                             style={styles.dateTypeContainer}
                         >
                             <Text style={styles.dateTypeText}>This Week</Text>
                         </TouchableOpacity>
 
                         <TouchableOpacity
-                            onPress={() =>{
+                            onPress={() => {
                                 onConfirm({
                                     startDate: getStartOfMonth(),
                                     endDate: new Date(),
-                                })
-                            }
-                            }
+                                });
+                            }}
                             style={styles.dateTypeContainer}
                         >
                             <Text style={styles.dateTypeText}>This Month</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={showCustomDateModal} style={styles.dateTypeContainer}>
+                        <TouchableOpacity
+                            onPress={showCustomDateModal}
+                            style={styles.dateTypeContainer}
+                        >
                             <Text style={styles.dateTypeText}>Custom Date</Text>
                         </TouchableOpacity>
                     </View>
@@ -121,7 +121,6 @@ const DatePickerSelector = ({ range, setRange }) => {
 
 export default DatePickerSelector;
 
-
 const styles = {
     buttonContainer: {
         backgroundColor: '#342F4F',
@@ -136,6 +135,7 @@ const styles = {
     modalContent: {
         flex: 1,
         justifyContent: 'flex-end',
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
     },
     modalView: {
         borderTopLeftRadius: 20,
@@ -143,14 +143,16 @@ const styles = {
         padding: calcHeight(4),
         backgroundColor: 'white',
         paddingBottom: calcHeight(7),
+        backgroundColor: COLOR.APP_BACKGROUND,
     },
-    dateTypeText:{
-        fontSize:getFontSizeByWindowWidth(15)
+    dateTypeText: {
+        fontSize: getFontSizeByWindowWidth(15),
+        color: COLOR.TEXT,
     },
-    dateTypeContainer:{
-        justifyContent: "center",
-        alignItems: "center",  // Corrected from alignItem
-        alignContent: "center",  // Corrected from alignItem,
-        margin:calcHeight(2)
-    }
+    dateTypeContainer: {
+        justifyContent: 'center',
+        alignItems: 'center', // Corrected from alignItem
+        alignContent: 'center', // Corrected from alignItem,
+        margin: calcHeight(2),
+    },
 };

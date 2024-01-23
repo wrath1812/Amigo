@@ -16,12 +16,12 @@ import TypeSelector from '../components/TypeSelector'; // Separate component for
 import Loader from '../components/Loader';
 import COLOR from '../constants/Colors';
 import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
-import {FontAwesome5} from "@expo/vector-icons";
+import { FontAwesome5 } from '@expo/vector-icons';
 
 function ExpenseScreen() {
     const [loading, setLoading] = useState(false);
     const { user } = useAuth();
-    const { expense, range, setRange, type, setType,resetParams } = useExpense(
+    const { expense, range, setRange, type, setType, resetParams } = useExpense(
         user.id,
         setLoading,
     );
@@ -30,17 +30,18 @@ function ExpenseScreen() {
         <SafeAreaView style={styles.container}>
             <Text style={styles.header}>Expense Summary</Text>
 
-<View style={{
-    flexDirection:"row",
-    justifyContent:"space-between",
-    margin:calcWidth(5)
-
-}}>
-            <View style={styles.selectorContainer}>
-                <TypeSelector setType={setType} type={type} />
-                <DatePickerSelector range={range} setRange={setRange} />
-            </View>
-            <TouchableOpacity
+            <View
+                style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    margin: calcWidth(5),
+                }}
+            >
+                <View style={styles.selectorContainer}>
+                    <TypeSelector setType={setType} type={type} />
+                    <DatePickerSelector range={range} setRange={setRange} />
+                </View>
+                <TouchableOpacity
                     onPress={resetParams}
                     style={{
                         flexDirection: 'row',

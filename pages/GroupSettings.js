@@ -62,9 +62,8 @@ const GroupScreen = ({
     }, [group]);
 
     const submitGroupData = async () => {
-        if(groupRef.current=="")
-        {
-            showToast("Group Name cannot be empty");
+        if (groupRef.current == '') {
+            showToast('Group Name cannot be empty');
             return;
         }
         setIsEditing(false);
