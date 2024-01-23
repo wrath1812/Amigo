@@ -236,7 +236,7 @@ function GroupScreen({ navigation }) {
                     <Feed {...item} contacts={contacts} />
                 )}
                 style={{
-                    height: calcHeight(65),
+                    height: calcHeight(totalBalance != 0?65:70),
                 }}
             />
             <KeyboardAvoidingView
