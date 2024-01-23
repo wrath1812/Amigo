@@ -38,7 +38,7 @@ const SharedList = ({ transaction, generateColor }) => {
                         }}
                     >
                         <Text style={styles.sharedUser}>
-                            +{transaction.splitAmong.length - 7}
+                            +{transaction.splitAmong.length - numberOfVisibleNames}
                         </Text>
                     </TouchableOpacity>
                 )}
