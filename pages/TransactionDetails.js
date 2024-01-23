@@ -15,24 +15,8 @@ import { useAuth } from '../context/AuthContext';
 import { getCategoryIcon } from '../constants/Categories';
 import apiHelper from '../helper/apiHelper';
 import useCustomColor from '../hooks/useCustomColor';
+import formatDateToDDMMYYYY from '../helper/formatDateToDDMMYYYY';
 
-function formatDate(dateString) {
-    // Parse the input string to a Date object
-    let date = new Date(dateString);
-
-    // Ensure the date is valid
-    if (isNaN(date.getTime())) {
-        return 'Invalid Date';
-    }
-
-    // Extract day, month, and year and format them
-    let day = ('0' + date.getDate()).slice(-2);
-    let month = ('0' + (date.getMonth() + 1)).slice(-2);
-    let year = date.getFullYear();
-
-    // Return the formatted date string
-    return day + '-' + month + '-' + year;
-}
 
 const SharedItem = ({ user, amount, generateColor }) => {
     return (
@@ -188,7 +172,7 @@ const SharedItem = ({ user, amount, generateColor }) => {
                 padding: calcWidth(1),
               }}
             >
-              <Text>{formatDate(date)}</Text>
+              <Text>{formatDateToDDMMYYYY(date)}</Text>
             </View>
             <View
               style={{
