@@ -7,6 +7,7 @@ import {
     TouchableOpacity,
     FlatList,
     Alert,
+    ScrollView,
 } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import COLOR from '../constants/Colors';
@@ -82,6 +83,7 @@ const TransactionDetail = ({
 
     return (
         <SafeAreaView style={styles.container}>
+            <ScrollView>
             <View
                 style={{
                     alignItems: 'center',
@@ -178,6 +180,7 @@ const TransactionDetail = ({
                     generateColor={generateColor}
                 />
             </View>
+            </ScrollView>
         </SafeAreaView>
     );
 };

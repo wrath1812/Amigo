@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
     View,
     Text,
@@ -10,15 +10,17 @@ import COLOR from '../constants/Colors';
 import { calcWidth,getFontSizeByWindowWidth,calcHeight } from '../helper/res';
 import SharedItem from '../components/SharedItem';
 
+const numberOfVisibleNames=7;
 const SharedList = ({ transaction, generateColor }) => {
-    const visibleUsers = transaction.splitAmong.slice(0, 6); // Display only the first 5 users
+    const [expandNames,setExpandNames]=useState(false);
+    const visibleUsers = transaction.splitAmong.slice(0, numberOfVisibleNames); // Display only the first 5 users
 
     return (
         <View>
             <Text style={styles.sharedLabel}>Shared with</Text>
             <View style={styles.sharedContainer}>
                 <FlatList
-                    data={visibleUsers}
+                    data={expandNames?transaction.splitAmong:visibleUsers}
                     keyExtractor={(item) => item.user._id}
                     renderItem={({ item, index }) => (
                         <SharedItem
@@ -28,16 +30,15 @@ const SharedList = ({ transaction, generateColor }) => {
                         />
                     )}
                 />
-                {transaction.splitAmong.length > 6 && (
+                {transaction.splitAmong.length > numberOfVisibleNames&& !expandNames && (
                     <TouchableOpacity
                         style={styles.sharedDetail}
                         onPress={() => {
-                            // Handle the click event to expand and show all users
-                            // You can implement this logic based on your requirements
+                           setExpandNames(true)
                         }}
                     >
                         <Text style={styles.sharedUser}>
-                            +{transaction.splitAmong.length - 5}
+                            +{transaction.splitAmong.length - 7}
                         </Text>
                     </TouchableOpacity>
                 )}
