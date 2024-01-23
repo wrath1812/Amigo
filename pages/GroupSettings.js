@@ -12,7 +12,7 @@ import {
     Share,
     Alert,
 } from 'react-native';
-import { SimpleLineIcons, Ionicons } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons';
 import { DEEP_LINK_URL } from '@env';
 import GroupIcon from '../components/GroupIcon';
 import Loader from '../components/Loader';
@@ -23,6 +23,7 @@ import COLOR from '../constants/Colors';
 import apiHelper from '../helper/apiHelper';
 import PAGES from '../constants/pages';
 import { Octicons } from '@expo/vector-icons';
+import showToast from '../helper/Toast';
 
 const MemberItem = ({ name, phone, _id }) => (
     <View style={styles.memberItem}>
@@ -61,6 +62,11 @@ const GroupScreen = ({
     }, [group]);
 
     const submitGroupData = async () => {
+        if(groupRef.current=="")
+        {
+            showToast("Group Name cannot be empty");
+            return;
+        }
         setIsEditing(false);
         apiHelper.patch(`/group?id=${group._id}`, {
             groupName: groupRef.current,
