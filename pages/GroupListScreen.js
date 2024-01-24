@@ -6,27 +6,21 @@ import {
     FlatList,
     View,
     TextInput,
+    Keyboard
 } from 'react-native';
 import Loader from '../components/Loader';
 import apiHelper from '../helper/apiHelper';
 import PAGES from '../constants/pages';
 import FabIcon from '../components/FabIcon';
 import { useFocusEffect } from '@react-navigation/native';
-import copyToClipBoard from '../helper/copyToClipBoard';
-import { Feather } from '@expo/vector-icons';
 import EmptyScreen from '../components/EmptyScreen';
 import COLOR from '../constants/Colors';
 import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
-import { useRef } from 'react';
 import GroupCard from '../components/GroupCard';
 import NoGroupsImage from '../assets/NoGroups.png';
-import { useEffect } from 'react';
-import { useNavigation, useIsFocused } from '@react-navigation/native';
 import Search from '../components/Search';
-import tabBarStyle from '../constants/tabBarStyle';
 import editNamesAsync from '../helper/editNamesAsync';
 import { useAuth } from '../context/AuthContext';
-import sliceText from '../helper/sliceText';
 function GroupListScreen({ navigation }) {
     const [groups, setGroups] = useState([]);
     const [loading, setLoading] = useState(false);
@@ -85,6 +79,10 @@ function GroupListScreen({ navigation }) {
                         data={filterGroups(groups)}
                         renderItem={({ item }) => <GroupCard group={item} />}
                         keyExtractor={(item) => item.id} // Replace 'item.id' with the appropriate key property from your group objects
+                       
+                        onScroll={ () => {
+                            Keyboard.dismiss();
+                        }}
                     />
                 </>
             )}

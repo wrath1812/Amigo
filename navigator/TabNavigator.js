@@ -8,7 +8,6 @@ import tabBarStyle from '../constants/tabBarStyle';
 import GroupListScreen from '../pages/GroupListScreen';
 import ExpenseScreen from '../pages/ExpenseScreen';
 import BalanceScreen from '../pages/BalanceScreen';
-import { View } from 'react-native';
 const TabNavigator = () => {
     return (
         <Tab.Navigator
