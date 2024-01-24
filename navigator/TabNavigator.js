@@ -1,21 +1,25 @@
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import React from 'react';
 import PAGES from '../constants/pages';
-const Tab = createBottomTabNavigator();
+const Tab = createMaterialTopTabNavigator();
 import COLOR from '../constants/Colors';
 import TabBarIcon from '../components/TabBarIcon';
 import tabBarStyle from '../constants/tabBarStyle';
 import GroupListScreen from '../pages/GroupListScreen';
 import ExpenseScreen from '../pages/ExpenseScreen';
 import BalanceScreen from '../pages/BalanceScreen';
+import { View } from 'react-native';
 const TabNavigator = () => {
     return (
         <Tab.Navigator
             screenOptions={{
-                headerShown: false,
                 tabBarLabel: () => null, // Add this line to disable labels
                 tabBarStyle,
-            }}
+                  tabBarIndicatorStyle: {
+                    backgroundColor: 'transparent', // Set transparent to hide the default indicator
+                  },
+                }}
+            tabBarPosition={"bottom"}
         >
             <Tab.Group>
                 <Tab.Screen
@@ -56,7 +60,7 @@ const TabNavigator = () => {
                         tabBarIcon: (tabBarProps) => (
                             <TabBarIcon
                                 tabBarProps={tabBarProps}
-                                screen={PAGES.SETTINGS}
+                                screen={PAGES.EXPENSE}
                             />
                         ),
                     }}
