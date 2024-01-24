@@ -3,6 +3,80 @@ import * as Contacts from 'expo-contacts';
 import generateRandomColor from '../helper/generateRandomColor';
 const ContactsContext = createContext();
 
+
+const filterUniqueContacts = (contactsData) => {
+    const seenPhoneNumbers = new Set();
+    return contactsData.filter((contact) => {
+        const phoneNumber = contact.phoneNumbers?.[0].number.replace(/\D/g, '');
+        return (
+            phoneNumber &&
+            !seenPhoneNumbers.has(phoneNumber) &&
+            seenPhoneNumbers.add(phoneNumber)
+        );
+    });
+};
+
+const mapToSimplifiedContacts = (uniqueContacts) => {
+    return uniqueContacts.map((contact) => ({
+        id: contact.id,
+        name: contact.name || '',
+        phoneNumber: contact.phoneNumbers[0].number.replace(/\D/g, ''),
+        imageURI: contact.imageAvailable ? contact.image.uri : '',
+        color: generateRandomColor(),
+    }));
+};
+
+const handleLoadContactsError = (error) => {
+    console.error('Error loading contacts:', error);
+};
+
+
+const fetchContactsData = async () => {
+    try {
+        const { data } = await Contacts.getContactsAsync({
+            fields: [
+                Contacts.Fields.Name,
+                Contacts.Fields.PhoneNumbers,
+                Contacts.Fields.Image,
+            ],
+        });
+
+        if (!data) {
+            return [];
+        }
+
+        const contactsWithMultipleNumbers = [];
+
+        // Iterate through each contact
+        data.forEach(contact => {
+            const { name, phoneNumbers, image } = contact;
+
+            // Check if there are multiple phone numbers for the contact
+            if (phoneNumbers && phoneNumbers.length > 1) {
+                // Create a copy of the contact for each phone number
+                phoneNumbers.forEach(phoneNumber => {
+                    const contactCopy = {
+                        name,
+                        phoneNumbers: [phoneNumber], // Create an array with a single phone number
+                        image,
+                    };
+                    contactsWithMultipleNumbers.push(contactCopy);
+                });
+            } else {
+                // No need to create a copy, just push the original contact
+                contactsWithMultipleNumbers.push(contact);
+            }
+        });
+
+        return contactsWithMultipleNumbers;
+    } catch (error) {
+        console.error('Error fetching contacts data:', error);
+        throw error;
+    }
+};
+
+
+
 export const ContactsProvider = ({ children }) => {
     const [allContacts, setAllContacts] = useState([]);
     const [filteredContacts, setFilteredContacts] = useState([]);
@@ -14,59 +88,39 @@ export const ContactsProvider = ({ children }) => {
     useEffect(() => {
         const loadContacts = async () => {
             try {
-                const { status } = await Contacts.requestPermissionsAsync();
-
-                if (status === 'granted') {
-                    setContactPermission(true);
-                    const { data } = await Contacts.getContactsAsync({
-                        fields: [
-                            Contacts.Fields.Name,
-                            Contacts.Fields.PhoneNumbers,
-                            Contacts.Fields.Image,
-                        ],
-                    });
-
-                    if (data.length > 0) {
-                        const seenPhoneNumbers = new Set();
-                        const uniqueContacts = data.filter((contact) => {
-                            const phoneNumber =
-                                contact.phoneNumbers?.[0].number.replace(
-                                    /\D/g,
-                                    '',
-                                );
-                            return (
-                                phoneNumber &&
-                                !seenPhoneNumbers.has(phoneNumber) &&
-                                seenPhoneNumbers.add(phoneNumber)
-                            );
-                        });
-
-                        const simplifiedContacts = uniqueContacts.map(
-                            (contact) => ({
-                                id: contact.id,
-                                name: contact.name || '',
-                                phoneNumber:
-                                    contact.phoneNumbers[0].number.replace(
-                                        /\D/g,
-                                        '',
-                                    ),
-                                imageURI: contact.imageAvailable
-                                    ? contact.image.uri
-                                    : '',
-                                color: generateRandomColor(),
-                            }),
-                        );
-
+                const permissionStatus = await requestContactsPermission();
+                
+                if (permissionStatus === 'granted') {
+                    const contactsData = await fetchContactsData();
+                    
+                    if (contactsData.length > 0) {
+                        const uniqueContacts = filterUniqueContacts(contactsData);
+                        const simplifiedContacts = mapToSimplifiedContacts(uniqueContacts);
+        
                         setAllContacts(simplifiedContacts);
                         setFilteredContacts(simplifiedContacts);
                     }
-                } else setContactPermission(false);
+                } else {
+                    setContactPermission(false);
+                }
             } catch (error) {
-                console.error('Error loading contacts:', error);
+                handleLoadContactsError(error);
             } finally {
                 setLoading(false);
             }
         };
+        
+        const requestContactsPermission = async () => {
+            try {
+                const { status } = await Contacts.requestPermissionsAsync();
+                setContactPermission(status === 'granted');
+                return status;
+            } catch (error) {
+                console.error('Error requesting contacts permission:', error);
+                throw error;
+            }
+        };
+        
 
         loadContacts();
     }, []);
