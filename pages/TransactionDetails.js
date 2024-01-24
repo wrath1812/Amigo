@@ -84,102 +84,102 @@ const TransactionDetail = ({
     return (
         <SafeAreaView style={styles.container}>
             <ScrollView>
-            <View
-                style={{
-                    alignItems: 'center',
-                }}
-            >
-                <Text
-                    style={{
-                        fontSize: getFontSizeByWindowWidth(50),
-                        color: COLOR.TEXT,
-                        fontWeight: 'bold',
-                        marginTop: calcHeight(5),
-                    }}
-                >
-                    ₹ {transaction.amount}
-                </Text>
-                <Text
-                    style={{
-                        fontSize: getFontSizeByWindowWidth(15),
-                        color: COLOR.TEXT,
-                    }}
-                >
-                    {transaction.description}
-                </Text>
                 <View
                     style={{
-                        width: '50%',
-                        flexDirection: 'row',
-                        justifyContent: 'space-between',
-                        marginVertical: calcHeight(3),
+                        alignItems: 'center',
                     }}
                 >
-                    <View
+                    <Text
                         style={{
-                            backgroundColor: 'white',
-                            flexDirection: 'row',
-                            borderRadius: 10,
-                            padding: calcWidth(1),
+                            fontSize: getFontSizeByWindowWidth(50),
+                            color: COLOR.TEXT,
+                            fontWeight: 'bold',
+                            marginTop: calcHeight(5),
                         }}
                     >
-                        <Text>{formatDateToDDMMYYYY(date)}</Text>
-                    </View>
-                    <View
+                        ₹ {transaction.amount}
+                    </Text>
+                    <Text
                         style={{
-                            backgroundColor: 'white',
-                            flexDirection: 'row',
-                            borderRadius: 10,
-                            padding: calcWidth(0.5),
+                            fontSize: getFontSizeByWindowWidth(15),
+                            color: COLOR.TEXT,
                         }}
                     >
-                        {getCategoryIcon(transaction.type)}
-                        <Text>{transaction.type}</Text>
-                    </View>
-                </View>
-                <Text
-                    style={{
-                        color: COLOR.TEXT,
-                    }}
-                >
-                    Create By {transaction.creator.name}
-                </Text>
-            </View>
-            <View style={styles.boxContainer}>
-                <View
-                    style={{
-                        borderTopLeftRadius: calcWidth(5),
-                        borderTopRightRadius: calcWidth(5),
-                        backgroundColor: COLOR.BUTTON,
-                    }}
-                >
-                    <Text style={styles.headerLabel}>Paid by</Text>
-                </View>
-                <View style={styles.headerContainer}>
-                    <View style={styles.userDetail}>
+                        {transaction.description}
+                    </Text>
+                    <View
+                        style={{
+                            width: '50%',
+                            flexDirection: 'row',
+                            justifyContent: 'space-between',
+                            marginVertical: calcHeight(3),
+                        }}
+                    >
                         <View
-                            style={[
-                                styles.circle,
-                                {
-                                    backgroundColor: generateColor(
-                                        transaction.paidBy._id,
-                                    ),
-                                },
-                            ]}
-                        />
-                        <Text style={styles.userName}>
-                            {transaction.paidBy.name}
-                        </Text>
-                        <Text style={styles.userAmount}>
-                            ₹ {transaction.amount}
-                        </Text>
+                            style={{
+                                backgroundColor: 'white',
+                                flexDirection: 'row',
+                                borderRadius: 10,
+                                padding: calcWidth(1),
+                            }}
+                        >
+                            <Text>{formatDateToDDMMYYYY(date)}</Text>
+                        </View>
+                        <View
+                            style={{
+                                backgroundColor: 'white',
+                                flexDirection: 'row',
+                                borderRadius: 10,
+                                padding: calcWidth(0.5),
+                            }}
+                        >
+                            {getCategoryIcon(transaction.type)}
+                            <Text>{transaction.type}</Text>
+                        </View>
                     </View>
+                    <Text
+                        style={{
+                            color: COLOR.TEXT,
+                        }}
+                    >
+                        Create By {transaction.creator.name}
+                    </Text>
                 </View>
-                <SharedList
-                    transaction={transaction}
-                    generateColor={generateColor}
-                />
-            </View>
+                <View style={styles.boxContainer}>
+                    <View
+                        style={{
+                            borderTopLeftRadius: calcWidth(5),
+                            borderTopRightRadius: calcWidth(5),
+                            backgroundColor: COLOR.BUTTON,
+                        }}
+                    >
+                        <Text style={styles.headerLabel}>Paid by</Text>
+                    </View>
+                    <View style={styles.headerContainer}>
+                        <View style={styles.userDetail}>
+                            <View
+                                style={[
+                                    styles.circle,
+                                    {
+                                        backgroundColor: generateColor(
+                                            transaction.paidBy._id,
+                                        ),
+                                    },
+                                ]}
+                            />
+                            <Text style={styles.userName}>
+                                {transaction.paidBy.name}
+                            </Text>
+                            <Text style={styles.userAmount}>
+                                ₹ {transaction.amount}
+                            </Text>
+                        </View>
+                    </View>
+                    <SharedList
+                        transaction={transaction}
+                        generateColor={generateColor}
+                    />
+                </View>
             </ScrollView>
         </SafeAreaView>
     );

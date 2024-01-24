@@ -32,6 +32,7 @@ import editNames from '../helper/editNames';
 import { useGroup } from '../context/GroupContext';
 import groupBalancesAndCalculateTotal from '../utility/groupBalancesAndCalculateTotal';
 import getMembersString from '../utility/getMembersString';
+import sliceText from '../helper/sliceText';
 
 function isNumber(text) {
     return !isNaN(+text);
@@ -149,7 +150,9 @@ function GroupScreen({ navigation }) {
                     </Pressable>
                     <GroupIcon groupId={group._id} />
                     <View style={styles.groupNameContainer}>
-                        <Text style={styles.groupName}>{group.name}</Text>
+                        <Text style={styles.groupName}>
+                            {sliceText(group.name, 25)}
+                        </Text>
                         <Text style={styles.groupMembers}>
                             {getMembersString(group.members, 20)}
                         </Text>

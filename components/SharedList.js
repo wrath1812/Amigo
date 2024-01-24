@@ -7,12 +7,12 @@ import {
     FlatList,
 } from 'react-native';
 import COLOR from '../constants/Colors';
-import { calcWidth,getFontSizeByWindowWidth,calcHeight } from '../helper/res';
+import { calcWidth, getFontSizeByWindowWidth, calcHeight } from '../helper/res';
 import SharedItem from '../components/SharedItem';
 
-const numberOfVisibleNames=7;
+const numberOfVisibleNames = 7;
 const SharedList = ({ transaction, generateColor }) => {
-    const [expandNames,setExpandNames]=useState(false);
+    const [expandNames, setExpandNames] = useState(false);
     const visibleUsers = transaction.splitAmong.slice(0, numberOfVisibleNames); // Display only the first 5 users
 
     return (
@@ -20,7 +20,7 @@ const SharedList = ({ transaction, generateColor }) => {
             <Text style={styles.sharedLabel}>Shared with</Text>
             <View style={styles.sharedContainer}>
                 <FlatList
-                    data={expandNames?transaction.splitAmong:visibleUsers}
+                    data={expandNames ? transaction.splitAmong : visibleUsers}
                     keyExtractor={(item) => item.user._id}
                     renderItem={({ item, index }) => (
                         <SharedItem
@@ -30,18 +30,21 @@ const SharedList = ({ transaction, generateColor }) => {
                         />
                     )}
                 />
-                {transaction.splitAmong.length > numberOfVisibleNames&& !expandNames && (
-                    <TouchableOpacity
-                        style={styles.sharedDetail}
-                        onPress={() => {
-                           setExpandNames(true)
-                        }}
-                    >
-                        <Text style={styles.sharedUser}>
-                            +{transaction.splitAmong.length - numberOfVisibleNames}
-                        </Text>
-                    </TouchableOpacity>
-                )}
+                {transaction.splitAmong.length > numberOfVisibleNames &&
+                    !expandNames && (
+                        <TouchableOpacity
+                            style={styles.sharedDetail}
+                            onPress={() => {
+                                setExpandNames(true);
+                            }}
+                        >
+                            <Text style={styles.sharedUser}>
+                                +
+                                {transaction.splitAmong.length -
+                                    numberOfVisibleNames}
+                            </Text>
+                        </TouchableOpacity>
+                    )}
             </View>
         </View>
     );

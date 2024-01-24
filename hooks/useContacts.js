@@ -3,7 +3,6 @@ import * as Contacts from 'expo-contacts';
 import generateRandomColor from '../helper/generateRandomColor';
 const ContactsContext = createContext();
 
-
 const filterUniqueContacts = (contactsData) => {
     const seenPhoneNumbers = new Set();
     return contactsData.filter((contact) => {
@@ -30,7 +29,6 @@ const handleLoadContactsError = (error) => {
     console.error('Error loading contacts:', error);
 };
 
-
 const fetchContactsData = async () => {
     try {
         const { data } = await Contacts.getContactsAsync({
@@ -48,13 +46,13 @@ const fetchContactsData = async () => {
         const contactsWithMultipleNumbers = [];
 
         // Iterate through each contact
-        data.forEach(contact => {
+        data.forEach((contact) => {
             const { name, phoneNumbers, image } = contact;
 
             // Check if there are multiple phone numbers for the contact
             if (phoneNumbers && phoneNumbers.length > 1) {
                 // Create a copy of the contact for each phone number
-                phoneNumbers.forEach(phoneNumber => {
+                phoneNumbers.forEach((phoneNumber) => {
                     const contactCopy = {
                         name,
                         phoneNumbers: [phoneNumber], // Create an array with a single phone number
@@ -75,8 +73,6 @@ const fetchContactsData = async () => {
     }
 };
 
-
-
 export const ContactsProvider = ({ children }) => {
     const [allContacts, setAllContacts] = useState([]);
     const [filteredContacts, setFilteredContacts] = useState([]);
@@ -89,14 +85,16 @@ export const ContactsProvider = ({ children }) => {
         const loadContacts = async () => {
             try {
                 const permissionStatus = await requestContactsPermission();
-                
+
                 if (permissionStatus === 'granted') {
                     const contactsData = await fetchContactsData();
-                    
+
                     if (contactsData.length > 0) {
-                        const uniqueContacts = filterUniqueContacts(contactsData);
-                        const simplifiedContacts = mapToSimplifiedContacts(uniqueContacts);
-        
+                        const uniqueContacts =
+                            filterUniqueContacts(contactsData);
+                        const simplifiedContacts =
+                            mapToSimplifiedContacts(uniqueContacts);
+
                         setAllContacts(simplifiedContacts);
                         setFilteredContacts(simplifiedContacts);
                     }
@@ -109,7 +107,7 @@ export const ContactsProvider = ({ children }) => {
                 setLoading(false);
             }
         };
-        
+
         const requestContactsPermission = async () => {
             try {
                 const { status } = await Contacts.requestPermissionsAsync();
@@ -120,7 +118,6 @@ export const ContactsProvider = ({ children }) => {
                 throw error;
             }
         };
-        
 
         loadContacts();
     }, []);

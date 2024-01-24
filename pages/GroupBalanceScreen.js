@@ -16,7 +16,6 @@ import { useAuth } from '../context/AuthContext';
 import sliceText from '../helper/sliceText';
 import Cross from '../assets/icons/cross.png';
 import UserAvatar from '../components/UserAvatar';
-
 function GroupBalanceScreen({ navigation, route }) {
     const { group } = route.params;
     const { user } = useAuth();
@@ -79,7 +78,9 @@ function GroupBalanceScreen({ navigation, route }) {
                     <Image style={styles.crossIcon} source={Cross} />
                 </Pressable>
                 <GroupIcon groupId={group._id} />
-                <Text style={styles.groupName}>{group.name}</Text>
+                <Text style={styles.groupName}>
+                    {sliceText(group.name, 25)}
+                </Text>
             </View>
             <View style={styles.balanceInfo}>
                 <View style={styles.balanceInfoLeft}>

@@ -7,7 +7,7 @@ import LoginImage from '../assets/Login.png';
 import { useNavigation } from '@react-navigation/native';
 import PAGES from '../constants/pages';
 import GroupIcon from './GroupIcon';
-
+import sliceText from '../helper/sliceText';
 function GroupBalanceCard({ group }) {
     const navigation = useNavigation();
     return (
@@ -24,7 +24,9 @@ function GroupBalanceCard({ group }) {
             >
                 <GroupIcon groupId={group._id} />
                 <View style={styles.textContainer}>
-                    <Text style={styles.nameText}>{group.name}</Text>
+                    <Text style={styles.nameText}>
+                        {sliceText(group.name, 20)}
+                    </Text>
                     <Text style={styles.memberText}>
                         {group.totalBalance < 0
                             ? `${group.lenderCount} participants owe you money`

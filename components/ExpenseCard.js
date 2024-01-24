@@ -10,13 +10,13 @@ import {
     Pressable,
     TouchableOpacity,
 } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
 
 // Custom Components and Utility Functions
 import GroupIcon from '../components/GroupIcon';
 import convertISODateToCustomFormat from '../helper/convertISODateToCustomFormat'; // Assuming you move this function to a utils.js file
 import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
 import COLOR from '../constants/Colors';
+import sliceText from '../helper/sliceText';
 
 // ExpenseCard Component
 function ExpenseCard({ item }) {
@@ -28,7 +28,9 @@ function ExpenseCard({ item }) {
                     <Text style={styles.descriptionText}>
                         {item.description}
                     </Text>
-                    <Text style={styles.groupText}>{item.group.name}</Text>
+                    <Text style={styles.groupText}>
+                        {sliceText(item.group.name, 25)}
+                    </Text>
                     <Text style={styles.dateText}>
                         {convertISODateToCustomFormat(item.date)}
                     </Text>

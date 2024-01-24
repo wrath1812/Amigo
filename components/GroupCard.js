@@ -8,6 +8,7 @@ import PAGES from '../constants/pages';
 import GroupIcon from './GroupIcon';
 import { useGroup } from '../context/GroupContext';
 import getMembersString from '../utility/getMembersString';
+import sliceText from '../helper/sliceText';
 function GroupCard({ group }) {
     const navigation = useNavigation();
     const { setGroup } = useGroup();
@@ -21,7 +22,7 @@ function GroupCard({ group }) {
         >
             <GroupIcon groupId={group._id} />
             <View style={styles.textContainer}>
-                <Text style={styles.nameText}>{group.name}</Text>
+                <Text style={styles.nameText}>{sliceText(group.name, 20)}</Text>
                 <Text style={styles.memberText}>
                     {getMembersString(group.members, 30)}
                 </Text>
