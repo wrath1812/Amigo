@@ -30,6 +30,7 @@ function GroupListScreen({ navigation }) {
     useFocusEffect(
         useCallback(() => {
             (async () => {
+                if(groups==[])
                 setLoading(true);
                 const { data } = await apiHelper('/group');
                 for (let group of data)
