@@ -6,7 +6,7 @@ import {
     FlatList,
     View,
     TextInput,
-    Keyboard
+    Keyboard,
 } from 'react-native';
 import Loader from '../components/Loader';
 import apiHelper from '../helper/apiHelper';
@@ -30,8 +30,7 @@ function GroupListScreen({ navigation }) {
     useFocusEffect(
         useCallback(() => {
             (async () => {
-                if(groups==[])
-                setLoading(true);
+                if (groups == []) setLoading(true);
                 const { data } = await apiHelper('/group');
                 for (let group of data)
                     group.members = await editNamesAsync(
@@ -80,8 +79,7 @@ function GroupListScreen({ navigation }) {
                         data={filterGroups(groups)}
                         renderItem={({ item }) => <GroupCard group={item} />}
                         keyExtractor={(item) => item.id} // Replace 'item.id' with the appropriate key property from your group objects
-                       
-                        onScroll={ () => {
+                        onScroll={() => {
                             Keyboard.dismiss();
                         }}
                     />

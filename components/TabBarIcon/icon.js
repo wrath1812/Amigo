@@ -9,8 +9,8 @@ import Expense from '../../assets/icons/expense.png';
 import SelectedExpense from '../../assets/icons/selectedExpense.png';
 import { Image } from 'react-native';
 import { calcHeight } from '../../helper/res';
-const size=calcHeight(3);
-export default ({  focused, screen }) => {
+const size = calcHeight(3);
+export default ({ focused, screen }) => {
     const icons = {
         [PAGES.BALANCE]: focused ? (
             <Foundation name="home" size={size} color={color} />

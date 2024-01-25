@@ -14,11 +14,11 @@ const TabNavigator = () => {
             screenOptions={{
                 tabBarLabel: () => null, // Add this line to disable labels
                 tabBarStyle,
-                  tabBarIndicatorStyle: {
+                tabBarIndicatorStyle: {
                     backgroundColor: 'transparent', // Set transparent to hide the default indicator
-                  },
-                }}
-            tabBarPosition={"bottom"}
+                },
+            }}
+            tabBarPosition={'bottom'}
         >
             <Tab.Group>
                 <Tab.Screen
