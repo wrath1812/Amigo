@@ -30,7 +30,7 @@
         "production": {
             "env": {
                 "ENV": "production",
-                "API_URL": "https://7446-2405-201-13-305f-ad92-c62a-6eea-5943.ngrok-free.app/",
+                "API_URL": "https://splitcash.up.railway.app/",
                 "DEEP_LINK_URL": "https://bhaumik-tandan.github.io/Split-IT-Home/#/"
             }
         }
