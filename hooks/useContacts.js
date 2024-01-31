@@ -134,12 +134,12 @@ export const ContactsProvider = ({ children }) => {
 
     const handleSelectContact = (contact) => {
         const isSelected = selectedContacts.some(
-            (selected) => selected.id === contact.id,
+            (selected) => selected.phoneNumber === contact.phoneNumber,
         );
         setSelectedContacts(
             isSelected
                 ? selectedContacts.filter(
-                      (selected) => selected.id !== contact.id,
+                      (selected) => selected.phoneNumber !== contact.phoneNumber,
                   )
                 : [...selectedContacts, contact],
         );

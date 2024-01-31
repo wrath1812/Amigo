@@ -68,13 +68,13 @@ const ContactList = ({ eliminatedContacts }) => {
                         marginTop: calcHeight(5),
                     }}
                     data={eliminateContacts()}
-                    keyExtractor={(item) => item.id}
+                    keyExtractor={(item) => item.phoneNumber}
                     renderItem={({ item }) => (
                         <Pressable onPress={() => handleSelectContact(item)}>
                             <ContactCard
                                 {...item}
                                 selected={selectedContacts.some(
-                                    (selected) => selected.id === item.id,
+                                    (selected) => selected.phoneNumber === item.phoneNumber,
                                 )}
                             />
                         </Pressable>
