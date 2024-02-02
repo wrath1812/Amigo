@@ -125,6 +125,8 @@ const GroupSplitScreen = ({ navigation }) => {
     };
 
     const toggleMemberIncluded = (memberId) => {
+        if(!memberId)
+        return;
         setMembers((prevMembers) => {
             const updatedMembers = prevMembers.map((member) => {
                 if (member.user._id === memberId) {
