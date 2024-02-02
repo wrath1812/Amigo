@@ -9,7 +9,7 @@ import {
     Alert,
     ScrollView,
 } from 'react-native';
-import { AntDesign } from '@expo/vector-icons';
+import { AntDesign, Entypo } from '@expo/vector-icons';
 import COLOR from '../constants/Colors';
 import { calcWidth, calcHeight, getFontSizeByWindowWidth } from '../helper/res';
 import { useAuth } from '../context/AuthContext';
@@ -18,6 +18,8 @@ import apiHelper from '../helper/apiHelper';
 import useCustomColor from '../hooks/useCustomColor';
 import formatDateToDDMMYYYY from '../helper/formatDateToDDMMYYYY';
 import SharedList from '../components/SharedList';
+import TransactionNumberOfVisibleNames from '../constants/TransactionNumberOfVisibleNames';
+import TransactionDetailsButton from '../components/TransactionDetailsButton';
 
 const TransactionDetail = ({
     navigation,
@@ -25,8 +27,8 @@ const TransactionDetail = ({
         params: { transaction },
     },
 }) => {
-    const { user } = useAuth();
     const [date, setDate] = useState(new Date(transaction.date));
+    const [expandNames, setExpandNames] = useState(false);
 
     const generateColor = useCustomColor();
 
@@ -178,7 +180,41 @@ const TransactionDetail = ({
                     <SharedList
                         transaction={transaction}
                         generateColor={generateColor}
+                        expandNames={expandNames}
+                        setExpandNames={setExpandNames}
                     />
+                </View>
+                <View
+                    style={{
+                        alignItems: 'center',
+                    }}
+                >
+                    {transaction.splitAmong.length >
+                        TransactionNumberOfVisibleNames && (
+                        <TransactionDetailsButton
+                            onPress={() => {
+                                setExpandNames((prev) => !prev);
+                            }}
+                            title={
+                                <>
+                                    {expandNames?<Text>Show Less</Text>:<Text>
+                                        {transaction.splitAmong.length -
+                                            TransactionNumberOfVisibleNames}{' '}
+                                        more participants{'\t'}
+                                    </Text>}
+                                    <Entypo
+                                        name={
+                                            expandNames
+                                                ? 'chevron-up'
+                                                : 'chevron-down'
+                                        }
+                                        size={calcHeight(2.1)}
+                                        color="white"
+                                    />
+                                </>
+                            }
+                        />
+                    )}
                 </View>
             </ScrollView>
         </SafeAreaView>

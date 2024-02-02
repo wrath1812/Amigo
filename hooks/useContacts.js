@@ -139,7 +139,8 @@ export const ContactsProvider = ({ children }) => {
         setSelectedContacts(
             isSelected
                 ? selectedContacts.filter(
-                      (selected) => selected.phoneNumber !== contact.phoneNumber,
+                      (selected) =>
+                          selected.phoneNumber !== contact.phoneNumber,
                   )
                 : [...selectedContacts, contact],
         );

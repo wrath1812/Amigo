@@ -9,11 +9,18 @@ import {
 import COLOR from '../constants/Colors';
 import { calcWidth, getFontSizeByWindowWidth, calcHeight } from '../helper/res';
 import SharedItem from '../components/SharedItem';
+import TransactionNumberOfVisibleNames from '../constants/TransactionNumberOfVisibleNames';
 
-const numberOfVisibleNames = 7;
-const SharedList = ({ transaction, generateColor }) => {
-    const [expandNames, setExpandNames] = useState(false);
-    const visibleUsers = transaction.splitAmong.slice(0, numberOfVisibleNames); // Display only the first 5 users
+const SharedList = ({
+    transaction,
+    generateColor,
+    expandNames,
+    setExpandNames,
+}) => {
+    const visibleUsers = transaction.splitAmong.slice(
+        0,
+        TransactionNumberOfVisibleNames,
+    ); // Display only the first 5 users
 
     return (
         <View>
@@ -30,21 +37,6 @@ const SharedList = ({ transaction, generateColor }) => {
                         />
                     )}
                 />
-                {transaction.splitAmong.length > numberOfVisibleNames &&
-                    !expandNames && (
-                        <TouchableOpacity
-                            style={styles.sharedDetail}
-                            onPress={() => {
-                                setExpandNames(true);
-                            }}
-                        >
-                            <Text style={styles.sharedUser}>
-                                +
-                                {transaction.splitAmong.length -
-                                    numberOfVisibleNames}
-                            </Text>
-                        </TouchableOpacity>
-                    )}
             </View>
         </View>
     );

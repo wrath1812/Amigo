@@ -74,7 +74,9 @@ const ContactList = ({ eliminatedContacts }) => {
                             <ContactCard
                                 {...item}
                                 selected={selectedContacts.some(
-                                    (selected) => selected.phoneNumber === item.phoneNumber,
+                                    (selected) =>
+                                        selected.phoneNumber ===
+                                        item.phoneNumber,
                                 )}
                             />
                         </Pressable>
