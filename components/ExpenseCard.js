@@ -26,7 +26,7 @@ function ExpenseCard({ item }) {
                 <GroupIcon size={5} groupId={item.group._id} />
                 <View style={styles.textContainer}>
                     <Text style={styles.descriptionText}>
-                        {item.description}
+                        {sliceText(item.description,25)}
                     </Text>
                     <Text style={styles.groupText}>
                         {sliceText(item.group.name, 25)}
