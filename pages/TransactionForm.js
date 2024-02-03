@@ -220,34 +220,34 @@ function TransactionFormScreen({ navigation }) {
                             borderRadius: 10,
                             flexDirection: 'row',
                             alignItems: 'center',
-                            justifyContent: 'space-evenly',
+                            justifyContent: "space-between",
                         }}
                         onPress={() => {
                             navigation.navigate(PAGES.SELECT_GROUP);
                         }}
                     >
+                        <View style={{
+                            flexDirection:"row",
+                            alignItems: 'center',
+                        }}>
                         <MaterialIcons
                             name="group-add"
-                            style={{
-                                marginRight: calcWidth(3),
-                            }}
                             size={calcWidth(8)}
                             color="white"
                         />
                         <Text
                             style={{
                                 color: 'white',
+                                paddingLeft:calcWidth(2)
                             }}
                         >
                             {transactionData.group?.name || 'Add Group'}
                         </Text>
+                        </View>
                         <AntDesign
                             name="right"
                             size={calcWidth(5)}
                             color="white"
-                            style={{
-                                marginLeft: calcWidth(40),
-                            }}
                         />
                     </Pressable>
                 </View>
