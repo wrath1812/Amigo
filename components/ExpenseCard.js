@@ -17,11 +17,21 @@ import convertISODateToCustomFormat from '../helper/convertISODateToCustomFormat
 import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
 import COLOR from '../constants/Colors';
 import sliceText from '../helper/sliceText';
-
+import { useNavigation } from '@react-navigation/native';
+import apiHelper from "../helper/apiHelper";
+import PAGES from "../constants/pages";
 // ExpenseCard Component
 function ExpenseCard({ item }) {
+    const navigation=useNavigation();
+
+    async function onClick()
+    {
+        const {data}=await apiHelper.get(`/transaction/${item.id}`)
+        navigation.navigate(PAGES.TRANSACTION_DETAIL,{transaction:data});
+    }
+
     return (
-        <View style={styles.cardContainer}>
+        <Pressable style={styles.cardContainer} onPress={onClick}>
             <View style={styles.cardInnerContainer}>
                 <GroupIcon size={5} groupId={item.group._id} />
                 <View style={styles.textContainer}>
@@ -37,7 +47,7 @@ function ExpenseCard({ item }) {
                 </View>
             </View>
             <Text style={styles.amountText}>₹{item.amount}</Text>
-        </View>
+        </Pressable>
     );
 }
 
