@@ -148,7 +148,7 @@ function TransactionFormScreen({ navigation }) {
         <Loader />
     ) : (
         <ScrollView style={styles.container}>
-            <View style={styles.rowCentered}>
+            <View style={{...styles.rowCentered,marginTop:calcHeight(1)}}>
                 <Text style={styles.amount}>₹</Text>
                 <TextInput
                     style={styles.amount}
@@ -184,7 +184,7 @@ function TransactionFormScreen({ navigation }) {
                 horizontal
                 showsHorizontalScrollIndicator={false}
                 contentContainerStyle={{
-                    marginVertical: calcHeight(5),
+                    marginVertical: calcHeight(3),
                 }}
             >
                 {Categories.map((item, index) => (
@@ -268,7 +268,7 @@ function TransactionFormScreen({ navigation }) {
                             borderRadius: 10,
                             flexDirection: 'row',
                             justifyContent: 'space-evenly',
-                            marginTop: calcHeight(5),
+                            marginTop: calcHeight(3),
                             width: calcWidth(40),
                         }}
                         onPress={() => {
@@ -291,7 +291,7 @@ function TransactionFormScreen({ navigation }) {
                             flexDirection: 'row',
                             alignItems: 'center',
                             justifyContent: 'space-evenly',
-                            marginTop: calcHeight(5),
+                            marginTop: calcHeight(3),
                             width: calcWidth(40),
                         }}
                         onPress={() => {
@@ -307,7 +307,7 @@ function TransactionFormScreen({ navigation }) {
                         </Text>
                     </Pressable>
                 </View>
-            )}
+             )} 
             <View
                 style={{
                     alignItems: 'center',
@@ -316,6 +316,7 @@ function TransactionFormScreen({ navigation }) {
                 <Button
                     styleOverwrite={{
                         width: calcWidth(90),
+                        marginTop: calcHeight(2),
                     }}
                     onPress={handleSubmit}
                     title="Submit"
@@ -333,7 +334,7 @@ const styles = StyleSheet.create({
     },
     rowCentered: {
         flexDirection: 'row',
-        justifyContent: 'center',
+        justifyContent: 'center'
     },
     amount: {
         color: COLOR.TEXT,
