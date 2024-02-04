@@ -12,7 +12,6 @@ import {
 import { AntDesign, Entypo } from '@expo/vector-icons';
 import COLOR from '../constants/Colors';
 import { calcWidth, calcHeight, getFontSizeByWindowWidth } from '../helper/res';
-import { useAuth } from '../context/AuthContext';
 import { getCategoryIcon } from '../constants/Categories';
 import apiHelper from '../helper/apiHelper';
 import useCustomColor from '../hooks/useCustomColor';

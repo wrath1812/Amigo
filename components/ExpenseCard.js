@@ -19,14 +19,26 @@ import COLOR from '../constants/Colors';
 import sliceText from '../helper/sliceText';
 import { useNavigation } from '@react-navigation/native';
 import apiHelper from "../helper/apiHelper";
+import {useAuth} from "../context/AuthContext";
 import PAGES from "../constants/pages";
+import getNamesFromContacts from '../helper/getNamesFromContacts';
+import editNames from '../helper/editNames';
 // ExpenseCard Component
 function ExpenseCard({ item }) {
     const navigation=useNavigation();
+    const {user}=useAuth();
 
     async function onClick()
     {
         const {data}=await apiHelper.get(`/transaction/${item.id}`)
+        const contacts=await getNamesFromContacts();
+        editNames([data.creator,data.paidBy],user._id,contacts);
+        editNames([data.splitAmong[0].user],user._id,contacts);
+        for(let i=0;i<data.splitAmong.length;i++)
+        {
+            editNames([data.splitAmong[i].user],user._id,contacts)
+        }
+
         navigation.navigate(PAGES.TRANSACTION_DETAIL,{transaction:data});
     }
 
