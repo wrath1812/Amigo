@@ -19,6 +19,7 @@ import formatDateToDDMMYYYY from '../helper/formatDateToDDMMYYYY';
 import SharedList from '../components/SharedList';
 import TransactionNumberOfVisibleNames from '../constants/TransactionNumberOfVisibleNames';
 import TransactionDetailsButton from '../components/TransactionDetailsButton';
+import sliceText from '../helper/sliceText';
 
 const TransactionDetail = ({
     navigation,
@@ -106,7 +107,7 @@ const TransactionDetail = ({
                             color: COLOR.TEXT,
                         }}
                     >
-                        {transaction.description}
+                        {sliceText(transaction.description,40)}
                     </Text>
                     <View
                         style={{
@@ -196,11 +197,15 @@ const TransactionDetail = ({
                             }}
                             title={
                                 <>
-                                    {expandNames?<Text>Show Less</Text>:<Text>
-                                        {transaction.splitAmong.length -
-                                            TransactionNumberOfVisibleNames}{' '}
-                                        more participants{'\t'}
-                                    </Text>}
+                                    {expandNames ? (
+                                        <Text>Show Less</Text>
+                                    ) : (
+                                        <Text>
+                                            {transaction.splitAmong.length -
+                                                TransactionNumberOfVisibleNames}{' '}
+                                            more participants{'\t'}
+                                        </Text>
+                                    )}
                                     <Entypo
                                         name={
                                             expandNames

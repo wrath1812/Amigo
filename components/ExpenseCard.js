@@ -18,28 +18,26 @@ import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
 import COLOR from '../constants/Colors';
 import sliceText from '../helper/sliceText';
 import { useNavigation } from '@react-navigation/native';
-import apiHelper from "../helper/apiHelper";
-import {useAuth} from "../context/AuthContext";
-import PAGES from "../constants/pages";
+import apiHelper from '../helper/apiHelper';
+import { useAuth } from '../context/AuthContext';
+import PAGES from '../constants/pages';
 import getNamesFromContacts from '../helper/getNamesFromContacts';
 import editNames from '../helper/editNames';
 // ExpenseCard Component
 function ExpenseCard({ item }) {
-    const navigation=useNavigation();
-    const {user}=useAuth();
+    const navigation = useNavigation();
+    const { user } = useAuth();
 
-    async function onClick()
-    {
-        const {data}=await apiHelper.get(`/transaction/${item.id}`)
-        const contacts=await getNamesFromContacts();
-        editNames([data.creator,data.paidBy],user._id,contacts);
-        editNames([data.splitAmong[0].user],user._id,contacts);
-        for(let i=0;i<data.splitAmong.length;i++)
-        {
-            editNames([data.splitAmong[i].user],user._id,contacts)
+    async function onClick() {
+        const { data } = await apiHelper.get(`/transaction/${item.id}`);
+        const contacts = await getNamesFromContacts();
+        editNames([data.creator, data.paidBy], user._id, contacts);
+        editNames([data.splitAmong[0].user], user._id, contacts);
+        for (let i = 0; i < data.splitAmong.length; i++) {
+            editNames([data.splitAmong[i].user], user._id, contacts);
         }
 
-        navigation.navigate(PAGES.TRANSACTION_DETAIL,{transaction:data});
+        navigation.navigate(PAGES.TRANSACTION_DETAIL, { transaction: data });
     }
 
     return (
@@ -48,7 +46,7 @@ function ExpenseCard({ item }) {
                 <GroupIcon size={5} groupId={item.group._id} />
                 <View style={styles.textContainer}>
                     <Text style={styles.descriptionText}>
-                        {sliceText(item.description,25)}
+                        {sliceText(item.description, 25)}
                     </Text>
                     <Text style={styles.groupText}>
                         {sliceText(item.group.name, 25)}

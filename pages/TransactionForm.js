@@ -220,29 +220,31 @@ function TransactionFormScreen({ navigation }) {
                             borderRadius: 10,
                             flexDirection: 'row',
                             alignItems: 'center',
-                            justifyContent: "space-between",
+                            justifyContent: 'space-between',
                         }}
                         onPress={() => {
                             navigation.navigate(PAGES.SELECT_GROUP);
                         }}
                     >
-                        <View style={{
-                            flexDirection:"row",
-                            alignItems: 'center',
-                        }}>
-                        <MaterialIcons
-                            name="group-add"
-                            size={calcWidth(8)}
-                            color="white"
-                        />
-                        <Text
+                        <View
                             style={{
-                                color: 'white',
-                                paddingLeft:calcWidth(2)
+                                flexDirection: 'row',
+                                alignItems: 'center',
                             }}
                         >
-                            {transactionData.group?.name || 'Add Group'}
-                        </Text>
+                            <MaterialIcons
+                                name="group-add"
+                                size={calcWidth(8)}
+                                color="white"
+                            />
+                            <Text
+                                style={{
+                                    color: 'white',
+                                    paddingLeft: calcWidth(2),
+                                }}
+                            >
+                                {transactionData.group?.name || 'Add Group'}
+                            </Text>
                         </View>
                         <AntDesign
                             name="right"
