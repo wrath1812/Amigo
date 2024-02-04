@@ -15,11 +15,18 @@ import apiHelper from '../helper/apiHelper';
 import Button from '../components/Button';
 import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
 import COLOR from '../constants/Colors';
+import getPreviousPageName from '../helper/getPreviousPageName';
+import PAGES from '../constants/pages';
+import { useTransaction } from '../context/TransactionContext';
+import editNamesAsync from '../helper/editNamesAsync';
+import { useAuth } from '../context/AuthContext';
 
 const CreateGroup = ({ navigation }) => {
     const { selectedContacts } = useContacts();
     const [groupName, setGroupName] = useState('');
     const [isLoading, setIsLoading] = useState(false);
+    const {setTransactionData}=useTransaction();
+    const {user}=useAuth();
     const nameRef = useRef();
 
     const createGroupAsync = async () => {
@@ -28,14 +35,29 @@ const CreateGroup = ({ navigation }) => {
             phoneNumber,
             countryCode: '91',
         }));
-        const group = await apiHelper.post('/group', {
+        const {data} = await apiHelper.post('/group', {
             name: groupName,
             phoneNumbers,
         });
         Toast.show(`${groupName} created`, {
             duration: Toast.durations.LONG,
         });
-        navigation.goBack({ group });
+        if(getPreviousPageName(navigation)==PAGES.SELECT_GROUP)
+        {
+            const { data :groups} = await apiHelper('/group');
+        const group=groups.find(({_id})=>_id==data._id)
+        group.members = await editNamesAsync(
+                        group.members,
+                        user._id,
+                    );
+        setTransactionData((prev)=>({
+            ...prev,group
+        }))
+        navigation.navigate(PAGES.ADD_TRANSACTION);
+
+        }
+        else
+        navigation.goBack();
     };
 
     return (
