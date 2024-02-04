@@ -15,7 +15,7 @@
         "assetBundlePatterns": ["**/*"],
         "ios": {
             "bundleIdentifier": "com.splitcash.splitcash",
-            "buildNumber": "26"
+            "buildNumber": "27"
         },
         "android": {
             "adaptiveIcon": {
