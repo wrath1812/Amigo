@@ -7,11 +7,13 @@ import {
 } from '@expo/vector-icons';
 import { Text } from 'react-native';
 import { calcWidth, getFontSizeByWindowWidth } from '../helper/res';
-const size = calcWidth(5);
+const size = calcWidth(3);
 const categories = [
     {
         name: 'General',
-        icon: <Text>💰</Text>,
+        icon: <Text style={{
+            fontSize:getFontSizeByWindowWidth(8)
+        }}>💰</Text>,
     }, // Blue Grey
     {
         name: 'Groceries',

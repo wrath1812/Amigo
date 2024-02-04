@@ -23,6 +23,7 @@ import { useAuth } from '../context/AuthContext';
 import PAGES from '../constants/pages';
 import getNamesFromContacts from '../helper/getNamesFromContacts';
 import editNames from '../helper/editNames';
+import { getCategoryIcon } from '../constants/Categories';
 // ExpenseCard Component
 function ExpenseCard({ item }) {
     const navigation = useNavigation();
@@ -49,7 +50,7 @@ function ExpenseCard({ item }) {
                         {sliceText(item.description, 25)}
                     </Text>
                     <Text style={styles.groupText}>
-                        {sliceText(item.group.name, 25)}
+                        {sliceText(item.category, 25)} {getCategoryIcon(item.category)}
                     </Text>
                     <Text style={styles.dateText}>
                         {convertISODateToCustomFormat(item.date)}
@@ -90,7 +91,7 @@ const styles = StyleSheet.create({
         fontSize: getFontSizeByWindowWidth(15),
     },
     groupText: {
-        color: 'white',
+        color: 'white'
     },
     dateText: {
         color: 'white',

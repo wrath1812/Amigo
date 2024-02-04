@@ -19,6 +19,7 @@ import apiHelper from '../helper/apiHelper';
 import Loader from '../components/Loader';
 import UserAvatar from '../components/UserAvatar';
 import Toast from 'react-native-root-toast';
+import sliceText from "../helper/sliceText";
 
 // GroupScreen Component
 function GroupScreen({
@@ -63,9 +64,10 @@ function GroupScreen({
                         style={{
                             color: COLOR.TEXT,
                             fontWeight: 'bold',
+                            marginTop:calcHeight(2)
                         }}
                     >
-                        {payment.from.name}
+                        {sliceText(payment.from.name,10)}
                     </Text>
                 </View>
                 <View style={styles.headerItem}>
@@ -86,9 +88,10 @@ function GroupScreen({
                             // marginTop:calcHeight(2),
                             color: COLOR.TEXT,
                             fontWeight: 'bold',
+                            marginTop:calcHeight(2)
                         }}
                     >
-                        {payment.to.name}
+                        {sliceText(payment.to.name,10)}
                     </Text>
                 </View>
             </View>
