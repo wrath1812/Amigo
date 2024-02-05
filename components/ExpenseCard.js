@@ -52,6 +52,8 @@ function ExpenseCard({ item }) {
                     <Text style={styles.groupText}>
                         {sliceText(item.category, 25)} {getCategoryIcon(item.category)}
                     </Text>
+                    
+                   
                     <Text style={styles.dateText}>
                         {convertISODateToCustomFormat(item.date)}
                     </Text>
