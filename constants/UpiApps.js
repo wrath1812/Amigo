@@ -1,14 +1,24 @@
-import { Image } from 'react-native';
-import { calcHeight } from '../helper/res';
+import { Image,View } from 'react-native';
+import { calcHeight, calcWidth } from '../helper/res';
 import GPayLogo from '../assets/icons/upi/gPay.png';
 import PhonePeLogo from '../assets/icons/upi/phonePe.png';
-
-const style = {
-    width: calcHeight(10),
-    height: calcHeight(10),
-};
-
-const createIcon = (source) => <Image source={source} style={style} />;
+import PaytmLogo from "../assets/icons/upi/paytm.png";
+import BhimLogo from "../assets/icons/upi/bhim.png";
+import UPILogo from "../assets/icons/upi/upi.png";
+import AmazonPayLogo from "../assets/icons/upi/amazonPay.png";
+  
+const createIcon = (source) => (
+    <View style={{
+      margin: calcHeight(3),
+    }}>
+      <Image source={source} style={{
+        height: calcHeight(5), 
+        aspectRatio:1,
+        resizeMode: 'contain',
+      }} />
+    </View>
+  );
+  
 
 const generateDeeplink = (baseURL, params) => {
     const queryParams = Object.entries(params)
@@ -35,39 +45,23 @@ export default [
         name: 'Paytm',
         generateDeeplink: (params) =>
             generateDeeplink('paytmmp://pay?', params),
-        icon: createIcon({
-            uri: 'https://commons.wikimedia.org/wiki/File:Paytm_Logo_(standalone).svg',
-        }),
+        icon: createIcon(PaytmLogo),
     },
     {
         name: 'Amazon Pay',
         generateDeeplink: (params) =>
             generateDeeplink('amazonpay://pay?', params),
-        icon: createIcon({
-            uri: 'https://commons.wikimedia.org/wiki/File:Amazon_Pay_logo.svg',
-        }),
-    },
-    {
-        name: 'CRED',
-        generateDeeplink: (params) =>
-            generateDeeplink('cred://upi/pay?', params),
-        icon: createIcon({
-            uri: 'https://logotaglines.com/cred-logo-tagline/',
-        }),
+        icon: createIcon(AmazonPayLogo),
     },
     {
         name: 'BHIM UPI',
         generateDeeplink: (params) =>
             generateDeeplink('bhim://upi/pay?', params),
-        icon: createIcon({
-            uri: 'https://commons.wikimedia.org/wiki/File:BHIM_logo.svg',
-        }),
+        icon: createIcon(BhimLogo),
     },
     {
         name: 'Default UPI App',
         generateDeeplink: (params) => generateDeeplink('upi://pay?', params),
-        icon: createIcon({
-            uri: 'https://example.com/default_upi_app_logo.svg',
-        }), // Replace with actual logo URI
+        icon: createIcon(UPILogo), // Replace with actual logo URI
     },
 ];
