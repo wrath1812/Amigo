@@ -148,7 +148,7 @@ function TransactionFormScreen({ navigation }) {
         <Loader />
     ) : (
         <ScrollView style={styles.container}>
-            <View style={{...styles.rowCentered,marginTop:calcHeight(1)}}>
+            <View style={{...styles.rowCentered,margin:calcHeight(1)}}>
                 <Text style={styles.amount}>₹</Text>
                 <TextInput
                     style={styles.amount}
@@ -268,7 +268,7 @@ function TransactionFormScreen({ navigation }) {
                             borderRadius: 10,
                             flexDirection: 'row',
                             justifyContent: 'space-evenly',
-                            marginTop: calcHeight(3),
+                            marginTop: calcHeight(2),
                             width: calcWidth(40),
                         }}
                         onPress={() => {
@@ -291,7 +291,7 @@ function TransactionFormScreen({ navigation }) {
                             flexDirection: 'row',
                             alignItems: 'center',
                             justifyContent: 'space-evenly',
-                            marginTop: calcHeight(3),
+                            marginTop: calcHeight(2),
                             width: calcWidth(40),
                         }}
                         onPress={() => {
@@ -339,10 +339,11 @@ const styles = StyleSheet.create({
     amount: {
         color: COLOR.TEXT,
         fontSize: getFontSizeByWindowWidth(50),
+        lineHeight:calcHeight(8)
     },
     description: {
         flex: 1,
-        color: 'white',
+        color: 'white'
     },
     descriptionContainer: {
         flexDirection: 'row',
