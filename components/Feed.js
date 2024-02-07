@@ -175,7 +175,9 @@ function PaymentActivity({ payment, contacts }) {
         contacts,
     );
     return (
-        <View>
+        <View style={{
+            gap:calcHeight(2)
+        }}>
             <Text style={styles.description}>
                 {payer.name} paid {receiver.name}
             </Text>
