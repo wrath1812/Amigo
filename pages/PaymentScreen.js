@@ -182,6 +182,7 @@ const styles = StyleSheet.create({
         borderColor: 'gray',
         borderRadius: 5,
         width: calcWidth(30),
+        marginTop:calcHeight(1)
     },
 });
 
