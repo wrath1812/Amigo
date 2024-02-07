@@ -57,6 +57,13 @@ function getDateAndMonth(dateString) {
 function ActivityHeader({ icon, iconName, size, text }) {
     return (
         <View style={styles.header}>
+            <View style={{
+                flexDirection:"row",
+                justifyContent:"center",
+                alignContent:"center",
+                alignItems:"center",
+                gap:calcWidth(2)
+            }}>
             <View
                 style={{
                     borderWidth: 1,
@@ -80,13 +87,14 @@ function ActivityHeader({ icon, iconName, size, text }) {
             >
                 Split an expense
             </Text>
+            </View>
             <Text style={styles.headerText}>
                 {icon &&
                     React.createElement(icon, {
                         name: iconName,
                         size: size,
                         color: 'white',
-                    })}{' '}
+                    })}{'    '}
                 {text}
             </Text>
         </View>
@@ -119,7 +127,7 @@ function TransactionActivity({ transaction, navigation, createdAt, contacts }) {
             <ActivityHeader
                 icon={Octicons}
                 iconName="person"
-                size={calcHeight(2)}
+                size={calcHeight(1.8)}
                 text={`${transaction.splitAmong?.length}`}
             />
             <View style={styles.flexContainer}>
@@ -138,10 +146,15 @@ function TransactionActivity({ transaction, navigation, createdAt, contacts }) {
                     marginTop: calcHeight(3),
                 }}
             >
+                <View style={{
+                    flexDirection:"row",
+                    gap:calcWidth(2)
+                }}>
                 <EvilIcons name="calendar" size={calcWidth(5)} color="white" />
                 <Text style={styles.description}>
                     {getDateAndMonth(createdAt)}
                 </Text>
+                </View>
                 <Text style={styles.description}>
                     Created By{' '}
                     {
@@ -308,7 +321,6 @@ const styles = StyleSheet.create({
     },
     headerText: {
         color: 'white',
-        marginLeft: calcWidth(5),
     },
     amount: {
         fontSize: getFontSizeByWindowWidth(20),
@@ -319,6 +331,7 @@ const styles = StyleSheet.create({
     flexContainer: {
         flexDirection: 'row',
         marginTop: calcHeight(3),
+        marginLeft:calcWidth(2)
     },
     createdAt: {
         fontSize: getFontSizeByWindowWidth(12),
