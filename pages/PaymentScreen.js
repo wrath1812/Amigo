@@ -70,22 +70,22 @@ function GroupScreen({
                         {sliceText(payment.from.name,10)}
                     </Text>
                 </View>
-                <View style={styles.headerItem}>
+                <View style={{...styles.headerItem,justifyContent:"flex-end",marginTop:calcHeight(2)}}>
                     <Text
                         style={{
                             color: '#D9D9D9',
-                            marginBottom: calcHeight(2),
                         }}
                     >
                         Paying To
                     </Text>
-                    <AntDesign name="arrowright" size={24} color="white" />
+                    <AntDesign style={{
+                        marginTop:calcHeight(3)
+                    }}name="arrowright" size={24} color="white" />
                 </View>
                 <View style={styles.headerItem}>
                     <UserAvatar user={payment.to} />
                     <Text
                         style={{
-                            // marginTop:calcHeight(2),
                             color: COLOR.TEXT,
                             fontWeight: 'bold',
                             marginTop:calcHeight(2)
@@ -158,8 +158,6 @@ const styles = StyleSheet.create({
     },
     headerItem: {
         alignItems: 'center',
-        alignContent: 'center',
-        justifyContent: 'center',
     },
     rowCentered: {
         flexDirection: 'row',
