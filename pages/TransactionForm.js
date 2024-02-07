@@ -339,7 +339,8 @@ const styles = StyleSheet.create({
     amount: {
         color: COLOR.TEXT,
         fontSize: getFontSizeByWindowWidth(50),
-        lineHeight:calcHeight(8)
+        lineHeight:calcHeight(8),
+        fontWeight:"bold"
     },
     description: {
         flex: 1,

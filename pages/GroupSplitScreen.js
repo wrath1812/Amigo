@@ -466,6 +466,7 @@ const styles = StyleSheet.create({
         alignContent: 'center',
         color: COLOR.TEXT,
         fontSize: getFontSizeByWindowWidth(20),
+        fontWeight:"bold"
     },
     tabBarText: {
         color: COLOR.BUTTON,

@@ -102,5 +102,6 @@ const styles = StyleSheet.create({
     amountText: {
         color: 'white',
         fontSize: getFontSizeByWindowWidth(15),
+        fontWeight:"bold"
     },
 });
