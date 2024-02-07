@@ -8,6 +8,7 @@ import {
     FlatList,
     Alert,
     ScrollView,
+    Image
 } from 'react-native';
 import { AntDesign, Entypo } from '@expo/vector-icons';
 import COLOR from '../constants/Colors';
@@ -20,6 +21,7 @@ import SharedList from '../components/SharedList';
 import TransactionNumberOfVisibleNames from '../constants/TransactionNumberOfVisibleNames';
 import TransactionDetailsButton from '../components/TransactionDetailsButton';
 import sliceText from '../helper/sliceText';
+import CalendarIcon from "../assets/icons/calendar.png";
 
 const TransactionDetail = ({
     navigation,
@@ -113,8 +115,9 @@ const TransactionDetail = ({
                         style={{
                             width: '50%',
                             flexDirection: 'row',
-                            justifyContent: 'space-between',
+                            justifyContent: "center",
                             marginVertical: calcHeight(3),
+                            gap:calcWidth(5)
                         }}
                     >
                         <View
@@ -122,21 +125,37 @@ const TransactionDetail = ({
                                 backgroundColor: 'white',
                                 flexDirection: 'row',
                                 borderRadius: 10,
-                                padding: calcWidth(1),
+                                paddingVertical: calcWidth(0.5),
+                                paddingHorizontal:calcWidth(2),
+                                gap:calcWidth(1),
+                                alignItems:"center"
                             }}
                         >
-                            <Text>{formatDateToDDMMYYYY(date)}</Text>
+                            <Image style={{
+                                width:calcWidth(3),
+                                height:calcWidth(3)
+                            }}
+                            source={CalendarIcon}
+                            />
+                            <Text style={{
+                                fontSize:getFontSizeByWindowWidth(7)
+                            }}>{formatDateToDDMMYYYY(date)}</Text>
                         </View>
                         <View
                             style={{
                                 backgroundColor: 'white',
                                 flexDirection: 'row',
                                 borderRadius: 10,
-                                padding: calcWidth(0.5),
+                                paddingVertical: calcWidth(0.5),
+                                paddingHorizontal:calcWidth(2),
+                                gap:calcWidth(1),
+                                alignItems:"center"
                             }}
                         >
                             {getCategoryIcon(transaction.type)}
-                            <Text>{transaction.type}</Text>
+                            <Text style={{
+                                fontSize:getFontSizeByWindowWidth(7)
+                            }}>{transaction.type}</Text>
                         </View>
                     </View>
                     <Text
