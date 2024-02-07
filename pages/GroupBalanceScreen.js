@@ -168,7 +168,8 @@ const styles = StyleSheet.create({
     listItem: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        margin: calcHeight(2),
+        marginHorizontal: calcHeight(2),
+        marginVertical:calcHeight(0.5),
         padding: calcHeight(2),
         alignItems: 'center',
         backgroundColor: 'rgba(52, 47, 79, 0.53)',
