@@ -313,22 +313,17 @@ const GroupSplitScreen = ({ navigation }) => {
                         borderRadius: 5,
                     }}
                 >
-                    <Image
-                        source={LoginImage}
-                        style={{
-                            width: calcHeight(2),
-                            height: calcHeight(2),
-                            padding: calcWidth(3),
-                            backgroundColor: COLOR.BUTTON,
-                            borderRadius: calcHeight(2),
-                            marginHorizontal: calcWidth(1),
-                        }}
+
+                    <UserAvatar
+                    size={1.5}
+                    user={transactionData.paidBy}
                     />
+
                     <Text
                         style={{
                             color: COLOR.TEXT,
                             fontWeight: 'bold',
-                            fontSize: getFontSizeByWindowWidth(10),
+                            fontSize: getFontSizeByWindowWidth(8),
                         }}
                     >
                         {sliceText(transactionData.paidBy.name, 7)}

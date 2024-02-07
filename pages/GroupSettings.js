@@ -273,9 +273,6 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         margin: calcHeight(1),
         padding: calcHeight(2),
-        borderColor: COLOR.BORDER_COLOR,
-        borderWidth: 1,
-        borderRadius: 10,
     },
     groupInfo: {
         flexDirection: 'row',
@@ -331,7 +328,7 @@ const styles = StyleSheet.create({
     },
     buttonText: {
         color: COLOR.BUTTON,
-        fontSize: getFontSizeByWindowWidth(15),
+        fontSize: getFontSizeByWindowWidth(12),
         fontWeight: 'bold',
     },
 });

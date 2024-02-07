@@ -163,6 +163,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         alignContent: 'center',
+        marginHorizontal:calcWidth(25)
     },
     amount: {
         alignItems: 'center',

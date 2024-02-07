@@ -145,6 +145,7 @@ const AppNavigator = () => {
                                 backgroundColor: COLOR.APP_BACKGROUND,
                             },
                             headerTintColor: '#fff',
+                            headerBackTitleVisible: false,
                         }}
                     />
 
