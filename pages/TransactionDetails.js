@@ -111,13 +111,21 @@ const TransactionDetail = ({
                     >
                         {sliceText(transaction.description,40)}
                     </Text>
+                    <Text
+                        style={{
+                            color: COLOR.TEXT,
+                            marginVertical: calcHeight(3),
+                        }}
+                    >
+                        Create By {transaction.creator.name}
+                    </Text>
                     <View
                         style={{
                             width: '50%',
                             flexDirection: 'row',
                             justifyContent: "center",
-                            marginVertical: calcHeight(3),
-                            gap:calcWidth(5)
+                            gap:calcWidth(5),
+                            marginBottom: calcHeight(4),
                         }}
                     >
                         <View
@@ -158,13 +166,6 @@ const TransactionDetail = ({
                             }}>{transaction.type}</Text>
                         </View>
                     </View>
-                    <Text
-                        style={{
-                            color: COLOR.TEXT,
-                        }}
-                    >
-                        Create By {transaction.creator.name}
-                    </Text>
                 </View>
                 <View style={styles.boxContainer}>
                     <View
