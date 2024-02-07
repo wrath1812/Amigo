@@ -70,7 +70,7 @@ function GroupScreen({
                         {sliceText(payment.from.name,10)}
                     </Text>
                 </View>
-                <View style={{...styles.headerItem,justifyContent:"flex-end",marginTop:calcHeight(2)}}>
+                <View style={{...styles.headerItem,justifyContent:"flex-end",marginTop:calcHeight(1.7)}}>
                     <Text
                         style={{
                             color: '#D9D9D9',
