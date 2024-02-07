@@ -291,20 +291,21 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         margin: calcWidth(5),
+        marginVertical:calcHeight(3)
     },
     circle: {
-        width: calcWidth(5),
-        height: calcWidth(5),
-        borderRadius: calcWidth(5) / 2,
+        width: calcWidth(2),
+        height: calcWidth(2),
+        borderRadius: calcWidth(2) / 2,
         marginRight: calcWidth(2),
     },
     userName: {
         color: COLOR.TEXT,
-        fontSize: getFontSizeByWindowWidth(14),
+        fontSize: getFontSizeByWindowWidth(12),
     },
     userAmount: {
         color: COLOR.TEXT,
-        fontSize: getFontSizeByWindowWidth(14),
+        fontSize: getFontSizeByWindowWidth(12),
         fontWeight: 'bold',
         marginLeft: 'auto',
     },

@@ -24,24 +24,24 @@ export default SharedItem;
 
 const styles = StyleSheet.create({
     circle: {
-        width: calcWidth(5),
-        height: calcWidth(5),
-        borderRadius: calcWidth(5) / 2,
+        width: calcWidth(2),
+        height: calcWidth(2),
+        borderRadius: calcWidth(2) / 2,
         marginRight: calcWidth(2),
     },
     sharedDetail: {
         flexDirection: 'row',
         alignItems: 'center',
-        paddingVertical: calcHeight(1),
+        paddingVertical: calcHeight(1.5),
         marginHorizontal: calcWidth(5),
     },
     sharedUser: {
         color: COLOR.TEXT,
-        fontSize: getFontSizeByWindowWidth(14),
+        fontSize: getFontSizeByWindowWidth(12),
     },
     sharedAmount: {
         color: COLOR.TEXT,
-        fontSize: getFontSizeByWindowWidth(14),
+        fontSize: getFontSizeByWindowWidth(12),
         fontWeight: 'bold',
         marginLeft: 'auto',
     },
