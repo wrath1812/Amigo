@@ -148,7 +148,7 @@ function TransactionFormScreen({ navigation }) {
         <Loader />
     ) : (
         <ScrollView style={styles.container}>
-            <View style={{...styles.rowCentered,margin:calcHeight(1)}}>
+            <View style={{...styles.rowCentered,margin:calcHeight(1),marginHorizontal:calcWidth(20)}}>
                 <Text style={styles.amount}>₹</Text>
                 <TextInput
                     style={styles.amount}
@@ -361,7 +361,7 @@ const styles = StyleSheet.create({
     },
     categoryText: {
         color: COLOR.TEXT,
-        fontSize: getFontSizeByWindowWidth(12),
+        fontSize: getFontSizeByWindowWidth(16),
         paddingLeft: calcWidth(1),
     },
     selectedCategory: {
