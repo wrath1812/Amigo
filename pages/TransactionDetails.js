@@ -133,8 +133,8 @@ const TransactionDetail = ({
                                 backgroundColor: 'white',
                                 flexDirection: 'row',
                                 borderRadius: 10,
-                                paddingVertical: calcWidth(0.5),
-                                paddingHorizontal:calcWidth(2),
+                                paddingVertical: calcWidth(1),
+                                paddingHorizontal:calcWidth(4),
                                 gap:calcWidth(1),
                                 alignItems:"center"
                             }}
@@ -154,8 +154,8 @@ const TransactionDetail = ({
                                 backgroundColor: 'white',
                                 flexDirection: 'row',
                                 borderRadius: 10,
-                                paddingVertical: calcWidth(0.5),
-                                paddingHorizontal:calcWidth(2),
+                                paddingVertical: calcWidth(1),
+                                paddingHorizontal:calcWidth(4),
                                 gap:calcWidth(1),
                                 alignItems:"center"
                             }}
@@ -253,6 +253,8 @@ const styles = StyleSheet.create({
     boxContainer: {
         backgroundColor: COLOR.PAYMENT_BACKGROUND,
         margin: calcWidth(5),
+        borderTopStartRadius:30,
+        borderTopEndRadius:30
     },
     centeredView: {
         alignItems: 'center',
