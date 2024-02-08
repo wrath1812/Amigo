@@ -22,6 +22,7 @@ import TransactionNumberOfVisibleNames from '../constants/TransactionNumberOfVis
 import TransactionDetailsButton from '../components/TransactionDetailsButton';
 import sliceText from '../helper/sliceText';
 import CalendarIcon from "../assets/icons/calendar.png";
+import AmountInput from "../components/AmountInput";
 
 const TransactionDetail = ({
     navigation,
@@ -91,18 +92,10 @@ const TransactionDetail = ({
                 <View
                     style={{
                         alignItems: 'center',
+                            marginTop: calcHeight(5),
                     }}
                 >
-                    <Text
-                        style={{
-                            fontSize: getFontSizeByWindowWidth(50),
-                            color: COLOR.TEXT,
-                            fontWeight: 'bold',
-                            marginTop: calcHeight(5),
-                        }}
-                    >
-                        ₹ {transaction.amount}
-                    </Text>
+                    <AmountInput amount={transaction.amount} isTextInput={false} />
                     <Text
                         style={{
                             fontSize: getFontSizeByWindowWidth(15),
