@@ -184,16 +184,14 @@ function TransactionFormScreen({ navigation }) {
                             styles.categoryItem,
                             transactionData.type === item.name &&
                                 styles.selectedCategory,
+                                {borderColor:"#4D426C",borderWidth:1,borderRadius:10,marginHorizontal:calcWidth(1)}
                         ]}
                         onPress={() => handleCategorySelect(item.name)}
                     >
                         {item.icon}
                         <Text
                             style={[
-                                styles.categoryText,
-                                transactionData.type === item.name && {
-                                    color: 'black',
-                                },
+                                styles.categoryText
                             ]}
                         >
                             {item.name}
@@ -348,6 +346,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         paddingHorizontal: calcWidth(3),
+        paddingVertical:calcHeight(0.2)
     },
     categoryText: {
         color: COLOR.TEXT,
@@ -355,8 +354,9 @@ const styles = StyleSheet.create({
         paddingHorizontal: calcWidth(1),
     },
     selectedCategory: {
-        backgroundColor: '#ddd', // Highlight color for selected category,
+        backgroundColor: '#4D426C', // Highlight color for selected category,
         borderRadius: 10,
+        color:COLOR.TEXT
     },
 });
 
