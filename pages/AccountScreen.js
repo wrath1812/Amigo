@@ -178,7 +178,7 @@ const styles = StyleSheet.create({
     userInfo: {
         flexDirection: 'row',
         margin: calcHeight(3),
-        alignItems: 'center',
+        // alignItems: 'center',
         justifyContent: 'space-between',
     },
     userImage: {
