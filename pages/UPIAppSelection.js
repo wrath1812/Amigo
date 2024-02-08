@@ -17,11 +17,12 @@ import PAGES from '../constants/pages';
 const UPIAppSelection = ({ navigation }) => {
     const { upiParams } = useTransaction();
 
-    const handleSelectApp = (appName, generateDeeplink) => {
+    const handleSelectApp = async (appName, generateDeeplink) => {
         const deepLink = generateDeeplink(upiParams);
-        console.log(deepLink);
         try {
-            if (Linking.canOpenURL(deepLink)) {
+            const canOpenURL=await Linking.canOpenURL(deepLink);
+            console.log(canOpenURL);
+            if (canOpenURL) {
                 Linking.openURL(deepLink);
                 navigation.navigate(PAGES.BALANCE);
             } else {
