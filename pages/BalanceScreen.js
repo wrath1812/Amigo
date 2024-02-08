@@ -27,7 +27,7 @@ import groupBalancesAndCalculateTotal from '../utility/groupBalancesAndCalculate
 
 function BalanceScreen({ navigation }) {
     const [loading, setLoading] = useState(false);
-    const [balances, setBalances] = useState([]);
+    const [balances, setBalances] = useState();
     const [balance, setBalance] = useState(0);
     const { user } = useAuth();
 
@@ -114,7 +114,7 @@ function BalanceScreen({ navigation }) {
                     </Text>
                 </View>
             </View>
-            {balances.length == 0 ? (
+            {balances && balances.length == 0 ? (
                 <EmptyScreen
                     onPress={() => {
                         navigation.navigate(PAGES.ADD_TRANSACTION);
@@ -132,7 +132,7 @@ function BalanceScreen({ navigation }) {
                     }}
                 />
             )}
-            {balances.length != 0 && (
+            {balances && balances.length != 0 && (
                 <FabIcon
                     onPress={() => {
                         navigation.navigate(PAGES.ADD_TRANSACTION);

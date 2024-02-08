@@ -22,7 +22,7 @@ import Search from '../components/Search';
 import editNamesAsync from '../helper/editNamesAsync';
 import { useAuth } from '../context/AuthContext';
 function GroupListScreen({ navigation }) {
-    const [groups, setGroups] = useState([]);
+    const [groups, setGroups] = useState();
     const [loading, setLoading] = useState(false);
     const [search, setSearch] = useState('');
     const { user } = useAuth();
@@ -56,7 +56,7 @@ function GroupListScreen({ navigation }) {
     ) : (
         <SafeAreaView style={styles.container}>
             <Text style={styles.header}>Groups</Text>
-            {groups.length == 0 ? (
+            {groups && groups.length == 0 ? (
                 <EmptyScreen
                     onPress={() => {
                         navigation.navigate(PAGES.CREATE_GROUP);
@@ -85,7 +85,7 @@ function GroupListScreen({ navigation }) {
                     />
                 </>
             )}
-            {groups.length != 0 && (
+            {groups && groups.length != 0 && (
                 <FabIcon
                     onPress={() => {
                         {
