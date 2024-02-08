@@ -204,8 +204,8 @@ function TransactionFormScreen({ navigation }) {
                     <Pressable
                         style={{
                             backgroundColor: '#302B49',
-                            padding: calcWidth(5),
-                            borderRadius: 10,
+                            padding:calcWidth(4),
+                            borderRadius: 8,
                             flexDirection: 'row',
                             alignItems: 'center',
                             justifyContent: 'space-between',
@@ -252,8 +252,8 @@ function TransactionFormScreen({ navigation }) {
                     <Pressable
                         style={{
                             backgroundColor: '#302B49',
-                            padding: calcWidth(5),
-                            borderRadius: 10,
+                            padding: calcWidth(4),
+                            borderRadius: 8,
                             flexDirection: 'row',
                             justifyContent: 'space-evenly',
                             marginTop: calcHeight(2),
@@ -274,8 +274,8 @@ function TransactionFormScreen({ navigation }) {
                     <Pressable
                         style={{
                             backgroundColor: '#302B49',
-                            padding: calcWidth(5),
-                            borderRadius: 10,
+                            padding: calcWidth(4),
+                            borderRadius: 8,
                             flexDirection: 'row',
                             alignItems: 'center',
                             justifyContent: 'space-evenly',
