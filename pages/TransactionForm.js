@@ -346,7 +346,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         paddingHorizontal: calcWidth(3),
-        paddingVertical:calcHeight(0.2)
+        paddingVertical:calcHeight(0.5)
     },
     categoryText: {
         color: COLOR.TEXT,
