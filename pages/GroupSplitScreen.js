@@ -315,7 +315,7 @@ const GroupSplitScreen = ({ navigation }) => {
                 >
 
                     <UserAvatar
-                    size={1.5}
+                    size={2}
                     user={transactionData.paidBy}
                     />
 
@@ -323,7 +323,7 @@ const GroupSplitScreen = ({ navigation }) => {
                         style={{
                             color: COLOR.TEXT,
                             fontWeight: 'bold',
-                            fontSize: getFontSizeByWindowWidth(8),
+                            fontSize: getFontSizeByWindowWidth(12),
                         }}
                     >
                         {sliceText(transactionData.paidBy.name, 7)}
@@ -461,7 +461,6 @@ const styles = StyleSheet.create({
         alignContent: 'center',
         color: COLOR.TEXT,
         fontSize: getFontSizeByWindowWidth(20),
-        fontWeight:"bold"
     },
     tabBarText: {
         color: COLOR.BUTTON,

@@ -361,8 +361,8 @@ const styles = StyleSheet.create({
     },
     categoryText: {
         color: COLOR.TEXT,
-        fontSize: getFontSizeByWindowWidth(16),
-        paddingLeft: calcWidth(1),
+        fontSize: getFontSizeByWindowWidth(12),
+        paddingHorizontal: calcWidth(1),
     },
     selectedCategory: {
         backgroundColor: '#ddd', // Highlight color for selected category,
