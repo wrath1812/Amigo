@@ -23,6 +23,7 @@ import { useTransaction } from '../context/TransactionContext';
 import getPreviousPageName from '../helper/getPreviousPageName';
 import { useAuth } from '../context/AuthContext';
 import Toast from 'react-native-root-toast';
+import AmountInput from '../components/AmountInput';
 function TransactionFormScreen({ navigation }) {
     const [loading, setIsLoading] = useState(false);
     const {
@@ -148,18 +149,7 @@ function TransactionFormScreen({ navigation }) {
         <Loader />
     ) : (
         <ScrollView style={styles.container}>
-            <View style={{...styles.rowCentered,margin:calcHeight(1),marginHorizontal:calcWidth(20)}}>
-                <Text style={styles.amount}>₹</Text>
-                <TextInput
-                    style={styles.amount}
-                    onChangeText={(text) => handleInputChange('amount', text)}
-                    value={transactionData.amount}
-                    keyboardType="numeric"
-                    placeholderTextColor={COLOR.TEXT}
-                    placeholder="0"
-                    autoFocus
-                />
-            </View>
+            <AmountInput transactionData={transactionData.amount} handleInputChange={(text) => handleInputChange('amount', text)} isTextInput />
 
             <View style={styles.rowCentered}>
                 <Pressable
