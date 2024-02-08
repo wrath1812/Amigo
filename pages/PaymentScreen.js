@@ -20,6 +20,7 @@ import Loader from '../components/Loader';
 import UserAvatar from '../components/UserAvatar';
 import Toast from 'react-native-root-toast';
 import sliceText from "../helper/sliceText";
+import AmountInput from "../components/AmountInput";
 
 // GroupScreen Component
 function GroupScreen({
@@ -95,18 +96,7 @@ function GroupScreen({
                     </Text>
                 </View>
             </View>
-            <View style={styles.rowCentered}>
-                <Text style={styles.amount}>₹</Text>
-                <TextInput
-                    style={styles.amount}
-                    onChangeText={(text) => setAmount(text)}
-                    value={amount}
-                    keyboardType="numeric"
-                    placeholderTextColor={COLOR.TEXT}
-                    placeholder="0"
-                    autoFocus
-                />
-            </View>
+            <AmountInput transactionData={amount} handleInputChange={(text) => setAmount(text)} isTextInput/>  
             <View style={styles.rowCentered}>
                 <Pressable
                     style={styles.descriptionContainer}
@@ -162,15 +152,7 @@ const styles = StyleSheet.create({
     rowCentered: {
         flexDirection: 'row',
         justifyContent: 'center',
-        alignContent: 'center',
-        marginHorizontal:calcWidth(25)
-    },
-    amount: {
-        alignItems: 'center',
-        alignContent: 'center',
-        color: COLOR.TEXT,
-        fontWeight:"bold",
-        fontSize: getFontSizeByWindowWidth(50),
+        alignContent: 'center'
     },
     description: {
         flex: 1,
