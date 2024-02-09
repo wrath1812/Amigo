@@ -1,16 +1,14 @@
-function getFontSize(str, maxWidth,fontSize) {
-    if(!str)
-    return fontSize;
+function getFontSize(str, maxWidth, fontSize) {
+    if (!str || str.length === 0) {
+        return fontSize;
+    }
 
-    const numberOfDigits=str.length;
+    const numberOfCharacters = str.length;
 
-    if(!numberOfDigits)
-    return fontSize;
+    const currentWidth = numberOfCharacters * fontSize;
 
-    const currentWidth = numberOfDigits * fontSize; 
-    
     if (currentWidth > maxWidth) {
-        fontSize = maxWidth / numberOfDigits ; 
+        fontSize = maxWidth / numberOfCharacters;
     }
 
     return fontSize;
