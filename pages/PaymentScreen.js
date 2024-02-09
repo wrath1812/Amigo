@@ -1,5 +1,5 @@
 // 1. Import Statements
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef,useEffect } from 'react';
 import {
     SafeAreaView,
     View,
@@ -8,6 +8,7 @@ import {
     TextInput,
     Pressable,
     KeyboardAvoidingView,
+    Keyboard
 } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import GroupIcon from '../components/GroupIcon';
@@ -21,6 +22,7 @@ import UserAvatar from '../components/UserAvatar';
 import Toast from 'react-native-root-toast';
 import sliceText from "../helper/sliceText";
 import AmountInput from "../components/AmountInput";
+import useKeyboardHeight from '../hooks/useKeyboardHeight';
 
 // GroupScreen Component
 function GroupScreen({
@@ -33,6 +35,7 @@ function GroupScreen({
     const [description, setDescription] = useState('');
     const descriptionRef = useRef();
     const [isLoading, seIsLoading] = useState(false);
+    const keyboardHeight = useKeyboardHeight();
 
     async function submitPayment() {
         seIsLoading(true);
@@ -113,16 +116,12 @@ function GroupScreen({
                     />
                 </Pressable>
             </View>
-            <KeyboardAvoidingView
-                behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-                style={{ flex: 1 }}
-            >
                 <View
                     style={{
                         flex: 1,
-                        justifyContent: 'flex-end', // Adjust this based on your layout needs
                         alignItems: 'center',
-                        marginBottom: calcHeight(15),
+                        justifyContent:"flex-end",
+                        marginBottom: keyboardHeight
                     }}
                 >
                     <Button
@@ -130,7 +129,6 @@ function GroupScreen({
                         title="Record as  Cash Payment"
                     />
                 </View>
-            </KeyboardAvoidingView>
         </SafeAreaView>
     );
 }
