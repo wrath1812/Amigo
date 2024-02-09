@@ -96,7 +96,7 @@ function GroupScreen({
                     </Text>
                 </View>
             </View>
-            <AmountInput transactionData={amount} handleInputChange={(text) => setAmount(text)} isTextInput/>  
+            <AmountInput amount={amount} handleInputChange={(text) => setAmount(text)} isTextInput/>  
             <View style={styles.rowCentered}>
                 <Pressable
                     style={styles.descriptionContainer}
