@@ -1,15 +1,32 @@
-import React from 'react';
-import { View, Text, TextInput,StyleSheet } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, TextInput, StyleSheet } from 'react-native';
 import COLOR from '../constants/Colors';
-import { getFontSizeByWindowWidth,calcHeight,calcWidth } from '../helper/res';
-const AmountInput = ({ amount, handleInputChange, isTextInput }) => {
+import getFontSize from '../helper/getFontSize';
+import { getFontSizeByWindowWidth, calcHeight, calcWidth } from '../helper/res';
+
+const AmountInput = ({ amount = '', handleInputChange, isTextInput = false }) => {
+  const [fontSize, setFontSize] = useState(getFontSize("₹" + amount, calcWidth(70), getFontSizeByWindowWidth(50)));
+
+  const handleChange = (newAmount) => {
+    if (handleInputChange) {
+      handleInputChange(newAmount);
+    }
+    setFontSize(getFontSize("₹" + newAmount, calcWidth(70), getFontSizeByWindowWidth(50)));
+  };
+
   return (
     <View style={{ ...styles.rowCentered, margin: calcHeight(1), marginHorizontal: calcWidth(20) }}>
-      <Text style={styles.amount}>₹</Text>
+      <Text style={[styles.amount, {
+        fontSize,
+        lineHeight: fontSize * 1.2 // Adjusted lineHeight calculation
+      }]}>₹</Text>
       {isTextInput ? (
         <TextInput
-          style={styles.amount}
-          onChangeText={handleInputChange}
+          style={[styles.amount, {
+            fontSize,
+            lineHeight: fontSize * 1.2 // Adjusted lineHeight calculation
+          }]}
+          onChangeText={handleChange}
           value={amount}
           keyboardType="numeric"
           placeholderTextColor={COLOR.TEXT}
@@ -17,7 +34,10 @@ const AmountInput = ({ amount, handleInputChange, isTextInput }) => {
           autoFocus
         />
       ) : (
-        <Text style={styles.amount}>{amount}</Text>
+        <Text style={[styles.amount, {
+          fontSize,
+          lineHeight: fontSize * 1.2 // Adjusted lineHeight calculation
+        }]}>{amount}</Text>
       )}
     </View>
   );
@@ -26,14 +46,12 @@ const AmountInput = ({ amount, handleInputChange, isTextInput }) => {
 export default AmountInput;
 
 const styles = StyleSheet.create({
-    rowCentered: {
-        flexDirection: 'row',
-        justifyContent: 'center'
-    },
-    amount: {
-        color: COLOR.TEXT,
-        fontSize: getFontSizeByWindowWidth(50),
-        lineHeight:calcHeight(8),
-        fontWeight:"bold"
-    }
+  rowCentered: {
+    flexDirection: 'row',
+    justifyContent: 'center'
+  },
+  amount: {
+    color: COLOR.TEXT,
+    fontWeight: "bold"
+  }
 });

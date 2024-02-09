@@ -149,7 +149,7 @@ function TransactionFormScreen({ navigation }) {
         <Loader />
     ) : (
         <ScrollView style={styles.container}>
-            <AmountInput transactionData={transactionData.amount} handleInputChange={(text) => handleInputChange('amount', text)} isTextInput />
+            <AmountInput amount={transactionData.amount} handleInputChange={(text) => handleInputChange('amount', text)} isTextInput />
 
             <View style={styles.rowCentered}>
                 <Pressable
