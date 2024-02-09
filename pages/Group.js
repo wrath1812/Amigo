@@ -289,7 +289,10 @@ function GroupScreen({ navigation }) {
                         <Text style={styles.buttonText}>+ Expense</Text>
                     </TouchableOpacity>
                 ) : (
-                    <TouchableOpacity onPress={addChat}>
+                    <TouchableOpacity onPress={addChat} style={{
+                        height: calcHeight(5),
+                        justifyContent: 'center',
+                    }}>
                         <AntDesign
                             name="enter"
                             size={calcHeight(4)}
