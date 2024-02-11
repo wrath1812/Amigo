@@ -5,27 +5,28 @@ import getFontSize from '../helper/getFontSize';
 import { getFontSizeByWindowWidth, calcHeight, calcWidth } from '../helper/res';
 
 const AmountInput = ({ amount = '', handleInputChange, isTextInput = false }) => {
-  const [fontSize, setFontSize] = useState(getFontSize("₹" + amount, calcWidth(70), getFontSizeByWindowWidth(50)));
+  const baseFontSize = getFontSizeByWindowWidth(50);
+  const [fontSize,setFontSize] = useState(getFontSize("₹" + amount, calcWidth(70), baseFontSize));
+
+  const commonStyles = {
+    fontSize: fontSize,
+    lineHeight: fontSize * 1.2,
+    paddingVertical: (baseFontSize * 1.2 - fontSize * 1.2) / 2
+  };
 
   const handleChange = (newAmount) => {
     if (handleInputChange) {
       handleInputChange(newAmount);
     }
-    setFontSize(getFontSize("₹" + newAmount, calcWidth(70), getFontSizeByWindowWidth(50)));
+    setFontSize(getFontSize("₹" + newAmount, calcWidth(70), baseFontSize));
   };
 
   return (
     <View style={{ ...styles.rowCentered, margin: calcHeight(1), marginHorizontal: calcWidth(20) }}>
-      <Text style={[styles.amount, {
-        fontSize,
-        lineHeight: fontSize * 1.2 // Adjusted lineHeight calculation
-      }]}>₹</Text>
+      <Text style={[styles.amount, commonStyles]}>₹</Text>
       {isTextInput ? (
         <TextInput
-          style={[styles.amount, {
-            fontSize,
-            lineHeight: fontSize * 1.2 // Adjusted lineHeight calculation
-          }]}
+          style={[styles.amount, commonStyles]}
           onChangeText={handleChange}
           value={amount}
           keyboardType="numeric"
@@ -34,10 +35,7 @@ const AmountInput = ({ amount = '', handleInputChange, isTextInput = false }) =>
           autoFocus
         />
       ) : (
-        <Text style={[styles.amount, {
-          fontSize,
-          lineHeight: fontSize * 1.2 // Adjusted lineHeight calculation
-        }]}>{amount}</Text>
+        <Text style={[styles.amount, commonStyles]}>{amount}</Text>
       )}
     </View>
   );
