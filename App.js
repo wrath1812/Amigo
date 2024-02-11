@@ -3,7 +3,8 @@ import { StatusBar } from 'expo-status-bar';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import { AuthProvider } from './context/AuthContext';
-
+import * as SplashScreen from 'expo-splash-screen';
+SplashScreen.preventAutoHideAsync();
 import RootNavigator from './navigator/RootNavigator';
 function App() {
     return (

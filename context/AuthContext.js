@@ -7,6 +7,7 @@ import {
 } from '../helper/localStorage';
 import apiHelper from '../helper/apiHelper';
 import { TOKEN } from '../constants/string';
+import * as SplashScreen from 'expo-splash-screen';
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
@@ -16,7 +17,7 @@ export const AuthProvider = ({ children }) => {
     useEffect(() => {
         (async () => {
             try {
-                setLoading(true);
+                // setLoading(true);
                 const { data } = await apiHelper.get('/user');
                 setLoading(false);
                 setUser(data);
@@ -24,6 +25,7 @@ export const AuthProvider = ({ children }) => {
                 logout();
                 setLoading(false);
             }
+            await SplashScreen.hideAsync();
         })();
     }, []);
 
