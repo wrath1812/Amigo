@@ -25,11 +25,54 @@ function ExpenseScreen() {
         user.id,
         setLoading,
     );
-    if (loading) return <Loader />;
+    if (loading) 
+    return (
+<SafeAreaView style={styles.container}>
+            <Text style={styles.header}>Expense Summary</Text>
+            <View
+                style={{
+                    flexDirection: 'row',
+                    justifyContent: 'space-between',
+                    margin: calcWidth(5),
+                }}
+            >
+                <View style={styles.selectorContainer}>
+                    <TypeSelector setType={setType} type={type} loading={loading}/>
+                    <DatePickerSelector range={range} setRange={setRange} loading={loading}/>
+                </View>
+                <View
+                    style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        gap: calcWidth(1),
+                        backgroundColor:COLOR.SKELETON_MASK_COLOR,
+                        borderRadius:10
+                    }}
+                >
+                    <FontAwesome5
+                        name="redo"
+                        size={calcWidth(3)}
+                        color="rgba(255,255,255,0.66)"
+                        style={{
+                             opacity:0
+                        }}
+                    />
+                    <Text
+                        style={{
+                            color: COLOR.TEXT,
+                             opacity:0
+                        }}
+                    >
+                        Reset
+                    </Text>
+                </View>
+            </View>
+            </SafeAreaView>
+
+    );
     return (
         <SafeAreaView style={styles.container}>
             <Text style={styles.header}>Expense Summary</Text>
-
             <View
                 style={{
                     flexDirection: 'row',

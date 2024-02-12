@@ -16,7 +16,39 @@ import { AntDesign } from '@expo/vector-icons';
 import CheckBox from '../components/CheckBox';
 import { getCategoryIcon } from '../constants/Categories';
 
-const TypeSelector = ({ setType, type }) => {
+const TypeSelector = ({ setType, type,loading }) => {
+    if (loading)
+    return (
+<View
+    style={{
+        backgroundColor: '#342F4F',
+        padding: 10,
+        flexDirection: 'row',
+        gap: calcWidth(4),
+        alignItems: 'center',
+        borderRadius: 5,
+    }}
+>
+    <Text
+        style={{
+            fontSize: getFontSizeByWindowWidth(15),
+            color: COLOR.TEXT,
+            opacity: 0, // Hide the text
+        }}
+    >
+        Type
+    </Text>
+    <Image
+        style={{
+            height: calcWidth(3),
+            width: calcWidth(5),
+            opacity: 0, // Hide the icon
+        }}
+        source={typeIcon}
+    />
+</View>
+
+);
     const [modalVisible, setModalVisible] = useState(false);
     const [selectedTypes, setSelectedTypes] = useState([]);
 

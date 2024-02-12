@@ -44,7 +44,9 @@ function ExpenseCard({ item }) {
     return (
         <Pressable style={styles.cardContainer} onPress={onClick}>
             <View style={styles.cardInnerContainer}>
-                <GroupIcon size={5} groupId={item.group._id} />
+                <GroupIcon size={5} 
+                groupId={item?.group?._id} 
+                />
                 <View style={styles.textContainer}>
                     <Text style={styles.descriptionText}>
                         {sliceText(item.description, 20)}
