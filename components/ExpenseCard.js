@@ -25,7 +25,27 @@ import getNamesFromContacts from '../helper/getNamesFromContacts';
 import editNames from '../helper/editNames';
 import { getCategoryIcon } from '../constants/Categories';
 // ExpenseCard Component
-function ExpenseCard({ item }) {
+function ExpenseCard({ item,loading }) {
+    if (loading) {
+        return (
+            <View style={styles.cardContainer}>
+                <View style={styles.cardInnerContainer}>
+                    <GroupIcon size={5} />
+                    <View style={styles.textContainer}>
+                        <Text style={[styles.descriptionText, { backgroundColor: COLOR.SKELETON_MASK_COLOR, width: calcWidth(30), borderRadius: 10 }]}>
+                            {/* Adjust the value (10) to your desired border radius */}
+                        </Text>
+                        <Text style={[styles.groupText, { backgroundColor: COLOR.SKELETON_MASK_COLOR, width: calcWidth(50), borderRadius: 10 }]}>
+                        </Text>
+                        <Text style={[styles.dateText, { opacity: 0 }]}>
+                            Ramdom
+                        </Text>
+                    </View>
+                </View>
+            </View>
+        );
+    }
+    
     const navigation = useNavigation();
     const { user } = useAuth();
 
