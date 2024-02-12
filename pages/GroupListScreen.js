@@ -50,10 +50,40 @@ function GroupListScreen({ navigation }) {
             : groups.filter((group) =>
                   group.name.toLowerCase().includes(search.toLowerCase()),
               );
+    if(loading)
+    return (
+        <SafeAreaView style={styles.container}>
+        <Text style={styles.header}>Groups</Text>
+            <>
+                <View
+                    style={{
+                        alignItems: 'center',
+                        marginTop: calcHeight(2),
+                        marginBottom: calcHeight(4),
+                    }}
+                >
+                    <Search search={search} setSearch={setSearch} loading />
+                </View>
+                <FlatList
+                    data={[{},{},{}]}
+                    renderItem={({ item }) => <GroupCard group={item} loading />}
+                    onScroll={() => {
+                        Keyboard.dismiss();
+                    }}
+                />
+            </>
+            <FabIcon
+                onPress={() => {
+                    {
+                        navigation.navigate(PAGES.CREATE_GROUP);
+                    }
+                }}
+                loading
+            />
+    </SafeAreaView>
+);
 
-    return loading ? (
-        <Loader />
-    ) : (
+    return  (
         <SafeAreaView style={styles.container}>
             <Text style={styles.header}>Groups</Text>
             {groups && groups.length == 0 ? (

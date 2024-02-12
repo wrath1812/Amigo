@@ -9,7 +9,21 @@ import GroupIcon from './GroupIcon';
 import { useGroup } from '../context/GroupContext';
 import getMembersString from '../utility/getMembersString';
 import sliceText from '../helper/sliceText';
-function GroupCard({ group }) {
+function GroupCard({ group,loading }) {
+    if(loading)
+    return (
+<View
+            style={styles.container}
+        >
+            <GroupIcon/>
+            <View style={styles.textContainer}>
+                <Text style={[styles.nameText,{ backgroundColor: COLOR.SKELETON_MASK_COLOR, width: calcWidth(30), borderRadius: 10 }]}></Text>
+                <Text style={[styles.memberText,{ backgroundColor: COLOR.SKELETON_MASK_COLOR, width: calcWidth(50), borderRadius: 10 }]}>
+                </Text>
+            </View>
+        </View>
+
+    );
     const navigation = useNavigation();
     const { setGroup } = useGroup();
     return (
