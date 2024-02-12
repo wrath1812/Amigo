@@ -34,7 +34,7 @@ function BalanceScreen({ navigation }) {
     useFocusEffect(
         useCallback(() => {
             (async () => {
-                if (!balances) setLoading(true);
+                if (!balance) setLoading(true);
                 const { data } = await apiHelper('/balance');
                 const { groups, userTotalBalance } =
                     await groupBalancesAndCalculateTotal(data, user._id);
