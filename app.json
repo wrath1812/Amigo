@@ -15,7 +15,7 @@
         "assetBundlePatterns": ["**/*"],
         "ios": {
             "bundleIdentifier": "com.splitcash.splitcash",
-            "buildNumber": "33",
+            "buildNumber": "34",
             "infoPlist": {
                 "LSApplicationQueriesSchemes": ["tez", "phonepe", "paytmmp", "amazonpay", "bhim", "upi"]
               }
