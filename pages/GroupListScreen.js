@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import {
     Text,
     StyleSheet,
@@ -30,7 +30,6 @@ function GroupListScreen({ navigation }) {
     useFocusEffect(
         useCallback(() => {
             (async () => {
-                if (!groups) setLoading(true);
                 const { data } = await apiHelper('/group');
                 for (let group of data)
                     group.members = await editNamesAsync(
@@ -43,6 +42,10 @@ function GroupListScreen({ navigation }) {
             })();
         }, []),
     );
+
+    useEffect(()=>{
+        setLoading(true);
+    },[])
 
     const filterGroups = () =>
         search === ''

@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import {
     StyleSheet,
     SafeAreaView,
@@ -34,7 +34,6 @@ function BalanceScreen({ navigation }) {
     useFocusEffect(
         useCallback(() => {
             (async () => {
-                if (!balance) setLoading(true);
                 const { data } = await apiHelper('/balance');
                 const { groups, userTotalBalance } =
                     await groupBalancesAndCalculateTotal(data, user._id);
@@ -44,6 +43,10 @@ function BalanceScreen({ navigation }) {
             })();
         }, []),
     );
+
+    useEffect(()=>{
+        setLoading(true);
+    },[])
 
     if(loading)
     return(
