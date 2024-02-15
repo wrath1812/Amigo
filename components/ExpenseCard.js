@@ -25,18 +25,35 @@ import getNamesFromContacts from '../helper/getNamesFromContacts';
 import editNames from '../helper/editNames';
 import { getCategoryIcon } from '../constants/Categories';
 // ExpenseCard Component
-function ExpenseCard({ item,loading }) {
+function ExpenseCard({ item, loading }) {
     if (loading) {
         return (
             <View style={styles.cardContainer}>
                 <View style={styles.cardInnerContainer}>
                     <GroupIcon size={5} />
                     <View style={styles.textContainer}>
-                        <Text style={[styles.descriptionText, { backgroundColor: COLOR.SKELETON_MASK_COLOR, width: calcWidth(30), borderRadius: 10 }]}>
+                        <Text
+                            style={[
+                                styles.descriptionText,
+                                {
+                                    backgroundColor: COLOR.SKELETON_MASK_COLOR,
+                                    width: calcWidth(30),
+                                    borderRadius: 10,
+                                },
+                            ]}
+                        >
                             {/* Adjust the value (10) to your desired border radius */}
                         </Text>
-                        <Text style={[styles.groupText, { backgroundColor: COLOR.SKELETON_MASK_COLOR, width: calcWidth(50), borderRadius: 10 }]}>
-                        </Text>
+                        <Text
+                            style={[
+                                styles.groupText,
+                                {
+                                    backgroundColor: COLOR.SKELETON_MASK_COLOR,
+                                    width: calcWidth(50),
+                                    borderRadius: 10,
+                                },
+                            ]}
+                        ></Text>
                         <Text style={[styles.dateText, { opacity: 0 }]}>
                             Ramdom
                         </Text>
@@ -45,7 +62,7 @@ function ExpenseCard({ item,loading }) {
             </View>
         );
     }
-    
+
     const navigation = useNavigation();
     const { user } = useAuth();
 
@@ -64,18 +81,16 @@ function ExpenseCard({ item,loading }) {
     return (
         <Pressable style={styles.cardContainer} onPress={onClick}>
             <View style={styles.cardInnerContainer}>
-                <GroupIcon size={5} 
-                groupId={item?.group?._id} 
-                />
+                <GroupIcon size={5} groupId={item?.group?._id} />
                 <View style={styles.textContainer}>
                     <Text style={styles.descriptionText}>
                         {sliceText(item.description, 20)}
                     </Text>
                     <Text style={styles.groupText}>
-                        {sliceText(item.category, 25)} {getCategoryIcon(item.category)}
+                        {sliceText(item.category, 25)}{' '}
+                        {getCategoryIcon(item.category)}
                     </Text>
-                    
-                   
+
                     <Text style={styles.dateText}>
                         {convertISODateToCustomFormat(item.date)}
                     </Text>
@@ -115,7 +130,7 @@ const styles = StyleSheet.create({
         fontSize: getFontSizeByWindowWidth(15),
     },
     groupText: {
-        color: 'white'
+        color: 'white',
     },
     dateText: {
         color: 'white',
@@ -124,6 +139,6 @@ const styles = StyleSheet.create({
     amountText: {
         color: 'white',
         fontSize: getFontSizeByWindowWidth(15),
-        fontWeight:"bold"
+        fontWeight: 'bold',
     },
 });

@@ -7,7 +7,7 @@ import {
     Image,
     Pressable,
     Text,
-    Alert
+    Alert,
 } from 'react-native';
 import * as BarCodeScanner from 'expo-barcode-scanner';
 import CameraScanner from '../components/CameraScanner';
@@ -20,7 +20,7 @@ const QRCodeScanner = ({ navigation }) => {
     const [hasPermission, setHasPermission] = useState(null);
     const [isLit, setIsLit] = useState(false);
     const { setUpiParams } = useTransaction();
-    const [barcodeScanEnabled,setBarcodeScanEnabled]=useState(true);
+    const [barcodeScanEnabled, setBarcodeScanEnabled] = useState(true);
     useEffect(() => {
         const checkCameraPermission = async () => {
             const { status } = await BarCodeScanner.getPermissionsAsync();
@@ -63,8 +63,7 @@ const QRCodeScanner = ({ navigation }) => {
     };
 
     const handleBarCodeScanned = ({ data }) => {
-        if(!barcodeScanEnabled)
-        return;
+        if (!barcodeScanEnabled) return;
         try {
             const url = new URL(data);
 
@@ -87,7 +86,7 @@ const QRCodeScanner = ({ navigation }) => {
                 Alert.alert('Not a valid UPI URL', null, [
                     {
                         text: 'OK',
-                        onPress: () =>  setBarcodeScanEnabled(true),
+                        onPress: () => setBarcodeScanEnabled(true),
                     },
                 ]);
                 return;

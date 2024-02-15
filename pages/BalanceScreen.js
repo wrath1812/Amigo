@@ -44,87 +44,89 @@ function BalanceScreen({ navigation }) {
         }, []),
     );
 
-    useEffect(()=>{
+    useEffect(() => {
         setLoading(true);
-    },[])
+    }, []);
 
-    if(loading)
-    return(
-        <SafeAreaView style={styles.container}>
-            <View
-                style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    alignItems: 'center',
-                    margin: calcWidth(headerIconSize),
-                }}
-            >
-                <Pressable onPress={() => navigation.navigate(PAGES.SCANNER)}>
-                    <Image
-                        source={ScanIcon}
-                        style={{
-                            width: calcWidth(headerIconSize),
-                            height: calcWidth(headerIconSize),
-                        }}
-                    />
-                </Pressable>
+    if (loading)
+        return (
+            <SafeAreaView style={styles.container}>
                 <View
                     style={{
                         flexDirection: 'row',
                         justifyContent: 'space-between',
+                        alignItems: 'center',
+                        margin: calcWidth(headerIconSize),
                     }}
                 >
                     <Pressable
-                        onPress={() => {
-                            navigation.navigate(PAGES.ACCOUNT);
+                        onPress={() => navigation.navigate(PAGES.SCANNER)}
+                    >
+                        <Image
+                            source={ScanIcon}
+                            style={{
+                                width: calcWidth(headerIconSize),
+                                height: calcWidth(headerIconSize),
+                            }}
+                        />
+                    </Pressable>
+                    <View
+                        style={{
+                            flexDirection: 'row',
+                            justifyContent: 'space-between',
                         }}
                     >
-                        <UserAvatar user={user} size={4} />
-                    </Pressable>
+                        <Pressable
+                            onPress={() => {
+                                navigation.navigate(PAGES.ACCOUNT);
+                            }}
+                        >
+                            <UserAvatar user={user} size={4} />
+                        </Pressable>
+                    </View>
                 </View>
-            </View>
-            <View
-                style={{
-                    padding: calcWidth(2),
-                }}
-            >
                 <View
                     style={{
-                        flexDirection: 'row',
-                        backgroundColor: COLOR.SKELETON_MASK_COLOR,
-                        padding: calcHeight(2),
-                        borderRadius: 10,
-                        justifyContent: 'space-between',
-                        marginTop: calcHeight(1),
+                        padding: calcWidth(2),
                     }}
                 >
-                    <Text
+                    <View
                         style={{
-                            color: COLOR.TEXT,
-                            fontWeight: 'bold',
+                            flexDirection: 'row',
+                            backgroundColor: COLOR.SKELETON_MASK_COLOR,
+                            padding: calcHeight(2),
+                            borderRadius: 10,
+                            justifyContent: 'space-between',
+                            marginTop: calcHeight(1),
                         }}
                     >
-                    </Text>
-                    <Text
-                        style={{
-                            color: COLOR.TEXT,
-                            fontWeight: 'bold',
-                        }}
-                    >
-                    </Text>
+                        <Text
+                            style={{
+                                color: COLOR.TEXT,
+                                fontWeight: 'bold',
+                            }}
+                        ></Text>
+                        <Text
+                            style={{
+                                color: COLOR.TEXT,
+                                fontWeight: 'bold',
+                            }}
+                        ></Text>
+                    </View>
                 </View>
-            </View>
                 <FlatList
-                    data={[{},{},{}]}
-                    renderItem={({ item }) => <GroupBalanceCard group={item} loading/>}
+                    data={[{}, {}, {}]}
+                    renderItem={({ item }) => (
+                        <GroupBalanceCard group={item} loading />
+                    )}
                     style={{
                         marginTop: calcHeight(5),
                     }}
                 />
-        </SafeAreaView>
-    )
+            </SafeAreaView>
+        );
 
-    return  (
+    return (
         <SafeAreaView style={styles.container}>
             <View
                 style={{

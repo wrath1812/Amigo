@@ -1,5 +1,5 @@
 // 1. Import Statements
-import React, { useState, useRef,useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import {
     SafeAreaView,
     View,
@@ -8,7 +8,7 @@ import {
     TextInput,
     Pressable,
     KeyboardAvoidingView,
-    Keyboard
+    Keyboard,
 } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import GroupIcon from '../components/GroupIcon';
@@ -20,8 +20,8 @@ import apiHelper from '../helper/apiHelper';
 import Loader from '../components/Loader';
 import UserAvatar from '../components/UserAvatar';
 import Toast from 'react-native-root-toast';
-import sliceText from "../helper/sliceText";
-import AmountInput from "../components/AmountInput";
+import sliceText from '../helper/sliceText';
+import AmountInput from '../components/AmountInput';
 import useKeyboardHeight from '../hooks/useKeyboardHeight';
 
 // GroupScreen Component
@@ -68,13 +68,19 @@ function GroupScreen({
                         style={{
                             color: COLOR.TEXT,
                             fontWeight: 'bold',
-                            marginTop:calcHeight(2)
+                            marginTop: calcHeight(2),
                         }}
                     >
-                        {sliceText(payment.from.name,10)}
+                        {sliceText(payment.from.name, 10)}
                     </Text>
                 </View>
-                <View style={{...styles.headerItem,justifyContent:"flex-end",marginTop:calcHeight(1.7)}}>
+                <View
+                    style={{
+                        ...styles.headerItem,
+                        justifyContent: 'flex-end',
+                        marginTop: calcHeight(1.7),
+                    }}
+                >
                     <Text
                         style={{
                             color: '#D9D9D9',
@@ -82,9 +88,14 @@ function GroupScreen({
                     >
                         Paying To
                     </Text>
-                    <AntDesign style={{
-                        marginTop:calcHeight(3)
-                    }}name="arrowright" size={24} color="white" />
+                    <AntDesign
+                        style={{
+                            marginTop: calcHeight(3),
+                        }}
+                        name="arrowright"
+                        size={24}
+                        color="white"
+                    />
                 </View>
                 <View style={styles.headerItem}>
                     <UserAvatar user={payment.to} />
@@ -92,14 +103,18 @@ function GroupScreen({
                         style={{
                             color: COLOR.TEXT,
                             fontWeight: 'bold',
-                            marginTop:calcHeight(2)
+                            marginTop: calcHeight(2),
                         }}
                     >
-                        {sliceText(payment.to.name,10)}
+                        {sliceText(payment.to.name, 10)}
                     </Text>
                 </View>
             </View>
-            <AmountInput amount={amount} handleInputChange={(text) => setAmount(text)} isTextInput/>  
+            <AmountInput
+                amount={amount}
+                handleInputChange={(text) => setAmount(text)}
+                isTextInput
+            />
             <View style={styles.rowCentered}>
                 <Pressable
                     style={styles.descriptionContainer}
@@ -116,19 +131,19 @@ function GroupScreen({
                     />
                 </Pressable>
             </View>
-                <View
-                    style={{
-                        flex: 1,
-                        alignItems: 'center',
-                        justifyContent:"flex-end",
-                        marginBottom: keyboardHeight
-                    }}
-                >
-                    <Button
-                        onPress={submitPayment}
-                        title="Record as  Cash Payment"
-                    />
-                </View>
+            <View
+                style={{
+                    flex: 1,
+                    alignItems: 'center',
+                    justifyContent: 'flex-end',
+                    marginBottom: keyboardHeight,
+                }}
+            >
+                <Button
+                    onPress={submitPayment}
+                    title="Record as  Cash Payment"
+                />
+            </View>
         </SafeAreaView>
     );
 }
@@ -150,7 +165,7 @@ const styles = StyleSheet.create({
     rowCentered: {
         flexDirection: 'row',
         justifyContent: 'center',
-        alignContent: 'center'
+        alignContent: 'center',
     },
     description: {
         flex: 1,
@@ -163,7 +178,7 @@ const styles = StyleSheet.create({
         borderColor: 'gray',
         borderRadius: 5,
         width: calcWidth(30),
-        marginTop:calcHeight(1)
+        marginTop: calcHeight(1),
     },
 });
 

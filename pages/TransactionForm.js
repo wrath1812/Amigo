@@ -149,7 +149,11 @@ function TransactionFormScreen({ navigation }) {
         <Loader />
     ) : (
         <ScrollView style={styles.container}>
-            <AmountInput amount={transactionData.amount} handleInputChange={(text) => handleInputChange('amount', text)} isTextInput />
+            <AmountInput
+                amount={transactionData.amount}
+                handleInputChange={(text) => handleInputChange('amount', text)}
+                isTextInput
+            />
 
             <View style={styles.rowCentered}>
                 <Pressable
@@ -184,18 +188,17 @@ function TransactionFormScreen({ navigation }) {
                             styles.categoryItem,
                             transactionData.type === item.name &&
                                 styles.selectedCategory,
-                                {borderColor:"#4D426C",borderWidth:1,borderRadius:10,marginHorizontal:calcWidth(1)}
+                            {
+                                borderColor: '#4D426C',
+                                borderWidth: 1,
+                                borderRadius: 10,
+                                marginHorizontal: calcWidth(1),
+                            },
                         ]}
                         onPress={() => handleCategorySelect(item.name)}
                     >
                         {item.icon}
-                        <Text
-                            style={[
-                                styles.categoryText
-                            ]}
-                        >
-                            {item.name}
-                        </Text>
+                        <Text style={[styles.categoryText]}>{item.name}</Text>
                     </Pressable>
                 ))}
             </ScrollView>
@@ -204,7 +207,7 @@ function TransactionFormScreen({ navigation }) {
                     <Pressable
                         style={{
                             backgroundColor: '#302B49',
-                            padding:calcWidth(4),
+                            padding: calcWidth(4),
                             borderRadius: 8,
                             flexDirection: 'row',
                             alignItems: 'center',
@@ -295,7 +298,7 @@ function TransactionFormScreen({ navigation }) {
                         </Text>
                     </Pressable>
                 </View>
-             )} 
+            )}
             <View
                 style={{
                     alignItems: 'center',
@@ -322,17 +325,17 @@ const styles = StyleSheet.create({
     },
     rowCentered: {
         flexDirection: 'row',
-        justifyContent: 'center'
+        justifyContent: 'center',
     },
     amount: {
         color: COLOR.TEXT,
         fontSize: getFontSizeByWindowWidth(50),
-        lineHeight:calcHeight(8),
-        fontWeight:"bold"
+        lineHeight: calcHeight(8),
+        fontWeight: 'bold',
     },
     description: {
         flex: 1,
-        color: 'white'
+        color: 'white',
     },
     descriptionContainer: {
         flexDirection: 'row',
@@ -346,7 +349,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         paddingHorizontal: calcWidth(3),
-        paddingVertical:calcHeight(0.5)
+        paddingVertical: calcHeight(0.5),
     },
     categoryText: {
         color: COLOR.TEXT,
@@ -356,7 +359,7 @@ const styles = StyleSheet.create({
     selectedCategory: {
         backgroundColor: '#4D426C', // Highlight color for selected category,
         borderRadius: 10,
-        color:COLOR.TEXT
+        color: COLOR.TEXT,
     },
 });
 

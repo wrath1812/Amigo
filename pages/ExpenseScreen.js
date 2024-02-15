@@ -25,56 +25,65 @@ function ExpenseScreen() {
         user.id,
         setLoading,
     );
-    if (loading) 
-    return (
-<SafeAreaView style={styles.container}>
-            <Text style={styles.header}>Expense Summary</Text>
-            <View
-                style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    margin: calcWidth(5),
-                }}
-            >
-                <View style={styles.selectorContainer}>
-                    <TypeSelector setType={setType} type={type} loading={loading}/>
-                    <DatePickerSelector range={range} setRange={setRange} loading={loading}/>
-                </View>
+    if (loading)
+        return (
+            <SafeAreaView style={styles.container}>
+                <Text style={styles.header}>Expense Summary</Text>
                 <View
                     style={{
                         flexDirection: 'row',
-                        alignItems: 'center',
-                        gap: calcWidth(1),
-                        backgroundColor:COLOR.SKELETON_MASK_COLOR,
-                        borderRadius:10
+                        justifyContent: 'space-between',
+                        margin: calcWidth(5),
                     }}
                 >
-                    <FontAwesome5
-                        name="redo"
-                        size={calcWidth(3)}
-                        color="rgba(255,255,255,0.66)"
+                    <View style={styles.selectorContainer}>
+                        <TypeSelector
+                            setType={setType}
+                            type={type}
+                            loading={loading}
+                        />
+                        <DatePickerSelector
+                            range={range}
+                            setRange={setRange}
+                            loading={loading}
+                        />
+                    </View>
+                    <View
                         style={{
-                             opacity:0
-                        }}
-                    />
-                    <Text
-                        style={{
-                            color: COLOR.TEXT,
-                             opacity:0
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                            gap: calcWidth(1),
+                            backgroundColor: COLOR.SKELETON_MASK_COLOR,
+                            borderRadius: 10,
                         }}
                     >
-                        Reset
-                    </Text>
+                        <FontAwesome5
+                            name="redo"
+                            size={calcWidth(3)}
+                            color="rgba(255,255,255,0.66)"
+                            style={{
+                                opacity: 0,
+                            }}
+                        />
+                        <Text
+                            style={{
+                                color: COLOR.TEXT,
+                                opacity: 0,
+                            }}
+                        >
+                            Reset
+                        </Text>
+                    </View>
                 </View>
-            </View>
-            <FlatList
-                    data={[{},{},{}]}
-                    renderItem={({ item }) => <ExpenseCard item={item} loading/>}
+                <FlatList
+                    data={[{}, {}, {}]}
+                    renderItem={({ item }) => (
+                        <ExpenseCard item={item} loading />
+                    )}
                     style={styles.list}
                 />
             </SafeAreaView>
-
-    );
+        );
     return (
         <SafeAreaView style={styles.container}>
             <Text style={styles.header}>Expense Summary</Text>

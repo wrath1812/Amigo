@@ -25,8 +25,8 @@ const CreateGroup = ({ navigation }) => {
     const { selectedContacts } = useContacts();
     const [groupName, setGroupName] = useState('');
     const [isLoading, setIsLoading] = useState(false);
-    const {setTransactionData}=useTransaction();
-    const {user}=useAuth();
+    const { setTransactionData } = useTransaction();
+    const { user } = useAuth();
     const nameRef = useRef();
 
     const createGroupAsync = async () => {
@@ -35,29 +35,23 @@ const CreateGroup = ({ navigation }) => {
             phoneNumber,
             countryCode: '91',
         }));
-        const {data} = await apiHelper.post('/group', {
+        const { data } = await apiHelper.post('/group', {
             name: groupName,
             phoneNumbers,
         });
         Toast.show(`${groupName} created`, {
             duration: Toast.durations.LONG,
         });
-        if(getPreviousPageName(navigation)==PAGES.SELECT_GROUP)
-        {
-            const { data :groups} = await apiHelper('/group');
-        const group=groups.find(({_id})=>_id==data._id)
-        group.members = await editNamesAsync(
-                        group.members,
-                        user._id,
-                    );
-        setTransactionData((prev)=>({
-            ...prev,group
-        }))
-        navigation.navigate(PAGES.ADD_TRANSACTION);
-
-        }
-        else
-        navigation.goBack();
+        if (getPreviousPageName(navigation) == PAGES.SELECT_GROUP) {
+            const { data: groups } = await apiHelper('/group');
+            const group = groups.find(({ _id }) => _id == data._id);
+            group.members = await editNamesAsync(group.members, user._id);
+            setTransactionData((prev) => ({
+                ...prev,
+                group,
+            }));
+            navigation.navigate(PAGES.ADD_TRANSACTION);
+        } else navigation.goBack();
     };
 
     return (

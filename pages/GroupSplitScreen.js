@@ -313,11 +313,7 @@ const GroupSplitScreen = ({ navigation }) => {
                         borderRadius: 5,
                     }}
                 >
-
-                    <UserAvatar
-                    size={2}
-                    user={transactionData.paidBy}
-                    />
+                    <UserAvatar size={2} user={transactionData.paidBy} />
 
                     <Text
                         style={{

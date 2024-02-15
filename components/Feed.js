@@ -57,36 +57,38 @@ function getDateAndMonth(dateString) {
 function ActivityHeader({ icon, iconName, size, text }) {
     return (
         <View style={styles.header}>
-            <View style={{
-                flexDirection:"row",
-                justifyContent:"center",
-                alignContent:"center",
-                alignItems:"center",
-                gap:calcWidth(2)
-            }}>
             <View
                 style={{
-                    borderWidth: 1,
-                    padding: calcWidth(1),
-                    borderRadius: calcWidth(5),
-                    borderColor: 'white',
+                    flexDirection: 'row',
+                    justifyContent: 'center',
+                    alignContent: 'center',
+                    alignItems: 'center',
+                    gap: calcWidth(2),
                 }}
             >
-                <MaterialIcons
-                    name="call-split"
-                    size={calcWidth(3)}
-                    color="white"
-                />
-            </View>
-            <Text
-                style={{
-                    fontSize: getFontSizeByWindowWidth(10),
-                    color: 'white',
-                    fontWeight: 'bold',
-                }}
-            >
-                Split an expense
-            </Text>
+                <View
+                    style={{
+                        borderWidth: 1,
+                        padding: calcWidth(1),
+                        borderRadius: calcWidth(5),
+                        borderColor: 'white',
+                    }}
+                >
+                    <MaterialIcons
+                        name="call-split"
+                        size={calcWidth(3)}
+                        color="white"
+                    />
+                </View>
+                <Text
+                    style={{
+                        fontSize: getFontSizeByWindowWidth(10),
+                        color: 'white',
+                        fontWeight: 'bold',
+                    }}
+                >
+                    Split an expense
+                </Text>
             </View>
             <Text style={styles.headerText}>
                 {icon &&
@@ -94,7 +96,8 @@ function ActivityHeader({ icon, iconName, size, text }) {
                         name: iconName,
                         size: size,
                         color: 'white',
-                    })}{'    '}
+                    })}
+                {'    '}
                 {text}
             </Text>
         </View>
@@ -146,14 +149,20 @@ function TransactionActivity({ transaction, navigation, createdAt, contacts }) {
                     marginTop: calcHeight(3),
                 }}
             >
-                <View style={{
-                    flexDirection:"row",
-                    gap:calcWidth(2)
-                }}>
-                <EvilIcons name="calendar" size={calcWidth(5)} color="white" />
-                <Text style={styles.description}>
-                    {getDateAndMonth(createdAt)}
-                </Text>
+                <View
+                    style={{
+                        flexDirection: 'row',
+                        gap: calcWidth(2),
+                    }}
+                >
+                    <EvilIcons
+                        name="calendar"
+                        size={calcWidth(5)}
+                        color="white"
+                    />
+                    <Text style={styles.description}>
+                        {getDateAndMonth(createdAt)}
+                    </Text>
                 </View>
                 <Text style={styles.description}>
                     Created By{' '}
@@ -175,9 +184,11 @@ function PaymentActivity({ payment, contacts }) {
         contacts,
     );
     return (
-        <View style={{
-            gap:calcHeight(2)
-        }}>
+        <View
+            style={{
+                gap: calcHeight(2),
+            }}
+        >
             <Text style={styles.description}>
                 {payer.name} paid {receiver.name}
             </Text>
@@ -333,7 +344,7 @@ const styles = StyleSheet.create({
     flexContainer: {
         flexDirection: 'row',
         marginTop: calcHeight(3),
-        marginLeft:calcWidth(2)
+        marginLeft: calcWidth(2),
     },
     createdAt: {
         fontSize: getFontSizeByWindowWidth(12),

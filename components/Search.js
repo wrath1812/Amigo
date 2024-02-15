@@ -3,22 +3,25 @@ import { calcHeight, calcWidth } from '../helper/res';
 import COLOR from '../constants/Colors';
 import { FontAwesome } from '@expo/vector-icons';
 import { useRef } from 'react';
-function Search({ search, setSearch,loading }) {
-    if(loading)
-    return (
-        <View
-        style={[styles.inputContainer,{borderColor: COLOR.SKELETON_MASK_COLOR}]}
-    >
-        <TextInput
-            style={[styles.input,{opacity:0}]}
-            onChangeText={setSearch}
-            value={search}
-            placeholder="Search"
-            placeholderTextColor="gray"
-            ref={searchRef}
-        />
-    </View>
-    );
+function Search({ search, setSearch, loading }) {
+    if (loading)
+        return (
+            <View
+                style={[
+                    styles.inputContainer,
+                    { borderColor: COLOR.SKELETON_MASK_COLOR },
+                ]}
+            >
+                <TextInput
+                    style={[styles.input, { opacity: 0 }]}
+                    onChangeText={setSearch}
+                    value={search}
+                    placeholder="Search"
+                    placeholderTextColor="gray"
+                    ref={searchRef}
+                />
+            </View>
+        );
     const searchRef = useRef();
     return (
         <Pressable

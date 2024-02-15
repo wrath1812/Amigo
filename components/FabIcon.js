@@ -3,17 +3,20 @@ import { StyleSheet, View } from 'react-native';
 import { calcHeight, calcWidth } from '../helper/res';
 import COLOR from '../constants/Colors';
 import plusIconStyle from '../constants/plusIconStyle';
-function FabIcon({ onPress,loading }) {
-    if(loading)
-    return (
-        <View style={styles.fabContainer}>
-            <FAB
-                style={[styles.fab,{backgroundColor:COLOR.SKELETON_MASK_COLOR}]}
-                customSize={calcHeight(9)}
-                color="white"
-            />
-        </View>
-    );
+function FabIcon({ onPress, loading }) {
+    if (loading)
+        return (
+            <View style={styles.fabContainer}>
+                <FAB
+                    style={[
+                        styles.fab,
+                        { backgroundColor: COLOR.SKELETON_MASK_COLOR },
+                    ]}
+                    customSize={calcHeight(9)}
+                    color="white"
+                />
+            </View>
+        );
     return (
         <View style={styles.fabContainer}>
             <FAB

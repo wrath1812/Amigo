@@ -10,7 +10,7 @@ import {
     TouchableOpacity,
     TextInput,
     KeyboardAvoidingView,
-    Image
+    Image,
 } from 'react-native';
 import { Ionicons, AntDesign, SimpleLineIcons } from '@expo/vector-icons';
 import apiHelper from '../helper/apiHelper';
@@ -34,7 +34,7 @@ import { useGroup } from '../context/GroupContext';
 import groupBalancesAndCalculateTotal from '../utility/groupBalancesAndCalculateTotal';
 import getMembersString from '../utility/getMembersString';
 import sliceText from '../helper/sliceText';
-import ScannerIcon from "../assets/icons/scanner.png";
+import ScannerIcon from '../assets/icons/scanner.png';
 
 function isNumber(text) {
     return !isNaN(+text);
@@ -169,11 +169,14 @@ function GroupScreen({ navigation }) {
                         navigation.navigate(PAGES.SCANNER);
                     }}
                 >
-                    <Image source={ScannerIcon} style={{
-                        width:calcHeight(3),
-                        height:calcHeight(3),
-                        marginRight: calcWidth(5),
-                    }}/>
+                    <Image
+                        source={ScannerIcon}
+                        style={{
+                            width: calcHeight(3),
+                            height: calcHeight(3),
+                            marginRight: calcWidth(5),
+                        }}
+                    />
                 </Pressable>
             </Pressable>
             {totalBalance != 0 && (
@@ -289,10 +292,13 @@ function GroupScreen({ navigation }) {
                         <Text style={styles.buttonText}>+ Expense</Text>
                     </TouchableOpacity>
                 ) : (
-                    <TouchableOpacity onPress={addChat} style={{
-                        height: calcHeight(5),
-                        justifyContent: 'center',
-                    }}>
+                    <TouchableOpacity
+                        onPress={addChat}
+                        style={{
+                            height: calcHeight(5),
+                            justifyContent: 'center',
+                        }}
+                    >
                         <AntDesign
                             name="enter"
                             size={calcHeight(4)}

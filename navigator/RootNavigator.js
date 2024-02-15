@@ -11,7 +11,7 @@ import { ContactsProvider } from '../hooks/useContacts';
 function RootNavigator() {
     const { user } = useAuth();
 
-    return(
+    return (
         <ContactsProvider>
             <GroupProvider>
                 <TransactionProvider>

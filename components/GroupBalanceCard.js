@@ -8,30 +8,46 @@ import { useNavigation } from '@react-navigation/native';
 import PAGES from '../constants/pages';
 import GroupIcon from './GroupIcon';
 import sliceText from '../helper/sliceText';
-function GroupBalanceCard({ group,loading }) {
-    if(loading)
-    return( <Pressable
-        onPress={() => {
-            navigation.navigate(PAGES.GROUP_BALANCE, { group });
-        }}
-        style={styles.container}
-    >
-        <View
-            style={{
-                flexDirection: 'row',
-            }}
-        >
-            <GroupIcon />
-            <View style={styles.textContainer}>
-                <Text style={[styles.nameText,{ backgroundColor: COLOR.SKELETON_MASK_COLOR, width: calcWidth(30), borderRadius: 10 }]}>
-                  
-                </Text>
-                <Text style={[styles.memberText,{ backgroundColor: COLOR.SKELETON_MASK_COLOR, width: calcWidth(50), borderRadius: 10 }]}>
-                </Text>
-            </View>
-        </View>
-    </Pressable>
-);
+function GroupBalanceCard({ group, loading }) {
+    if (loading)
+        return (
+            <Pressable
+                onPress={() => {
+                    navigation.navigate(PAGES.GROUP_BALANCE, { group });
+                }}
+                style={styles.container}
+            >
+                <View
+                    style={{
+                        flexDirection: 'row',
+                    }}
+                >
+                    <GroupIcon />
+                    <View style={styles.textContainer}>
+                        <Text
+                            style={[
+                                styles.nameText,
+                                {
+                                    backgroundColor: COLOR.SKELETON_MASK_COLOR,
+                                    width: calcWidth(30),
+                                    borderRadius: 10,
+                                },
+                            ]}
+                        ></Text>
+                        <Text
+                            style={[
+                                styles.memberText,
+                                {
+                                    backgroundColor: COLOR.SKELETON_MASK_COLOR,
+                                    width: calcWidth(50),
+                                    borderRadius: 10,
+                                },
+                            ]}
+                        ></Text>
+                    </View>
+                </View>
+            </Pressable>
+        );
     const navigation = useNavigation();
     return (
         <Pressable

@@ -8,7 +8,7 @@ import {
     FlatList,
     Alert,
     ScrollView,
-    Image
+    Image,
 } from 'react-native';
 import { AntDesign, Entypo } from '@expo/vector-icons';
 import COLOR from '../constants/Colors';
@@ -21,8 +21,8 @@ import SharedList from '../components/SharedList';
 import TransactionNumberOfVisibleNames from '../constants/TransactionNumberOfVisibleNames';
 import TransactionDetailsButton from '../components/TransactionDetailsButton';
 import sliceText from '../helper/sliceText';
-import CalendarIcon from "../assets/icons/calendar.png";
-import AmountInput from "../components/AmountInput";
+import CalendarIcon from '../assets/icons/calendar.png';
+import AmountInput from '../components/AmountInput';
 
 const TransactionDetail = ({
     navigation,
@@ -92,17 +92,20 @@ const TransactionDetail = ({
                 <View
                     style={{
                         alignItems: 'center',
-                            marginTop: calcHeight(5),
+                        marginTop: calcHeight(5),
                     }}
                 >
-                    <AmountInput amount={transaction.amount} isTextInput={false} />
+                    <AmountInput
+                        amount={transaction.amount}
+                        isTextInput={false}
+                    />
                     <Text
                         style={{
                             fontSize: getFontSizeByWindowWidth(15),
                             color: COLOR.TEXT,
                         }}
                     >
-                        {sliceText(transaction.description,40)}
+                        {sliceText(transaction.description, 40)}
                     </Text>
                     <Text
                         style={{
@@ -116,8 +119,8 @@ const TransactionDetail = ({
                         style={{
                             width: '50%',
                             flexDirection: 'row',
-                            justifyContent: "center",
-                            gap:calcWidth(5),
+                            justifyContent: 'center',
+                            gap: calcWidth(5),
                             marginBottom: calcHeight(4),
                         }}
                     >
@@ -127,20 +130,25 @@ const TransactionDetail = ({
                                 flexDirection: 'row',
                                 borderRadius: 10,
                                 paddingVertical: calcWidth(1),
-                                paddingHorizontal:calcWidth(4),
-                                gap:calcWidth(1),
-                                alignItems:"center"
+                                paddingHorizontal: calcWidth(4),
+                                gap: calcWidth(1),
+                                alignItems: 'center',
                             }}
                         >
-                            <Image style={{
-                                width:calcWidth(3),
-                                height:calcWidth(3)
-                            }}
-                            source={CalendarIcon}
+                            <Image
+                                style={{
+                                    width: calcWidth(3),
+                                    height: calcWidth(3),
+                                }}
+                                source={CalendarIcon}
                             />
-                            <Text style={{
-                                fontSize:getFontSizeByWindowWidth(7)
-                            }}>{formatDateToDDMMYYYY(date)}</Text>
+                            <Text
+                                style={{
+                                    fontSize: getFontSizeByWindowWidth(7),
+                                }}
+                            >
+                                {formatDateToDDMMYYYY(date)}
+                            </Text>
                         </View>
                         <View
                             style={{
@@ -148,15 +156,19 @@ const TransactionDetail = ({
                                 flexDirection: 'row',
                                 borderRadius: 10,
                                 paddingVertical: calcWidth(1),
-                                paddingHorizontal:calcWidth(4),
-                                gap:calcWidth(1),
-                                alignItems:"center"
+                                paddingHorizontal: calcWidth(4),
+                                gap: calcWidth(1),
+                                alignItems: 'center',
                             }}
                         >
                             {getCategoryIcon(transaction.type)}
-                            <Text style={{
-                                fontSize:getFontSizeByWindowWidth(7)
-                            }}>{transaction.type}</Text>
+                            <Text
+                                style={{
+                                    fontSize: getFontSizeByWindowWidth(7),
+                                }}
+                            >
+                                {transaction.type}
+                            </Text>
                         </View>
                     </View>
                 </View>
@@ -246,8 +258,8 @@ const styles = StyleSheet.create({
     boxContainer: {
         backgroundColor: COLOR.PAYMENT_BACKGROUND,
         margin: calcWidth(5),
-        borderTopStartRadius:30,
-        borderTopEndRadius:30
+        borderTopStartRadius: 30,
+        borderTopEndRadius: 30,
     },
     centeredView: {
         alignItems: 'center',
@@ -286,7 +298,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         margin: calcWidth(5),
-        marginVertical:calcHeight(3)
+        marginVertical: calcHeight(3),
     },
     circle: {
         width: calcWidth(2),

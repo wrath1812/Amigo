@@ -169,7 +169,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         marginHorizontal: calcHeight(2),
-        marginVertical:calcHeight(0.5),
+        marginVertical: calcHeight(0.5),
         padding: calcHeight(2),
         alignItems: 'center',
         backgroundColor: 'rgba(52, 47, 79, 0.53)',

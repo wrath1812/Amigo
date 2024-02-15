@@ -17,8 +17,15 @@
             "bundleIdentifier": "com.splitcash.splitcash",
             "buildNumber": "36",
             "infoPlist": {
-                "LSApplicationQueriesSchemes": ["tez", "phonepe", "paytmmp", "amazonpay", "bhim", "upi"]
-              }
+                "LSApplicationQueriesSchemes": [
+                    "tez",
+                    "phonepe",
+                    "paytmmp",
+                    "amazonpay",
+                    "bhim",
+                    "upi"
+                ]
+            }
         },
         "android": {
             "adaptiveIcon": {

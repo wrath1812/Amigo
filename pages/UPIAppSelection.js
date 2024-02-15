@@ -20,7 +20,7 @@ const UPIAppSelection = ({ navigation }) => {
     const handleSelectApp = async (appName, generateDeeplink) => {
         const deepLink = generateDeeplink(upiParams);
         try {
-            const canOpenURL=await Linking.canOpenURL(deepLink);
+            const canOpenURL = await Linking.canOpenURL(deepLink);
             console.log(canOpenURL);
             if (canOpenURL) {
                 Linking.openURL(deepLink);

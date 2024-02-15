@@ -20,14 +20,13 @@ const getStartOfMonth = () => {
     return startOfMonth;
 };
 
-const DatePickerSelector = ({ range, setRange,loading }) => {
-    if(loading)
-   return( <View
-                style={styles.buttonContainer}
-            >
-                <Text style={[styles.buttonText,{opacity:0}]}>Date</Text>
+const DatePickerSelector = ({ range, setRange, loading }) => {
+    if (loading)
+        return (
+            <View style={styles.buttonContainer}>
+                <Text style={[styles.buttonText, { opacity: 0 }]}>Date</Text>
             </View>
-   )
+        );
     const [modalState, setModalState] = useState(null);
 
     const onDismiss = () => {

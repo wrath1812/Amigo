@@ -9,14 +9,14 @@ function useKeyboardHeight() {
             'keyboardDidShow',
             ({ endCoordinates }) => {
                 setKeyboardHeight(endCoordinates.height);
-            }
+            },
         );
 
         const keyboardDidHideListener = Keyboard.addListener(
             'keyboardDidHide',
             () => {
                 setKeyboardHeight(0);
-            }
+            },
         );
 
         return () => {

@@ -7,22 +7,25 @@ import {
 } from '@expo/vector-icons';
 import { Image } from 'react-native';
 import { calcWidth, getFontSizeByWindowWidth } from '../helper/res';
-import GeneralIcon from "../assets/icons/categoryIcon/general.png";
-import TransportIcon from "../assets/icons/categoryIcon/transport.png";
-import ShoppingIcon from "../assets/icons/categoryIcon/shopping.png";
-import DinningIcon from "../assets/icons/categoryIcon/dinning.png";
-import UtilitiesIcon from "../assets/icons/categoryIcon/utilities.png";
-import GroceriesIcon from "../assets/icons/categoryIcon/groceries.png"
+import GeneralIcon from '../assets/icons/categoryIcon/general.png';
+import TransportIcon from '../assets/icons/categoryIcon/transport.png';
+import ShoppingIcon from '../assets/icons/categoryIcon/shopping.png';
+import DinningIcon from '../assets/icons/categoryIcon/dinning.png';
+import UtilitiesIcon from '../assets/icons/categoryIcon/utilities.png';
+import GroceriesIcon from '../assets/icons/categoryIcon/groceries.png';
 const size = calcWidth(3);
 
 const createIcon = (source) => (
-      <Image source={source} style={{
-        height: size, 
-        width:size,
-        resizeMode: 'contain',
-      }} />
-  );
-  
+    <Image
+        source={source}
+        style={{
+            height: size,
+            width: size,
+            resizeMode: 'contain',
+        }}
+    />
+);
+
 const categories = [
     {
         name: 'General',
