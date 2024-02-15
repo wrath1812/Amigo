@@ -20,31 +20,20 @@ import GroupCard from '../components/GroupCard';
 import NoGroupsImage from '../assets/NoGroups.png';
 import Search from '../components/Search';
 import editNamesAsync from '../helper/editNamesAsync';
+import { useGroupList } from '../stores/groupList';
 import { useAuth } from '../context/AuthContext';
 function GroupListScreen({ navigation }) {
-    const [groups, setGroups] = useState();
-    const [loading, setLoading] = useState(false);
-    const [search, setSearch] = useState('');
+    const { groups, loading, search, setLoading, setSearch, fetchData ,addLoader} = useGroupList();
     const { user } = useAuth();
 
     useFocusEffect(
         useCallback(() => {
-            (async () => {
-                const { data } = await apiHelper('/group');
-                for (let group of data)
-                    group.members = await editNamesAsync(
-                        group.members,
-                        user._id,
-                    );
-
-                setGroups(data);
-                setLoading(false);
-            })();
+            fetchData(user);
         }, []),
     );
 
     useEffect(()=>{
-        setLoading(true);
+        addLoader();
     },[])
 
     const filterGroups = () =>
