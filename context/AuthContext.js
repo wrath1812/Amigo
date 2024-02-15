@@ -11,19 +11,15 @@ import * as SplashScreen from 'expo-splash-screen';
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-    const [loading, setLoading] = useState(false);
     const [user, setUser] = useState();
 
     useEffect(() => {
         (async () => {
             try {
-                // setLoading(true);
                 const { data } = await apiHelper.get('/user');
-                setLoading(false);
                 setUser(data);
             } catch (e) {
                 logout();
-                setLoading(false);
             }
             await SplashScreen.hideAsync();
         })();
@@ -74,8 +70,6 @@ export const AuthProvider = ({ children }) => {
         <AuthContext.Provider
             value={{
                 user,
-                loading,
-                setLoading,
                 verifyOTP,
                 addName,
                 logout,

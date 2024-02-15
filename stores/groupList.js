@@ -24,4 +24,4 @@ const useGroupStore = create(persist((set) => ({ // Use create instead of create
     getStorage: () => AsyncStorage
   }));
 
-export const useGroupList = useGroupStore; // No need for useStore, just export the store object
+export const useGroupList = useGroupStore; 

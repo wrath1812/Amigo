@@ -9,11 +9,9 @@ import { TransactionProvider } from '../context/TransactionContext';
 import { GroupProvider } from '../context/GroupContext';
 import { ContactsProvider } from '../hooks/useContacts';
 function RootNavigator() {
-    const { user, loading } = useAuth();
+    const { user } = useAuth();
 
-    return loading ? (
-        <Loader />
-    ) : (
+    return(
         <ContactsProvider>
             <GroupProvider>
                 <TransactionProvider>
