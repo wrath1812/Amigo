@@ -19,11 +19,10 @@ import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
 import GroupCard from '../components/GroupCard';
 import NoGroupsImage from '../assets/NoGroups.png';
 import Search from '../components/Search';
-import editNamesAsync from '../helper/editNamesAsync';
 import { useGroupList } from '../stores/groupList';
 import { useAuth } from '../context/AuthContext';
 function GroupListScreen({ navigation }) {
-    const { groups, loading, search, setLoading, setSearch, fetchData ,addLoader} = useGroupList();
+    const { groups, loading, search, setSearch, fetchData } = useGroupList();
     const { user } = useAuth();
 
     useFocusEffect(
@@ -32,8 +31,9 @@ function GroupListScreen({ navigation }) {
         }, []),
     );
 
+
     useEffect(()=>{
-        addLoader();
+            fetchData(user);
     },[])
 
     const filterGroups = () =>

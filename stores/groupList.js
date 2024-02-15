@@ -5,10 +5,13 @@ import editNamesAsync from '../helper/editNamesAsync';
 const useGroupStore = create((set) => ({ // Use create instead of createStore
     groups: [],
     loading: false,
-    addLoader:()=>set({loading:true}),
     search: '',
     setSearch: (search) => set({ search }),
     fetchData: async (user) => {
+        const { groups } = useGroupStore.getState(); 
+        if (groups.length === 0) {
+            set({ loading: true });
+        }
         const { data } = await apiHelper('/group');
         for (let group of data)
             group.members = await editNamesAsync(group.members, user._id);
