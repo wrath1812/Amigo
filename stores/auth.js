@@ -9,6 +9,7 @@ const useAuthStore = create(
     persist(
         (set, get) => ({
             user: null,
+            token:null,
             addName: async (name) => {
                 apiHelper.put('/user', { name });
                 set({ user: { ...get().user, name } });
@@ -38,17 +39,13 @@ const useAuthStore = create(
                 if (data.status) return;
                 const { userData, token } = data;
                 set({ user: userData });
-                setLocalStoreData(TOKEN, token);
+                set({token});
             },
             editUser: async (editedUser) => {
                 set({ user: { ...get().user, ...editedUser } });
                 apiHelper.put('/user', editedUser);
             },
-        }),
-        {
-            name: 'auth',
-            getStorage: () => AsyncStorage,
-            onCreate: async (set) => {
+            fetchUser: async (set) => {
                 try {
                     const { data } = await apiHelper.get('/user');
                     set({ user: data });
@@ -56,7 +53,11 @@ const useAuthStore = create(
                     console.error('Error fetching user data:', e);
                 }
                 await SplashScreen.hideAsync();
-            },
+            }
+        }),
+        {
+            name: 'auth',
+            getStorage: () => AsyncStorage,
         },
     ),
 );
