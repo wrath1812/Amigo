@@ -1,63 +1,11 @@
-import React, { useEffect, useRef } from 'react';
-import { SafeAreaView, View, StyleSheet, Animated, Easing } from 'react-native';
-
-import highResolutionIcon from '../assets/icon.png';
+import React from 'react';
+import { SafeAreaView, Image, StyleSheet } from 'react-native';
+import SplashImage from "../assets/splash.png";
 
 function Loader() {
-    const spinValue = useRef(new Animated.Value(0)).current;
-    const scaleValue = useRef(new Animated.Value(0.1)).current;
-
-    useEffect(() => {
-        const spinAnimation = Animated.timing(spinValue, {
-            toValue: 1,
-            duration: 800, // Adjust the duration as needed
-            easing: Easing.linear,
-            useNativeDriver: true,
-        });
-
-        const scaleAnimation = Animated.timing(scaleValue, {
-            toValue: 1,
-            duration: 800, // Adjust the duration as needed
-            easing: Easing.linear,
-            useNativeDriver: true,
-        });
-
-        // Combine the animations
-        const combinedAnimation = Animated.parallel([
-            spinAnimation,
-            scaleAnimation,
-        ]);
-
-        Animated.loop(combinedAnimation).start();
-
-        // Add any additional logic or actions you need to perform here
-        // For example, you can navigate to another screen after the animation finishes
-        setTimeout(() => {
-            // Navigate to another screen or perform other actions
-        }, 1000); // Adjust the duration as needed
-    }, [spinValue, scaleValue]);
-
-    const spin = spinValue.interpolate({
-        inputRange: [0, 1],
-        outputRange: ['0deg', '720deg'],
-    });
-
     return (
         <SafeAreaView style={styles.container}>
-            <View style={styles.animationContainer}>
-                <Animated.Image
-                    source={highResolutionIcon}
-                    style={[
-                        styles.icon,
-                        {
-                            transform: [
-                                { rotate: spin },
-                                { scale: scaleValue },
-                            ],
-                        },
-                    ]}
-                />
-            </View>
+            <Image source={SplashImage} style={styles.image}/>
         </SafeAreaView>
     );
 }
@@ -68,16 +16,11 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
-    animationContainer: {
-        width: 800, // Adjust the size of the container as needed
-        height: 800,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    icon: {
+    image: {
+        flex: 1,
         width: '100%',
         height: '100%',
-        resizeMode: 'contain',
+        resizeMode: 'cover', // or 'contain' depending on your preference
     },
 });
 
