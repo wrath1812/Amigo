@@ -12,8 +12,7 @@ import { useAuth } from '../stores/auth';
 import { useExpense } from '../stores/expense'; // Custom hook for fetching transactions
 import ExpenseCard from '../components/ExpenseCard';
 import DatePickerSelector from '../components/DatePickerSelector'; // Separate component for date picker
-import TypeSelector from '../components/TypeSelector'; // Separate component for type selector
-import Loader from '../components/Loader';
+import TypeSelector from '../components/TypeSelector'; 
 import COLOR from '../constants/Colors';
 import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
 import { FontAwesome5 } from '@expo/vector-icons';

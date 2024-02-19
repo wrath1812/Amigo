@@ -23,6 +23,7 @@ import TransactionDetailsButton from '../components/TransactionDetailsButton';
 import sliceText from '../helper/sliceText';
 import CalendarIcon from '../assets/icons/calendar.png';
 import AmountInput from '../components/AmountInput';
+import { useExpense } from '../stores/expense';
 
 const TransactionDetail = ({
     navigation,
@@ -32,6 +33,7 @@ const TransactionDetail = ({
 }) => {
     const [date, setDate] = useState(new Date(transaction.date));
     const [expandNames, setExpandNames] = useState(false);
+    const {deleteExpenseById}=useExpense();
 
     const generateColor = useCustomColor();
 
@@ -49,10 +51,8 @@ const TransactionDetail = ({
                     text: 'Delete',
                     onPress: async () => {
                         try {
-                            await apiHelper.delete(
-                                `transaction/${transaction._id}`,
-                            );
                             navigation.goBack();
+                            deleteExpenseById(transaction._id);
                         } catch (error) {
                             // Handle errors
                             console.log(

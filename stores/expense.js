@@ -10,6 +10,7 @@ const useExpenseStore = create(persist((set, get) => ({
     },
     loading: false,
     type: undefined,
+    backendSynched:true,
     resetParams: () => {
         set({
             range: { startDate: undefined, endDate: undefined },
@@ -17,7 +18,9 @@ const useExpenseStore = create(persist((set, get) => ({
         });
     },
     fetchExpense: async () => {
-        const { range, type } = get();
+        const { range, type,backendSynched } = get();
+        if(!backendSynched)
+        return;
         try {
             const { expense } = useExpenseStore.getState();
             if (expense.length === 0) set({ loading: true });
@@ -37,6 +40,20 @@ const useExpenseStore = create(persist((set, get) => ({
             setLoading(false);
         }
     },
+    deleteExpenseById: async (expenseId) => {
+        try {
+            set((state) => ({
+                expense: state.expense.filter((item) => item.id !== expenseId),
+                backendSynched:false
+            }));
+            await apiHelper.delete(
+                `transaction/${expenseId}`,
+            );
+            set({ backendSynched:true });
+        } catch (error) {
+            console.error(error);
+        }
+    }
 }), {
     name: 'expense',
     getStorage: () => AsyncStorage,
