@@ -120,7 +120,6 @@ function GroupScreen({ navigation }) {
         });
     }
 
-
     return (
         <SafeAreaView style={styles.container}>
             <Pressable

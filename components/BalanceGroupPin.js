@@ -16,78 +16,80 @@ const BalanceGroupPin = ({ totalBalance, balances }) => {
         });
     };
 
-    return totalBalance &&(
-        <Pressable style={styles.container} onPress={handlePress}>
-            <View style={styles.arrowContainer}>
-                <View
-                    style={[
-                        styles.arrowPadding,
-                        {
-                            backgroundColor:
-                                totalBalance > 0
-                                    ? COLOR.BALANCE_ARROW_PADDING_POSITIVE_COLOR
-                                    : COLOR.BALANCE_ARROW_PADDING_NEGATIVE_COLOR,
-                        },
-                    ]}
-                >
-                    <BalanceArrow totalBalance={totalBalance} />
-                </View>
-            </View>
-
-            <View style={styles.balanceInfo}>
-                <View style={styles.balanceInfoLeft}>
+    return (
+        totalBalance && (
+            <Pressable style={styles.container} onPress={handlePress}>
+                <View style={styles.arrowContainer}>
                     <View
                         style={[
-                            styles.indicator,
+                            styles.arrowPadding,
                             {
                                 backgroundColor:
                                     totalBalance > 0
-                                        ? COLOR.BALANCE_PIN
-                                        : 'red',
+                                        ? COLOR.BALANCE_ARROW_PADDING_POSITIVE_COLOR
+                                        : COLOR.BALANCE_ARROW_PADDING_NEGATIVE_COLOR,
                             },
                         ]}
-                    />
-                    <View
-                        style={{
-                            gap: calcHeight(0.5),
-                        }}
                     >
-                        <Text
-                            style={{
-                                color: COLOR.TEXT,
-                                fontSize: getFontSizeByWindowWidth(10),
-                            }}
-                        >
-                            Split expense summary
-                        </Text>
-                        <Text style={styles.balanceText}>
-                            Total{' '}
-                            {totalBalance < 0 ? 'you owe' : 'you get back'}{' '}
-                            <Text
-                                style={{
-                                    color:
-                                        totalBalance > 0
-                                            ? COLOR.BALANCE_POSITIVE_COLOR
-                                            : COLOR.BALANCE_NEGATIVE_COLOR,
-                                }}
-                            >
-                                {' '}
-                                ₹{Math.abs(totalBalance)}
-                            </Text>
-                        </Text>
+                        <BalanceArrow totalBalance={totalBalance} />
                     </View>
                 </View>
-                <Text
-                    style={{
-                        color: COLOR.BUTTON,
-                        fontSize: getFontSizeByWindowWidth(10),
-                        fontWeight: 'bold',
-                    }}
-                >
-                    View and settle
-                </Text>
-            </View>
-        </Pressable>
+
+                <View style={styles.balanceInfo}>
+                    <View style={styles.balanceInfoLeft}>
+                        <View
+                            style={[
+                                styles.indicator,
+                                {
+                                    backgroundColor:
+                                        totalBalance > 0
+                                            ? COLOR.BALANCE_PIN
+                                            : 'red',
+                                },
+                            ]}
+                        />
+                        <View
+                            style={{
+                                gap: calcHeight(0.5),
+                            }}
+                        >
+                            <Text
+                                style={{
+                                    color: COLOR.TEXT,
+                                    fontSize: getFontSizeByWindowWidth(10),
+                                }}
+                            >
+                                Split expense summary
+                            </Text>
+                            <Text style={styles.balanceText}>
+                                Total{' '}
+                                {totalBalance < 0 ? 'you owe' : 'you get back'}{' '}
+                                <Text
+                                    style={{
+                                        color:
+                                            totalBalance > 0
+                                                ? COLOR.BALANCE_POSITIVE_COLOR
+                                                : COLOR.BALANCE_NEGATIVE_COLOR,
+                                    }}
+                                >
+                                    {' '}
+                                    ₹{Math.abs(totalBalance)}
+                                </Text>
+                            </Text>
+                        </View>
+                    </View>
+                    <Text
+                        style={{
+                            color: COLOR.BUTTON,
+                            fontSize: getFontSizeByWindowWidth(10),
+                            fontWeight: 'bold',
+                        }}
+                    >
+                        View and settle
+                    </Text>
+                </View>
+            </Pressable>
+        )
     );
 };
 
