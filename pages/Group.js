@@ -70,7 +70,7 @@ function GroupScreen({ navigation }) {
     }, [group]);
 
     const fetchActivity = useCallback(async (activity) => {
-        if (activity.creator._id == user._id) return;
+        if (activity.creator == user._id) return;
         editNames([activity.creator], user._id, contacts);
         setActivities((prev) => [activity, ...prev]);
     }, []);
@@ -120,9 +120,6 @@ function GroupScreen({ navigation }) {
         });
     }
 
-    if (isLoading) {
-        return <Loader />;
-    }
 
     return (
         <SafeAreaView style={styles.container}>
