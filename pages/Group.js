@@ -28,13 +28,13 @@ import { useAuth } from '../stores/auth';
 import getNamesFromContacts from '../helper/getNamesFromContacts';
 import Feed from '../components/Feed';
 import useSocket from '../hooks/useSocket';
-import { Feather } from '@expo/vector-icons';
 import editNames from '../helper/editNames';
 import { useGroup } from '../context/GroupContext';
 import groupBalancesAndCalculateTotal from '../utility/groupBalancesAndCalculateTotal';
 import getMembersString from '../utility/getMembersString';
 import sliceText from '../helper/sliceText';
 import ScannerIcon from '../assets/icons/scanner.png';
+import BalanceGroupPin from '../components/BalanceGroupPin';
 
 function isNumber(text) {
     return !isNaN(+text);
@@ -179,60 +179,8 @@ function GroupScreen({ navigation }) {
                     />
                 </Pressable>
             </Pressable>
-            {totalBalance != 0 && (
-                <Pressable
-                    style={styles.balanceInfo}
-                    onPress={() => {
-                        navigation.navigate(PAGES.GROUP_BALANCE, {
-                            group: balances,
-                        });
-                    }}
-                >
-                    <View style={styles.balanceInfoLeft}>
-                        <View
-                            style={[
-                                styles.indicator,
-                                {
-                                    backgroundColor:
-                                        totalBalance > 0 ? '#00C83D' : 'red',
-                                },
-                            ]}
-                        />
-                        <View style={styles.balanceTextContainer}>
-                            <Text style={styles.balanceText}>
-                                Total Split Balance
-                            </Text>
-                            <Text style={styles.subBalanceText}>
-                                {totalBalance < 0 ? 'you owe' : 'you get back'}
-                            </Text>
-                        </View>
-                    </View>
-                    <View style={styles.balanceAmountContainer}>
-                        <Text style={styles.balanceAmount}>
-                            ₹{Math.abs(totalBalance)}
-                        </Text>
-                        <View
-                            style={[
-                                styles.arrowIconContainer,
-                                {
-                                    backgroundColor:
-                                        totalBalance > 0 ? '#00C83D' : 'red',
-                                },
-                            ]}
-                        >
-                            <Feather
-                                name={
-                                    totalBalance > 0
-                                        ? 'arrow-up-right'
-                                        : 'arrow-down-left'
-                                }
-                                size={calcWidth(2)}
-                                color="white"
-                            />
-                        </View>
-                    </View>
-                </Pressable>
-            )}
+            
+            <BalanceGroupPin totalBalance={totalBalance}/>
             <FlatList
                 inverted
                 data={activities}
