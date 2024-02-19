@@ -1,4 +1,4 @@
-import {create} from 'zustand';
+import { create } from 'zustand';
 import apiHelper from '../helper/apiHelper';
 
 const useExpenseStore = create((set, get) => ({
@@ -7,27 +7,29 @@ const useExpenseStore = create((set, get) => ({
         startDate: undefined,
         endDate: undefined,
     },
-    loading:false,
+    loading: false,
     type: undefined,
     resetParams: () => {
-        set({ range: { startDate: undefined, endDate: undefined }, type: undefined });
+        set({
+            range: { startDate: undefined, endDate: undefined },
+            type: undefined,
+        });
     },
     fetchExpense: async () => {
         const { range, type } = get();
         try {
             const { expense } = useExpenseStore.getState();
-            if(expense.length===0)
-            set({ loading:true });
+            if (expense.length === 0) set({ loading: true });
             const filter = {
                 startDate: range.startDate,
                 endDate: range.endDate,
-                type: Array.isArray(type) ? type : [type], 
+                type: Array.isArray(type) ? type : [type],
             };
 
             const { data } = await apiHelper('/transaction/expenses', {
                 params: filter,
             });
-            set({ expense: data,loading:false });
+            set({ expense: data, loading: false });
         } catch (error) {
             console.error(error);
         } finally {

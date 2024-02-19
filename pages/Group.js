@@ -36,7 +36,7 @@ import getMembersString from '../utility/getMembersString';
 import sliceText from '../helper/sliceText';
 import ScannerIcon from '../assets/icons/scanner.png';
 import BalanceGroupPin from '../components/BalanceGroupPin';
-import ChatBackground from "../assets/chatBackground.png";
+import ChatBackground from '../assets/chatBackground.png';
 
 function isNumber(text) {
     return !isNaN(+text);
@@ -179,10 +179,6 @@ function GroupScreen({ navigation }) {
             </Pressable>
 
             <BalanceGroupPin totalBalance={totalBalance} balances={balances} />
-            <Image source={ChatBackground} style={{
-                position:"absolute",
-                zIndex:-100
-            }}/>
             <FlatList
                 inverted
                 data={activities}
@@ -257,6 +253,15 @@ function GroupScreen({ navigation }) {
                     </TouchableOpacity>
                 )}
             </KeyboardAvoidingView>
+            <Image
+                source={ChatBackground}
+                style={{
+                    position: 'absolute',
+                    zIndex: -100,
+                    height:calcHeight(85),
+                    bottom:0
+                }}
+            />
         </SafeAreaView>
     );
 }
