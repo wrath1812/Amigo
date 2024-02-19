@@ -11,6 +11,7 @@ import {
     TextInput,
     KeyboardAvoidingView,
     Image,
+    ImageBackground,
 } from 'react-native';
 import { Ionicons, AntDesign, SimpleLineIcons } from '@expo/vector-icons';
 import apiHelper from '../helper/apiHelper';
@@ -35,6 +36,7 @@ import getMembersString from '../utility/getMembersString';
 import sliceText from '../helper/sliceText';
 import ScannerIcon from '../assets/icons/scanner.png';
 import BalanceGroupPin from '../components/BalanceGroupPin';
+import ChatBackground from "../assets/chatBackground.png";
 
 function isNumber(text) {
     return !isNaN(+text);
@@ -177,6 +179,7 @@ function GroupScreen({ navigation }) {
             </Pressable>
 
             <BalanceGroupPin totalBalance={totalBalance} balances={balances} />
+            <ImageBackground source={ChatBackground}>
             <FlatList
                 inverted
                 data={activities}
@@ -188,6 +191,7 @@ function GroupScreen({ navigation }) {
                     height: calcHeight(totalBalance != 0 ? 65 : 70),
                 }}
             />
+            </ImageBackground>
             <KeyboardAvoidingView
                 style={{
                     flex: 1,
@@ -264,9 +268,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-    },
-    groupNameContainer: {
-        // marginLeft: calcWidth(5),
     },
     groupName: {
         color: 'white',
