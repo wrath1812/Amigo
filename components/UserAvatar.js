@@ -24,7 +24,7 @@ function UserAvar({ user: { name, _id }, size = selectorSize }) {
                     fontSize: getFontSizeByWindowWidth(size * 2.5),
                 }}
             >
-                {name.charAt(0).toUpperCase()}
+                {name && name.charAt(0).toUpperCase()}
             </Text>
         </View>
     );

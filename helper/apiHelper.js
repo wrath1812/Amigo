@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { API_URL } from '@env';
-import {getToken} from "../stores/auth";
+import { getToken } from '../stores/auth';
 
 const config = {
     baseURL: API_URL,
@@ -14,8 +14,7 @@ request.interceptors.request.use(
     async (reqConfig) => {
         const reqHeader = { ...reqConfig };
         let token;
-        if(getToken)
-        token=getToken();
+        if (getToken) token = getToken();
         if (token) {
             reqHeader.headers = {
                 ...reqConfig.headers,

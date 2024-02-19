@@ -8,7 +8,7 @@ const useAuthStore = create(
     persist(
         (set, get) => ({
             user: null,
-            token:null,
+            token: null,
             addName: async (name) => {
                 apiHelper.put('/user', { name });
                 set({ user: { ...get().user, name } });
@@ -26,19 +26,19 @@ const useAuthStore = create(
                     otp,
                 });
                 if (user) {
-                    set({ 
+                    set({
                         user: {
                             ...get().user,
                             phoneNumber,
                             countryCode,
-                        } 
+                        },
                     });
                     return;
                 }
                 if (data.status) return;
                 const { userData, token } = data;
                 set({ user: userData });
-                set({token});
+                set({ token });
             },
             editUser: async (editedUser) => {
                 set({ user: { ...get().user, ...editedUser } });
@@ -52,7 +52,7 @@ const useAuthStore = create(
                     console.error('Error fetching user data:', e);
                 }
                 await SplashScreen.hideAsync();
-            }
+            },
         }),
         {
             name: 'auth',

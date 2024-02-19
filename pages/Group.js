@@ -179,8 +179,8 @@ function GroupScreen({ navigation }) {
                     />
                 </Pressable>
             </Pressable>
-            
-            <BalanceGroupPin totalBalance={totalBalance}/>
+
+            <BalanceGroupPin totalBalance={totalBalance} balances={balances} />
             <FlatList
                 inverted
                 data={activities}
@@ -306,7 +306,7 @@ const styles = StyleSheet.create({
         borderRadius: 10,
         color: 'white',
         fontSize: getFontSizeByWindowWidth(10),
-    }
+    },
 });
 
 // 9. Export Statement

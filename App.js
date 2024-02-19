@@ -6,7 +6,7 @@ function App() {
     return (
         <SafeAreaProvider>
             <StatusBar style="auto" />
-                <RootNavigator />
+            <RootNavigator />
         </SafeAreaProvider>
     );
 }
