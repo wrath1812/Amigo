@@ -1,15 +1,7 @@
 import React, { useState, useCallback } from 'react';
-import {
-    StyleSheet,
-    SafeAreaView,
-    View,
-    Text,
-    FlatList,
-    TouchableOpacity,
-    Image,
-} from 'react-native';
+import { StyleSheet, SafeAreaView, View, Text, FlatList, TouchableOpacity, Image } from 'react-native';
 import { useAuth } from '../stores/auth';
-import { useExpense } from '../hooks/useExpense'; // Custom hook for fetching transactions
+import { useExpense } from "../stores/expense"; // Custom hook for fetching transactions
 import ExpenseCard from '../components/ExpenseCard';
 import DatePickerSelector from '../components/DatePickerSelector'; // Separate component for date picker
 import TypeSelector from '../components/TypeSelector'; // Separate component for type selector
@@ -17,122 +9,53 @@ import Loader from '../components/Loader';
 import COLOR from '../constants/Colors';
 import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
 import { FontAwesome5 } from '@expo/vector-icons';
+import { useFocusEffect } from '@react-navigation/native'; // Import useFocusEffect from React Navigation
 
 function ExpenseScreen() {
-    const [loading, setLoading] = useState(false);
-    const { user } = useAuth();
-    const { expense, range, setRange, type, setType, resetParams } = useExpense(
-        user.id,
-        setLoading,
+    const { expense, range, setRange, type, setType, resetParams, fetchExpense ,loading} = useExpense();
+
+    useFocusEffect(
+        useCallback(() => {
+            fetchExpense();
+        }, []),
     );
+
     if (loading)
         return (
             <SafeAreaView style={styles.container}>
                 <Text style={styles.header}>Expense Summary</Text>
-                <View
-                    style={{
-                        flexDirection: 'row',
-                        justifyContent: 'space-between',
-                        margin: calcWidth(5),
-                    }}
-                >
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between', margin: calcWidth(5) }}>
                     <View style={styles.selectorContainer}>
-                        <TypeSelector
-                            setType={setType}
-                            type={type}
-                            loading={loading}
-                        />
-                        <DatePickerSelector
-                            range={range}
-                            setRange={setRange}
-                            loading={loading}
-                        />
+                        <TypeSelector setType={setType} type={type} loading={loading} />
+                        <DatePickerSelector range={range} setRange={setRange} loading={loading} />
                     </View>
-                    <View
-                        style={{
-                            flexDirection: 'row',
-                            alignItems: 'center',
-                            gap: calcWidth(1),
-                            backgroundColor: COLOR.SKELETON_MASK_COLOR,
-                            borderRadius: 10,
-                        }}
-                    >
-                        <FontAwesome5
-                            name="redo"
-                            size={calcWidth(3)}
-                            color="rgba(255,255,255,0.66)"
-                            style={{
-                                opacity: 0,
-                            }}
-                        />
-                        <Text
-                            style={{
-                                color: COLOR.TEXT,
-                                opacity: 0,
-                            }}
-                        >
-                            Reset
-                        </Text>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: calcWidth(1), backgroundColor: COLOR.SKELETON_MASK_COLOR, borderRadius: 10 }}>
+                        <FontAwesome5 name="redo" size={calcWidth(3)} color="rgba(255,255,255,0.66)" style={{ opacity: 0 }} />
+                        <Text style={{ color: COLOR.TEXT, opacity: 0 }}>Reset</Text>
                     </View>
                 </View>
-                <FlatList
-                    data={[{}, {}, {}]}
-                    renderItem={({ item }) => (
-                        <ExpenseCard item={item} loading />
-                    )}
-                    style={styles.list}
-                />
+                <FlatList data={[{}, {}, {}]} renderItem={({ item }) => <ExpenseCard item={item} loading />} style={styles.list} />
             </SafeAreaView>
         );
     return (
         <SafeAreaView style={styles.container}>
             <Text style={styles.header}>Expense Summary</Text>
-            <View
-                style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-between',
-                    margin: calcWidth(5),
-                }}
-            >
+            <View style={{ flexDirection: 'row', justifyContent: 'space-between', margin: calcWidth(5) }}>
                 <View style={styles.selectorContainer}>
                     <TypeSelector setType={setType} type={type} />
                     <DatePickerSelector range={range} setRange={setRange} />
                 </View>
-                <TouchableOpacity
-                    onPress={resetParams}
-                    style={{
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        gap: calcWidth(1),
-                    }}
-                >
-                    <FontAwesome5
-                        name="redo"
-                        size={calcWidth(3)}
-                        color="rgba(255,255,255,0.66)"
-                    />
-                    <Text
-                        style={{
-                            color: COLOR.TEXT,
-                        }}
-                    >
-                        Reset
-                    </Text>
+                <TouchableOpacity onPress={resetParams} style={{ flexDirection: 'row', alignItems: 'center', gap: calcWidth(1) }}>
+                    <FontAwesome5 name="redo" size={calcWidth(3)} color="rgba(255,255,255,0.66)" />
+                    <Text style={{ color: COLOR.TEXT }}>Reset</Text>
                 </TouchableOpacity>
             </View>
 
             {expense.length === 0 ? (
-                <Text style={styles.noTransactionsText}>
-                    No Transactions Found
-                </Text>
+                <Text style={styles.noTransactionsText}>No Transactions Found</Text>
             ) : (
-                <FlatList
-                    data={expense}
-                    keyExtractor={(item, index) => item.id || index.toString()}
-                    renderItem={({ item }) => <ExpenseCard item={item} />}
-                    style={styles.list}
-                />
-            )}
+                    <FlatList data={expense} keyExtractor={(item, index) => item.id || index.toString()} renderItem={({ item }) => <ExpenseCard item={item} />} style={styles.list} />
+                )}
         </SafeAreaView>
     );
 }
