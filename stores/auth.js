@@ -62,3 +62,4 @@ const useAuthStore = create(
 );
 
 export const useAuth = useAuthStore;
+export const getToken = () => useAuthStore.getState().token;
