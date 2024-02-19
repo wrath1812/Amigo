@@ -179,7 +179,10 @@ function GroupScreen({ navigation }) {
             </Pressable>
 
             <BalanceGroupPin totalBalance={totalBalance} balances={balances} />
-            <ImageBackground source={ChatBackground}>
+            <Image source={ChatBackground} style={{
+                position:"absolute",
+                zIndex:-100
+            }}/>
             <FlatList
                 inverted
                 data={activities}
@@ -191,7 +194,6 @@ function GroupScreen({ navigation }) {
                     height: calcHeight(totalBalance != 0 ? 65 : 70),
                 }}
             />
-            </ImageBackground>
             <KeyboardAvoidingView
                 style={{
                     flex: 1,
