@@ -1,7 +1,8 @@
 import { create } from 'zustand';
 import apiHelper from '../helper/apiHelper';
-
-const useExpenseStore = create((set, get) => ({
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { persist } from 'zustand/middleware';
+const useExpenseStore = create(persist((set, get) => ({
     expense: [],
     range: {
         startDate: undefined,
@@ -36,6 +37,9 @@ const useExpenseStore = create((set, get) => ({
             setLoading(false);
         }
     },
-}));
+}), {
+    name: 'expense',
+    getStorage: () => AsyncStorage,
+},));
 
 export const useExpense = useExpenseStore;
