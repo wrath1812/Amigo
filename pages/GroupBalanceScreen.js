@@ -12,7 +12,7 @@ import { Ionicons, Feather } from '@expo/vector-icons';
 import GroupIcon from '../components/GroupIcon';
 import COLOR from '../constants/Colors';
 import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../stores/auth';
 import sliceText from '../helper/sliceText';
 import Cross from '../assets/icons/cross.png';
 import UserAvatar from '../components/UserAvatar';

@@ -18,7 +18,7 @@ import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
 import EmptyScreen from '../components/EmptyScreen';
 import NoBalance from '../assets/NoBalance.png';
 import GroupBalanceCard from '../components/GroupBalanceCard';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../stores/auth';
 import ScanIcon from '../assets/icons/scan.png';
 import UserAvatar from '../components/UserAvatar';
 const headerIconSize = calcHeight(1);

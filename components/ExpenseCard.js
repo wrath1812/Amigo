@@ -19,7 +19,7 @@ import COLOR from '../constants/Colors';
 import sliceText from '../helper/sliceText';
 import { useNavigation } from '@react-navigation/native';
 import apiHelper from '../helper/apiHelper';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../stores/auth';
 import PAGES from '../constants/pages';
 import getNamesFromContacts from '../helper/getNamesFromContacts';
 import editNames from '../helper/editNames';

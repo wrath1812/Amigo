@@ -3,7 +3,7 @@ import React from 'react';
 import { Text, View, TouchableOpacity, FlatList } from 'react-native';
 
 import PAGES from '../constants/pages';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../stores/auth';
 import { calcHeight } from '../helper/res';
 
 function Settings({ navigation }) {

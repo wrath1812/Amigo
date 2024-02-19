@@ -21,7 +21,7 @@ import { useTransaction } from '../context/TransactionContext';
 import GroupIcon from '../components/GroupIcon';
 import CreateGroupIcon from '../assets/icons/createGroup.png';
 import getNamesFromContacts from '../helper/getNamesFromContacts';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../stores/auth';
 import editNames from '../helper/editNames';
 import { Octicons } from '@expo/vector-icons';
 function GroupListScreen({ navigation }) {

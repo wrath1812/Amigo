@@ -1,6 +1,6 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../stores/auth';
 import PAGES from '../constants/pages';
 const Stack = createNativeStackNavigator();
 import SignUpScreen from '../pages/SignUpScreen';

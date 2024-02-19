@@ -13,7 +13,7 @@ import COLOR from '../constants/Colors';
 import Button from '../components/Button';
 import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
 import OTPImage from '../assets/OTPImage.png';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../stores/auth';
 import Loader from '../components/Loader';
 import OTPFilled from '../assets/OTPFilled.png';
 import sendOTP from '../helper/sendOTP';

@@ -8,7 +8,7 @@ import {
     TouchableOpacity,
     Image,
 } from 'react-native';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../stores/auth';
 import { useExpense } from '../hooks/useExpense'; // Custom hook for fetching transactions
 import ExpenseCard from '../components/ExpenseCard';
 import DatePickerSelector from '../components/DatePickerSelector'; // Separate component for date picker

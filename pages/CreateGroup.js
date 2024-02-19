@@ -19,7 +19,7 @@ import getPreviousPageName from '../helper/getPreviousPageName';
 import PAGES from '../constants/pages';
 import { useTransaction } from '../context/TransactionContext';
 import editNamesAsync from '../helper/editNamesAsync';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../stores/auth';
 
 const CreateGroup = ({ navigation }) => {
     const { selectedContacts } = useContacts();

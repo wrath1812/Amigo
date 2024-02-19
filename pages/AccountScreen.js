@@ -11,7 +11,7 @@ import {
     Platform,
     Share,
 } from 'react-native';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../stores/auth';
 import COLOR from '../constants/Colors';
 import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
 import SignUpImage from '../assets/SignUp.png';

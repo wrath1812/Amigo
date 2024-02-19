@@ -13,7 +13,7 @@ import COLOR from '../constants/Colors'; // Replace with your actual colors
 import PAGES from '../constants/pages'; // Replace with your actual page constants
 import Button from '../components/Button'; // Replace with your actual button component
 import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res'; // Replace with your actual responsive helpers
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../stores/auth';
 const SignUpScreen = ({ navigation }) => {
     const [name, setName] = useState(''); // State for the name
     const [isNameFocused, setIsNameFocused] = useState(false); // State to handle the focus styling

@@ -20,7 +20,7 @@ import GroupCard from '../components/GroupCard';
 import NoGroupsImage from '../assets/NoGroups.png';
 import Search from '../components/Search';
 import { useGroupList } from '../stores/groupList';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../stores/auth';
 function GroupListScreen({ navigation }) {
     const { groups, loading, search, setSearch, fetchData } = useGroupList();
     const { user } = useAuth();

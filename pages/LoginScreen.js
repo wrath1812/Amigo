@@ -13,7 +13,7 @@ import PAGES from '../constants/pages';
 import Button from '../components/Button';
 import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
 import sendOTP from '../helper/sendOTP';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../stores/auth';
 const CountryCodeInput = ({ countryCode }) => (
     <View style={styles.countryCodeContainer}>
         <Text style={styles.countryCodeText}>{countryCode}</Text>

@@ -2,8 +2,7 @@ import create from 'zustand';
 import { persist } from 'zustand/middleware';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import apiHelper from '../helper/apiHelper';
-import { setLocalStoreData, clearAllLocalStoreData } from '../helper/localStorage';
-import { TOKEN } from '../constants/string';
+import { clearAllLocalStoreData } from '../helper/localStorage';
 import * as SplashScreen from 'expo-splash-screen';
 const useAuthStore = create(
     persist(

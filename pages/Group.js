@@ -24,7 +24,7 @@ import COLOR from '../constants/Colors';
 import { calcHeight, calcWidth } from '../helper/res';
 import { getFontSizeByWindowWidth } from '../helper/res';
 import { useTransaction } from '../context/TransactionContext';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../stores/auth';
 import getNamesFromContacts from '../helper/getNamesFromContacts';
 import Feed from '../components/Feed';
 import useSocket from '../hooks/useSocket';

@@ -21,7 +21,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 import { useTransaction } from '../context/TransactionContext';
 import getPreviousPageName from '../helper/getPreviousPageName';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../stores/auth';
 import Toast from 'react-native-root-toast';
 import AmountInput from '../components/AmountInput';
 function TransactionFormScreen({ navigation }) {

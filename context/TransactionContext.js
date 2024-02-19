@@ -1,7 +1,6 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import apiHelper from '../helper/apiHelper';
 const TransactionContext = createContext();
-import { useAuth } from './AuthContext';
+import { useAuth } from '../stores/auth';
 
 export const TransactionProvider = ({ children }) => {
     const { user } = useAuth();

@@ -2,7 +2,7 @@ import { StyleSheet, View, Pressable, Text } from 'react-native';
 import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
 import COLOR from '../constants/Colors';
 import { Octicons, EvilIcons } from '@expo/vector-icons';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../stores/auth';
 import { useNavigation } from '@react-navigation/native';
 import PAGES from '../constants/pages';
 import React, { useEffect } from 'react';
