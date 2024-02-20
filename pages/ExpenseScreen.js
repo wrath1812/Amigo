@@ -29,6 +29,7 @@ function ExpenseScreen() {
     useFocusEffect(
         useCallback(() => {
             fetchExpense();
+            return resetParams;
         }, []),
     );
 

@@ -20,7 +20,8 @@ import { useExpense } from '../stores/expense';
 const TypeSelector = () => {
     const [modalVisible, setModalVisible] = useState(false);
     const [selectedTypes, setSelectedTypes] = useState([]);
-    const {loading,setType,fetchExpense}=useExpense();
+    const {loading,setType,fetchExpense,type}=useExpense();
+
     if (loading)
         return (
             <View
