@@ -18,6 +18,8 @@ const useExpenseStore = create(persist((set, get) => ({
             range: { startDate: undefined, endDate: undefined },
             type: undefined,
         });
+        const { fetchExpense} = get();
+        fetchExpense();
     },
     fetchExpense: async () => {
         const { range, type,backendSynched } = get();
@@ -38,9 +40,7 @@ const useExpenseStore = create(persist((set, get) => ({
             set({ expense: data, loading: false });
         } catch (error) {
             console.error(error);
-        } finally {
-            setLoading(false);
-        }
+        } 
     },
     deleteExpenseById: async (expenseId) => {
         try {
