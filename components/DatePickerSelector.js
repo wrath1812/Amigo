@@ -4,6 +4,7 @@ import { DatePickerModal } from 'react-native-paper-dates';
 import { getFontSizeByWindowWidth } from '../helper/res';
 import COLOR from '../constants/Colors';
 import { calcHeight } from '../helper/res';
+import { useExpense } from '../stores/expense';
 
 const getStartOfWeek = () => {
     const now = new Date();
@@ -20,14 +21,15 @@ const getStartOfMonth = () => {
     return startOfMonth;
 };
 
-const DatePickerSelector = ({ range, setRange, loading }) => {
+const DatePickerSelector = () => {
+    const { range, setRange, loading,fetchExpense }=useExpense();
+    const [modalState, setModalState] = useState(null);
     if (loading)
         return (
             <View style={styles.buttonContainer}>
                 <Text style={[styles.buttonText, { opacity: 0 }]}>Date</Text>
             </View>
         );
-    const [modalState, setModalState] = useState(null);
 
     const onDismiss = () => {
         setModalState(null);
@@ -36,6 +38,7 @@ const DatePickerSelector = ({ range, setRange, loading }) => {
     const onConfirm = ({ startDate, endDate }) => {
         setModalState(null);
         setRange({ startDate, endDate });
+        fetchExpense();
     };
 
     const showCustomDateModal = () => {

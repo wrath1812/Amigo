@@ -21,10 +21,6 @@ import { useFocusEffect } from '@react-navigation/native'; // Import useFocusEff
 function ExpenseScreen() {
     const {
         expense,
-        range,
-        setRange,
-        type,
-        setType,
         resetParams,
         fetchExpense,
         loading,
@@ -49,14 +45,8 @@ function ExpenseScreen() {
                 >
                     <View style={styles.selectorContainer}>
                         <TypeSelector
-                            setType={setType}
-                            type={type}
-                            loading={loading}
                         />
                         <DatePickerSelector
-                            range={range}
-                            setRange={setRange}
-                            loading={loading}
                         />
                     </View>
                     <View
@@ -100,7 +90,7 @@ function ExpenseScreen() {
             >
                 <View style={styles.selectorContainer}>
                     <TypeSelector/>
-                    <DatePickerSelector range={range} setRange={setRange} />
+                    <DatePickerSelector/>
                 </View>
                 <TouchableOpacity
                     onPress={resetParams}
