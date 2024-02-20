@@ -23,10 +23,13 @@ function ExpenseScreen() {
         expense,
         resetParams,
         loading,
+        fetchExpense
     } = useExpense();
 
     useFocusEffect(
         useCallback(() => {
+            if(expense==[])
+            fetchExpense();
             return resetParams;
         }, []),
     );
