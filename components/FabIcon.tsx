@@ -1,10 +1,17 @@
+import React from 'react';
 import { FAB } from 'react-native-paper';
 import { StyleSheet, View } from 'react-native';
 import { calcHeight, calcWidth } from '../helper/res';
 import COLOR from '../constants/Colors';
 import plusIconStyle from '../constants/plusIconStyle';
-function FabIcon({ onPress, loading }) {
-    if (loading)
+
+interface FabIconProps {
+    onPress: () => void;
+    loading: boolean;
+}
+
+const FabIcon: React.FC<FabIconProps> = ({ onPress, loading }) => {
+    if (loading) {
         return (
             <View style={styles.fabContainer}>
                 <FAB
@@ -17,6 +24,7 @@ function FabIcon({ onPress, loading }) {
                 />
             </View>
         );
+    }
     return (
         <View style={styles.fabContainer}>
             <FAB
