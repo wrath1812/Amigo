@@ -15,8 +15,12 @@ import Categories from '../constants/Categories';
 import { AntDesign } from '@expo/vector-icons';
 import CheckBox from '../components/CheckBox';
 import { getCategoryIcon } from '../constants/Categories';
+import { useExpense } from '../stores/expense';
 
-const TypeSelector = ({ setType, type, loading }) => {
+const TypeSelector = () => {
+    const [modalVisible, setModalVisible] = useState(false);
+    const [selectedTypes, setSelectedTypes] = useState([]);
+    const {loading,setType,fetchExpense}=useExpense();
     if (loading)
         return (
             <View
@@ -48,8 +52,6 @@ const TypeSelector = ({ setType, type, loading }) => {
                 />
             </View>
         );
-    const [modalVisible, setModalVisible] = useState(false);
-    const [selectedTypes, setSelectedTypes] = useState([]);
 
     const toggleTypeSelection = (item) => {
         const isSelected = selectedTypes.includes(item);
@@ -65,13 +67,6 @@ const TypeSelector = ({ setType, type, loading }) => {
             ]);
         }
     };
-
-    useEffect(() => {
-        // Initialize selectedTypes with the provided type prop
-        if (type) {
-            setSelectedTypes(Array.isArray(type) ? type : [type]);
-        }
-    }, [type]);
 
     const renderItem = ({ item }) => (
         <TouchableOpacity
@@ -105,6 +100,7 @@ const TypeSelector = ({ setType, type, loading }) => {
 
     const applySelectionAndCloseModal = () => {
         setType(selectedTypes);
+        fetchExpense();
         setModalVisible(false);
     };
 

@@ -99,7 +99,7 @@ function ExpenseScreen() {
                 }}
             >
                 <View style={styles.selectorContainer}>
-                    <TypeSelector setType={setType} type={type} />
+                    <TypeSelector/>
                     <DatePickerSelector range={range} setRange={setRange} />
                 </View>
                 <TouchableOpacity

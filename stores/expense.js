@@ -11,6 +11,8 @@ const useExpenseStore = create(persist((set, get) => ({
     loading: false,
     type: undefined,
     backendSynched:true,
+    setType:(type)=>set({type}),
+    setRange:(range)=>set(range),
     resetParams: () => {
         set({
             range: { startDate: undefined, endDate: undefined },
