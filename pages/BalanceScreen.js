@@ -8,7 +8,6 @@ import {
     Pressable,
     Image,
 } from 'react-native';
-import Loader from '../components/Loader';
 import apiHelper from '../helper/apiHelper';
 import PAGES from '../constants/pages';
 import FabIcon from '../components/FabIcon';
@@ -24,29 +23,17 @@ import UserAvatar from '../components/UserAvatar';
 const headerIconSize = calcHeight(1);
 
 import groupBalancesAndCalculateTotal from '../utility/groupBalancesAndCalculateTotal';
+import { useBalance } from '../stores/balance';
 
 function BalanceScreen({ navigation }) {
-    const [loading, setLoading] = useState(false);
-    const [balances, setBalances] = useState();
-    const [balance, setBalance] = useState(0);
     const { user } = useAuth();
+    const {fetchData,loading,totalBalances,balances}=useBalance();
 
     useFocusEffect(
         useCallback(() => {
-            (async () => {
-                const { data } = await apiHelper('/balance');
-                const { groups, userTotalBalance } =
-                    await groupBalancesAndCalculateTotal(data, user._id);
-                setBalance(parseInt(userTotalBalance));
-                setBalances(groups);
-                setLoading(false);
-            })();
+            fetchData(user);
         }, []),
     );
-
-    useEffect(() => {
-        setLoading(true);
-    }, []);
 
     if (loading)
         return (
@@ -189,7 +176,7 @@ function BalanceScreen({ navigation }) {
                             fontWeight: 'bold',
                         }}
                     >
-                        ₹ {balance}
+                        ₹ {totalBalances}
                     </Text>
                 </View>
             </View>
