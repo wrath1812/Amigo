@@ -46,16 +46,13 @@ function GroupScreen({ navigation }) {
     const { group } = useGroup();
     const textRef = useRef();
     const [activities, setActivities] = useState([]);
-    const [isLoading, setIsLoading] = useState(false);
     const { setTransactionData, resetTransaction } = useTransaction();
     const [amount, setAmount] = useState('');
     const [contacts, setContacts] = useState([]);
     const { user } = useAuth();
     const [totalBalance, setTotalBalance] = useState();
     const [balances, setBalances] = useState();
-
     const fetchActivities = useCallback(async () => {
-        setIsLoading(true);
         try {
             const { data } = await apiHelper(
                 `/activity-feed?groupId=${group._id}`,
@@ -68,7 +65,6 @@ function GroupScreen({ navigation }) {
         } catch (error) {
             console.error('Error fetching activities:', error);
         }
-        setIsLoading(false);
     }, [group]);
 
     const fetchActivity = useCallback(async (activity) => {
