@@ -19,9 +19,9 @@ const InvitationLandingScreen = ({
     const handleJoin = async () => {
         try {
             await apiHelper.post(`group/${groupId}/join`);
-            navigation.navigate(PAGES.GROUP_LIST);
         } catch (e) {
         } 
+        navigation.navigate(PAGES.GROUP_LIST);
     };
 
     return <Loader/>;
