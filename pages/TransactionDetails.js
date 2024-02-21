@@ -66,25 +66,25 @@ const TransactionDetail = ({
         );
     };
 
-    useLayoutEffect(() => {
-        navigation.setOptions({
-            headerRight: () => (
-                <View
-                    style={{
-                        flexDirection: 'row',
-                    }}
-                >
-                    <TouchableOpacity onPress={handleDeleteTransaction}>
-                        <AntDesign
-                            name="delete"
-                            size={calcWidth(6)}
-                            color={COLOR.BUTTON}
-                        />
-                    </TouchableOpacity>
-                </View>
-            ),
-        });
-    }, [navigation]);
+    // useLayoutEffect(() => {
+    //     navigation.setOptions({
+    //         headerRight: () => (
+    //             <View
+    //                 style={{
+    //                     flexDirection: 'row',
+    //                 }}
+    //             >
+    //                 <TouchableOpacity onPress={handleDeleteTransaction}>
+    //                     <AntDesign
+    //                         name="delete"
+    //                         size={calcWidth(6)}
+    //                         color={COLOR.BUTTON}
+    //                     />
+    //                 </TouchableOpacity>
+    //             </View>
+    //         ),
+    //     });
+    // }, [navigation]);
 
     return (
         <SafeAreaView style={styles.container}>
