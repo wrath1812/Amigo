@@ -231,6 +231,9 @@ const AppNavigator = () => {
                     <Stack.Screen
                         name={PAGES.INVITATION_LANDING_PAGE}
                         component={InvitationLandingScreen}
+                        options={{
+                            headerShown: false,
+                        }}
                     />
                     <Stack.Screen
                         name={PAGES.EDIT_PHONE_NUMBER}

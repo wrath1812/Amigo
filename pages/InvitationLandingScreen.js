@@ -1,11 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {
-    View,
-    Text,
-    TextInput,
-    TouchableOpacity,
     StyleSheet,
-    SafeAreaView,
 } from 'react-native';
 import Loader from '../components/Loader'; // Assuming you have a Loader component
 import PAGES from '../constants/pages'; // Ensure you have the relevant pages constant
@@ -22,17 +17,14 @@ const InvitationLandingScreen = ({
     }, [groupId]);
 
     const handleJoin = async () => {
-        setLoading(true);
         try {
             await apiHelper.post(`group/${groupId}/join`);
             navigation.navigate(PAGES.GROUP_LIST);
         } catch (e) {
-        } finally {
-            setLoading(false);
-        }
+        } 
     };
 
-    return <Loader />;
+    return <Loader/>;
 };
 
 const styles = StyleSheet.create({
