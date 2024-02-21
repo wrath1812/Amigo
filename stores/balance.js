@@ -9,16 +9,19 @@ const useBalanceStore = create(
         (set) => ({
             balances: [],
             loading: false,
-            totalBalances:null,
-            setLoading:(loading)=>set({loading}),
+            totalBalances: null,
+            setLoading: (loading) => set({ loading }),
             fetchData: async (user) => {
                 const { totalBalances } = useBalanceStore.getState();
-                if(!totalBalances)
-                set({loading:true});
+                if (!totalBalances) set({ loading: true });
                 const { data } = await apiHelper('/balance');
                 const { groups, userTotalBalance } =
                     await groupBalancesAndCalculateTotal(data, user._id);
-                set({loading:false,balances:groups,totalBalances:parseInt(userTotalBalance)})
+                set({
+                    loading: false,
+                    balances: groups,
+                    totalBalances: parseInt(userTotalBalance),
+                });
             },
         }),
         {

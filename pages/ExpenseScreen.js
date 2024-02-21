@@ -12,18 +12,14 @@ import { useAuth } from '../stores/auth';
 import { useExpense } from '../stores/expense'; // Custom hook for fetching transactions
 import ExpenseCard from '../components/ExpenseCard';
 import DatePickerSelector from '../components/DatePickerSelector'; // Separate component for date picker
-import TypeSelector from '../components/TypeSelector'; 
+import TypeSelector from '../components/TypeSelector';
 import COLOR from '../constants/Colors';
 import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { useFocusEffect } from '@react-navigation/native'; // Import useFocusEffect from React Navigation
 
 function ExpenseScreen() {
-    const {
-        expense,
-        resetParams,
-        loading
-    } = useExpense();
+    const { expense, resetParams, loading } = useExpense();
 
     useFocusEffect(
         useCallback(() => {
@@ -43,10 +39,8 @@ function ExpenseScreen() {
                     }}
                 >
                     <View style={styles.selectorContainer}>
-                        <TypeSelector
-                        />
-                        <DatePickerSelector
-                        />
+                        <TypeSelector />
+                        <DatePickerSelector />
                     </View>
                     <View
                         style={{
@@ -88,8 +82,8 @@ function ExpenseScreen() {
                 }}
             >
                 <View style={styles.selectorContainer}>
-                    <TypeSelector/>
-                    <DatePickerSelector/>
+                    <TypeSelector />
+                    <DatePickerSelector />
                 </View>
                 <TouchableOpacity
                     onPress={resetParams}

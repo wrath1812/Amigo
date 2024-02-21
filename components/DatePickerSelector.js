@@ -22,7 +22,7 @@ const getStartOfMonth = () => {
 };
 
 const DatePickerSelector = () => {
-    const { range, setRange, loading,fetchExpense }=useExpense();
+    const { range, setRange, loading, fetchExpense } = useExpense();
     const [modalState, setModalState] = useState(null);
     if (loading)
         return (

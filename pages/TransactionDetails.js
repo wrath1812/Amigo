@@ -33,7 +33,7 @@ const TransactionDetail = ({
 }) => {
     const [date, setDate] = useState(new Date(transaction.date));
     const [expandNames, setExpandNames] = useState(false);
-    const {deleteExpenseById}=useExpense();
+    const { deleteExpenseById } = useExpense();
 
     const generateColor = useCustomColor();
 

@@ -27,7 +27,7 @@ import { useBalance } from '../stores/balance';
 
 function BalanceScreen({ navigation }) {
     const { user } = useAuth();
-    const {fetchData,loading,totalBalances,balances}=useBalance();
+    const { fetchData, loading, totalBalances, balances } = useBalance();
 
     useFocusEffect(
         useCallback(() => {

@@ -20,13 +20,13 @@ import { useExpense } from '../stores/expense';
 const TypeSelector = () => {
     const [modalVisible, setModalVisible] = useState(false);
     const [selectedTypes, setSelectedTypes] = useState([]);
-    const {loading,setType,fetchExpense,type}=useExpense();
+    const { loading, setType, fetchExpense, type } = useExpense();
     useEffect(() => {
         // Initialize selectedTypes with the provided type prop
         if (type) {
             setSelectedTypes(Array.isArray(type) ? type : [type]);
         }
-        return ()=>setSelectedTypes([]);
+        return () => setSelectedTypes([]);
     }, [type]);
 
     if (loading)
