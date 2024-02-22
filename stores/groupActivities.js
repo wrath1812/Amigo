@@ -7,11 +7,11 @@ const useGroupActivitiesStore = create(
     persist(
         (set) => ({
             activitiesHash: {},
-            setActivitiesHash: (groupId, activities) => {
+            setActivitiesHash: (groupId, updater) => { 
                 set((state) => ({
                     activitiesHash: {
                         ...state.activitiesHash,
-                        [groupId]: activities,
+                        [groupId]: updater(state.activitiesHash[groupId] || []), // Apply the updater function
                     },
                 }));
             },
@@ -31,8 +31,8 @@ const useGroupActivities = (groupId) => {
     const { setActivitiesHash, getActivities } = useGroupActivitiesStore();
     const activities = getActivities(groupId);
 
-    const setActivities = (newActivities) => {
-        setActivitiesHash(groupId, newActivities);
+    const setActivities = (updater) => { 
+        setActivitiesHash(groupId, updater);
     };
 
     return { activities, setActivities };
