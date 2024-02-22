@@ -26,7 +26,6 @@ import { calcHeight, calcWidth } from '../helper/res';
 import { getFontSizeByWindowWidth } from '../helper/res';
 import { useTransaction } from '../context/TransactionContext';
 import { useAuth } from '../stores/auth';
-import getNamesFromContacts from '../helper/getNamesFromContacts';
 import Feed from '../components/Feed';
 import useSocket from '../hooks/useSocket';
 import editNames from '../helper/editNames';
@@ -47,27 +46,17 @@ function isNumber(text) {
 function GroupScreen({ navigation }) {
     const { group } = useGroup();
     const textRef = useRef();
-    const {activities,setActivities}=useGroupActivities(group._id);
+    const {activities,setActivities,fetchActivities}=useGroupActivities(group._id);
     const { setTransactionData, resetTransaction } = useTransaction();
     const [amount, setAmount] = useState('');
     const {contacts}=useContacts();
     const { user } = useAuth();
     const [totalBalance, setTotalBalance] = useState();
     const [balances, setBalances] = useState();
-    const fetchActivities = useCallback(async () => {
-        try {
-            const { data } = await apiHelper(
-                `/activity-feed?groupId=${group._id}`,
-            );
-            setActivities(data);
-        } catch (error) {
-            console.error('Error fetching activities:', error);
-        }
-    }, [group]);
+   
 
     const fetchActivity = useCallback(async (activity) => {
         if (activity.creator == user._id) return;
-        editNames([activity.creator], user._id, contacts);
         setActivities((prev) => [activity, ...prev]);
     }, []);
 
@@ -111,7 +100,7 @@ function GroupScreen({ navigation }) {
             ...prev,
         ]);
         setAmount('');
-        const { data } = await apiHelper.post(`/group/${group._id}/chat`, {
+        await apiHelper.post(`/group/${group._id}/chat`, {
             message: amount,
         });
     }
