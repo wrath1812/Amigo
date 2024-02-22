@@ -7,12 +7,10 @@ import { useAuth } from '../stores/auth';
 import linking from '../helper/linking';
 import { TransactionProvider } from '../context/TransactionContext';
 import { GroupProvider } from '../context/GroupContext';
-import { ContactsProvider } from '../hooks/useContacts';
 function RootNavigator() {
     const { user } = useAuth();
 
     return (
-        <ContactsProvider>
             <GroupProvider>
                 <TransactionProvider>
                     <NavigationContainer linking={linking}>
@@ -20,7 +18,6 @@ function RootNavigator() {
                     </NavigationContainer>
                 </TransactionProvider>
             </GroupProvider>
-        </ContactsProvider>
     );
 }
 

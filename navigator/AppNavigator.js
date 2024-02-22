@@ -28,9 +28,11 @@ import About from '../pages/About';
 import AddPeople from '../pages/AddPeople';
 import LoginScreen from '../pages/LoginScreen';
 import OTPScreen from '../pages/OTPScreen';
+import { ContactsProvider } from '../hooks/useContacts';
 const AppNavigator = () => {
     const { user } = useAuth();
     return (
+        <ContactsProvider>
         <Stack.Navigator>
             {user.name ? (
                 <Stack.Group>
@@ -269,6 +271,7 @@ const AppNavigator = () => {
                 />
             )}
         </Stack.Navigator>
+        </ContactsProvider>
     );
 };
 
