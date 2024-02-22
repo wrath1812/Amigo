@@ -38,6 +38,7 @@ import ScannerIcon from '../assets/icons/scanner.png';
 import BalanceGroupPin from '../components/BalanceGroupPin';
 import ChatBackground from '../assets/chatBackground.png';
 import useGroupActivities from '../stores/groupActivities';
+import { useContacts } from '../hooks/useContacts';
 
 function isNumber(text) {
     return !isNaN(+text);
@@ -49,7 +50,7 @@ function GroupScreen({ navigation }) {
     const {activities,setActivities}=useGroupActivities(group._id);
     const { setTransactionData, resetTransaction } = useTransaction();
     const [amount, setAmount] = useState('');
-    const [contacts, setContacts] = useState([]);
+    const {contacts}=useContacts();
     const { user } = useAuth();
     const [totalBalance, setTotalBalance] = useState();
     const [balances, setBalances] = useState();
@@ -58,10 +59,8 @@ function GroupScreen({ navigation }) {
             const { data } = await apiHelper(
                 `/activity-feed?groupId=${group._id}`,
             );
-            const contactsData = await getNamesFromContacts();
-            setContacts(contactsData);
             for (let activity of data)
-                editNames([activity.creator], user._id, contactsData);
+                editNames([activity.creator], user._id, contacts);
             setActivities(data);
         } catch (error) {
             console.error('Error fetching activities:', error);
