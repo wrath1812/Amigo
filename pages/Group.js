@@ -37,6 +37,7 @@ import sliceText from '../helper/sliceText';
 import ScannerIcon from '../assets/icons/scanner.png';
 import BalanceGroupPin from '../components/BalanceGroupPin';
 import ChatBackground from '../assets/chatBackground.png';
+import useGroupActivities from '../stores/groupActivities';
 
 function isNumber(text) {
     return !isNaN(+text);
@@ -45,7 +46,7 @@ function isNumber(text) {
 function GroupScreen({ navigation }) {
     const { group } = useGroup();
     const textRef = useRef();
-    const [activities, setActivities] = useState([]);
+    const {activities,setActivities}=useGroupActivities(group._id);
     const { setTransactionData, resetTransaction } = useTransaction();
     const [amount, setAmount] = useState('');
     const [contacts, setContacts] = useState([]);
