@@ -59,8 +59,6 @@ function GroupScreen({ navigation }) {
             const { data } = await apiHelper(
                 `/activity-feed?groupId=${group._id}`,
             );
-            for (let activity of data)
-                editNames([activity.creator], user._id, contacts);
             setActivities(data);
         } catch (error) {
             console.error('Error fetching activities:', error);
