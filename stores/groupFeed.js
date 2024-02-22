@@ -1,6 +1,6 @@
-import { create } from 'zustand'; // Import create instead of createStore
+import { create } from 'zustand'; 
 import apiHelper from '../helper/apiHelper';
-import { persist } from 'zustand/middleware';
+import { persist, createJSONStorage } from 'zustand/middleware'
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import getNamesFromContacts from '../helper/getNamesFromContacts';
 import editNames from '../helper/editNames';
@@ -33,7 +33,7 @@ const useGroupFeedStore = create(
         }),
         {
             name: 'groupFeed',
-            getStorage: () => AsyncStorage,
+            storage: createJSONStorage(() => AsyncStorage),
         },
     ),
 );

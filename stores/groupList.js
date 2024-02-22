@@ -1,7 +1,7 @@
 import create from 'zustand'; // Import create instead of createStore
 import apiHelper from '../helper/apiHelper';
 import editNamesAsync from '../helper/editNamesAsync';
-import { persist } from 'zustand/middleware';
+import { persist,createJSONStorage } from 'zustand/middleware';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const useGroupStore = create(
@@ -28,7 +28,7 @@ const useGroupStore = create(
         }),
         {
             name: 'groupList',
-            getStorage: () => AsyncStorage,
+            storage: createJSONStorage(() => AsyncStorage),
         },
     ),
 );
