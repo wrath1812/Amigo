@@ -9,9 +9,9 @@ const AmountInput = ({
     handleInputChange,
     isTextInput = false,
 }) => {
-    const baseFontSize = getFontSizeByWindowWidth(50);
+    const baseFontSize = getFontSizeByWindowWidth(40);
     const [fontSize, setFontSize] = useState(
-        getFontSize('₹' + amount, calcWidth(70), baseFontSize),
+        getFontSize('₹' + amount, calcWidth(65), baseFontSize),
     );
 
     const commonStyles = {
@@ -24,7 +24,7 @@ const AmountInput = ({
         if (handleInputChange) {
             handleInputChange(newAmount);
         }
-        setFontSize(getFontSize('₹' + newAmount, calcWidth(70), baseFontSize));
+        setFontSize(getFontSize('₹' + newAmount, calcWidth(65), baseFontSize));
     };
 
     return (

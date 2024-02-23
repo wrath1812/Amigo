@@ -101,7 +101,7 @@ const TransactionDetail = ({
                     />
                     <Text
                         style={{
-                            fontSize: getFontSizeByWindowWidth(15),
+                            fontSize: getFontSizeByWindowWidth(14),
                             color: COLOR.TEXT,
                         }}
                     >
@@ -111,6 +111,7 @@ const TransactionDetail = ({
                         style={{
                             color: COLOR.TEXT,
                             marginVertical: calcHeight(3),
+                            fontSize:getFontSizeByWindowWidth(12)
                         }}
                     >
                         Create By {transaction.creator.name}
@@ -144,7 +145,7 @@ const TransactionDetail = ({
                             />
                             <Text
                                 style={{
-                                    fontSize: getFontSizeByWindowWidth(7),
+                                    fontSize: getFontSizeByWindowWidth(10),
                                 }}
                             >
                                 {formatDateToDDMMYYYY(date)}
@@ -164,7 +165,7 @@ const TransactionDetail = ({
                             {getCategoryIcon(transaction.type)}
                             <Text
                                 style={{
-                                    fontSize: getFontSizeByWindowWidth(7),
+                                    fontSize: getFontSizeByWindowWidth(10),
                                 }}
                             >
                                 {transaction.type}
@@ -284,7 +285,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
     },
     createdByText: {
-        color: COLOR.TEXT,
+        color: COLOR.TEXT
     },
     header: {
         borderTopLeftRadius: calcWidth(5),
