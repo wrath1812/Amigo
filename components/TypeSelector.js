@@ -33,30 +33,11 @@ const TypeSelector = () => {
     if (loading)
         return (
             <View
-                style={{
-                    backgroundColor: '#342F4F',
-                    padding: 10,
-                    flexDirection: 'row',
-                    gap: calcWidth(4),
-                    alignItems: 'center',
-                    borderRadius: 5,
-                }}
+                style={styles.loadingContainer}
             >
-                <Text
-                    style={{
-                        fontSize: getFontSizeByWindowWidth(15),
-                        color: COLOR.TEXT,
-                        opacity: 0, // Hide the text
-                    }}
-                >
-                    Type
-                </Text>
+                <Text style={styles.loadingText}>Type</Text>
                 <Image
-                    style={{
-                        height: calcWidth(3),
-                        width: calcWidth(5),
-                        opacity: 0, // Hide the icon
-                    }}
+                    style={styles.loadingIcon}
                     source={typeIcon}
                 />
             </View>
@@ -79,27 +60,12 @@ const TypeSelector = () => {
 
     const renderItem = ({ item }) => (
         <TouchableOpacity
-            style={{
-                paddingVertical: calcHeight(2),
-                alignItems: 'center',
-                flexDirection: 'row',
-                justifyContent: 'space-between',
-            }}
+            style={styles.itemContainer}
             onPress={() => toggleTypeSelection(item.name)}
         >
-            <View
-                style={{
-                    flexDirection: 'row',
-                    gap: calcWidth(8),
-                }}
-            >
+            <View style={styles.itemContent}>
                 {item.icon}
-                <Text
-                    style={{
-                        fontSize: getFontSizeByWindowWidth(12),
-                        color: COLOR.TEXT,
-                    }}
-                >
+                <Text style={styles.itemText}>
                     {item.name}
                 </Text>
             </View>
@@ -116,60 +82,24 @@ const TypeSelector = () => {
     return (
         <>
             <TouchableOpacity
-                style={{
-                    backgroundColor: '#342F4F',
-                    padding: 10,
-                    flexDirection: 'row',
-                    gap: calcWidth(2),
-                    alignItems: 'center',
-                    borderRadius: 5,
-                }}
+                style={styles.buttonContainer}
                 onPress={() => setModalVisible(true)}
             >
                 {selectedTypes.length == 0 ? (
                     <>
-                        <Text
-                            style={{
-                                fontSize: getFontSizeByWindowWidth(10),
-                                color: COLOR.TEXT,
-                            }}
-                        >
-                            Type
-                        </Text>
+                        <Text style={styles.buttonText}>Type</Text>
                         <Image
-                            style={{
-                                height: calcWidth(1.5),
-                                width: calcWidth(2.5),
-                            }}
+                            style={styles.buttonIcon}
                             source={typeIcon}
                         />
                     </>
                 ) : (
                     <>
                         {getCategoryIcon(selectedTypes[0])}
-                        <Text
-                            style={{
-                                fontSize: getFontSizeByWindowWidth(10),
-                                color: COLOR.TEXT,
-                            }}
-                        >
-                            {selectedTypes[0]}
-                        </Text>
+                        <Text style={styles.buttonText}>{selectedTypes[0]}</Text>
                         {selectedTypes.length > 1 && (
-                            <View
-                                style={{
-                                    backgroundColor: COLOR.BUTTON,
-                                    padding: calcWidth(0.8),
-                                    borderRadius: calcWidth(5),
-                                }}
-                            >
-                                <Text
-                                    style={{
-                                        color: COLOR.TEXT,
-                                        fontWeight: 'bold',
-                                        fontSize:getFontSizeByWindowWidth(5)
-                                    }}
-                                >
+                            <View style={styles.countContainer}>
+                                <Text style={styles.countText}>
                                     +{selectedTypes.length - 1}
                                 </Text>
                             </View>
@@ -186,50 +116,16 @@ const TypeSelector = () => {
                 }}
             >
                 <Pressable
-                    style={{
-                        flex: 1,
-                        justifyContent: 'flex-end',
-                        backgroundColor: 'rgba(0, 0, 0, 0.5)',
-                    }}
+                    style={styles.modalBackdrop}
                     onPress={() => setModalVisible(false)}
                 >
-                    <View
-                        style={{
-                            borderTopLeftRadius: 20,
-                            borderTopRightRadius: 20,
-                            padding: calcHeight(4),
-                            backgroundColor: COLOR.APP_BACKGROUND,
-                            paddingBottom: calcHeight(7),
-                        }}
-                    >
-                        <View
-                            style={{
-                                flexDirection: 'row',
-                                justifyContent: 'space-between',
-                                marginBottom: calcHeight(2),
-                            }}
-                        >
-                            <Text
-                                style={{
-                                    fontSize: getFontSizeByWindowWidth(15),
-                                    fontWeight: 'bold',
-                                    color: COLOR.TEXT,
-                                }}
-                            >
-                                Type
-                            </Text>
+                    <View style={styles.modalContent}>
+                        <View style={styles.modalHeader}>
+                            <Text style={styles.modalHeaderText}>Type</Text>
                             <TouchableOpacity
                                 onPress={applySelectionAndCloseModal}
                             >
-                                <Text
-                                    style={{
-                                        fontSize: getFontSizeByWindowWidth(15),
-                                        fontWeight: 'bold',
-                                        color: COLOR.BUTTON,
-                                    }}
-                                >
-                                    Done
-                                </Text>
+                                <Text style={styles.modalHeaderButton}>Done</Text>
                             </TouchableOpacity>
                         </View>
                         <FlatList
@@ -247,16 +143,89 @@ const TypeSelector = () => {
 export default TypeSelector;
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        color: 'white',
-    },
-    input: {
-        padding: calcWidth(3),
-        borderWidth: 1,
-        borderColor: 'gray',
+    loadingContainer: {
+        backgroundColor: '#342F4F',
+        padding: 10,
+        flexDirection: 'row',
+        gap: calcWidth(4),
+        alignItems: 'center',
         borderRadius: 5,
-        width: calcWidth(30),
-        color: 'white',
+    },
+    loadingText: {
+        fontSize: getFontSizeByWindowWidth(15),
+        color: COLOR.TEXT,
+        opacity: 0, // Hide the text
+    },
+    loadingIcon: {
+        height: calcWidth(3),
+        width: calcWidth(5),
+        opacity: 0, // Hide the icon
+    },
+    itemContainer: {
+        paddingVertical: calcHeight(2),
+        alignItems: 'center',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+    },
+    itemContent: {
+        flexDirection: 'row',
+        gap: calcWidth(8),
+    },
+    itemText: {
+        fontSize: getFontSizeByWindowWidth(12),
+        color: COLOR.TEXT,
+    },
+    buttonContainer: {
+        backgroundColor: '#342F4F',
+        padding: 10,
+        flexDirection: 'row',
+        gap: calcWidth(2),
+        alignItems: 'center',
+        borderRadius: 5,
+    },
+    buttonText: {
+        fontSize: getFontSizeByWindowWidth(10),
+        color: COLOR.TEXT,
+    },
+    buttonIcon: {
+        height: calcWidth(1.5),
+        width: calcWidth(2.5),
+    },
+    countContainer: {
+        backgroundColor: COLOR.BUTTON,
+        padding: calcWidth(0.8),
+        borderRadius: calcWidth(5),
+    },
+    countText: {
+        color: COLOR.TEXT,
+        fontWeight: 'bold',
+        fontSize: getFontSizeByWindowWidth(5),
+    },
+    modalBackdrop: {
+        flex: 1,
+        justifyContent: 'flex-end',
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    },
+    modalContent: {
+        borderTopLeftRadius: 20,
+        borderTopRightRadius: 20,
+        padding: calcHeight(4),
+        backgroundColor: COLOR.APP_BACKGROUND,
+        paddingBottom: calcHeight(7),
+    },
+    modalHeader: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        marginBottom: calcHeight(2),
+    },
+    modalHeaderText: {
+        fontSize: getFontSizeByWindowWidth(15),
+        fontWeight: 'bold',
+        color: COLOR.TEXT,
+    },
+    modalHeaderButton: {
+        fontSize: getFontSizeByWindowWidth(15),
+        fontWeight: 'bold',
+        color: COLOR.BUTTON,
     },
 });
