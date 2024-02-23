@@ -119,7 +119,7 @@ const TypeSelector = () => {
                     backgroundColor: '#342F4F',
                     padding: 10,
                     flexDirection: 'row',
-                    gap: calcWidth(4),
+                    gap: calcWidth(2),
                     alignItems: 'center',
                     borderRadius: 5,
                 }}
@@ -148,7 +148,7 @@ const TypeSelector = () => {
                         {getCategoryIcon(selectedTypes[0])}
                         <Text
                             style={{
-                                fontSize: getFontSizeByWindowWidth(15),
+                                fontSize: getFontSizeByWindowWidth(10),
                                 color: COLOR.TEXT,
                             }}
                         >
@@ -158,7 +158,7 @@ const TypeSelector = () => {
                             <View
                                 style={{
                                     backgroundColor: COLOR.BUTTON,
-                                    padding: calcWidth(1),
+                                    padding: calcWidth(0.8),
                                     borderRadius: calcWidth(5),
                                 }}
                             >
@@ -166,6 +166,7 @@ const TypeSelector = () => {
                                     style={{
                                         color: COLOR.TEXT,
                                         fontWeight: 'bold',
+                                        fontSize:getFontSizeByWindowWidth(5)
                                     }}
                                 >
                                     +{selectedTypes.length - 1}

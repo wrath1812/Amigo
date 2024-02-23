@@ -57,7 +57,7 @@ function ExpenseScreen() {
                             color="rgba(255,255,255,0.66)"
                             style={{ opacity: 0 }}
                         />
-                        <Text style={{ color: COLOR.TEXT, opacity: 0 }}>
+                        <Text style={{ color: COLOR.TEXT, opacity: 0, fontSize: getFontSizeByWindowWidth(10), }}>
                             Reset
                         </Text>
                     </View>
@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
     },
     selectorContainer: {
         flexDirection: 'row',
-        gap: calcWidth(8),
+        gap: calcWidth(4),
         alignItems: 'center',
     },
     noTransactionsText: {

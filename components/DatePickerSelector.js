@@ -135,10 +135,10 @@ const styles = {
         backgroundColor: '#342F4F',
         padding: 10,
         flexDirection: 'row',
-        borderRadius: 10,
+        borderRadius: 5,
     },
     buttonText: {
-        fontSize: getFontSizeByWindowWidth(15),
+        fontSize: getFontSizeByWindowWidth(10),
         color: COLOR.TEXT,
     },
     modalContent: {
