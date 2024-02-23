@@ -14,7 +14,7 @@ export const NetStatusProvider: React.FC<{ children: ReactNode }> = ({ children 
             setIsOnline(state.isConnected);
         };
 
-
+        
         let unsubscribe: NetInfoSubscription;
         NetInfo.fetch().then((state) => {
             handleNetworkChange(state);
