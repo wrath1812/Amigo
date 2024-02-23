@@ -1,6 +1,5 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import NetInfo, { NetInfoState, NetInfoSubscription } from '@react-native-community/netinfo';
-
 interface NetStatusContextType {
     isOnline: boolean;
 }
@@ -14,6 +13,7 @@ export const NetStatusProvider: React.FC<{ children: ReactNode }> = ({ children 
         const handleNetworkChange = (state: NetInfoState) => {
             setIsOnline(state.isConnected);
         };
+
 
         let unsubscribe: NetInfoSubscription;
         NetInfo.fetch().then((state) => {
