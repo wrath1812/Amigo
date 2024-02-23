@@ -37,34 +37,34 @@ const TransactionDetail = ({
 
     const generateColor = useCustomColor();
 
-    const handleDeleteTransaction = async () => {
-        Alert.alert(
-            'Delete Transaction',
-            'Are you sure you want to delete this transaction?',
-            [
-                {
-                    text: 'Cancel',
-                    onPress: () => {},
-                    style: 'cancel',
-                },
-                {
-                    text: 'Delete',
-                    onPress: async () => {
-                        try {
-                            navigation.goBack();
-                            deleteExpenseById(transaction._id);
-                        } catch (error) {
-                            // Handle errors
-                            console.log(
-                                'An error occurred while deleting the transaction.',
-                            );
-                        }
-                    },
-                },
-            ],
-            { cancelable: false },
-        );
-    };
+    // const handleDeleteTransaction = async () => {
+    //     Alert.alert(
+    //         'Delete Transaction',
+    //         'Are you sure you want to delete this transaction?',
+    //         [
+    //             {
+    //                 text: 'Cancel',
+    //                 onPress: () => {},
+    //                 style: 'cancel',
+    //             },
+    //             {
+    //                 text: 'Delete',
+    //                 onPress: async () => {
+    //                     try {
+    //                         navigation.goBack();
+    //                         deleteExpenseById(transaction._id);
+    //                     } catch (error) {
+    //                         // Handle errors
+    //                         console.log(
+    //                             'An error occurred while deleting the transaction.',
+    //                         );
+    //                     }
+    //                 },
+    //             },
+    //         ],
+    //         { cancelable: false },
+    //     );
+    // };
 
     // useLayoutEffect(() => {
     //     navigation.setOptions({
@@ -109,7 +109,7 @@ const TransactionDetail = ({
                     </Text>
                     <Text
                         style={{
-                            color: COLOR.TEXT,
+                            color: "grey",
                             marginVertical: calcHeight(3),
                             fontSize:getFontSizeByWindowWidth(12)
                         }}
