@@ -11,18 +11,11 @@ import editNames from '../helper/editNames';
 import UserAvatar from '../components/UserAvatar';
 
 function convertToCustomFormat(dateString) {
-    // Parse the date string into a Date object
     var date = new Date(dateString);
-
-    // Options for the date format
     var dateOptions = { day: 'numeric', month: 'long', year: 'numeric' };
     var timeOptions = { hour: '2-digit', minute: '2-digit' };
-
-    // Convert the date to the desired format
     var formattedDate = date.toLocaleDateString('en-IN', dateOptions);
     var formattedTime = date.toLocaleTimeString('en-IN', timeOptions);
-
-    // Combine the formatted date and time
     return formattedDate + ' ' + formattedTime;
 }
 
@@ -46,11 +39,8 @@ function getDateAndMonth(dateString) {
         'December',
     ];
 
-    // Get the day and month from the date
-    var day = date.getDate(); // Day as a number (1-31)
-    var month = months[date.getMonth()]; // Month as a full name
-
-    // Format and return the date as "8 February"
+    var day = date.getDate(); 
+    var month = months[date.getMonth()]; 
     return day + ' ' + month;
 }
 
@@ -212,36 +202,16 @@ function ChatActivity({ chat }) {
     );
 }
 
-function Feed({ creator, createdAt, relatedId, activityType, contacts }) {
+function Feed(props) {
     const { user } = useAuth();
+    const {creator,activityType}=props;
+
     const renderActivity = () => {
-        switch (activityType) {
-            case 'transaction':
-                return (
-                    <TransactionActivity
-                        transaction={relatedId}
-                        createdAt={createdAt}
-                        contacts={contacts}
-                    />
-                );
-            case 'payment':
-                return (
-                    <PaymentActivity payment={relatedId} contacts={contacts} />
-                );
-            case 'chat':
-                return (
-                    <ChatActivity
-                        chat={{
-                            creator,
-                            message: relatedId.message,
-                            createdAt,
-                        }}
-                        contacts={contacts}
-                    />
-                );
-            default:
-                return null;
+        const activityStrategy = ActivityStrategyFactory(activityType);
+        if (activityStrategy) {
+            return activityStrategy.renderActivity(props);
         }
+        return null;
     };
 
     return (
@@ -306,6 +276,43 @@ function Feed({ creator, createdAt, relatedId, activityType, contacts }) {
         </View>
     );
 }
+
+const ActivityStrategyFactory = (activityType) => {
+    switch (activityType) {
+        case 'transaction':
+            return {
+                renderActivity: ({ relatedId:transaction, createdAt, contacts }) => (
+                    <TransactionActivity
+                        transaction={transaction}
+                        createdAt={createdAt}
+                        contacts={contacts}
+                    />
+                )
+            };
+        case 'payment':
+            return {
+                renderActivity: ({ relatedId:payment, contacts }) => (
+                    <PaymentActivity payment={payment} contacts={contacts} />
+                )
+            };
+        case 'chat':
+            return {
+                renderActivity: ({ creator, relatedId, createdAt, contacts }) => (
+                    <ChatActivity
+                        chat={{
+                            creator,
+                            message: relatedId.message,
+                            createdAt,
+                        }}
+                        contacts={contacts}
+                    />
+                )
+            };
+        default:
+            return null;
+    }
+};
+
 
 const styles = StyleSheet.create({
     transactionContainer: {
