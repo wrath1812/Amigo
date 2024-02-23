@@ -7,6 +7,7 @@ import {
     View,
     FlatList,
     Pressable,
+    StyleSheet,
 } from 'react-native';
 import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
 import COLOR from '../constants/Colors';
@@ -129,7 +130,7 @@ const TypeSelector = () => {
                     <>
                         <Text
                             style={{
-                                fontSize: getFontSizeByWindowWidth(15),
+                                fontSize: getFontSizeByWindowWidth(10),
                                 color: COLOR.TEXT,
                             }}
                         >
@@ -137,8 +138,8 @@ const TypeSelector = () => {
                         </Text>
                         <Image
                             style={{
-                                height: calcWidth(3),
-                                width: calcWidth(5),
+                                height: calcWidth(1.5),
+                                width: calcWidth(2.5),
                             }}
                             source={typeIcon}
                         />
@@ -244,3 +245,18 @@ const TypeSelector = () => {
 };
 
 export default TypeSelector;
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        color: 'white',
+    },
+    input: {
+        padding: calcWidth(3),
+        borderWidth: 1,
+        borderColor: 'gray',
+        borderRadius: 5,
+        width: calcWidth(30),
+        color: 'white',
+    },
+});
