@@ -144,7 +144,7 @@ export default TypeSelector;
 
 const styles = StyleSheet.create({
     loadingContainer: {
-        backgroundColor: '#342F4F',
+        backgroundColor: COLOR.SKELETON_MASK_COLOR,
         padding: 10,
         flexDirection: 'row',
         gap: calcWidth(4),
