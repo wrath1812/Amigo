@@ -83,22 +83,6 @@ function GroupScreen({ navigation }) {
     useSocket('activity created', fetchActivity);
 
     async function addChat() {
-        setActivities((prev) => [
-            {
-                activityType: 'chat',
-                createdAt: Date(),
-                creator: {
-                    _id: user._id,
-                    name: user.name,
-                },
-                group: group._id,
-                onModel: 'Chat',
-                relatedId: {
-                    message: amount,
-                },
-            },
-            ...prev,
-        ]);
         setAmount('');
         await apiHelper.post(`/group/${group._id}/chat`, {
             message: amount,
