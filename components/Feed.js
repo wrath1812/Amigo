@@ -104,8 +104,9 @@ function ActivityHeader({ icon, iconName, size, text }) {
     );
 }
 
-function TransactionActivity({ transaction, navigation, createdAt, contacts }) {
+function TransactionActivity({ transaction, createdAt, contacts }) {
     const { user } = useAuth();
+    const navigation = useNavigation();
     return (
         <Pressable
             onPress={() => {
@@ -212,7 +213,6 @@ function ChatActivity({ chat }) {
 }
 
 function Feed({ creator, createdAt, relatedId, activityType, contacts }) {
-    const navigation = useNavigation();
     const { user } = useAuth();
     const renderActivity = () => {
         switch (activityType) {
@@ -220,7 +220,6 @@ function Feed({ creator, createdAt, relatedId, activityType, contacts }) {
                 return (
                     <TransactionActivity
                         transaction={relatedId}
-                        navigation={navigation}
                         createdAt={createdAt}
                         contacts={contacts}
                     />
