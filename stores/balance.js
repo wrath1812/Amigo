@@ -1,7 +1,7 @@
 import create from 'zustand'; // Import create instead of createStore
 import apiHelper from '../helper/apiHelper';
 import editNamesAsync from '../helper/editNamesAsync';
-import { persist,createJSONStorage } from 'zustand/middleware';
+import { persist, createJSONStorage } from 'zustand/middleware';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import groupBalancesAndCalculateTotal from '../utility/groupBalancesAndCalculateTotal';
 const useBalanceStore = create(

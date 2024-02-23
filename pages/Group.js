@@ -46,14 +46,15 @@ function isNumber(text) {
 function GroupScreen({ navigation }) {
     const { group } = useGroup();
     const textRef = useRef();
-    const {activities,setActivities,fetchActivities}=useGroupActivities(group._id);
+    const { activities, setActivities, fetchActivities } = useGroupActivities(
+        group._id,
+    );
     const { setTransactionData, resetTransaction } = useTransaction();
     const [amount, setAmount] = useState('');
-    const {contacts}=useContacts();
+    const { contacts } = useContacts();
     const { user } = useAuth();
     const [totalBalance, setTotalBalance] = useState();
     const [balances, setBalances] = useState();
-   
 
     const fetchActivity = useCallback(async (activity) => {
         if (activity.creator == user._id) return;

@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import apiHelper from '../helper/apiHelper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { persist,createJSONStorage } from 'zustand/middleware';
+import { persist, createJSONStorage } from 'zustand/middleware';
 const useExpenseStore = create(
     persist(
         (set, get) => ({

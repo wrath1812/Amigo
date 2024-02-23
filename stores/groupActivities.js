@@ -1,22 +1,22 @@
-import { create } from 'zustand'; 
+import { create } from 'zustand';
 import apiHelper from '../helper/apiHelper';
-import { persist, createJSONStorage } from 'zustand/middleware'
+import { persist, createJSONStorage } from 'zustand/middleware';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const useGroupActivitiesStore = create(
     persist(
         (set) => ({
             activitiesHash: {},
-            setActivitiesHash: (groupId, updater) => { 
+            setActivitiesHash: (groupId, updater) => {
                 set((state) => ({
                     activitiesHash: {
                         ...state.activitiesHash,
-                        [groupId]: updater(state.activitiesHash[groupId] || []), 
+                        [groupId]: updater(state.activitiesHash[groupId] || []),
                     },
                 }));
             },
             getActivities: (groupId) => {
-              const { activitiesHash } = useGroupActivitiesStore.getState();
+                const { activitiesHash } = useGroupActivitiesStore.getState();
                 return activitiesHash[groupId] || [];
             },
         }),
@@ -31,8 +31,8 @@ const useGroupActivities = (groupId) => {
     const { setActivitiesHash, getActivities } = useGroupActivitiesStore();
     const activities = getActivities(groupId);
 
-    const setActivities = (updater) => { 
-        setActivitiesHash(groupId, ()=>updater);
+    const setActivities = (updater) => {
+        setActivitiesHash(groupId, () => updater);
     };
 
     const fetchActivities = async () => {
@@ -46,7 +46,7 @@ const useGroupActivities = (groupId) => {
         }
     };
 
-    return { activities, setActivities,fetchActivities };
+    return { activities, setActivities, fetchActivities };
 };
 
 export default useGroupActivities;

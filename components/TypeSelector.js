@@ -32,14 +32,9 @@ const TypeSelector = () => {
 
     if (loading)
         return (
-            <View
-                style={styles.loadingContainer}
-            >
+            <View style={styles.loadingContainer}>
                 <Text style={styles.loadingText}>Type</Text>
-                <Image
-                    style={styles.loadingIcon}
-                    source={typeIcon}
-                />
+                <Image style={styles.loadingIcon} source={typeIcon} />
             </View>
         );
 
@@ -65,9 +60,7 @@ const TypeSelector = () => {
         >
             <View style={styles.itemContent}>
                 {item.icon}
-                <Text style={styles.itemText}>
-                    {item.name}
-                </Text>
+                <Text style={styles.itemText}>{item.name}</Text>
             </View>
             <CheckBox selected={selectedTypes.includes(item.name)} />
         </TouchableOpacity>
@@ -88,15 +81,14 @@ const TypeSelector = () => {
                 {selectedTypes.length == 0 ? (
                     <>
                         <Text style={styles.buttonText}>Type</Text>
-                        <Image
-                            style={styles.buttonIcon}
-                            source={typeIcon}
-                        />
+                        <Image style={styles.buttonIcon} source={typeIcon} />
                     </>
                 ) : (
                     <>
                         {getCategoryIcon(selectedTypes[0])}
-                        <Text style={styles.buttonText}>{selectedTypes[0]}</Text>
+                        <Text style={styles.buttonText}>
+                            {selectedTypes[0]}
+                        </Text>
                         {selectedTypes.length > 1 && (
                             <View style={styles.countContainer}>
                                 <Text style={styles.countText}>
@@ -125,7 +117,9 @@ const TypeSelector = () => {
                             <TouchableOpacity
                                 onPress={applySelectionAndCloseModal}
                             >
-                                <Text style={styles.modalHeaderButton}>Done</Text>
+                                <Text style={styles.modalHeaderButton}>
+                                    Done
+                                </Text>
                             </TouchableOpacity>
                         </View>
                         <FlatList
@@ -154,12 +148,12 @@ const styles = StyleSheet.create({
     loadingText: {
         fontSize: getFontSizeByWindowWidth(15),
         color: COLOR.TEXT,
-        opacity: 0, // Hide the text
+        opacity: 0,
     },
     loadingIcon: {
         height: calcWidth(3),
         width: calcWidth(5),
-        opacity: 0, // Hide the icon
+        opacity: 0,
     },
     itemContainer: {
         paddingVertical: calcHeight(2),

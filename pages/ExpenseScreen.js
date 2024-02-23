@@ -57,7 +57,13 @@ function ExpenseScreen() {
                             color="rgba(255,255,255,0.66)"
                             style={{ opacity: 0 }}
                         />
-                        <Text style={{ color: COLOR.TEXT, opacity: 0, fontSize: getFontSizeByWindowWidth(10), }}>
+                        <Text
+                            style={{
+                                color: COLOR.TEXT,
+                                opacity: 0,
+                                fontSize: getFontSizeByWindowWidth(10),
+                            }}
+                        >
                             Reset
                         </Text>
                     </View>

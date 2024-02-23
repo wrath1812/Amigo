@@ -7,10 +7,12 @@ import { useAuth } from '../stores/auth';
 import linking from '../helper/linking';
 import { TransactionProvider } from '../context/TransactionContext';
 import { GroupProvider } from '../context/GroupContext';
+import { NetStatusProvider } from '../context/NetStatus';
 function RootNavigator() {
     const { user } = useAuth();
 
     return (
+        <NetStatusProvider>
             <GroupProvider>
                 <TransactionProvider>
                     <NavigationContainer linking={linking}>
@@ -18,6 +20,7 @@ function RootNavigator() {
                     </NavigationContainer>
                 </TransactionProvider>
             </GroupProvider>
+        </NetStatusProvider>
     );
 }
 

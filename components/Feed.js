@@ -39,8 +39,8 @@ function getDateAndMonth(dateString) {
         'December',
     ];
 
-    var day = date.getDate(); 
-    var month = months[date.getMonth()]; 
+    var day = date.getDate();
+    var month = months[date.getMonth()];
     return day + ' ' + month;
 }
 
@@ -204,7 +204,7 @@ function ChatActivity({ chat }) {
 
 function Feed(props) {
     const { user } = useAuth();
-    const {creator,activityType}=props;
+    const { creator, activityType } = props;
 
     const renderActivity = () => {
         const activityStrategy = ActivityStrategyFactory(activityType);
@@ -281,23 +281,32 @@ const ActivityStrategyFactory = (activityType) => {
     switch (activityType) {
         case 'transaction':
             return {
-                renderActivity: ({ relatedId:transaction, createdAt, contacts }) => (
+                renderActivity: ({
+                    relatedId: transaction,
+                    createdAt,
+                    contacts,
+                }) => (
                     <TransactionActivity
                         transaction={transaction}
                         createdAt={createdAt}
                         contacts={contacts}
                     />
-                )
+                ),
             };
         case 'payment':
             return {
-                renderActivity: ({ relatedId:payment, contacts }) => (
+                renderActivity: ({ relatedId: payment, contacts }) => (
                     <PaymentActivity payment={payment} contacts={contacts} />
-                )
+                ),
             };
         case 'chat':
             return {
-                renderActivity: ({ creator, relatedId, createdAt, contacts }) => (
+                renderActivity: ({
+                    creator,
+                    relatedId,
+                    createdAt,
+                    contacts,
+                }) => (
                     <ChatActivity
                         chat={{
                             creator,
@@ -306,13 +315,12 @@ const ActivityStrategyFactory = (activityType) => {
                         }}
                         contacts={contacts}
                     />
-                )
+                ),
             };
         default:
             return null;
     }
 };
-
 
 const styles = StyleSheet.create({
     transactionContainer: {

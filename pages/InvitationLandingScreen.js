@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {
-    StyleSheet,
-} from 'react-native';
+import { StyleSheet } from 'react-native';
 import Loader from '../components/Loader'; // Assuming you have a Loader component
 import PAGES from '../constants/pages'; // Ensure you have the relevant pages constant
 import apiHelper from '../helper/apiHelper'; // And the apiHelper for your API calls
@@ -19,12 +17,11 @@ const InvitationLandingScreen = ({
     const handleJoin = async () => {
         try {
             await apiHelper.post(`group/${groupId}/join`);
-        } catch (e) {
-        } 
+        } catch (e) {}
         navigation.navigate(PAGES.GROUP_LIST);
     };
 
-    return <Loader/>;
+    return <Loader />;
 };
 
 const styles = StyleSheet.create({
