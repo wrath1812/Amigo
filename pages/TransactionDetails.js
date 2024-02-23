@@ -127,7 +127,7 @@ const TransactionDetail = ({
                     >
                         <View
                             style={{
-                                backgroundColor: 'white',
+                                backgroundColor: '#4D426C',
                                 flexDirection: 'row',
                                 borderRadius: 10,
                                 paddingVertical: calcWidth(1),
@@ -146,6 +146,7 @@ const TransactionDetail = ({
                             <Text
                                 style={{
                                     fontSize: getFontSizeByWindowWidth(10),
+                                    color:"white"
                                 }}
                             >
                                 {formatDateToDDMMYYYY(date)}
@@ -153,10 +154,10 @@ const TransactionDetail = ({
                         </View>
                         <View
                             style={{
-                                backgroundColor: 'white',
+                                backgroundColor: '#4D426C',
                                 flexDirection: 'row',
                                 borderRadius: 10,
-                                paddingVertical: calcWidth(1),
+                                paddingVertical: calcWidth(2),
                                 paddingHorizontal: calcWidth(4),
                                 gap: calcWidth(1),
                                 alignItems: 'center',
@@ -166,6 +167,7 @@ const TransactionDetail = ({
                             <Text
                                 style={{
                                     fontSize: getFontSizeByWindowWidth(10),
+                                    color:"white"
                                 }}
                             >
                                 {transaction.type}
