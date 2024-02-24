@@ -230,7 +230,7 @@ function ChatActivity({ chat, synced }) {
 
 function Feed(props) {
     const { user } = useAuth();
-    const { creator, activityType } = props;
+    const { creator, activityType,createdAt } = props;
 
     const renderActivity = () => {
         const activityStrategy = ActivityStrategyFactory(activityType);
