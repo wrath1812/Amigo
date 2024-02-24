@@ -188,7 +188,7 @@ function PaymentActivity({ payment, contacts }) {
     );
 }
 
-function ChatActivity({ chat }) {
+function ChatActivity({ chat,synched }) {
     return (
         <View>
             <Text
@@ -197,6 +197,7 @@ function ChatActivity({ chat }) {
                 }}
             >
                 {chat.message}
+                {synched==="false"&&"sd"}
             </Text>
         </View>
     );
@@ -305,7 +306,7 @@ const ActivityStrategyFactory = (activityType) => {
                     creator,
                     relatedId,
                     createdAt,
-                    contacts,
+                    synched
                 }) => (
                     <ChatActivity
                         chat={{
@@ -313,7 +314,7 @@ const ActivityStrategyFactory = (activityType) => {
                             message: relatedId.message,
                             createdAt,
                         }}
-                        contacts={contacts}
+                        synched={synched}
                     />
                 ),
             };

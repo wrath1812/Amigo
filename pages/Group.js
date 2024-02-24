@@ -38,6 +38,7 @@ import BalanceGroupPin from '../components/BalanceGroupPin';
 import ChatBackground from '../assets/chatBackground.png';
 import useGroupActivities from '../stores/groupActivities';
 import { useContacts } from '../hooks/useContacts';
+import { useNetStatus } from '../context/NetStatus';
 
 function isNumber(text) {
     return !isNaN(+text);
@@ -55,6 +56,7 @@ function GroupScreen({ navigation }) {
     const { user } = useAuth();
     const [totalBalance, setTotalBalance] = useState();
     const [balances, setBalances] = useState();
+    const {isOnline}=useNetStatus();
 
     const fetchActivity = useCallback(async (activity) => {
         if (activity.creator == user._id) return;
@@ -99,24 +101,31 @@ function GroupScreen({ navigation }) {
 
     async function addChat() {
         setAmount('');
-        setActivities([
-            {
-                _id:amount,
-                activityType: 'chat',
-                createdAt: Date(),
-                creator: {_id:user._id},
-                group: group._id,
-                onModel: 'Chat',
-                relatedId: {
-                    message: amount,
-                },
-                synched:false
+        const newActivity= {
+            activityType: 'chat',
+            createdAt: Date(),
+            creator: {_id:user._id},
+            group: group._id,
+            onModel: 'Chat',
+            relatedId: {
+                message: amount,
             },
+            synched:"false"
+        };
+        setActivities([
+            newActivity,
             ...activities,
         ]);
+        if(isOnline){
         await apiHelper.post(`/group/${group._id}/chat`, {
             message: amount,
         });
+        setActivities([
+            {...newActivity,synched:true},
+            ...activities,
+        ]);
+    }
+        
     }
 
     return (
