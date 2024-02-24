@@ -58,7 +58,7 @@ function GroupScreen({ navigation }) {
 
     const fetchActivity = useCallback(async (activity) => {
         if (activity.creator == user._id) return;
-        setActivities((prev) => [activity, ...prev]);
+        setActivities([activity, ...activities]);
     }, []);
 
     const fetchBalances = useCallback(async () => {
@@ -99,6 +99,21 @@ function GroupScreen({ navigation }) {
 
     async function addChat() {
         setAmount('');
+        setActivities([
+            {
+                _id:amount,
+                activityType: 'chat',
+                createdAt: Date(),
+                creator: {_id:user._id},
+                group: group._id,
+                onModel: 'Chat',
+                relatedId: {
+                    message: amount,
+                },
+                synched:false
+            },
+            ...activities,
+        ]);
         await apiHelper.post(`/group/${group._id}/chat`, {
             message: amount,
         });
