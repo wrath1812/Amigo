@@ -15,7 +15,7 @@
         "assetBundlePatterns": ["**/*"],
         "ios": {
             "bundleIdentifier": "com.splitcash.splitcash",
-            "buildNumber": "43",
+            "buildNumber": "44",
             "infoPlist": {
                 "LSApplicationQueriesSchemes": [
                     "tez",
