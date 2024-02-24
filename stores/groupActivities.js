@@ -35,18 +35,8 @@ const useGroupActivities = (groupId) => {
         setActivitiesHash(groupId, () => updater);
     };
 
-    const fetchActivities = async () => {
-        try {
-            const { data } = await apiHelper(
-                `/activity-feed?groupId=${groupId}`,
-            );
-            setActivities(data);
-        } catch (error) {
-            console.error('Error fetching activities:', error);
-        }
-    };
 
-    return { activities, setActivities, fetchActivities };
+    return { activities, setActivities };
 };
 
 export default useGroupActivities;

@@ -46,7 +46,7 @@ function isNumber(text) {
 function GroupScreen({ navigation }) {
     const { group } = useGroup();
     const textRef = useRef();
-    const { activities, setActivities, fetchActivities } = useGroupActivities(
+    const { activities, setActivities } = useGroupActivities(
         group._id,
     );
     const { setTransactionData, resetTransaction } = useTransaction();
@@ -79,8 +79,22 @@ function GroupScreen({ navigation }) {
         }
     }, []);
 
-    useFocusEffect(fetchActivities);
-    useFocusEffect(fetchBalances);
+    const fetchActivities = async () => {
+        try {
+            const { data } = await apiHelper(
+                `/activity-feed?groupId=${group._id}`,
+            );
+            setActivities(data);
+        } catch (error) {
+            console.error('Error fetching activities:', error);
+        }
+    };
+
+    useEffect(()=>{
+        fetchActivities();
+        fetchBalances();
+    },[group])
+
     useSocket('activity created', fetchActivity);
 
     async function addChat() {
