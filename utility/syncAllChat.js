@@ -7,8 +7,8 @@ const syncAllChat=async () => {
         const activities = Array.from(activitiesHash[groupId]);
         
         for (const activity of activities) {
-            if (activity.synched === "false") {
-                activity.synched = true;
+            if (activity.synced === false) {
+                activity.synced = true;
                 
                 const promise = apiHelper.post(`/group/${groupId}/chat`, {
                     message: activity.relatedId.message,

@@ -109,7 +109,7 @@ function GroupScreen({ navigation }) {
             relatedId: {
                 message: amount,
             },
-            synched:"false"
+            synced:false
         };
         setActivities([
             newActivity,
@@ -121,7 +121,7 @@ function GroupScreen({ navigation }) {
             message: amount,
         });
         setActivities([
-            {...newActivity,synched:true},
+            {...newActivity,synced:true},
             ...activities,
         ]);
     }

@@ -182,7 +182,7 @@ function PaymentActivity({ payment, contacts }) {
     );
 }
 
-function ChatActivity({ chat,synched }) {
+function ChatActivity({ chat,synced }) {
     function convertToCustomFormat(dateString) {
         var date = new Date(dateString);
         var timeOptions = { hour: 'numeric', minute: '2-digit', hour12: true };
@@ -210,7 +210,8 @@ function ChatActivity({ chat,synched }) {
                 color:"grey",
                 fontSize:getFontSizeByWindowWidth(10)
             }}>{convertToCustomFormat(chat.createdAt)}</Text>
-            {synched==="false" &&
+            {/* incase sync is missing for the data comming from the backend it should have the right sync */}
+            {synced===false &&
         <Image source={ClockIcon} style={ {height: calcHeight(1),
         width: calcHeight(1)}}/>}
         </View>
@@ -321,7 +322,7 @@ const ActivityStrategyFactory = (activityType) => {
                     creator,
                     relatedId,
                     createdAt,
-                    synched
+                    synced
                 }) => (
                     <ChatActivity
                         chat={{
@@ -329,7 +330,7 @@ const ActivityStrategyFactory = (activityType) => {
                             message: relatedId.message,
                             createdAt,
                         }}
-                        synched={synched}
+                        synced={synced}
                     />
                 ),
             };

@@ -12,7 +12,7 @@ const useExpenseStore = create(
             },
             loading: false,
             type: undefined,
-            backendSynched: true,
+            backendsynced: true,
             setType: (type) => set({ type }),
             setRange: (range) => set({ range }),
             resetParams: () => {
@@ -24,8 +24,8 @@ const useExpenseStore = create(
                 fetchExpense();
             },
             fetchExpense: async () => {
-                const { range, type, backendSynched } = get();
-                if (!backendSynched) return;
+                const { range, type, backendsynced } = get();
+                if (!backendsynced) return;
                 try {
                     const { expense } = useExpenseStore.getState();
                     if (expense.length === 0) set({ loading: true });
@@ -49,10 +49,10 @@ const useExpenseStore = create(
                         expense: state.expense.filter(
                             (item) => item.id !== expenseId,
                         ),
-                        backendSynched: false,
+                        backendsynced: false,
                     }));
                     await apiHelper.delete(`transaction/${expenseId}`);
-                    set({ backendSynched: true });
+                    set({ backendsynced: true });
                 } catch (error) {
                     console.error(error);
                 }
