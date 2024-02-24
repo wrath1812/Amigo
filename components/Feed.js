@@ -1,4 +1,4 @@
-import { StyleSheet, View, Pressable, Text } from 'react-native';
+import { StyleSheet, View, Pressable, Text,Image } from 'react-native';
 import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
 import COLOR from '../constants/Colors';
 import { Octicons, EvilIcons } from '@expo/vector-icons';
@@ -9,6 +9,7 @@ import React, { useEffect } from 'react';
 import { MaterialIcons } from '@expo/vector-icons';
 import editNames from '../helper/editNames';
 import UserAvatar from '../components/UserAvatar';
+import ClockIcon from "../assets/icons/clock.png";
 
 function convertToCustomFormat(dateString) {
     var date = new Date(dateString);
@@ -155,13 +156,6 @@ function TransactionActivity({ transaction, createdAt, contacts }) {
                         {getDateAndMonth(createdAt)}
                     </Text>
                 </View>
-                <Text style={styles.description}>
-                    Created By{' '}
-                    {
-                        editNames([transaction.creator], user._id, contacts)[0]
-                            .name
-                    }
-                </Text>
             </View>
         </Pressable>
     );
@@ -189,6 +183,12 @@ function PaymentActivity({ payment, contacts }) {
 }
 
 function ChatActivity({ chat,synched }) {
+    function convertToCustomFormat(dateString) {
+        var date = new Date(dateString);
+        var timeOptions = { hour: 'numeric', minute: '2-digit', hour12: true };
+        var formattedTime = date.toLocaleTimeString('en-US', timeOptions);
+        return formattedTime;
+    }
     return (
         <View>
             <Text
@@ -197,8 +197,23 @@ function ChatActivity({ chat,synched }) {
                 }}
             >
                 {chat.message}
-                {synched==="false"&&"sd"}
             </Text>
+        <View style={{
+            alignItems:"center",
+            flexDirection:"row",
+            flex:1,
+            alignContent:"center",
+            justifyContent:"flex-end",
+            gap:calcWidth(1)
+        }}>
+            <Text style={{
+                color:"grey",
+                fontSize:getFontSizeByWindowWidth(10)
+            }}>{convertToCustomFormat(chat.createdAt)}</Text>
+            {synched==="false" &&
+        <Image source={ClockIcon} style={ {height: calcHeight(1),
+        width: calcHeight(1)}}/>}
+        </View>
         </View>
     );
 }
