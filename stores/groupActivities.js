@@ -7,6 +7,7 @@ export const useGroupActivitiesStore = create(
     persist(
         (set) => ({
             activitiesHash: {},
+            _hasHydrated: false,
             setActivitiesHash: (groupId, updater) => {
                 set((state) => ({
                     activitiesHash: {
@@ -28,7 +29,7 @@ export const useGroupActivitiesStore = create(
 );
 
 const useGroupActivities = (groupId) => {
-    const { setActivitiesHash, getActivities, syncAllChat } =
+    const { setActivitiesHash, getActivities } =
         useGroupActivitiesStore();
     const activities = getActivities(groupId);
 
@@ -37,6 +38,25 @@ const useGroupActivities = (groupId) => {
     };
 
     return { activities, setActivities };
+};
+
+
+export const storeHydrated = () => {
+    return new Promise((resolve) => {
+        const { _hasHydrated } = useGroupActivitiesStore.getState();
+        if (_hasHydrated) {
+            resolve();
+        } else {
+            const unsubscribe = useGroupActivitiesStore.subscribe(
+                (hasHydrated) => {
+                    if (hasHydrated) {
+                        resolve();
+                        unsubscribe();
+                    }
+                }
+            );
+        }
+    });
 };
 
 export default useGroupActivities;

@@ -40,21 +40,14 @@ import useGroupActivities from '../stores/groupActivities';
 import { useContacts } from '../hooks/useContacts';
 import checkConnectivity from '../helper/getNetworkStateAsync';
 import syncAllChat from '../utility/syncAllChat';
-import NetInfo from '@react-native-community/netinfo';
+
+
 function isNumber(text) {
     return !isNaN(+text);
 }
 
 function GroupScreen({ navigation }) {
-    useEffect(() => {
-        const unsubscribe = NetInfo.addEventListener((state) => {
-            if (state.isConnected) syncAllChat();
-        });
 
-        return () => {
-            unsubscribe();
-        };
-    }, []);
     const { group } = useGroup();
     const textRef = useRef();
     const { activities, setActivities } = useGroupActivities(group._id);

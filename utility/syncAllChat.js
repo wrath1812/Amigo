@@ -1,5 +1,6 @@
-import { useGroupActivitiesStore } from '../stores/groupActivities';
+import { useGroupActivitiesStore,storeHydrated } from '../stores/groupActivities';
 const syncAllChat = async () => {
+    await storeHydrated();
     const { activitiesHash } = useGroupActivitiesStore.getState();
     const promises = [];
 
