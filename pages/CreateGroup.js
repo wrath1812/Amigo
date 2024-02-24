@@ -20,6 +20,8 @@ import PAGES from '../constants/pages';
 import { useTransaction } from '../context/TransactionContext';
 import editNamesAsync from '../helper/editNamesAsync';
 import { useAuth } from '../stores/auth';
+import offlineMessage from '../helper/offlineMessage';
+import checkConnectivity from '../helper/getNetworkStateAsync';
 
 const CreateGroup = ({ navigation }) => {
     const { selectedContacts } = useContacts();
@@ -30,6 +32,11 @@ const CreateGroup = ({ navigation }) => {
     const nameRef = useRef();
 
     const createGroupAsync = async () => {
+        const isOnline=await checkConnectivity();
+        if(!isOnline){
+        offlineMessage();
+        return;
+        }
         setIsLoading(true);
         const phoneNumbers = selectedContacts.map(({ phoneNumber }) => ({
             phoneNumber,
