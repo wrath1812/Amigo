@@ -23,7 +23,8 @@ import Toast from 'react-native-root-toast';
 import sliceText from '../helper/sliceText';
 import AmountInput from '../components/AmountInput';
 import useKeyboardHeight from '../hooks/useKeyboardHeight';
-
+import offlineMessage from '../helper/offlineMessage';
+import checkConnectivity from '../helper/getNetworkStateAsync';
 // GroupScreen Component
 function GroupScreen({
     route: {
@@ -38,6 +39,11 @@ function GroupScreen({
     const keyboardHeight = useKeyboardHeight();
 
     async function submitPayment() {
+        const isOnline=await checkConnectivity();
+        if(!isOnline){
+        offlineMessage();
+        return;
+        }
         seIsLoading(true);
         try {
             const { data } = await apiHelper.post('/payment', {
