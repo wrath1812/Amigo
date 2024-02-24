@@ -19,7 +19,6 @@ export const useGroupActivitiesStore = create(
                 const { activitiesHash } = useGroupActivitiesStore.getState();
                 return activitiesHash[groupId] || [];
             },
-            
         }),
         {
             name: 'groupActivities',
@@ -29,13 +28,13 @@ export const useGroupActivitiesStore = create(
 );
 
 const useGroupActivities = (groupId) => {
-    const { setActivitiesHash, getActivities,syncAllChat } = useGroupActivitiesStore();
+    const { setActivitiesHash, getActivities, syncAllChat } =
+        useGroupActivitiesStore();
     const activities = getActivities(groupId);
 
     const setActivities = (updater) => {
         setActivitiesHash(groupId, () => updater);
     };
-
 
     return { activities, setActivities };
 };

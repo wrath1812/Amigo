@@ -1,4 +1,4 @@
-import { StyleSheet, View, Pressable, Text,Image } from 'react-native';
+import { StyleSheet, View, Pressable, Text, Image } from 'react-native';
 import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
 import COLOR from '../constants/Colors';
 import { Octicons, EvilIcons } from '@expo/vector-icons';
@@ -9,7 +9,7 @@ import React, { useEffect } from 'react';
 import { MaterialIcons } from '@expo/vector-icons';
 import editNames from '../helper/editNames';
 import UserAvatar from '../components/UserAvatar';
-import ClockIcon from "../assets/icons/clock.png";
+import ClockIcon from '../assets/icons/clock.png';
 
 function convertToCustomFormat(dateString) {
     var date = new Date(dateString);
@@ -182,7 +182,7 @@ function PaymentActivity({ payment, contacts }) {
     );
 }
 
-function ChatActivity({ chat,synced }) {
+function ChatActivity({ chat, synced }) {
     function convertToCustomFormat(dateString) {
         var date = new Date(dateString);
         var timeOptions = { hour: 'numeric', minute: '2-digit', hour12: true };
@@ -198,23 +198,32 @@ function ChatActivity({ chat,synced }) {
             >
                 {chat.message}
             </Text>
-        <View style={{
-            alignItems:"center",
-            flexDirection:"row",
-            flex:1,
-            alignContent:"center",
-            justifyContent:"flex-end",
-            gap:calcWidth(1)
-        }}>
-            <Text style={{
-                color:"grey",
-                fontSize:getFontSizeByWindowWidth(10)
-            }}>{convertToCustomFormat(chat.createdAt)}</Text>
-            {/* incase sync is missing for the data comming from the backend it should have the right sync */}
-            {synced===false &&
-        <Image source={ClockIcon} style={ {height: calcHeight(1),
-        width: calcHeight(1)}}/>}
-        </View>
+            <View
+                style={{
+                    alignItems: 'center',
+                    flexDirection: 'row',
+                    flex: 1,
+                    alignContent: 'center',
+                    justifyContent: 'flex-end',
+                    gap: calcWidth(1),
+                }}
+            >
+                <Text
+                    style={{
+                        color: 'grey',
+                        fontSize: getFontSizeByWindowWidth(10),
+                    }}
+                >
+                    {convertToCustomFormat(chat.createdAt)}
+                </Text>
+                {/* incase sync is missing for the data comming from the backend it should have the right sync */}
+                {synced === false && (
+                    <Image
+                        source={ClockIcon}
+                        style={{ height: calcHeight(1), width: calcHeight(1) }}
+                    />
+                )}
+            </View>
         </View>
     );
 }
@@ -318,12 +327,7 @@ const ActivityStrategyFactory = (activityType) => {
             };
         case 'chat':
             return {
-                renderActivity: ({
-                    creator,
-                    relatedId,
-                    createdAt,
-                    synced
-                }) => (
+                renderActivity: ({ creator, relatedId, createdAt, synced }) => (
                     <ChatActivity
                         chat={{
                             creator,

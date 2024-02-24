@@ -8,11 +8,7 @@ function App() {
         <SafeAreaProvider>
             <StatusBar style="auto" />
             <RootNavigator />
-            <FlashMessage
-                position="top"
-                duration={2000}
-            />
-
+            <FlashMessage position="top" duration={2000} />
         </SafeAreaProvider>
     );
 }

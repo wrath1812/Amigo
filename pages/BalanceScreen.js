@@ -21,7 +21,7 @@ import { useAuth } from '../stores/auth';
 import ScanIcon from '../assets/icons/scan.png';
 import UserAvatar from '../components/UserAvatar';
 const headerIconSize = calcHeight(1);
-
+import NetInfo from '@react-native-community/netinfo';
 import groupBalancesAndCalculateTotal from '../utility/groupBalancesAndCalculateTotal';
 import { useBalance } from '../stores/balance';
 

@@ -12,13 +12,13 @@ function RootNavigator() {
     const { user } = useAuth();
 
     return (
-            <GroupProvider>
-                <TransactionProvider>
-                    <NavigationContainer linking={linking}>
-                        {user ? <AppNavigator /> : AuthNavigator}
-                    </NavigationContainer>
-                </TransactionProvider>
-            </GroupProvider>
+        <GroupProvider>
+            <TransactionProvider>
+                <NavigationContainer linking={linking}>
+                    {user ? <AppNavigator /> : AuthNavigator}
+                </NavigationContainer>
+            </TransactionProvider>
+        </GroupProvider>
     );
 }
 

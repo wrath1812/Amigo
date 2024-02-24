@@ -47,9 +47,7 @@ function isNumber(text) {
 function GroupScreen({ navigation }) {
     const { group } = useGroup();
     const textRef = useRef();
-    const { activities, setActivities } = useGroupActivities(
-        group._id,
-    );
+    const { activities, setActivities } = useGroupActivities(group._id);
     const { setTransactionData, resetTransaction } = useTransaction();
     const [amount, setAmount] = useState('');
     const { contacts } = useContacts();
@@ -91,41 +89,34 @@ function GroupScreen({ navigation }) {
         }
     };
 
-    useEffect(()=>{
+    useEffect(() => {
         fetchActivities();
         fetchBalances();
-    },[group])
+    }, [group]);
 
     useSocket('activity created', fetchActivity);
 
     async function addChat() {
         setAmount('');
-        const newActivity= {
+        const newActivity = {
             activityType: 'chat',
             createdAt: Date(),
-            creator: {_id:user._id},
+            creator: { _id: user._id },
             group: group._id,
             onModel: 'Chat',
             relatedId: {
                 message: amount,
             },
-            synced:false
+            synced: false,
         };
-        setActivities([
-            newActivity,
-            ...activities,
-        ]);
-        const isOnline=await checkConnectivity();
-        if(isOnline){
-        await apiHelper.post(`/group/${group._id}/chat`, {
-            message: amount,
-        });
-        setActivities([
-            {...newActivity,synced:true},
-            ...activities,
-        ]);
-    }
-        
+        setActivities([newActivity, ...activities]);
+        const isOnline = await checkConnectivity();
+        if (isOnline) {
+            await apiHelper.post(`/group/${group._id}/chat`, {
+                message: amount,
+            });
+            setActivities([{ ...newActivity, synced: true }, ...activities]);
+        }
     }
 
     return (
