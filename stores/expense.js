@@ -1,4 +1,4 @@
-import { create } from 'zustand';
+import { create } from '../helper/zustand';
 import apiHelper from '../helper/apiHelper';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { persist, createJSONStorage } from 'zustand/middleware';

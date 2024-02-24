@@ -1,4 +1,4 @@
-import { create } from 'zustand';
+import { create, resetAllStores } from '../helper/zustand';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import apiHelper from '../helper/apiHelper';
@@ -15,6 +15,7 @@ const useAuthStore = create(
             },
             logout: async () => {
                 set({ user: null });
+                resetAllStores();
                 clearAllLocalStoreData();
             },
             verifyOTP: async (phoneNumber, countryCode, otp) => {
