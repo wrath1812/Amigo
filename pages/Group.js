@@ -38,8 +38,8 @@ import BalanceGroupPin from '../components/BalanceGroupPin';
 import ChatBackground from '../assets/chatBackground.png';
 import useGroupActivities from '../stores/groupActivities';
 import { useContacts } from '../hooks/useContacts';
-import { useNetStatus } from '../context/NetStatus';
-
+import checkConnectivity from '../helper/getNetworkStateAsync';
+import syncAllChat from '../utility/syncAllChat';
 function isNumber(text) {
     return !isNaN(+text);
 }
@@ -56,7 +56,6 @@ function GroupScreen({ navigation }) {
     const { user } = useAuth();
     const [totalBalance, setTotalBalance] = useState();
     const [balances, setBalances] = useState();
-    const {isOnline}=useNetStatus();
 
     const fetchActivity = useCallback(async (activity) => {
         if (activity.creator == user._id) return;
@@ -116,6 +115,7 @@ function GroupScreen({ navigation }) {
             newActivity,
             ...activities,
         ]);
+        const isOnline=await checkConnectivity();
         if(isOnline){
         await apiHelper.post(`/group/${group._id}/chat`, {
             message: amount,

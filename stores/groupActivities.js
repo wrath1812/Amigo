@@ -3,7 +3,7 @@ import apiHelper from '../helper/apiHelper';
 import { persist, createJSONStorage } from 'zustand/middleware';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const useGroupActivitiesStore = create(
+export const useGroupActivitiesStore = create(
     persist(
         (set) => ({
             activitiesHash: {},
@@ -19,30 +19,6 @@ const useGroupActivitiesStore = create(
                 const { activitiesHash } = useGroupActivitiesStore.getState();
                 return activitiesHash[groupId] || [];
             },
-            syncAllChat: async () => {
-                const { activitiesHash } = useGroupActivitiesStore.getState();
-                const promises = [];
-            
-                for (const groupId in activitiesHash) {
-                    const activities = Array.from(activitiesHash[groupId]);
-                    
-                    for (const activity of activities) {
-                        if (activity.synched === "false") {
-                            activity.synched = true;
-                            
-                            const promise = apiHelper.post(`/group/${groupId}/chat`, {
-                                message: activity.relatedId.message,
-                            });
-                            
-                            promises.push(promise);
-                        }
-                    }
-                    
-                    useGroupActivitiesStore.getState().setActivitiesHash(groupId, () => [...activities]);
-                }
-                await Promise.all(promises);
-            }
-            
             
         }),
         {
@@ -61,7 +37,7 @@ const useGroupActivities = (groupId) => {
     };
 
 
-    return { activities, setActivities,syncAllChat };
+    return { activities, setActivities };
 };
 
 export default useGroupActivities;
