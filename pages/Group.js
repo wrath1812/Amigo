@@ -89,6 +89,8 @@ function GroupScreen({ navigation }) {
     }, []);
 
     const fetchActivities = async () => {
+        const isOnline = await checkConnectivity();
+        if(!isOnline) return;
         await syncAllChat();
         try {
             const { data } = await apiHelper(
