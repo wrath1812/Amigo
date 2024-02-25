@@ -12,6 +12,7 @@ import {
     KeyboardAvoidingView,
     Image,
     ImageBackground,
+    Platform,
 } from 'react-native';
 import { Ionicons, AntDesign, SimpleLineIcons } from '@expo/vector-icons';
 import apiHelper from '../helper/apiHelper';
@@ -194,7 +195,7 @@ function GroupScreen({ navigation }) {
             />
             <KeyboardAvoidingView
                 style={{
-                    flex: 1,
+                    flex: Platform.OS === 'ios' ? 1 : 0,
                     flexDirection: 'row',
                     margin: calcWidth(2),
                     justifyContent: 'space-evenly',
