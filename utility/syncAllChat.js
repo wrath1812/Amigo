@@ -1,4 +1,9 @@
-import { useGroupActivitiesStore,storeHydrated } from '../stores/groupActivities';
+import apiHelper from '../helper/apiHelper';
+import {
+    useGroupActivitiesStore,
+    storeHydrated,
+} from '../stores/groupActivities';
+
 const syncAllChat = async () => {
     await storeHydrated();
     const { activitiesHash } = useGroupActivitiesStore.getState();
