@@ -12,7 +12,7 @@ export const useGroupActivitiesStore = create(
                 set((state) => ({
                     activitiesHash: {
                         ...state.activitiesHash,
-                        [groupId]: updater(state.activitiesHash[groupId] || []),
+                        [groupId]: updater instanceof Function?updater(state.activitiesHash[groupId] || []):updater,
                     },
                 }));
             },
@@ -34,7 +34,7 @@ const useGroupActivities = (groupId) => {
     const activities = getActivities(groupId);
 
     const setActivities = (updater) => {
-        setActivitiesHash(groupId, () => updater);
+        setActivitiesHash(groupId,updater);
     };
 
     return { activities, setActivities };
