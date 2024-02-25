@@ -1,5 +1,6 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
 import * as Contacts from 'expo-contacts';
+import React, { createContext, useContext, useState, useEffect } from 'react';
+
 import generateRandomColor from '../helper/generateRandomColor';
 const ContactsContext = createContext();
 
@@ -19,7 +20,9 @@ const mapToSimplifiedContacts = (uniqueContacts) => {
     return uniqueContacts.map((contact) => ({
         id: contact.id,
         name: contact.name || '',
-        phoneNumber: contact.phoneNumbers[0].number.replace(/\D/g, ''),
+        phoneNumber: contact.phoneNumbers[0].number
+            .replace(/\D/g, '')
+            .slice(-10),
         imageURI: contact.imageAvailable ? contact.image.uri : '',
         color: generateRandomColor(),
     }));
