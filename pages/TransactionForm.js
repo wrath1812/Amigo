@@ -24,6 +24,8 @@ import getPreviousPageName from '../helper/getPreviousPageName';
 import { useAuth } from '../stores/auth';
 import Toast from 'react-native-root-toast';
 import AmountInput from '../components/AmountInput';
+import checkConnectivity from '../helper/getNetworkStateAsync';
+import useGroupActivities from '../stores/groupActivities';
 function TransactionFormScreen({ navigation }) {
     const [loading, setIsLoading] = useState(false);
     const {
@@ -107,10 +109,10 @@ function TransactionFormScreen({ navigation }) {
             alert('Category Missing');
             return;
         }
-        setIsLoading(true);
+
         try {
             // Create a new object with modifications, leaving original transactionData unchanged
-            const modifiedTransactionData = {
+            const newActivity = {
                 ...transactionData,
                 amount: parseInt(transactionData.amount),
                 group: transactionData.group._id,
@@ -119,17 +121,26 @@ function TransactionFormScreen({ navigation }) {
                     amount: user.amount,
                     user: user.user._id || user.user.id,
                 })),
+                synced: false
             };
 
-            const { data } = await apiHelper.post(
+            const {activities,setActivities}=useGroupActivities(newActivity.group);
+            setActivities([newActivity, ...activities]);
+            const isOnline=await checkConnectivity();
+            
+            if(isOnline)
+            {
+            apiHelper.post(
                 '/transaction',
-                modifiedTransactionData,
+                newActivity,
             );
+            setActivities([{ ...newActivity, synced: true }, ...activities]);
+            }
 
             if (upiParams.receiverId) {
                 setUpiParams((prev) => ({
                     ...prev,
-                    am: modifiedTransactionData.amount,
+                    am: newActivity.amount,
                 }));
                 navigation.navigate(PAGES.UPI_APP_SELECTION);
                 return;
@@ -140,9 +151,8 @@ function TransactionFormScreen({ navigation }) {
             navigation.goBack();
         } catch (error) {
             console.log('error', error);
-            Alert.alert('Error', 'There was an error saving the transaction.');
+            Alert.alert('Error', JSON.stringify(error));
         }
-        setIsLoading(false);
     };
 
     return loading ? (
