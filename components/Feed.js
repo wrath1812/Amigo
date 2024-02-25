@@ -293,10 +293,10 @@ function Feed(props) {
                                 user._id === creator._id
                                     ? '#663CAB'
                                     : '#342F4F',
-                            borderRadius:
-                                user._id === creator._id
-                                    ? 'topLeft'
-                                    : 'topRight',
+                            // borderRadius:
+                            //     user._id === creator._id
+                            //         ? 'topLeft'
+                            //         : 'topRight',
                         },
                     ]}
                 >
