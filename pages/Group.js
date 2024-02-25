@@ -61,7 +61,7 @@ function GroupScreen({ navigation }) {
 
     const fetchActivity = useCallback(async (activity) => {
         if (activity.creator == user._id) return;
-        setActivities([activity, ...activities]);
+        setActivities((prev)=>[activity, ...prev]);
     }, []);
 
     const fetchBalances = useCallback(async () => {
@@ -123,7 +123,7 @@ function GroupScreen({ navigation }) {
             });
             setActivities([{ ...newActivity, synced: true }, ...activities]);
         }
-    }
+    } 
 
     return (
         <SafeAreaView style={styles.container}>
