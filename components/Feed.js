@@ -1,6 +1,6 @@
 import { Octicons, EvilIcons, MaterialIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { StyleSheet, View, Pressable, Text, Image } from 'react-native';
 
 import ClockIcon from '../assets/icons/clock.png';
@@ -293,10 +293,17 @@ function Feed(props) {
                                 user._id === creator._id
                                     ? '#663CAB'
                                     : '#342F4F',
-                            // borderRadius:
-                            //     user._id === creator._id
-                            //         ? 'topLeft'
-                            //         : 'topRight',
+                            ...(user._id === creator._id
+                                ? {
+                                      borderBottomLeftRadius: calcHeight(1),
+                                      borderBottomRightRadius: calcHeight(2),
+                                      borderTopLeftRadius: calcHeight(2),
+                                  }
+                                : {
+                                      borderBottomLeftRadius: calcHeight(2),
+                                      borderBottomRightRadius: calcHeight(1),
+                                      borderTopRightRadius: calcHeight(2),
+                                  }),
                         },
                     ]}
                 >
