@@ -94,7 +94,7 @@ function GroupScreen({ navigation }) {
             else
             {
                 const { data } = await apiHelper(
-                    `/activity-feed?groupId=${group._id}?lastActivityTime=${lastActivityTime}`,
+                    `/activity-feed?groupId=${group._id}&lastActivityTime=${lastActivityTime}`,
                 );
                 setActivities((prev)=>[...data,...prev]);
             }
