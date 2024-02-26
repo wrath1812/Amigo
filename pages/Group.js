@@ -80,14 +80,24 @@ function GroupScreen({ navigation }) {
         }
     }, []);
 
-    const fetchActivities = async () => {
+    const fetchActivities = async (lastActivityTime=null) => {
         const isOnline = await checkConnectivity();
         if (!isOnline) return;
         try {
+            if(!lastActivityTime)
+            {
             const { data } = await apiHelper(
                 `/activity-feed?groupId=${group._id}`,
             );
             setActivities(data);
+            }
+            else
+            {
+                const { data } = await apiHelper(
+                    `/activity-feed?groupId=${group._id}?lastActivityTime=${lastActivityTime}`,
+                );
+                setActivities((prev)=>[...data,...prev]);
+            }
         } catch (error) {
             console.error('Error fetching activities:', error);
         }
@@ -189,6 +199,8 @@ function GroupScreen({ navigation }) {
                 style={{
                     height: calcHeight(totalBalance != 0 ? 65 : 70),
                 }}
+                onEndReachedThreshold={0.5}
+                onEndReached={()=>fetchActivities(activities[0].createdAt)}
             />
             <KeyboardAvoidingView
                 style={{
