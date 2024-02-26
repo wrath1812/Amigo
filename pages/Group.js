@@ -1,4 +1,6 @@
 // 1. Import Statements
+import { Ionicons, AntDesign, SimpleLineIcons } from '@expo/vector-icons';
+import { useFocusEffect } from '@react-navigation/native';
 import React, { useRef, useState, useCallback, useEffect } from 'react';
 import {
     Text,
@@ -14,41 +16,37 @@ import {
     ImageBackground,
     Platform,
 } from 'react-native';
-import { Ionicons, AntDesign, SimpleLineIcons } from '@expo/vector-icons';
-import apiHelper from '../helper/apiHelper';
-import Loader from '../components/Loader';
-import PAGES from '../constants/pages';
-import FabIcon from '../components/FabIcon';
-import { useFocusEffect } from '@react-navigation/native';
+
 import LoginIcon from '../assets/Login.png';
-import GroupIcon from '../components/GroupIcon';
-import COLOR from '../constants/Colors';
-import { calcHeight, calcWidth } from '../helper/res';
-import { getFontSizeByWindowWidth } from '../helper/res';
-import { useTransaction } from '../context/TransactionContext';
-import { useAuth } from '../stores/auth';
-import Feed from '../components/Feed';
-import useSocket from '../hooks/useSocket';
-import editNames from '../helper/editNames';
-import { useGroup } from '../context/GroupContext';
-import groupBalancesAndCalculateTotal from '../utility/groupBalancesAndCalculateTotal';
-import getMembersString from '../utility/getMembersString';
-import sliceText from '../helper/sliceText';
+import ChatBackground from '../assets/chatBackground.png';
 import ScannerIcon from '../assets/icons/scanner.png';
 import BalanceGroupPin from '../components/BalanceGroupPin';
-import ChatBackground from '../assets/chatBackground.png';
-import useGroupActivities from '../stores/groupActivities';
-import { useContacts } from '../hooks/useContacts';
+import FabIcon from '../components/FabIcon';
+import Feed from '../components/Feed';
+import GroupIcon from '../components/GroupIcon';
+import Loader from '../components/Loader';
+import COLOR from '../constants/Colors';
+import PAGES from '../constants/pages';
+import { useGroup } from '../context/GroupContext';
+import { useTransaction } from '../context/TransactionContext';
+import apiHelper from '../helper/apiHelper';
+import editNames from '../helper/editNames';
 import checkConnectivity from '../helper/getNetworkStateAsync';
+import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
+import sliceText from '../helper/sliceText';
+import { useContacts } from '../hooks/useContacts';
+import useSocket from '../hooks/useSocket';
+import { useAuth } from '../stores/auth';
+import useGroupActivities from '../stores/groupActivities';
+import getMembersString from '../utility/getMembersString';
+import groupBalancesAndCalculateTotal from '../utility/groupBalancesAndCalculateTotal';
 import syncAllChat from '../utility/syncAllChat';
-
 
 function isNumber(text) {
     return !isNaN(+text);
 }
 
 function GroupScreen({ navigation }) {
-
     const { group } = useGroup();
     const textRef = useRef();
     const { activities, setActivities } = useGroupActivities(group._id);
@@ -60,8 +58,8 @@ function GroupScreen({ navigation }) {
     const [balances, setBalances] = useState();
 
     const fetchActivity = useCallback(async (activity) => {
-        if (activity.creator == user._id) return;
-        setActivities((prev)=>[activity, ...prev]);
+        if (activity.creator === user._id) return;
+        setActivities((prev) => [activity, ...prev]);
     }, []);
 
     const fetchBalances = useCallback(async () => {
@@ -84,7 +82,7 @@ function GroupScreen({ navigation }) {
 
     const fetchActivities = async () => {
         const isOnline = await checkConnectivity();
-        if(!isOnline) return;
+        if (!isOnline) return;
         try {
             const { data } = await apiHelper(
                 `/activity-feed?groupId=${group._id}`,
@@ -123,7 +121,7 @@ function GroupScreen({ navigation }) {
             });
             setActivities([{ ...newActivity, synced: true }, ...activities]);
         }
-    } 
+    }
 
     return (
         <SafeAreaView style={styles.container}>

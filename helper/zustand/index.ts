@@ -1,19 +1,19 @@
-import { create as _create } from 'zustand'
-import type { StateCreator } from 'zustand'
+import { create as _create } from 'zustand';
+import type { StateCreator } from 'zustand';
 
-const storeResetFns = new Set<() => void>()
+const storeResetFns = new Set<() => void>();
 
 export const resetAllStores = () => {
-  storeResetFns.forEach((resetFn) => {
-    resetFn()
-  })
-}
+    storeResetFns.forEach((resetFn) => {
+        resetFn();
+    });
+};
 
-export const create =(stateCreator: StateCreator<T>)  => {
-    const store = _create(stateCreator)
-    const initialState = store.getState()
+export const create = (stateCreator: StateCreator<T>) => {
+    const store = _create(stateCreator);
+    const initialState = store.getState();
     storeResetFns.add(() => {
-      store.setState(initialState, true)
-    })
-    return store
-  };
+        store.setState(initialState, true);
+    });
+    return store;
+};

@@ -1,4 +1,5 @@
 // 1. Import Statements
+import { AntDesign } from '@expo/vector-icons';
 import React, { useState, useRef, useEffect } from 'react';
 import {
     SafeAreaView,
@@ -10,21 +11,21 @@ import {
     KeyboardAvoidingView,
     Keyboard,
 } from 'react-native';
-import { AntDesign } from '@expo/vector-icons';
-import GroupIcon from '../components/GroupIcon';
-import COLOR from '../constants/Colors';
-import { calcHeight, getFontSizeByWindowWidth, calcWidth } from '../helper/res';
+import Toast from 'react-native-root-toast';
+
+import AmountInput from '../components/AmountInput';
 import Button from '../components/Button';
-import PAGES from '../constants/pages';
-import apiHelper from '../helper/apiHelper';
+import GroupIcon from '../components/GroupIcon';
 import Loader from '../components/Loader';
 import UserAvatar from '../components/UserAvatar';
-import Toast from 'react-native-root-toast';
-import sliceText from '../helper/sliceText';
-import AmountInput from '../components/AmountInput';
-import useKeyboardHeight from '../hooks/useKeyboardHeight';
-import offlineMessage from '../helper/offlineMessage';
+import COLOR from '../constants/Colors';
+import PAGES from '../constants/pages';
+import apiHelper from '../helper/apiHelper';
 import checkConnectivity from '../helper/getNetworkStateAsync';
+import offlineMessage from '../helper/offlineMessage';
+import { calcHeight, getFontSizeByWindowWidth, calcWidth } from '../helper/res';
+import sliceText from '../helper/sliceText';
+import useKeyboardHeight from '../hooks/useKeyboardHeight';
 // GroupScreen Component
 function GroupScreen({
     route: {
@@ -39,10 +40,10 @@ function GroupScreen({
     const keyboardHeight = useKeyboardHeight();
 
     async function submitPayment() {
-        const isOnline=await checkConnectivity();
-        if(!isOnline){
-        offlineMessage();
-        return;
+        const isOnline = await checkConnectivity();
+        if (!isOnline) {
+            offlineMessage();
+            return;
         }
         seIsLoading(true);
         try {
