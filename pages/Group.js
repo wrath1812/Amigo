@@ -138,7 +138,6 @@ function GroupScreen({ navigation }) {
                         flexDirection: 'row',
                         alignItems: 'center',
                         justifyContent: 'space-between',
-                        height: calcHeight(8),
                         gap: calcWidth(5),
                     }}
                 >
@@ -259,7 +258,7 @@ function GroupScreen({ navigation }) {
                 style={{
                     position: 'absolute',
                     zIndex: -100,
-                    height: calcHeight(85),
+                    height: calcHeight(90),
                     bottom: 0,
                 }}
             />
@@ -276,18 +275,22 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
+        height: calcHeight(8),
+        backgroundColor:COLOR.APP_BACKGROUND
     },
     groupName: {
         color: 'white',
         fontWeight: 'bold',
+        fontSize: getFontSizeByWindowWidth(12)
     },
     groupMembers: {
         color: '#A5A5A5',
+        fontSize: getFontSizeByWindowWidth(11)
     },
     button: {
         width: calcWidth(25),
         height: calcHeight(5),
-        borderRadius: 10,
+        borderRadius: calcWidth(2),
         backgroundColor: COLOR.BUTTON,
         elevation: 3,
         justifyContent: 'center',
@@ -302,13 +305,14 @@ const styles = StyleSheet.create({
         color: 'white',
         width: calcWidth(60),
         height: calcHeight(5),
+        borderRadius: calcWidth(2),
         alignContent: 'center',
     },
     input: {
         flex: 1,
         borderWidth: 1,
         borderColor: 'gray',
-        borderRadius: 10,
+        borderRadius: calcWidth(2),
         color: 'white',
         fontSize: getFontSizeByWindowWidth(10),
     },
