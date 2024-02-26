@@ -138,7 +138,6 @@ function GroupScreen({ navigation }) {
                         flexDirection: 'row',
                         alignItems: 'center',
                         justifyContent: 'space-between',
-                        height: calcHeight(8),
                         gap: calcWidth(5),
                     }}
                 >
@@ -276,6 +275,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
+        height: calcHeight(8),
     },
     groupName: {
         color: 'white',
