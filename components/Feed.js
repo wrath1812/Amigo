@@ -1,31 +1,31 @@
-import { StyleSheet, View, Pressable, Text, Image } from 'react-native';
-import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
-import COLOR from '../constants/Colors';
-import { Octicons, EvilIcons } from '@expo/vector-icons';
-import { useAuth } from '../stores/auth';
+import { Octicons, EvilIcons, MaterialIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
-import PAGES from '../constants/pages';
-import React, { useEffect } from 'react';
-import { MaterialIcons } from '@expo/vector-icons';
-import editNames from '../helper/editNames';
-import UserAvatar from '../components/UserAvatar';
+import React from 'react';
+import { StyleSheet, View, Pressable, Text, Image } from 'react-native';
+
 import ClockIcon from '../assets/icons/clock.png';
+import UserAvatar from '../components/UserAvatar';
+import COLOR from '../constants/Colors';
+import PAGES from '../constants/pages';
+import editNames from '../helper/editNames';
+import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
+import { useAuth } from '../stores/auth';
 
 function convertToCustomFormat(dateString) {
-    var date = new Date(dateString);
-    var dateOptions = { day: 'numeric', month: 'long', year: 'numeric' };
-    var timeOptions = { hour: '2-digit', minute: '2-digit' };
-    var formattedDate = date.toLocaleDateString('en-IN', dateOptions);
-    var formattedTime = date.toLocaleTimeString('en-IN', timeOptions);
+    const date = new Date(dateString);
+    const dateOptions = { day: 'numeric', month: 'long', year: 'numeric' };
+    const timeOptions = { hour: '2-digit', minute: '2-digit' };
+    const formattedDate = date.toLocaleDateString('en-IN', dateOptions);
+    const formattedTime = date.toLocaleTimeString('en-IN', timeOptions);
     return formattedDate + ' ' + formattedTime;
 }
 
 function getDateAndMonth(dateString) {
     // Parse the dateString into a Date object
-    var date = new Date(dateString);
+    const date = new Date(dateString);
 
     // Array of month names
-    var months = [
+    const months = [
         'January',
         'February',
         'March',
@@ -40,8 +40,8 @@ function getDateAndMonth(dateString) {
         'December',
     ];
 
-    var day = date.getDate();
-    var month = months[date.getMonth()];
+    const day = date.getDate();
+    const month = months[date.getMonth()];
     return day + ' ' + month;
 }
 
@@ -85,7 +85,7 @@ function ActivityHeader({ icon, iconName, size, text }) {
                 {icon &&
                     React.createElement(icon, {
                         name: iconName,
-                        size: size,
+                        size,
                         color: 'white',
                     })}
                 {'    '}
@@ -102,7 +102,7 @@ function TransactionActivity({ transaction, createdAt, contacts }) {
         <Pressable
             onPress={() => {
                 const editedTransaction = transaction;
-                for (let i in editedTransaction.splitAmong) {
+                for (const i in editedTransaction.splitAmong) {
                     editedTransaction.splitAmong[i].user = editNames(
                         [transaction.splitAmong[i].user],
                         user._id,
@@ -184,9 +184,13 @@ function PaymentActivity({ payment, contacts }) {
 
 function ChatActivity({ chat, synced }) {
     function convertToCustomFormat(dateString) {
-        var date = new Date(dateString);
-        var timeOptions = { hour: 'numeric', minute: '2-digit', hour12: true };
-        var formattedTime = date.toLocaleTimeString('en-US', timeOptions);
+        const date = new Date(dateString);
+        const timeOptions = {
+            hour: 'numeric',
+            minute: '2-digit',
+            hour12: true,
+        };
+        const formattedTime = date.toLocaleTimeString('en-US', timeOptions);
         return formattedTime;
     }
     return (
@@ -230,7 +234,7 @@ function ChatActivity({ chat, synced }) {
 
 function Feed(props) {
     const { user } = useAuth();
-    const { creator, activityType,createdAt } = props;
+    const { creator, activityType, createdAt } = props;
 
     const renderActivity = () => {
         const activityStrategy = ActivityStrategyFactory(activityType);
@@ -289,10 +293,17 @@ function Feed(props) {
                                 user._id === creator._id
                                     ? '#663CAB'
                                     : '#342F4F',
-                            borderRadius:
-                                user._id === creator._id
-                                    ? 'topLeft'
-                                    : 'topRight',
+                            ...(user._id === creator._id
+                                ? {
+                                      borderBottomLeftRadius: calcHeight(1),
+                                      borderBottomRightRadius: calcHeight(2),
+                                      borderTopLeftRadius: calcHeight(2),
+                                  }
+                                : {
+                                      borderBottomLeftRadius: calcHeight(2),
+                                      borderBottomRightRadius: calcHeight(1),
+                                      borderTopRightRadius: calcHeight(2),
+                                  }),
                         },
                     ]}
                 >
