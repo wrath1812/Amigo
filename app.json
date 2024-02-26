@@ -1,56 +1,64 @@
 {
-    "expo": {
-        "name": "Split Cash",
-        "slug": "splitcash",
-        "scheme": "split-cash",
-        "version": "1.2.0",
-        "orientation": "portrait",
-        "icon": "./assets/icon.png",
-        "userInterfaceStyle": "automatic",
-        "splash": {
-            "image": "./assets/splash.png",
-            "resizeMode": "contain",
-            "backgroundColor": "#000"
-        },
-        "assetBundlePatterns": ["**/*"],
-        "ios": {
-            "bundleIdentifier": "com.splitcash.splitcash",
-            "buildNumber": "48",
-            "infoPlist": {
-                "LSApplicationQueriesSchemes": [
-                    "tez",
-                    "phonepe",
-                    "paytmmp",
-                    "amazonpay",
-                    "bhim",
-                    "upi"
-                ]
-            }
-        },
-        "android": {
-            "adaptiveIcon": {
-                "foregroundImage": "./assets/icon.png",
-                "backgroundColor": "#000"
-            },
-            "versionCode": 3,
-            "package": "com.splitcash.splitcash"
-        },
-        "web": {
-            "favicon": "./assets/favicon.png"
-        },
-        "extra": {
-            "eas": {
-                "projectId": "866ec882-73d4-4851-9990-d3414d2903d4"
-            }
-        },
-        "owner": "split-cash",
-        "plugins": [
-            [
-              "expo-updates",
-              {
-                "username": "bhaumik.tandan"
-              }
-            ]
-          ]
+  "expo": {
+    "name": "Split Cash",
+    "slug": "splitcash",
+    "scheme": "split-cash",
+    "version": "1.2.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "automatic",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#000"
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "bundleIdentifier": "com.splitcash.splitcash",
+      "buildNumber": "48",
+      "infoPlist": {
+        "LSApplicationQueriesSchemes": [
+          "tez",
+          "phonepe",
+          "paytmmp",
+          "amazonpay",
+          "bhim",
+          "upi"
+        ]
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/icon.png",
+        "backgroundColor": "#000"
+      },
+      "versionCode": 3,
+      "package": "com.splitcash.splitcash"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "866ec882-73d4-4851-9990-d3414d2903d4"
+      }
+    },
+    "owner": "split-cash",
+    "plugins": [
+      [
+        "expo-updates",
+        {
+          "username": "bhaumik.tandan"
+        }
+      ]
+    ],
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/866ec882-73d4-4851-9990-d3414d2903d4"
     }
+  }
 }
