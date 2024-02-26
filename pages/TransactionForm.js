@@ -1,4 +1,5 @@
-import React, { useEffect, useState, useRef } from 'react';
+import { MaterialIcons, AntDesign } from "@expo/vector-icons";
+import React, { useEffect, useState, useRef } from "react";
 import {
     View,
     Text,
@@ -8,24 +9,26 @@ import {
     ScrollView,
     Alert,
     Pressable,
-} from 'react-native';
+} from "react-native";
+import Toast from "react-native-root-toast";
 
-import apiHelper from '../helper/apiHelper';
-import PAGES from '../constants/pages';
-import Loader from '../components/Loader';
-import COLOR from '../constants/Colors';
-import Button from '../components/Button';
-import Categories from '../constants/Categories';
-import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
-import { MaterialIcons } from '@expo/vector-icons';
-import { AntDesign } from '@expo/vector-icons';
-import { useTransaction } from '../context/TransactionContext';
-import getPreviousPageName from '../helper/getPreviousPageName';
-import { useAuth } from '../stores/auth';
-import Toast from 'react-native-root-toast';
-import AmountInput from '../components/AmountInput';
-import checkConnectivity from '../helper/getNetworkStateAsync';
-import useGroupActivities from '../stores/groupActivities';
+import AmountInput from "../components/AmountInput";
+import Button from "../components/Button";
+import Loader from "../components/Loader";
+import Categories from "../constants/Categories";
+import COLOR from "../constants/Colors";
+import PAGES from "../constants/pages";
+import { useTransaction } from "../context/TransactionContext";
+import apiHelper from "../helper/apiHelper";
+import checkConnectivity from "../helper/getNetworkStateAsync";
+import getPreviousPageName from "../helper/getPreviousPageName";
+import { calcHeight, calcWidth, getFontSizeByWindowWidth } from "../helper/res";
+import { useAuth } from "../stores/auth";
+import { useGroup } from "../context/GroupContext";
+import useGroupActivities, {
+    useGroupActivitiesStore,
+} from "../stores/groupActivities";
+
 function TransactionFormScreen({ navigation }) {
     const [loading, setIsLoading] = useState(false);
     const {
@@ -37,12 +40,16 @@ function TransactionFormScreen({ navigation }) {
     } = useTransaction();
     const descriptionRef = useRef();
     const { user } = useAuth();
+    const { setGroup } = useGroup();
+
+    const { setActivitiesHash, getActivities } = useGroupActivitiesStore();
+
     useEffect(() => {
         const { group } = transactionData;
         if (group && group.members) {
             const totalMembers = group.members.length;
             const perUserPayment = Math.floor(
-                transactionData.amount / totalMembers,
+                transactionData.amount / totalMembers
             );
             const remainder = transactionData.amount % totalMembers;
 
@@ -51,7 +58,7 @@ function TransactionFormScreen({ navigation }) {
                 splitAmong: group.members.map((user, index) => ({
                     amount: perUserPayment + (index < remainder ? 1 : 0),
                     user,
-                    paidBy: { _id: user?._id, name: 'You' },
+                    paidBy: { _id: user?._id, name: "You" },
                 })),
             }));
         }
@@ -60,7 +67,7 @@ function TransactionFormScreen({ navigation }) {
     useEffect(() => {
         setTransactionData((prev) => ({
             ...prev,
-            paidBy: { _id: user?._id, name: 'You' },
+            paidBy: { _id: user?._id, name: "You" },
         }));
     }, [transactionData.group]);
 
@@ -68,7 +75,7 @@ function TransactionFormScreen({ navigation }) {
         if (upiParams.am) {
             setTransactionData((prev) => ({
                 ...prev,
-                amount: upiParams.am || '',
+                amount: upiParams.am || "",
             }));
         }
         return () => {
@@ -92,49 +99,65 @@ function TransactionFormScreen({ navigation }) {
 
     const handleSubmit = async () => {
         if (!transactionData.amount) {
-            alert('Amount Missing');
+            alert("Amount Missing");
             return;
         }
 
-        if (!transactionData.description) {
-            alert('Description Missing');
-            return;
-        }
-        if (transactionData.group == {}) {
-            alert('Group not added');
+        if (Object.keys(transactionData.group).length === 0) {
+            alert("Group not added");
             return;
         }
 
         if (!transactionData.type) {
-            alert('Category Missing');
+            alert("Category Missing");
             return;
         }
 
         try {
             // Create a new object with modifications, leaving original transactionData unchanged
-            const newActivity = {
+            const newTransaction = {
                 ...transactionData,
-                amount: parseInt(transactionData.amount),
+                amount: parseInt(transactionData.amount, 10),
                 group: transactionData.group._id,
                 paidBy: transactionData.paidBy._id,
                 splitAmong: transactionData.splitAmong.map((user) => ({
                     amount: user.amount,
                     user: user.user._id || user.user.id,
                 })),
-                synced: false
+            };
+            const newActivity = {
+                relatedId: newTransaction,
+                creator: { _id: user._id },
+                synced: false,
+                createdAt: new Date(),
+                activityType: "transaction",
             };
 
-            const {activities,setActivities}=useGroupActivities(newActivity.group);
-            setActivities([newActivity, ...activities]);
-            const isOnline=await checkConnectivity();
-            
-            if(isOnline)
-            {
-            apiHelper.post(
-                '/transaction',
+            const activities = Array.from(getActivities(newTransaction.group));
+            setActivitiesHash(newTransaction.group, [
                 newActivity,
-            );
-            setActivities([{ ...newActivity, synced: true }, ...activities]);
+                ...activities,
+            ]);
+
+
+            const isOnline = await checkConnectivity();
+
+            if (isOnline) {
+                apiHelper
+                    .post("/transaction", newTransaction)
+                    .then((res) => {
+                        setActivitiesHash(newTransaction.group, [
+                            {
+                                ...newActivity,
+                                synced: true,
+                            },
+                            ...activities,
+                        ]);
+                    })
+                    .catch((err) => {
+                        console.log("error", err);
+                        Alert.alert("Error", JSON.stringify(err));
+                    });
             }
 
             if (upiParams.receiverId) {
@@ -145,13 +168,14 @@ function TransactionFormScreen({ navigation }) {
                 navigation.navigate(PAGES.UPI_APP_SELECTION);
                 return;
             }
-            Toast.show('Transaction Added', {
+            Toast.show("Transaction Added", {
                 duration: Toast.durations.LONG,
             });
-            navigation.goBack();
+            setGroup(transactionData.group);
+            navigation.navigate(PAGES.GROUP);
         } catch (error) {
-            console.log('error', error);
-            Alert.alert('Error', JSON.stringify(error));
+            console.log("error", error);
+            Alert.alert("Error", JSON.stringify(error));
         }
     };
 
@@ -161,7 +185,7 @@ function TransactionFormScreen({ navigation }) {
         <ScrollView style={styles.container}>
             <AmountInput
                 amount={transactionData.amount}
-                handleInputChange={(text) => handleInputChange('amount', text)}
+                handleInputChange={(text) => handleInputChange("amount", text)}
                 isTextInput
             />
 
@@ -173,7 +197,7 @@ function TransactionFormScreen({ navigation }) {
                     <TextInput
                         style={styles.description}
                         onChangeText={(text) =>
-                            handleInputChange('description', text)
+                            handleInputChange("description", text)
                         }
                         value={transactionData.description}
                         placeholder="Description"
@@ -199,7 +223,7 @@ function TransactionFormScreen({ navigation }) {
                             transactionData.type === item.name &&
                                 styles.selectedCategory,
                             {
-                                borderColor: '#4D426C',
+                                borderColor: "#4D426C",
                                 borderWidth: 1,
                                 borderRadius: 10,
                                 marginHorizontal: calcWidth(1),
@@ -216,12 +240,12 @@ function TransactionFormScreen({ navigation }) {
                 <View>
                     <Pressable
                         style={{
-                            backgroundColor: '#302B49',
+                            backgroundColor: "#302B49",
                             padding: calcWidth(4),
                             borderRadius: 8,
-                            flexDirection: 'row',
-                            alignItems: 'center',
-                            justifyContent: 'space-between',
+                            flexDirection: "row",
+                            alignItems: "center",
+                            justifyContent: "space-between",
                         }}
                         onPress={() => {
                             navigation.navigate(PAGES.SELECT_GROUP);
@@ -229,8 +253,8 @@ function TransactionFormScreen({ navigation }) {
                     >
                         <View
                             style={{
-                                flexDirection: 'row',
-                                alignItems: 'center',
+                                flexDirection: "row",
+                                alignItems: "center",
                             }}
                         >
                             <MaterialIcons
@@ -240,11 +264,11 @@ function TransactionFormScreen({ navigation }) {
                             />
                             <Text
                                 style={{
-                                    color: 'white',
+                                    color: "white",
                                     paddingLeft: calcWidth(2),
                                 }}
                             >
-                                {transactionData.group?.name || 'Add Group'}
+                                {transactionData.group?.name || "Add Group"}
                             </Text>
                         </View>
                         <AntDesign
@@ -258,17 +282,17 @@ function TransactionFormScreen({ navigation }) {
             {transactionData.group?.members?.length > 0 && (
                 <View
                     style={{
-                        flexDirection: 'row',
-                        justifyContent: 'space-between',
+                        flexDirection: "row",
+                        justifyContent: "space-between",
                     }}
                 >
                     <Pressable
                         style={{
-                            backgroundColor: '#302B49',
+                            backgroundColor: "#302B49",
                             padding: calcWidth(4),
                             borderRadius: 8,
-                            flexDirection: 'row',
-                            justifyContent: 'space-evenly',
+                            flexDirection: "row",
+                            justifyContent: "space-evenly",
                             marginTop: calcHeight(2),
                             width: calcWidth(40),
                         }}
@@ -278,7 +302,7 @@ function TransactionFormScreen({ navigation }) {
                     >
                         <Text
                             style={{
-                                color: 'white',
+                                color: "white",
                             }}
                         >
                             Paid By {transactionData.paidBy?.name}
@@ -286,12 +310,12 @@ function TransactionFormScreen({ navigation }) {
                     </Pressable>
                     <Pressable
                         style={{
-                            backgroundColor: '#302B49',
+                            backgroundColor: "#302B49",
                             padding: calcWidth(4),
                             borderRadius: 8,
-                            flexDirection: 'row',
-                            alignItems: 'center',
-                            justifyContent: 'space-evenly',
+                            flexDirection: "row",
+                            alignItems: "center",
+                            justifyContent: "space-evenly",
                             marginTop: calcHeight(2),
                             width: calcWidth(40),
                         }}
@@ -301,7 +325,7 @@ function TransactionFormScreen({ navigation }) {
                     >
                         <Text
                             style={{
-                                color: 'white',
+                                color: "white",
                             }}
                         >
                             Split Equally
@@ -311,7 +335,7 @@ function TransactionFormScreen({ navigation }) {
             )}
             <View
                 style={{
-                    alignItems: 'center',
+                    alignItems: "center",
                 }}
             >
                 <Button
@@ -334,30 +358,30 @@ const styles = StyleSheet.create({
         backgroundColor: COLOR.APP_BACKGROUND,
     },
     rowCentered: {
-        flexDirection: 'row',
-        justifyContent: 'center',
+        flexDirection: "row",
+        justifyContent: "center",
     },
     amount: {
         color: COLOR.TEXT,
         fontSize: getFontSizeByWindowWidth(50),
         lineHeight: calcHeight(8),
-        fontWeight: 'bold',
+        fontWeight: "bold",
     },
     description: {
         flex: 1,
-        color: 'white',
+        color: "white",
     },
     descriptionContainer: {
-        flexDirection: 'row',
+        flexDirection: "row",
         padding: calcWidth(3),
         borderWidth: 1,
-        borderColor: 'gray',
+        borderColor: "gray",
         borderRadius: 5,
         width: calcWidth(30),
     },
     categoryItem: {
-        flexDirection: 'row',
-        alignItems: 'center',
+        flexDirection: "row",
+        alignItems: "center",
         paddingHorizontal: calcWidth(3),
         paddingVertical: calcHeight(0.5),
     },
@@ -367,7 +391,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: calcWidth(1),
     },
     selectedCategory: {
-        backgroundColor: '#4D426C', // Highlight color for selected category,
+        backgroundColor: "#4D426C", // Highlight color for selected category,
         borderRadius: 10,
         color: COLOR.TEXT,
     },
