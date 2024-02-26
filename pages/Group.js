@@ -258,7 +258,7 @@ function GroupScreen({ navigation }) {
                 style={{
                     position: 'absolute',
                     zIndex: -100,
-                    height: calcHeight(85),
+                    height: calcHeight(90),
                     bottom: 0,
                 }}
             />
@@ -276,6 +276,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
         height: calcHeight(8),
+        backgroundColor:COLOR.APP_BACKGROUND
     },
     groupName: {
         color: 'white',
