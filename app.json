@@ -43,6 +43,14 @@
                 "projectId": "866ec882-73d4-4851-9990-d3414d2903d4"
             }
         },
-        "owner": "split-cash"
+        "owner": "split-cash",
+        "plugins": [
+            [
+              "expo-updates",
+              {
+                "username": "bhaumik.tandan"
+              }
+            ]
+          ]
     }
 }
