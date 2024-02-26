@@ -8,20 +8,21 @@ import {
     StyleSheet,
 } from 'react-native';
 import Toast from 'react-native-root-toast';
-import { useContacts } from '../hooks/useContacts';
+
+import Button from '../components/Button';
 import ContactList from '../components/ContactList';
 import Loader from '../components/Loader';
-import apiHelper from '../helper/apiHelper';
-import Button from '../components/Button';
-import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
 import COLOR from '../constants/Colors';
-import getPreviousPageName from '../helper/getPreviousPageName';
 import PAGES from '../constants/pages';
 import { useTransaction } from '../context/TransactionContext';
+import apiHelper from '../helper/apiHelper';
 import editNamesAsync from '../helper/editNamesAsync';
-import { useAuth } from '../stores/auth';
-import offlineMessage from '../helper/offlineMessage';
 import checkConnectivity from '../helper/getNetworkStateAsync';
+import getPreviousPageName from '../helper/getPreviousPageName';
+import offlineMessage from '../helper/offlineMessage';
+import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
+import { useContacts } from '../hooks/useContacts';
+import { useAuth } from '../stores/auth';
 
 const CreateGroup = ({ navigation }) => {
     const { selectedContacts } = useContacts();
@@ -32,10 +33,10 @@ const CreateGroup = ({ navigation }) => {
     const nameRef = useRef();
 
     const createGroupAsync = async () => {
-        const isOnline=await checkConnectivity();
-        if(!isOnline){
-        offlineMessage();
-        return;
+        const isOnline = await checkConnectivity();
+        if (!isOnline) {
+            offlineMessage();
+            return;
         }
         setIsLoading(true);
         const phoneNumbers = selectedContacts.map(({ phoneNumber }) => ({

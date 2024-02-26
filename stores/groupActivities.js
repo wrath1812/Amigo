@@ -1,7 +1,8 @@
-import { create } from '../helper/zustand';
-import apiHelper from '../helper/apiHelper';
-import { persist, createJSONStorage } from 'zustand/middleware';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { persist, createJSONStorage } from 'zustand/middleware';
+
+import apiHelper from '../helper/apiHelper';
+import { create } from '../helper/zustand';
 
 export const useGroupActivitiesStore = create(
     persist(
@@ -12,7 +13,10 @@ export const useGroupActivitiesStore = create(
                 set((state) => ({
                     activitiesHash: {
                         ...state.activitiesHash,
-                        [groupId]: updater(state.activitiesHash[groupId] || []),
+                        [groupId]:
+                            updater instanceof Function
+                                ? updater(state.activitiesHash[groupId] || [])
+                                : updater,
                     },
                 }));
             },
@@ -29,17 +33,15 @@ export const useGroupActivitiesStore = create(
 );
 
 const useGroupActivities = (groupId) => {
-    const { setActivitiesHash, getActivities } =
-        useGroupActivitiesStore();
+    const { setActivitiesHash, getActivities } = useGroupActivitiesStore();
     const activities = getActivities(groupId);
 
     const setActivities = (updater) => {
-        setActivitiesHash(groupId, () => updater);
+        setActivitiesHash(groupId, updater);
     };
 
     return { activities, setActivities };
 };
-
 
 export const storeHydrated = () => {
     return new Promise((resolve) => {
@@ -53,7 +55,7 @@ export const storeHydrated = () => {
                         resolve();
                         unsubscribe();
                     }
-                }
+                },
             );
         }
     });
