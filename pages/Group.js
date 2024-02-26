@@ -280,14 +280,16 @@ const styles = StyleSheet.create({
     groupName: {
         color: 'white',
         fontWeight: 'bold',
+        fontSize: getFontSizeByWindowWidth(12)
     },
     groupMembers: {
         color: '#A5A5A5',
+        fontSize: getFontSizeByWindowWidth(11)
     },
     button: {
         width: calcWidth(25),
         height: calcHeight(5),
-        borderRadius: 10,
+        borderRadius: calcWidth(2),
         backgroundColor: COLOR.BUTTON,
         elevation: 3,
         justifyContent: 'center',
@@ -302,13 +304,14 @@ const styles = StyleSheet.create({
         color: 'white',
         width: calcWidth(60),
         height: calcHeight(5),
+        borderRadius: calcWidth(2),
         alignContent: 'center',
     },
     input: {
         flex: 1,
         borderWidth: 1,
         borderColor: 'gray',
-        borderRadius: 10,
+        borderRadius: calcWidth(2),
         color: 'white',
         fontSize: getFontSizeByWindowWidth(10),
     },
