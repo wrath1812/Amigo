@@ -126,7 +126,17 @@ function TransactionFormScreen({ navigation }) {
                 })),
             };
             const newActivity = {
-                relatedId: newTransaction,
+                relatedId: {
+                    ...newTransaction,
+                    group: transactionData.group,
+                    paidBy: transactionData.paidBy,
+                    splitAmong: transactionData.splitAmong.map((user) => ({
+                        amount: user.amount,
+                        user: transactionData.group.members.find(
+                            (member) => member._id === (user.user._id || user.user.id)
+                        ),
+                    })),
+                },
                 creator: { _id: user._id },
                 synced: false,
                 createdAt: new Date(),

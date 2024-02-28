@@ -95,9 +95,10 @@ function ActivityHeader({ icon, iconName, size, text }) {
     );
 }
 
-function TransactionActivity({ transaction, createdAt, contacts, synced }) {
+function TransactionActivity({ transaction, createdAt, contacts, synced, creator }) {
     const { user } = useAuth();
     const navigation = useNavigation();
+
     return (
         <Pressable
             onPress={() => {
@@ -114,8 +115,12 @@ function TransactionActivity({ transaction, createdAt, contacts, synced }) {
                     user._id,
                     contacts
                 )[0];
+
                 navigation.navigate(PAGES.TRANSACTION_DETAIL, {
-                    transaction: editedTransaction,
+                   transaction: {
+                        ...editedTransaction,
+                        creator,
+                   },
                 });
             }}
         >
@@ -333,12 +338,14 @@ const ActivityStrategyFactory = (activityType) => {
                     createdAt,
                     contacts,
                     synced,
+                    creator,
                 }) => (
                     <TransactionActivity
                         transaction={transaction}
                         createdAt={createdAt}
                         contacts={contacts}
                         synced={synced}
+                        creator={creator}
                     />
                 ),
             };
