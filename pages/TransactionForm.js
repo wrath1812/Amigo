@@ -11,6 +11,7 @@ import {
     Pressable,
 } from "react-native";
 import Toast from "react-native-root-toast";
+import { StackActions } from "@react-navigation/native";
 
 import AmountInput from "../components/AmountInput";
 import Button from "../components/Button";
@@ -182,6 +183,10 @@ function TransactionFormScreen({ navigation }) {
                 duration: Toast.durations.LONG,
             });
             setGroup(transactionData.group);
+            
+            const pushAction = StackActions.push(PAGES.TAB_NAVIGATOR, {});
+            navigation.dispatch(pushAction);
+
             navigation.navigate(PAGES.GROUP);
         } catch (error) {
             console.log("error", error);
