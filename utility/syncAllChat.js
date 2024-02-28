@@ -19,9 +19,12 @@ const syncAllChat = async () => {
 
         for (const activity of activities) {
             if (activity.synced === false) {
-                const promise = apiHelper.post(`/group/${groupId}/chat`, {
-                    message: activity.relatedId.message,
-                });
+                let promise;
+                if (activity.activityType === 'chat')
+                    promise = apiHelper.post(`/group/${groupId}/chat`, {
+                        message: activity.relatedId.message,
+                    });
+                else apiHelper.post('/transaction', activity);
                 setActivities((prev) => [
                     ...prev,
                     { ...activity, synced: true },
