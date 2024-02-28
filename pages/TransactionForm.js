@@ -138,7 +138,7 @@ function TransactionFormScreen({ navigation }) {
                         ),
                     })),
                 },
-                creator: { _id: user._id },
+                creator: { _id: user._id,name:"You" },
                 synced: false,
                 createdAt: new Date(),
                 activityType: "transaction",

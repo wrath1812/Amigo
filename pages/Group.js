@@ -270,8 +270,8 @@ function GroupScreen({ navigation }) {
                 style={{
                     position: 'absolute',
                     zIndex: -100,
-                    height: calcHeight(90),
-                    bottom: 0,
+                    height: calcHeight(85),
+                    bottom: 0
                 }}
             />
         </SafeAreaView>
