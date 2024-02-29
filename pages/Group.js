@@ -271,7 +271,8 @@ function GroupScreen({ navigation }) {
                     position: 'absolute',
                     zIndex: -100,
                     height: calcHeight(85),
-                    bottom: 0
+                    bottom: 0,
+                    backgroundColor:"black"
                 }}
             />
         </SafeAreaView>
