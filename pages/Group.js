@@ -104,11 +104,11 @@ function GroupScreen({ navigation }) {
     });
 
     const { mutate: addChat } = useMutation({
-        mutationFn: async () => {
+        mutationFn: async (msg) => {
             const isOnline = await checkConnectivity();
             if (isOnline) {
                 await apiHelper.post(`/group/${group._id}/chat`, {
-                    message: amount,
+                    message: msg,
                 });
 
                 return true;
@@ -289,7 +289,7 @@ function GroupScreen({ navigation }) {
                     </TouchableOpacity>
                 ) : (
                     <TouchableOpacity
-                        onPress={addChat}
+                        onPress={() => addChat(amount)}
                         style={{
                             height: calcHeight(5),
                             justifyContent: "center",
