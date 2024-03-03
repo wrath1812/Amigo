@@ -15,7 +15,7 @@
         "assetBundlePatterns": ["**/*"],
         "ios": {
             "bundleIdentifier": "com.splitcash.splitcash",
-            "buildNumber": "50",
+            "buildNumber": "51",
             "infoPlist": {
                 "LSApplicationQueriesSchemes": [
                     "tez",
@@ -32,7 +32,7 @@
                 "foregroundImage": "./assets/icon.png",
                 "backgroundColor": "#000"
             },
-            "versionCode": 3,
+            "versionCode": 4,
             "package": "com.splitcash.splitcash"
         },
         "web": {
