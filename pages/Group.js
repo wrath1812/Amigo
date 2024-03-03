@@ -41,7 +41,7 @@ import useGroupActivities from "../stores/groupActivities";
 import getMembersString from "../utility/getMembersString";
 import groupBalancesAndCalculateTotal from "../utility/groupBalancesAndCalculateTotal";
 import syncAllChat from "../utility/syncAllChat";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useInfiniteQuery, useMutation, useQuery } from "@tanstack/react-query";
 
 function isNumber(text) {
     return !isNaN(+text);
@@ -58,15 +58,29 @@ function GroupScreen({ navigation }) {
     const [totalBalance, setTotalBalance] = useState();
     const [balances, setBalances] = useState();
 
-    useQuery({
+    const { fetchNextPage, hasNextPage } = useInfiniteQuery({
         queryKey: ["group", group._id],
-        enabled: !!group._id,
-        queryFn: async () => {
-            const { data } = await apiHelper(
-                `/activity-feed?groupId=${group._id}`
-            );
-            setActivities(data);
+        queryFn: async ({ pageParam = null }) => {
+            let data;
+
+            if (!pageParam) {
+                const res = await apiHelper(
+                    `/activity-feed?groupId=${group._id}`
+                );
+                data = res.data;
+            } else {
+                const res = await apiHelper(
+                    `/activity-feed?groupId=${group._id}&lastActivityTime=${pageParam}`
+                );
+                data = res.data;
+            }
+
+            setActivities((prev) => [...prev, ...data]);
             return data;
+        },
+        getNextPageParam: (lastPage) => {
+            if (lastPage.length == 0) return null;
+            return lastPage[lastPage.length - 1].createdAt;
         },
     });
 
@@ -151,50 +165,7 @@ function GroupScreen({ navigation }) {
         setActivities((prev) => [activity, ...prev]);
     }, []);
 
-    // const fetchActivities = async (lastActivityTime = null) => {
-    //     const isOnline = await checkConnectivity();
-    //     if (!isOnline) return;
-    //     try {
-    //         if (!lastActivityTime) {
-    //             const { data } = await apiHelper(
-    //                 `/activity-feed?groupId=${group._id}`
-    //             );
-    //             setActivities(data);
-    //         } else {
-    //             const { data } = await apiHelper(
-    //                 `/activity-feed?groupId=${group._id}&lastActivityTime=${lastActivityTime}`
-    //             );
-    //             setActivities((prev) => [...data, ...prev]);
-    //         }
-    //     } catch (error) {
-    //         console.error("Error fetching activities:", error);
-    //     }
-    // };
-
     useSocket("activity created", fetchActivity);
-
-    // async function addChat() {
-    //     setAmount('');
-    //     const newActivity = {
-    //         activityType: 'chat',
-    //         createdAt: Date(),
-    //         creator: { _id: user._id },
-    //         group: group._id,
-    //         onModel: 'Chat',
-    //         relatedId: {
-    //             message: amount,
-    //         },
-    //         synced: false,
-    //     };
-    //     setActivities([newActivity, ...activities]);
-    //     const isOnline = await checkConnectivity();
-    //     if (isOnline) {
-    //         await apiHelper.post(`/group/${group._id}/chat`, {
-    //             message: amount,
-    //         });
-    //         setActivities([{ ...newActivity, synced: true }, ...activities]);
-    //     }
-    // }
 
     return (
         <SafeAreaView style={styles.container}>
@@ -263,7 +234,11 @@ function GroupScreen({ navigation }) {
                     height: calcHeight(totalBalance != 0 ? 65 : 70),
                 }}
                 onEndReachedThreshold={0.5}
-                // onEndReached={() => fetchActivities(activities[0].createdAt)}
+                onEndReached={() => {
+                    if (hasNextPage) {
+                        fetchNextPage();
+                    }
+                }}
             />
             <KeyboardAvoidingView
                 style={{
