@@ -361,7 +361,7 @@ const ActivityStrategyFactory = (activityType) => {
                     <ChatActivity
                         chat={{
                             creator,
-                            message: relatedId.message,
+                            message: relatedId?.message,
                             createdAt,
                         }}
                         synced={synced}

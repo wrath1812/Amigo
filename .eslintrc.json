@@ -1,4 +1,5 @@
 {
     "root": true,
-    "extends": ["universe/native"]
+    "extends": ["universe/native"],
+    "printWidth": 160
 }
