@@ -8,8 +8,7 @@ import {
     StyleSheet,
     TextInput,
     Pressable,
-    KeyboardAvoidingView,
-    Keyboard,
+    KeyboardAvoidingView
 } from 'react-native';
 import Toast from 'react-native-root-toast';
 
@@ -25,7 +24,6 @@ import checkConnectivity from '../helper/getNetworkStateAsync';
 import offlineMessage from '../helper/offlineMessage';
 import { calcHeight, getFontSizeByWindowWidth, calcWidth } from '../helper/res';
 import sliceText from '../helper/sliceText';
-import useKeyboardHeight from '../hooks/useKeyboardHeight';
 // GroupScreen Component
 function GroupScreen({
     route: {
@@ -37,7 +35,6 @@ function GroupScreen({
     const [description, setDescription] = useState('');
     const descriptionRef = useRef();
     const [isLoading, seIsLoading] = useState(false);
-    const keyboardHeight = useKeyboardHeight();
 
     async function submitPayment() {
         const isOnline = await checkConnectivity();
@@ -143,7 +140,7 @@ function GroupScreen({
                     flex: 1,
                     alignItems: 'center',
                     justifyContent: 'flex-end',
-                    marginBottom: keyboardHeight,
+                    marginBottom:calcHeight(2)
                 }}
             >
                 <Button

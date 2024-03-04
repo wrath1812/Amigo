@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useRef,useEffect } from 'react';
 import { View, Text, TextInput, StyleSheet } from 'react-native';
 import COLOR from '../constants/Colors';
 import getFontSize from '../helper/getFontSize';
@@ -13,6 +13,18 @@ const AmountInput = ({
     const [fontSize, setFontSize] = useState(
         getFontSize('₹' + amount, calcWidth(65), baseFontSize),
     );
+
+    const amountInputRef=useRef();
+
+    useEffect(() => {
+        const timeoutId = setTimeout(() => {
+            if (amountInputRef.current) {
+                amountInputRef.current.focus();
+            }
+        }, 500);
+
+        return () => clearTimeout(timeoutId); 
+    }, []);
 
     const commonStyles = {
         fontSize: fontSize,
@@ -44,7 +56,7 @@ const AmountInput = ({
                     keyboardType="numeric"
                     placeholderTextColor={COLOR.TEXT}
                     placeholder="0"
-                    autoFocus
+                    ref={amountInputRef}
                 />
             ) : (
                 <Text style={[styles.amount, commonStyles]}>{amount}</Text>
