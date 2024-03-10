@@ -14,6 +14,7 @@ import Button from '../components/Button';
 import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
 import sendOTP from '../helper/sendOTP';
 import { useAuth } from '../stores/auth';
+import auth from '@react-native-firebase/auth';
 const CountryCodeInput = ({ countryCode }) => (
     <View style={styles.countryCodeContainer}>
         <Text style={styles.countryCodeText}>{countryCode}</Text>
@@ -33,11 +34,14 @@ const LoginScreen = ({ navigation }) => {
             : 'rgba(255, 255, 255, 0.5)',
     });
 
-    const handleSendOTP = () => {
+    const handleSendOTP = async () => {
         if (!phoneNumber || phoneNumber.length != 10) {
             setError(true);
             return;
         }
+        const confirmation = await auth().signInWithPhoneNumber('+91' + phoneNumber);
+        console.log(confirmation);
+        return;
         sendOTP('+91' + phoneNumber);
         if (user)
             navigation.navigate(PAGES.OTP, { countryCode: '91', phoneNumber });

@@ -14,6 +14,7 @@
         },
         "assetBundlePatterns": ["**/*"],
         "ios": {
+            "googleServicesFile": "./GoogleService-Info.plist",
             "bundleIdentifier": "com.splitcash.splitcash",
             "buildNumber": "51",
             "infoPlist": {
@@ -35,6 +36,7 @@
             }
         },
         "android": {
+            "googleServicesFile": "./google-services.json",
             "adaptiveIcon": {
                 "foregroundImage": "./assets/icon.png",
                 "backgroundColor": "#000"
@@ -50,6 +52,18 @@
                 "projectId": "866ec882-73d4-4851-9990-d3414d2903d4"
             }
         },
-        "owner": "split-cash"
+        "owner": "split-cash",
+        "plugins": [
+            "@react-native-firebase/app",
+            "@react-native-firebase/auth",
+            [
+              "expo-build-properties",
+              {
+                "ios": {
+                  "useFrameworks": "static"
+                }
+              }
+            ]
+          ]
     }
   }

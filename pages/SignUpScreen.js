@@ -7,6 +7,7 @@ import {
     SafeAreaView,
     KeyboardAvoidingView,
     Image,
+    Platform
 } from 'react-native';
 import SignUpImage from '../assets/SignUp.png'; // Make sure you have an image for the sign-up
 import COLOR from '../constants/Colors'; // Replace with your actual colors
