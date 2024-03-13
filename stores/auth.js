@@ -20,7 +20,6 @@ const useAuthStore = create(
             },
             verifyOTP: async (otpPayload) => {
                 const { data } = await apiHelper.post(`/auth/verifyOTP`, otpPayload);
-                if (data.status) return;
                 const { userData, token } = data;
                 set({ user: userData });
                 set({ token });
