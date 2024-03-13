@@ -28,7 +28,7 @@ const AuthNavigator = (
             />
 
             <Stack.Screen
-                name={PAGES.OTP_LOGGED_OUT}
+                name={PAGES.OTP}
                 options={{
                     headerStyle: {
                         backgroundColor: COLOR.APP_BACKGROUND,

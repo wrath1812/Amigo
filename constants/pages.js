@@ -9,7 +9,6 @@ const PAGES = {
     SETTINGS: 'Settings',
     ONBOARDING: 'Onboarding',
     OTP: 'OTP',
-    OTP_LOGGED_OUT: 'OTP Logged Out',
     CREATE_GROUP: 'Create Group',
     TRANSACTION_DETAIL: 'Transaction Detail',
     BALANCE: 'Balance',

@@ -13,12 +13,12 @@ import COLOR from '../constants/Colors';
 import Button from '../components/Button';
 import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
 import OTPImage from '../assets/OTPImage.png';
-import { useAuth } from '../stores/auth';
 import Loader from '../components/Loader';
 import OTPFilled from '../assets/OTPFilled.png';
-import sendOTP from '../helper/sendOTP';
 import PAGES from '../constants/pages';
-import getPreviousPageName from '../helper/getPreviousPageName';
+import sendOtp from '../utility/sendOtp';
+import { useAuth } from '../stores/auth';
+
 const OTPScreen = ({
     navigation,
     route: {
@@ -29,10 +29,16 @@ const OTPScreen = ({
     const inputRef = useRef();
     const [error, setError] = useState(false);
     const [loading, setLoading] = useState(false);
-    const { verifyOTP } = useAuth();
+    const [verificationId,seVerificationId]=useState();
+    const {verifyOTP}=useAuth();
 
     useEffect(() => {
         inputRef.current.focus();
+        (async () => {
+            const verificationCode=await sendOtp(countryCode+phoneNumber);
+            seVerificationId(verificationCode);
+        })();
+        
     }, []);
 
     const handleOTPChange = (text) => {
@@ -45,7 +51,7 @@ const OTPScreen = ({
             return;
         }
         setLoading(true);
-        await verifyOTP(phoneNumber, countryCode, otp);
+        await verifyOTP({sessionInfo:verificationId,code:otp});
         navigation.navigate(PAGES.BALANCE);
         setLoading(false);
         setOtp('');
@@ -84,7 +90,7 @@ const OTPScreen = ({
                     <View style={styles.textContainer}>
                         <Text style={styles.headerText}>OTP Verification</Text>
                         <Text style={styles.promptText}>
-                            Enter the code sent to +1 999 888...
+                            Enter the code sent to {countryCode+phoneNumber}
                         </Text>
                     </View>
                 </View>

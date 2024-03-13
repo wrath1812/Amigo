@@ -27,7 +27,6 @@ import FAQ from '../pages/FAQ';
 import About from '../pages/About';
 import AddPeople from '../pages/AddPeople';
 import LoginScreen from '../pages/LoginScreen';
-import OTPScreen from '../pages/OTPScreen';
 import { ContactsProvider } from '../hooks/useContacts';
 import NetInfo from '@react-native-community/netinfo';
 import syncAllChat from '../utility/syncAllChat';
@@ -262,17 +261,6 @@ const AppNavigator = () => {
                             }}
                         />
 
-                        <Stack.Screen
-                            name={PAGES.OTP}
-                            options={{
-                                headerStyle: {
-                                    backgroundColor: COLOR.APP_BACKGROUND,
-                                },
-                                title: null,
-                                headerTintColor: '#fff',
-                            }}
-                            component={OTPScreen}
-                        />
                     </Stack.Group>
                 ) : (
                     <Stack.Screen
