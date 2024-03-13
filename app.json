@@ -16,7 +16,7 @@
         "ios": {
             "googleServicesFile": "./GoogleService-Info.plist",
             "bundleIdentifier": "com.splitcash.splitcash",
-            "buildNumber": "51",
+            "buildNumber": "52",
             "infoPlist": {
                 "LSApplicationQueriesSchemes": ["tez", "phonepe", "paytmmp", "amazonpay", "bhim", "upi"],
                 "CFBundleURLTypes": [
