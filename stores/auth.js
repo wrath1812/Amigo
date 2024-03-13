@@ -18,25 +18,8 @@ const useAuthStore = create(
                 resetAllStores();
                 clearAllLocalStoreData();
             },
-            verifyOTP: async (phoneNumber, countryCode, otp) => {
-                const { user } = get();
-                const endpoint = user ? 'editPhoneNumber' : 'verifyOTP';
-                const { data } = await apiHelper.post(`/auth/${endpoint}`, {
-                    phoneNumber,
-                    countryCode,
-                    otp,
-                });
-                if (user) {
-                    set({
-                        user: {
-                            ...get().user,
-                            phoneNumber,
-                            countryCode,
-                        },
-                    });
-                    return;
-                }
-                if (data.status) return;
+            verifyOTP: async (otpPayload) => {
+                const { data } = await apiHelper.post(`/auth/verifyOTP`, otpPayload);
                 const { userData, token } = data;
                 set({ user: userData });
                 set({ token });

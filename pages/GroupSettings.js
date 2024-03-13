@@ -1,17 +1,5 @@
 import React, { useEffect, useState, useLayoutEffect, useRef } from 'react';
-import {
-    View,
-    Text,
-    StyleSheet,
-    SafeAreaView,
-    TouchableOpacity,
-    FlatList,
-    ScrollView,
-    TextInput,
-    Image,
-    Share,
-    Alert,
-} from 'react-native';
+import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, FlatList, ScrollView, TextInput, Image, Share, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { DEEP_LINK_URL } from '@env';
 import GroupIcon from '../components/GroupIcon';
@@ -75,9 +63,7 @@ const GroupScreen = ({
 
     const shareGroupLink = () => {
         Share.share({
-            message:
-                'Join the group at Amigo: ' +
-                `${DEEP_LINK_URL}join?groupId=${group._id}`,
+            message: 'Join the group at Amigo: ' + `${DEEP_LINK_URL}join?groupId=${group._id}`,
         });
     };
 
@@ -114,29 +100,19 @@ const GroupScreen = ({
             headerLeft: () =>
                 isEditing ? (
                     <TouchableOpacity onPress={() => setIsEditing(false)}>
-                        <Text
-                            style={[{ fontWeight: 'bold', color: COLOR.TEXT }]}
-                        >
-                            Cancel
-                        </Text>
+                        <Text style={[{ fontWeight: 'bold', color: COLOR.TEXT }]}>Cancel</Text>
                     </TouchableOpacity>
                 ) : undefined,
             headerRight: () =>
                 isEditing ? (
                     <TouchableOpacity onPress={() => submitGroupData()}>
-                        <Text
-                            style={[{ fontWeight: 'bold', color: COLOR.TEXT }]}
-                        >
-                            Done
-                        </Text>
+                        <Text style={[{ fontWeight: 'bold', color: COLOR.TEXT }]}>Done</Text>
                     </TouchableOpacity>
                 ) : undefined,
         });
     }, [navigation, isEditing]);
 
-    const renderMemberItem = ({ item }) => (
-        <MemberItem name={item.name} phone={item.phoneNumber} _id={item._id} />
-    );
+    const renderMemberItem = ({ item }) => <MemberItem name={item.name} phone={item.phoneNumber} _id={item._id} />;
 
     const renderListHeader = () => (
         <>
@@ -146,10 +122,7 @@ const GroupScreen = ({
                 }}
                 style={styles.memberItem}
             >
-                <Image
-                    source={require('../assets/icons/addMembers.png')}
-                    style={{ height: calcHeight(5), width: calcHeight(5) }}
-                />
+                <Image source={require('../assets/icons/addMembers.png')} style={{ height: calcHeight(5), width: calcHeight(5) }} />
                 <View
                     style={{
                         marginLeft: calcWidth(3),
@@ -158,14 +131,8 @@ const GroupScreen = ({
                     <Text style={styles.buttonText}>Add new members</Text>
                 </View>
             </TouchableOpacity>
-            <TouchableOpacity
-                style={styles.memberItem}
-                onPress={shareGroupLink}
-            >
-                <Image
-                    source={require('../assets/icons/share.png')}
-                    style={{ height: calcHeight(5), width: calcHeight(5) }}
-                />
+            <TouchableOpacity style={styles.memberItem} onPress={shareGroupLink}>
+                <Image source={require('../assets/icons/share.png')} style={{ height: calcHeight(5), width: calcHeight(5) }} />
                 <View
                     style={{
                         marginLeft: calcWidth(3),
@@ -179,23 +146,14 @@ const GroupScreen = ({
 
     const renderListFooter = () =>
         !balance && (
-            <TouchableOpacity
-                style={styles.memberItem}
-                onPress={leaveGroupAlert}
-            >
-                <Ionicons
-                    name="exit-outline"
-                    size={calcHeight(5)}
-                    color="rgba(253 ,64,9, 0.59)"
-                />
+            <TouchableOpacity style={styles.memberItem} onPress={leaveGroupAlert}>
+                <Ionicons name="exit-outline" size={calcHeight(5)} color="rgba(253 ,64,9, 0.59)" />
                 <View
                     style={{
                         marginLeft: calcWidth(3),
                     }}
                 >
-                    <Text style={{ color: 'rgba(253 ,64,9, 0.59)' }}>
-                        Leave Group
-                    </Text>
+                    <Text style={{ color: 'rgba(253 ,64,9, 0.59)' }}>Leave Group</Text>
                 </View>
             </TouchableOpacity>
         );
@@ -222,32 +180,20 @@ const GroupScreen = ({
                                     style={styles.groupName}
                                 />
                             ) : (
-                                <Text style={styles.groupName}>
-                                    {groupName}
-                                </Text>
+                                <Text style={styles.groupName}>{groupName}</Text>
                             )}
 
-                            <Text style={styles.groupCreatedAt}>
-                                Created on 25 Dec 2023, 10:32 PM
-                            </Text>
+                            <Text style={styles.groupCreatedAt}>Created on 25 Dec 2023, 10:32 PM</Text>
                         </View>
                     </View>
-                    <TouchableOpacity
-                        onPress={() => setIsEditing((prev) => !prev)}
-                    >
-                        <Octicons
-                            name="pencil"
-                            size={calcHeight(3)}
-                            color="white"
-                        />
+                    <TouchableOpacity onPress={() => setIsEditing((prev) => !prev)}>
+                        <Octicons name="pencil" size={calcHeight(3)} color="white" />
                     </TouchableOpacity>
                 </View>
 
                 <View style={styles.memberListContainer}>
                     <View style={styles.listHeader}>
-                        <Text style={styles.totalMembersTitle}>
-                            Total Members
-                        </Text>
+                        <Text style={styles.totalMembersTitle}>Total Members</Text>
                     </View>
                     <FlatList
                         data={groupMembers}

@@ -9,15 +9,7 @@ import { Button } from 'react-native-paper';
 import COLOR from '../constants/Colors';
 
 const ContactList = ({ eliminatedContacts }) => {
-    const {
-        search,
-        setSearch,
-        contacts,
-        selectedContacts,
-        handleSelectContact,
-        setSelectedContacts,
-        contactPermission,
-    } = useContacts();
+    const { search, setSearch, contacts, selectedContacts, handleSelectContact, setSelectedContacts, contactPermission } = useContacts();
 
     const flatListRef = useRef(null);
 
@@ -29,29 +21,20 @@ const ContactList = ({ eliminatedContacts }) => {
     function eliminateContacts() {
         if (!eliminatedContacts) return contacts;
 
-        return contacts.filter(
-            (contact) =>
-                !eliminatedContacts
-                    .map((member) => member.phoneNumber)
-                    .includes(contact.phoneNumber),
-        );
+        return contacts.filter((contact) => !eliminatedContacts.map((member) => member.phoneNumber).includes(contact.phoneNumber));
     }
 
     function askPermission() {
-        Alert.alert(
-            'Permission Required',
-            'We need permission to access your contacts to add people to the group',
-            [
-                {
-                    text: 'Cancel',
-                    style: 'cancel',
-                },
-                {
-                    text: 'Open Settings',
-                    onPress: openSettings,
-                },
-            ],
-        );
+        Alert.alert('Permission Required', 'We need permission to access your contacts to add people to the group', [
+            {
+                text: 'Cancel',
+                style: 'cancel',
+            },
+            {
+                text: 'Open Settings',
+                onPress: openSettings,
+            },
+        ]);
     }
 
     const handleScroll = () => {
@@ -73,11 +56,7 @@ const ContactList = ({ eliminatedContacts }) => {
                         <Pressable onPress={() => handleSelectContact(item)}>
                             <ContactCard
                                 {...item}
-                                selected={selectedContacts.some(
-                                    (selected) =>
-                                        selected.phoneNumber ===
-                                        item.phoneNumber,
-                                )}
+                                selected={selectedContacts.some((selected) => selected.phoneNumber === item.phoneNumber)}
                             />
                         </Pressable>
                     )}

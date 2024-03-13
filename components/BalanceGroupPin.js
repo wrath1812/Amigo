@@ -41,10 +41,7 @@ const BalanceGroupPin = ({ totalBalance, balances }) => {
                             style={[
                                 styles.indicator,
                                 {
-                                    backgroundColor:
-                                        totalBalance > 0
-                                            ? COLOR.BALANCE_PIN
-                                            : 'red',
+                                    backgroundColor: totalBalance > 0 ? COLOR.BALANCE_PIN : 'red',
                                 },
                             ]}
                         />
@@ -62,14 +59,10 @@ const BalanceGroupPin = ({ totalBalance, balances }) => {
                                 Split expense summary
                             </Text>
                             <Text style={styles.balanceText}>
-                                Total{' '}
-                                {totalBalance < 0 ? 'you owe' : 'you get back'}{' '}
+                                Total {totalBalance < 0 ? 'you owe' : 'you get back'}{' '}
                                 <Text
                                     style={{
-                                        color:
-                                            totalBalance > 0
-                                                ? COLOR.BALANCE_POSITIVE_COLOR
-                                                : COLOR.BALANCE_NEGATIVE_COLOR,
+                                        color: totalBalance > 0 ? COLOR.BALANCE_POSITIVE_COLOR : COLOR.BALANCE_NEGATIVE_COLOR,
                                     }}
                                 >
                                     {' '}

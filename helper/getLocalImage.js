@@ -4,23 +4,18 @@ import { Alert } from 'react-native';
 import openSettings from './openSettings';
 
 async function getLocalImage() {
-    const permissionResult =
-        await ImagePicker.requestMediaLibraryPermissionsAsync();
+    const permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
     if (!permissionResult.granted) {
-        Alert.alert(
-            'Permission Required',
-            'We need permission to access your photos to get the QR code.',
-            [
-                {
-                    text: 'Cancel',
-                    style: 'cancel',
-                },
-                {
-                    text: 'Open Settings',
-                    onPress: openSettings,
-                },
-            ],
-        );
+        Alert.alert('Permission Required', 'We need permission to access your photos to get the QR code.', [
+            {
+                text: 'Cancel',
+                style: 'cancel',
+            },
+            {
+                text: 'Open Settings',
+                onPress: openSettings,
+            },
+        ]);
         return;
     }
 

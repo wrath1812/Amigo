@@ -1,13 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import {
-    Text,
-    StyleSheet,
-    SafeAreaView,
-    ScrollView,
-    Pressable,
-    View,
-    TextInput,
-} from 'react-native';
+import { Text, StyleSheet, SafeAreaView, ScrollView, Pressable, View, TextInput } from 'react-native';
 import COLOR from '../constants/Colors';
 import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
 import GroupSelectCard from '../components/GroupSelectCard';

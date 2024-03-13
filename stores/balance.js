@@ -15,8 +15,7 @@ const useBalanceStore = create(
                 const { totalBalances } = useBalanceStore.getState();
                 if (!totalBalances) set({ loading: true });
                 const { data } = await apiHelper('/balance');
-                const { groups, userTotalBalance } =
-                    await groupBalancesAndCalculateTotal(data, user._id);
+                const { groups, userTotalBalance } = await groupBalancesAndCalculateTotal(data, user._id);
                 set({
                     loading: false,
                     balances: groups,

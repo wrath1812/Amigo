@@ -1,13 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import {
-    StyleSheet,
-    SafeAreaView,
-    View,
-    Text,
-    FlatList,
-    TouchableOpacity,
-    Image,
-} from 'react-native';
+import { StyleSheet, SafeAreaView, View, Text, FlatList, TouchableOpacity, Image } from 'react-native';
 import { useAuth } from '../stores/auth';
 import { useExpense } from '../stores/expense'; // Custom hook for fetching transactions
 import ExpenseCard from '../components/ExpenseCard';
@@ -51,12 +43,7 @@ function ExpenseScreen() {
                             borderRadius: 10,
                         }}
                     >
-                        <FontAwesome5
-                            name="redo"
-                            size={calcWidth(3)}
-                            color="rgba(255,255,255,0.66)"
-                            style={{ opacity: 0 }}
-                        />
+                        <FontAwesome5 name="redo" size={calcWidth(3)} color="rgba(255,255,255,0.66)" style={{ opacity: 0 }} />
                         <Text
                             style={{
                                 color: COLOR.TEXT,
@@ -68,13 +55,7 @@ function ExpenseScreen() {
                         </Text>
                     </View>
                 </View>
-                <FlatList
-                    data={[{}, {}, {}]}
-                    renderItem={({ item }) => (
-                        <ExpenseCard item={item} loading />
-                    )}
-                    style={styles.list}
-                />
+                <FlatList data={[{}, {}, {}]} renderItem={({ item }) => <ExpenseCard item={item} loading />} style={styles.list} />
             </SafeAreaView>
         );
     return (
@@ -99,19 +80,13 @@ function ExpenseScreen() {
                         gap: calcWidth(1),
                     }}
                 >
-                    <FontAwesome5
-                        name="redo"
-                        size={calcWidth(3)}
-                        color="rgba(255,255,255,0.66)"
-                    />
+                    <FontAwesome5 name="redo" size={calcWidth(3)} color="rgba(255,255,255,0.66)" />
                     <Text style={{ color: COLOR.TEXT }}>Reset</Text>
                 </TouchableOpacity>
             </View>
 
             {expense.length === 0 ? (
-                <Text style={styles.noTransactionsText}>
-                    No Transactions Found
-                </Text>
+                <Text style={styles.noTransactionsText}>No Transactions Found</Text>
             ) : (
                 <FlatList
                     data={expense}

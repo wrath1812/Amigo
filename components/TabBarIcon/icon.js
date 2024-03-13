@@ -18,17 +18,9 @@ export default ({ focused, screen }) => {
             <Octicons name="home" size={size} color={color} />
         ),
         [PAGES.GROUP_LIST]: focused ? (
-            <MaterialCommunityIcons
-                name="account-group"
-                size={size}
-                color={color}
-            />
+            <MaterialCommunityIcons name="account-group" size={size} color={color} />
         ) : (
-            <MaterialCommunityIcons
-                name="account-group-outline"
-                size={size}
-                color={color}
-            />
+            <MaterialCommunityIcons name="account-group-outline" size={size} color={color} />
         ),
 
         [PAGES.EXPENSE]: focused ? (

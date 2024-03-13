@@ -33,11 +33,7 @@ const CameraScanner = ({ handleBarCodeScanned, isLit, setIsLit }) => {
             />
             <QRIndicator />
             <View style={[styles.footer, { bottom: 30 + bottom }]}>
-                <QRFooterButton
-                    onPress={() => setIsLit((isLit) => !isLit)}
-                    isActive={isLit}
-                    iconName="ios-flashlight"
-                />
+                <QRFooterButton onPress={() => setIsLit((isLit) => !isLit)} isActive={isLit} iconName="ios-flashlight" />
                 <QRFooterButton onPress={getImage} iconName="ios-images" />
             </View>
         </View>

@@ -1,12 +1,5 @@
 import React, { useEffect, useRef } from 'react';
-import {
-    SafeAreaView,
-    View,
-    StyleSheet,
-    Text,
-    Image,
-    Pressable,
-} from 'react-native';
+import { SafeAreaView, View, StyleSheet, Text, Image, Pressable } from 'react-native';
 import { calcWidth, calcHeight, getFontSizeByWindowWidth } from '../helper/res';
 import { AntDesign } from '@expo/vector-icons';
 import COLOR from '../constants/Colors';
@@ -18,11 +11,7 @@ function EmptyScreen({ onPress, image, title }) {
 
             <Text style={styles.text}>{title}</Text>
             <Pressable onPress={onPress}>
-                <AntDesign
-                    name="pluscircle"
-                    size={calcHeight(5)}
-                    color={COLOR.BUTTON}
-                />
+                <AntDesign name="pluscircle" size={calcHeight(5)} color={COLOR.BUTTON} />
             </Pressable>
         </SafeAreaView>
     );

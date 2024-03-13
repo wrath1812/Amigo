@@ -1,15 +1,5 @@
 import React, { useState, useLayoutEffect } from 'react';
-import {
-    View,
-    Text,
-    StyleSheet,
-    SafeAreaView,
-    TouchableOpacity,
-    FlatList,
-    Alert,
-    ScrollView,
-    Image,
-} from 'react-native';
+import { View, Text, StyleSheet, SafeAreaView, TouchableOpacity, FlatList, Alert, ScrollView, Image } from 'react-native';
 import { AntDesign, Entypo } from '@expo/vector-icons';
 import COLOR from '../constants/Colors';
 import { calcWidth, calcHeight, getFontSizeByWindowWidth } from '../helper/res';
@@ -95,10 +85,7 @@ const TransactionDetail = ({
                         marginTop: calcHeight(5),
                     }}
                 >
-                    <AmountInput
-                        amount={transaction.amount}
-                        isTextInput={false}
-                    />
+                    <AmountInput amount={transaction.amount} isTextInput={false} />
                     <Text
                         style={{
                             fontSize: getFontSizeByWindowWidth(14),
@@ -191,18 +178,12 @@ const TransactionDetail = ({
                                 style={[
                                     styles.circle,
                                     {
-                                        backgroundColor: generateColor(
-                                            transaction.paidBy._id,
-                                        ),
+                                        backgroundColor: generateColor(transaction.paidBy._id),
                                     },
                                 ]}
                             />
-                            <Text style={styles.userName}>
-                                {transaction.paidBy.name}
-                            </Text>
-                            <Text style={styles.userAmount}>
-                                ₹ {transaction.amount}
-                            </Text>
+                            <Text style={styles.userName}>{transaction.paidBy.name}</Text>
+                            <Text style={styles.userAmount}>₹ {transaction.amount}</Text>
                         </View>
                     </View>
                     <SharedList
@@ -217,8 +198,7 @@ const TransactionDetail = ({
                         alignItems: 'center',
                     }}
                 >
-                    {transaction.splitAmong.length >
-                        TransactionNumberOfVisibleNames && (
+                    {transaction.splitAmong.length > TransactionNumberOfVisibleNames && (
                         <TransactionDetailsButton
                             onPress={() => {
                                 setExpandNames((prev) => !prev);
@@ -229,20 +209,10 @@ const TransactionDetail = ({
                                         <Text>Show Less</Text>
                                     ) : (
                                         <Text>
-                                            {transaction.splitAmong.length -
-                                                TransactionNumberOfVisibleNames}{' '}
-                                            more participants{'\t'}
+                                            {transaction.splitAmong.length - TransactionNumberOfVisibleNames} more participants{'\t'}
                                         </Text>
                                     )}
-                                    <Entypo
-                                        name={
-                                            expandNames
-                                                ? 'chevron-up'
-                                                : 'chevron-down'
-                                        }
-                                        size={calcHeight(2.1)}
-                                        color="white"
-                                    />
+                                    <Entypo name={expandNames ? 'chevron-up' : 'chevron-down'} size={calcHeight(2.1)} color="white" />
                                 </>
                             }
                         />

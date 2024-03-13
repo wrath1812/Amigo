@@ -14,32 +14,21 @@ const slop = 40;
 
 const hitSlop = { top: slop, bottom: slop, right: slop, left: slop };
 
-export default function QRFooterButton({
-    onPress,
-    isActive = false,
-    iconName,
-    iconSize = 25,
-}) {
+export default function QRFooterButton({ onPress, isActive = false, iconName, iconSize = 25 }) {
     const tint = isActive ? 'default' : 'dark';
     const iconColor = isActive ? '##4e9bde' : '#ffffff';
 
     const onPressIn = React.useCallback(() => {
-        if (shouldUseHaptics)
-            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+        if (shouldUseHaptics) Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
     }, []);
 
     const onPressButton = React.useCallback(() => {
         onPress();
-        if (shouldUseHaptics)
-            Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+        if (shouldUseHaptics) Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
     }, [onPress]);
 
     return (
-        <TouchableBounce
-            hitSlop={hitSlop}
-            onPressIn={onPressIn}
-            onPress={onPressButton}
-        >
+        <TouchableBounce hitSlop={hitSlop} onPressIn={onPressIn} onPress={onPressButton}>
             <BlurView intensity={100} style={styles.container} tint={tint}>
                 <Ionicons name={iconName} size={iconSize} color={iconColor} />
             </BlurView>

@@ -1,12 +1,5 @@
 import React from 'react';
-import {
-    View,
-    Text,
-    TouchableOpacity,
-    StyleSheet,
-    SafeAreaView,
-    Image,
-} from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView, Image } from 'react-native';
 
 // Assuming this is the path to your image
 import OnboardingImage from '../assets/Onboarding.png'; // Update the image path if necessary
@@ -18,19 +11,10 @@ const OnboardingScreen = ({ navigation }) => {
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.innerContainer}>
-                <Image
-                    source={OnboardingImage}
-                    style={styles.image}
-                    resizeMode="contain"
-                />
+                <Image source={OnboardingImage} style={styles.image} resizeMode="contain" />
                 <Text style={styles.title}>Group payments made easy</Text>
-                <Text style={styles.subtitle}>
-                    Keep track of your shared expenses and balances
-                </Text>
-                <Button
-                    title="Continue with Phone number"
-                    onPress={() => navigation.navigate(PAGES.LOGIN)}
-                />
+                <Text style={styles.subtitle}>Keep track of your shared expenses and balances</Text>
+                <Button title="Continue with Phone number" onPress={() => navigation.navigate(PAGES.LOGIN)} />
             </View>
         </SafeAreaView>
     );

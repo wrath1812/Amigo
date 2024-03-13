@@ -1,13 +1,5 @@
 import React from 'react';
-import {
-    Text,
-    StyleSheet,
-    SafeAreaView,
-    View,
-    Pressable,
-    FlatList,
-    Image,
-} from 'react-native';
+import { Text, StyleSheet, SafeAreaView, View, Pressable, FlatList, Image } from 'react-native';
 import { Ionicons, Feather } from '@expo/vector-icons';
 import GroupIcon from '../components/GroupIcon';
 import COLOR from '../constants/Colors';
@@ -39,33 +31,16 @@ function GroupBalanceScreen({ navigation, route }) {
             <Pressable onPress={handlePress} style={styles.listItem}>
                 <View style={styles.listItemLeft}>
                     <UserAvatar user={item} />
-                    <Text style={styles.itemName}>
-                        {sliceText(item.name, 10)}
-                    </Text>
+                    <Text style={styles.itemName}>{sliceText(item.name, 10)}</Text>
                 </View>
                 <View style={styles.listItemRight}>
                     <View style={styles.amountView}>
-                        <Text
-                            style={[styles.amountText, { color: balanceColor }]}
-                        >
-                            ₹{item.amount}
-                        </Text>
-                        <Text
-                            style={[
-                                styles.subAmountText,
-                                { color: balanceColor },
-                            ]}
-                        >
-                            {group.totalBalance < 0
-                                ? 'you owe'
-                                : 'you get back'}
+                        <Text style={[styles.amountText, { color: balanceColor }]}>₹{item.amount}</Text>
+                        <Text style={[styles.subAmountText, { color: balanceColor }]}>
+                            {group.totalBalance < 0 ? 'you owe' : 'you get back'}
                         </Text>
                     </View>
-                    <Ionicons
-                        name="chevron-forward"
-                        size={calcHeight(2)}
-                        color="white"
-                    />
+                    <Ionicons name="chevron-forward" size={calcHeight(2)} color="white" />
                 </View>
             </Pressable>
         );
@@ -78,9 +53,7 @@ function GroupBalanceScreen({ navigation, route }) {
                     <Image style={styles.crossIcon} source={Cross} />
                 </Pressable>
                 <GroupIcon groupId={group._id} />
-                <Text style={styles.groupName}>
-                    {sliceText(group.name, 25)}
-                </Text>
+                <Text style={styles.groupName}>{sliceText(group.name, 25)}</Text>
             </View>
             <View style={styles.balanceInfo}>
                 <View style={styles.balanceInfoLeft}>
@@ -88,44 +61,26 @@ function GroupBalanceScreen({ navigation, route }) {
                         style={[
                             styles.indicator,
                             {
-                                backgroundColor:
-                                    group.totalBalance > 0 ? '#00C83D' : 'red',
+                                backgroundColor: group.totalBalance > 0 ? '#00C83D' : 'red',
                             },
                         ]}
                     />
                     <View style={styles.balanceTextContainer}>
-                        <Text style={styles.balanceText}>
-                            Total Split Balance
-                        </Text>
-                        <Text style={styles.subBalanceText}>
-                            {group.totalBalance < 0
-                                ? 'you owe'
-                                : 'you get back'}
-                        </Text>
+                        <Text style={styles.balanceText}>Total Split Balance</Text>
+                        <Text style={styles.subBalanceText}>{group.totalBalance < 0 ? 'you owe' : 'you get back'}</Text>
                     </View>
                 </View>
                 <View style={styles.balanceAmountContainer}>
-                    <Text style={styles.balanceAmount}>
-                        ₹{Math.abs(group.totalBalance)}
-                    </Text>
+                    <Text style={styles.balanceAmount}>₹{Math.abs(group.totalBalance)}</Text>
                     <View
                         style={[
                             styles.arrowIconContainer,
                             {
-                                backgroundColor:
-                                    group.totalBalance > 0 ? '#00C83D' : 'red',
+                                backgroundColor: group.totalBalance > 0 ? '#00C83D' : 'red',
                             },
                         ]}
                     >
-                        <Feather
-                            name={
-                                group.totalBalance > 0
-                                    ? 'arrow-up-right'
-                                    : 'arrow-down-left'
-                            }
-                            size={calcWidth(2)}
-                            color="white"
-                        />
+                        <Feather name={group.totalBalance > 0 ? 'arrow-up-right' : 'arrow-down-left'} size={calcWidth(2)} color="white" />
                     </View>
                 </View>
             </View>

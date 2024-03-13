@@ -13,10 +13,7 @@ export const useGroupActivitiesStore = create(
                 set((state) => ({
                     activitiesHash: {
                         ...state.activitiesHash,
-                        [groupId]:
-                            updater instanceof Function
-                                ? updater(state.activitiesHash[groupId] || [])
-                                : updater,
+                        [groupId]: updater instanceof Function ? updater(state.activitiesHash[groupId] || []) : updater,
                     },
                 }));
             },
@@ -49,14 +46,12 @@ export const storeHydrated = () => {
         if (_hasHydrated) {
             resolve();
         } else {
-            const unsubscribe = useGroupActivitiesStore.subscribe(
-                (hasHydrated) => {
-                    if (hasHydrated) {
-                        resolve();
-                        unsubscribe();
-                    }
-                },
-            );
+            const unsubscribe = useGroupActivitiesStore.subscribe((hasHydrated) => {
+                if (hasHydrated) {
+                    resolve();
+                    unsubscribe();
+                }
+            });
         }
     });
 };

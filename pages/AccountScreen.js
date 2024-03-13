@@ -1,28 +1,11 @@
 import React, { useLayoutEffect, useEffect, useRef, useState } from 'react';
-import {
-    StyleSheet,
-    SafeAreaView,
-    View,
-    Text,
-    Image,
-    Pressable,
-    TextInput,
-    TouchableOpacity,
-    Platform,
-    Share,
-} from 'react-native';
+import { StyleSheet, SafeAreaView, View, Text, Image, Pressable, TextInput, TouchableOpacity, Platform, Share } from 'react-native';
 import { useAuth } from '../stores/auth';
 import COLOR from '../constants/Colors';
 import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
 import SignUpImage from '../assets/SignUp.png';
 import UserAvatar from '../components/UserAvatar';
-import {
-    Feather,
-    Octicons,
-    Ionicons,
-    MaterialCommunityIcons,
-    MaterialIcons,
-} from '@expo/vector-icons';
+import { Feather, Octicons, Ionicons, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
 import MenuOption from '../components/AccountPageOption';
 import PAGES from '../constants/pages';
 
@@ -71,27 +54,13 @@ function ProfileScreen({ navigation }) {
             headerLeft: () =>
                 editMode ? (
                     <TouchableOpacity onPress={() => setEditMode(false)}>
-                        <Text
-                            style={[
-                                styles.bottomBarText,
-                                { fontWeight: 'bold' },
-                            ]}
-                        >
-                            Cancel
-                        </Text>
+                        <Text style={[styles.bottomBarText, { fontWeight: 'bold' }]}>Cancel</Text>
                     </TouchableOpacity>
                 ) : undefined,
             headerRight: () =>
                 editMode ? (
                     <TouchableOpacity onPress={submitUserData}>
-                        <Text
-                            style={[
-                                styles.bottomBarText,
-                                { fontWeight: 'bold' },
-                            ]}
-                        >
-                            Done
-                        </Text>
+                        <Text style={[styles.bottomBarText, { fontWeight: 'bold' }]}>Done</Text>
                     </TouchableOpacity>
                 ) : undefined,
         });
@@ -103,12 +72,7 @@ function ProfileScreen({ navigation }) {
                 <UserAvatar user={user} size={7} />
                 <View>
                     {editMode ? (
-                        <TextInput
-                            style={styles.userName}
-                            value={name}
-                            onChangeText={setName}
-                            autoFocus
-                        />
+                        <TextInput style={styles.userName} value={name} onChangeText={setName} autoFocus />
                     ) : (
                         <Text style={styles.userName}>{name}</Text>
                     )}
@@ -119,11 +83,7 @@ function ProfileScreen({ navigation }) {
                         setEditMode((prev) => !prev);
                     }}
                 >
-                    <Feather
-                        name="edit-3"
-                        size={calcHeight(3)}
-                        color={COLOR.BUTTON}
-                    />
+                    <Feather name="edit-3" size={calcHeight(3)} color={COLOR.BUTTON} />
                 </Pressable>
             </View>
 
@@ -141,11 +101,7 @@ function ProfileScreen({ navigation }) {
                     });
                 }}
             >
-                <Octicons
-                    name="cross-reference"
-                    size={calcHeight(2)}
-                    color="white"
-                />
+                <Octicons name="cross-reference" size={calcHeight(2)} color="white" />
                 <Text style={styles.menuText}>Invite Friends</Text>
             </Pressable>
 

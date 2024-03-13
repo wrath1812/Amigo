@@ -1,14 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {
-    View,
-    StyleSheet,
-    Linking,
-    Button,
-    Image,
-    Pressable,
-    Text,
-    Alert,
-} from 'react-native';
+import { View, StyleSheet, Linking, Button, Image, Pressable, Text, Alert } from 'react-native';
 import * as BarCodeScanner from 'expo-barcode-scanner';
 import CameraScanner from '../components/CameraScanner';
 import { useTransaction } from '../context/TransactionContext';
@@ -36,8 +27,7 @@ const QRCodeScanner = ({ navigation }) => {
         const unsubscribe = navigation.addListener('focus', () => {
             setHasPermission(false);
             (async () => {
-                const { status } =
-                    await BarCodeScanner.requestPermissionsAsync();
+                const { status } = await BarCodeScanner.requestPermissionsAsync();
                 setHasPermission(status === 'granted');
             })();
         });
@@ -55,9 +45,7 @@ const QRCodeScanner = ({ navigation }) => {
         const params = {};
         for (let i = 0; i < pairs.length; i++) {
             const pair = pairs[i].split('=');
-            params[decodeURIComponent(pair[0])] = decodeURIComponent(
-                pair[1] || '',
-            );
+            params[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1] || '');
         }
         return params;
     };
@@ -110,11 +98,7 @@ const QRCodeScanner = ({ navigation }) => {
                     </Text>
                 </Pressable>
             ) : (
-                <CameraScanner
-                    handleBarCodeScanned={handleBarCodeScanned}
-                    isLit={isLit}
-                    setIsLit={setIsLit}
-                />
+                <CameraScanner handleBarCodeScanned={handleBarCodeScanned} isLit={isLit} setIsLit={setIsLit} />
             )}
         </View>
     );

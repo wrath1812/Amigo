@@ -1,13 +1,9 @@
 import apiHelper from '../helper/apiHelper';
-import {
-    useGroupActivitiesStore,
-    storeHydrated,
-} from '../stores/groupActivities';
+import { useGroupActivitiesStore, storeHydrated } from '../stores/groupActivities';
 
 const syncAllChat = async () => {
     await storeHydrated();
-    const { activitiesHash, getActivities, setActivitiesHash } =
-        useGroupActivitiesStore.getState();
+    const { activitiesHash, getActivities, setActivitiesHash } = useGroupActivitiesStore.getState();
     const promises = [];
 
     for (const groupId in activitiesHash) {
@@ -25,10 +21,7 @@ const syncAllChat = async () => {
                         message: activity.relatedId.message,
                     });
                 else apiHelper.post('/transaction', activity);
-                setActivities((prev) => [
-                    ...prev,
-                    { ...activity, synced: true },
-                ]);
+                setActivities((prev) => [...prev, { ...activity, synced: true }]);
 
                 promises.push(promise);
             }

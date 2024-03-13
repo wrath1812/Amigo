@@ -1,16 +1,7 @@
 // 1. Import Statements
 import { AntDesign } from '@expo/vector-icons';
 import React, { useState, useRef, useEffect } from 'react';
-import {
-    SafeAreaView,
-    View,
-    Text,
-    StyleSheet,
-    TextInput,
-    Pressable,
-    KeyboardAvoidingView,
-    Keyboard,
-} from 'react-native';
+import { SafeAreaView, View, Text, StyleSheet, TextInput, Pressable, KeyboardAvoidingView } from 'react-native';
 import Toast from 'react-native-root-toast';
 
 import AmountInput from '../components/AmountInput';
@@ -25,7 +16,6 @@ import checkConnectivity from '../helper/getNetworkStateAsync';
 import offlineMessage from '../helper/offlineMessage';
 import { calcHeight, getFontSizeByWindowWidth, calcWidth } from '../helper/res';
 import sliceText from '../helper/sliceText';
-import useKeyboardHeight from '../hooks/useKeyboardHeight';
 // GroupScreen Component
 function GroupScreen({
     route: {
@@ -37,7 +27,6 @@ function GroupScreen({
     const [description, setDescription] = useState('');
     const descriptionRef = useRef();
     const [isLoading, seIsLoading] = useState(false);
-    const keyboardHeight = useKeyboardHeight();
 
     async function submitPayment() {
         const isOnline = await checkConnectivity();
@@ -117,16 +106,9 @@ function GroupScreen({
                     </Text>
                 </View>
             </View>
-            <AmountInput
-                amount={amount}
-                handleInputChange={(text) => setAmount(text)}
-                isTextInput
-            />
+            <AmountInput amount={amount} handleInputChange={(text) => setAmount(text)} isTextInput />
             <View style={styles.rowCentered}>
-                <Pressable
-                    style={styles.descriptionContainer}
-                    onPress={() => descriptionRef.current.focus()}
-                >
+                <Pressable style={styles.descriptionContainer} onPress={() => descriptionRef.current.focus()}>
                     <TextInput
                         style={styles.description}
                         onChangeText={(text) => setDescription(text)}
@@ -143,13 +125,10 @@ function GroupScreen({
                     flex: 1,
                     alignItems: 'center',
                     justifyContent: 'flex-end',
-                    marginBottom: keyboardHeight,
+                    marginBottom: calcHeight(2),
                 }}
             >
-                <Button
-                    onPress={submitPayment}
-                    title="Record as  Cash Payment"
-                />
+                <Button onPress={submitPayment} title="Record as  Cash Payment" />
             </View>
         </SafeAreaView>
     );

@@ -47,10 +47,7 @@ const DatePickerSelector = () => {
 
     const renderButtons = () => (
         <>
-            <TouchableOpacity
-                style={styles.buttonContainer}
-                onPress={() => setModalState('model')}
-            >
+            <TouchableOpacity style={styles.buttonContainer} onPress={() => setModalState('model')}>
                 <Text style={styles.buttonText}>Date</Text>
             </TouchableOpacity>
 
@@ -62,10 +59,7 @@ const DatePickerSelector = () => {
                     setModalState(null);
                 }}
             >
-                <Pressable
-                    style={styles.modalContent}
-                    onPress={() => setModalState(null)}
-                >
+                <Pressable style={styles.modalContent} onPress={() => setModalState(null)}>
                     <View style={styles.modalView}>
                         <TouchableOpacity
                             onPress={() => {
@@ -76,9 +70,7 @@ const DatePickerSelector = () => {
                             }}
                             style={styles.dateTypeContainer}
                         >
-                            <Text style={styles.dateTypeText}>
-                                All Transactions
-                            </Text>
+                            <Text style={styles.dateTypeText}>All Transactions</Text>
                         </TouchableOpacity>
                         <TouchableOpacity
                             onPress={() => {
@@ -103,10 +95,7 @@ const DatePickerSelector = () => {
                         >
                             <Text style={styles.dateTypeText}>This Month</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity
-                            onPress={showCustomDateModal}
-                            style={styles.dateTypeContainer}
-                        >
+                        <TouchableOpacity onPress={showCustomDateModal} style={styles.dateTypeContainer}>
                             <Text style={styles.dateTypeText}>Custom Date</Text>
                         </TouchableOpacity>
                     </View>

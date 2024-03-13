@@ -18,11 +18,7 @@ const useGroupStore = create(
                     set({ loading: true });
                 }
                 const { data } = await apiHelper('/group');
-                for (let group of data)
-                    group.members = await editNamesAsync(
-                        group.members,
-                        user._id,
-                    );
+                for (let group of data) group.members = await editNamesAsync(group.members, user._id);
                 set({ groups: data, loading: false });
             },
         }),

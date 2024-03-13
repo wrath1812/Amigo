@@ -1,18 +1,10 @@
 import React, { useState } from 'react';
-import {
-    View,
-    Text,
-    TextInput,
-    StyleSheet,
-    SafeAreaView,
-    Image,
-} from 'react-native';
+import { View, Text, TextInput, StyleSheet, SafeAreaView, Image } from 'react-native';
 import LoginImage from '../assets/Login.png';
 import COLOR from '../constants/Colors';
 import PAGES from '../constants/pages';
 import Button from '../components/Button';
 import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
-import sendOTP from '../helper/sendOTP';
 import { useAuth } from '../stores/auth';
 const CountryCodeInput = ({ countryCode }) => (
     <View style={styles.countryCodeContainer}>
@@ -28,40 +20,32 @@ const LoginScreen = ({ navigation }) => {
     const [error, setError] = useState(false);
     const getTextInputStyle = (isFocused) => ({
         ...styles.phoneNumberInput,
-        borderBottomColor: isFocused
-            ? 'rgba(255, 255, 255, 1)'
-            : 'rgba(255, 255, 255, 0.5)',
+        borderBottomColor: isFocused ? 'rgba(255, 255, 255, 1)' : 'rgba(255, 255, 255, 0.5)',
     });
 
-    const handleSendOTP = () => {
+    const handleSendOTP = async () => {
         if (!phoneNumber || phoneNumber.length != 10) {
             setError(true);
             return;
         }
-        sendOTP('91' + phoneNumber);
-        if (user)
-            navigation.navigate(PAGES.OTP, { countryCode: '91', phoneNumber });
-        else
-            navigation.navigate(PAGES.OTP_LOGGED_OUT, {
-                countryCode: '91',
-                phoneNumber,
-            });
+        // const confirmation = await auth().signInWithPhoneNumber('+91' + phoneNumber);
+
+        //  const re=await confirmation.confirm("123456");
+        //  console.log(re);
+
+        //     console.log(e);
+        // sendOTP('+91' + phoneNumber);
+        navigation.navigate(PAGES.OTP, { countryCode, phoneNumber });
     };
 
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.innerContainer}>
                 <View style={styles.header}>
-                    <Image
-                        source={LoginImage}
-                        style={styles.image}
-                        resizeMode="contain"
-                    />
+                    <Image source={LoginImage} style={styles.image} resizeMode="contain" />
                     <View style={styles.textContainer}>
                         <Text style={styles.headerText}>Hi there!</Text>
-                        <Text style={styles.promptText}>
-                            Please enter your phone number
-                        </Text>
+                        <Text style={styles.promptText}>Please enter your phone number</Text>
                     </View>
                 </View>
                 <View style={styles.inputContainer}>
@@ -70,9 +54,7 @@ const LoginScreen = ({ navigation }) => {
                         <TextInput
                             style={{
                                 ...getTextInputStyle(isPhoneFocused),
-                                ...(error
-                                    ? { borderBottomColor: COLOR.ERROR_BORDER }
-                                    : {}),
+                                ...(error ? { borderBottomColor: COLOR.ERROR_BORDER } : {}),
                             }}
                             keyboardType="phone-pad"
                             value={phoneNumber}

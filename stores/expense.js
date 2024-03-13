@@ -46,9 +46,7 @@ const useExpenseStore = create(
             deleteExpenseById: async (expenseId) => {
                 try {
                     set((state) => ({
-                        expense: state.expense.filter(
-                            (item) => item.id !== expenseId,
-                        ),
+                        expense: state.expense.filter((item) => item.id !== expenseId),
                         backendsynced: false,
                     }));
                     await apiHelper.delete(`transaction/${expenseId}`);

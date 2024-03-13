@@ -1,15 +1,6 @@
 // React Native Components and Utilities
 import React from 'react';
-import {
-    StyleSheet,
-    SafeAreaView,
-    View,
-    Text,
-    FlatList,
-    Image,
-    Pressable,
-    TouchableOpacity,
-} from 'react-native';
+import { StyleSheet, SafeAreaView, View, Text, FlatList, Image, Pressable, TouchableOpacity } from 'react-native';
 
 // Custom Components and Utility Functions
 import GroupIcon from '../components/GroupIcon';
@@ -54,9 +45,7 @@ function ExpenseCard({ item, loading }) {
                                 },
                             ]}
                         ></Text>
-                        <Text style={[styles.dateText, { opacity: 0 }]}>
-                            Ramdom
-                        </Text>
+                        <Text style={[styles.dateText, { opacity: 0 }]}>Ramdom</Text>
                     </View>
                 </View>
             </View>
@@ -83,17 +72,12 @@ function ExpenseCard({ item, loading }) {
             <View style={styles.cardInnerContainer}>
                 <GroupIcon size={5} groupId={item?.group?._id} />
                 <View style={styles.textContainer}>
-                    <Text style={styles.descriptionText}>
-                        {sliceText(item.description, 20)}
-                    </Text>
+                    <Text style={styles.descriptionText}>{sliceText(item.description, 20)}</Text>
                     <Text style={styles.groupText}>
-                        {sliceText(item.category, 25)}{' '}
-                        {getCategoryIcon(item.category)}
+                        {sliceText(item.category, 25)} {getCategoryIcon(item.category)}
                     </Text>
 
-                    <Text style={styles.dateText}>
-                        {convertISODateToCustomFormat(item.date)}
-                    </Text>
+                    <Text style={styles.dateText}>{convertISODateToCustomFormat(item.date)}</Text>
                 </View>
             </View>
             <Text style={styles.amountText}>₹{item.amount}</Text>

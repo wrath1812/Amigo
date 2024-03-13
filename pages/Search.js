@@ -1,13 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import {
-    View,
-    Text,
-    StyleSheet,
-    SafeAreaView,
-    ScrollView,
-    Alert,
-    Button,
-} from 'react-native';
+import { View, Text, StyleSheet, SafeAreaView, ScrollView, Alert, Button } from 'react-native';
 import Loader from '../components/Loader';
 import Search from '../components/Search';
 import apiHelper from '../helper/apiHelper';
@@ -71,11 +63,7 @@ const SearchScreen = ({ navigation }) => {
                 ))}
             </ScrollView>
             <View style={styles.pagination}>
-                <Button
-                    title="Previous"
-                    onPress={handlePrevPage}
-                    disabled={page === 1}
-                />
+                <Button title="Previous" onPress={handlePrevPage} disabled={page === 1} />
                 <Text style={styles.pageNumber}>Page: {page}</Text>
                 <Button title="Next" onPress={handleNextPage} />
             </View>

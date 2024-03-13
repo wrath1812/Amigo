@@ -51,9 +51,7 @@ function GroupCard({ group, loading }) {
             <GroupIcon groupId={group._id} />
             <View style={styles.textContainer}>
                 <Text style={styles.nameText}>{sliceText(group.name, 20)}</Text>
-                <Text style={styles.memberText}>
-                    {getMembersString(group.members, 30)}
-                </Text>
+                <Text style={styles.memberText}>{getMembersString(group.members, 30)}</Text>
             </View>
         </Pressable>
     );

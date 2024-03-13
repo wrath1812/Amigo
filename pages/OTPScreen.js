@@ -1,24 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react';
-import {
-    View,
-    Text,
-    TextInput,
-    StyleSheet,
-    SafeAreaView,
-    Image,
-    Pressable,
-    TouchableOpacity,
-} from 'react-native';
+import { View, Text, TextInput, StyleSheet, SafeAreaView, Image, Pressable, TouchableOpacity } from 'react-native';
 import COLOR from '../constants/Colors';
 import Button from '../components/Button';
 import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
 import OTPImage from '../assets/OTPImage.png';
-import { useAuth } from '../stores/auth';
 import Loader from '../components/Loader';
 import OTPFilled from '../assets/OTPFilled.png';
-import sendOTP from '../helper/sendOTP';
 import PAGES from '../constants/pages';
-import getPreviousPageName from '../helper/getPreviousPageName';
+import sendOtp from '../utility/sendOtp';
+import { useAuth } from '../stores/auth';
+
 const OTPScreen = ({
     navigation,
     route: {
@@ -29,10 +20,15 @@ const OTPScreen = ({
     const inputRef = useRef();
     const [error, setError] = useState(false);
     const [loading, setLoading] = useState(false);
+    const [verificationId, seVerificationId] = useState();
     const { verifyOTP } = useAuth();
 
     useEffect(() => {
         inputRef.current.focus();
+        (async () => {
+            const verificationCode = await sendOtp(countryCode + phoneNumber);
+            seVerificationId(verificationCode);
+        })();
     }, []);
 
     const handleOTPChange = (text) => {
@@ -45,7 +41,7 @@ const OTPScreen = ({
             return;
         }
         setLoading(true);
-        await verifyOTP(phoneNumber, countryCode, otp);
+        await verifyOTP({ sessionInfo: verificationId, code: otp });
         navigation.navigate(PAGES.BALANCE);
         setLoading(false);
         setOtp('');
@@ -76,16 +72,10 @@ const OTPScreen = ({
         <SafeAreaView style={styles.container}>
             <View style={styles.innerContainer}>
                 <View style={styles.header}>
-                    <Image
-                        source={otp.length != 6 ? OTPImage : OTPFilled}
-                        style={styles.image}
-                        resizeMode="contain"
-                    />
+                    <Image source={otp.length != 6 ? OTPImage : OTPFilled} style={styles.image} resizeMode="contain" />
                     <View style={styles.textContainer}>
                         <Text style={styles.headerText}>OTP Verification</Text>
-                        <Text style={styles.promptText}>
-                            Enter the code sent to +1 999 888...
-                        </Text>
+                        <Text style={styles.promptText}>Enter the code sent to {countryCode + phoneNumber}</Text>
                     </View>
                 </View>
                 <View
@@ -105,12 +95,11 @@ const OTPScreen = ({
                         autoFocus
                     />
                     <View style={{ flexDirection: 'row' }}>
-                        <Text style={styles.resendText}>
-                            Didn't receive the code?{' '}
-                        </Text>
+                        <Text style={styles.resendText}>Didn't receive the code? </Text>
                         <TouchableOpacity
-                            onPress={() => {
-                                sendOTP('+91' + phoneNumber);
+                            onPress={async () => {
+                                const verificationCode = await sendOtp(countryCode + phoneNumber);
+                                seVerificationId(verificationCode);
                             }}
                         >
                             <Text

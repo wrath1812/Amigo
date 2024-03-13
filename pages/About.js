@@ -1,13 +1,5 @@
 import React from 'react';
-import {
-    View,
-    Text,
-    StyleSheet,
-    SafeAreaView,
-    ScrollView,
-    Image,
-    Pressable,
-} from 'react-native';
+import { View, Text, StyleSheet, SafeAreaView, ScrollView, Image, Pressable } from 'react-native';
 import { MaterialIcons, Foundation } from '@expo/vector-icons';
 import COLOR from '../constants/Colors';
 import about from '../constants/about';

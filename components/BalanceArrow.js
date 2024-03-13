@@ -13,18 +13,11 @@ function BalanceArrow({ totalBalance }) {
                     borderRadius: calcWidth(2),
                 },
                 {
-                    backgroundColor:
-                        totalBalance > 0
-                            ? COLOR.BALANCE_POSITIVE_COLOR
-                            : COLOR.BALANCE_NEGATIVE_COLOR,
+                    backgroundColor: totalBalance > 0 ? COLOR.BALANCE_POSITIVE_COLOR : COLOR.BALANCE_NEGATIVE_COLOR,
                 },
             ]}
         >
-            <Feather
-                name={totalBalance > 0 ? 'arrow-up-right' : 'arrow-down-right'}
-                size={calcWidth(2)}
-                color="white"
-            />
+            <Feather name={totalBalance > 0 ? 'arrow-up-right' : 'arrow-down-right'} size={calcWidth(2)} color="white" />
         </View>
     );
 }

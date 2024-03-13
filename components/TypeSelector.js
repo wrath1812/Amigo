@@ -1,14 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {
-    TouchableOpacity,
-    Text,
-    Image,
-    Modal,
-    View,
-    FlatList,
-    Pressable,
-    StyleSheet,
-} from 'react-native';
+import { TouchableOpacity, Text, Image, Modal, View, FlatList, Pressable, StyleSheet } from 'react-native';
 import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
 import COLOR from '../constants/Colors';
 import typeIcon from '../assets/icons/type.png';
@@ -42,22 +33,14 @@ const TypeSelector = () => {
         const isSelected = selectedTypes.includes(item);
 
         if (isSelected) {
-            setSelectedTypes((prevSelectedTypes) =>
-                prevSelectedTypes.filter((type) => type !== item),
-            );
+            setSelectedTypes((prevSelectedTypes) => prevSelectedTypes.filter((type) => type !== item));
         } else {
-            setSelectedTypes((prevSelectedTypes) => [
-                ...prevSelectedTypes,
-                item,
-            ]);
+            setSelectedTypes((prevSelectedTypes) => [...prevSelectedTypes, item]);
         }
     };
 
     const renderItem = ({ item }) => (
-        <TouchableOpacity
-            style={styles.itemContainer}
-            onPress={() => toggleTypeSelection(item.name)}
-        >
+        <TouchableOpacity style={styles.itemContainer} onPress={() => toggleTypeSelection(item.name)}>
             <View style={styles.itemContent}>
                 {item.icon}
                 <Text style={styles.itemText}>{item.name}</Text>
@@ -74,10 +57,7 @@ const TypeSelector = () => {
 
     return (
         <>
-            <TouchableOpacity
-                style={styles.buttonContainer}
-                onPress={() => setModalVisible(true)}
-            >
+            <TouchableOpacity style={styles.buttonContainer} onPress={() => setModalVisible(true)}>
                 {selectedTypes.length == 0 ? (
                     <>
                         <Text style={styles.buttonText}>Type</Text>
@@ -86,14 +66,10 @@ const TypeSelector = () => {
                 ) : (
                     <>
                         {getCategoryIcon(selectedTypes[0])}
-                        <Text style={styles.buttonText}>
-                            {selectedTypes[0]}
-                        </Text>
+                        <Text style={styles.buttonText}>{selectedTypes[0]}</Text>
                         {selectedTypes.length > 1 && (
                             <View style={styles.countContainer}>
-                                <Text style={styles.countText}>
-                                    +{selectedTypes.length - 1}
-                                </Text>
+                                <Text style={styles.countText}>+{selectedTypes.length - 1}</Text>
                             </View>
                         )}
                     </>
@@ -107,26 +83,15 @@ const TypeSelector = () => {
                     setModalVisible(false);
                 }}
             >
-                <Pressable
-                    style={styles.modalBackdrop}
-                    onPress={() => setModalVisible(false)}
-                >
+                <Pressable style={styles.modalBackdrop} onPress={() => setModalVisible(false)}>
                     <View style={styles.modalContent}>
                         <View style={styles.modalHeader}>
                             <Text style={styles.modalHeaderText}>Type</Text>
-                            <TouchableOpacity
-                                onPress={applySelectionAndCloseModal}
-                            >
-                                <Text style={styles.modalHeaderButton}>
-                                    Done
-                                </Text>
+                            <TouchableOpacity onPress={applySelectionAndCloseModal}>
+                                <Text style={styles.modalHeaderButton}>Done</Text>
                             </TouchableOpacity>
                         </View>
-                        <FlatList
-                            data={Categories}
-                            renderItem={renderItem}
-                            keyExtractor={(item) => item.name}
-                        />
+                        <FlatList data={Categories} renderItem={renderItem} keyExtractor={(item) => item.name} />
                     </View>
                 </Pressable>
             </Modal>
