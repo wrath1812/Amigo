@@ -1,23 +1,23 @@
-import { Octicons, EvilIcons, MaterialIcons } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
-import React from "react";
-import { StyleSheet, View, Pressable, Text, Image } from "react-native";
+import { Octicons, EvilIcons, MaterialIcons } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
+import React from 'react';
+import { StyleSheet, View, Pressable, Text, Image } from 'react-native';
 
-import ClockIcon from "../assets/icons/clock.png";
-import UserAvatar from "../components/UserAvatar";
-import COLOR from "../constants/Colors";
-import PAGES from "../constants/pages";
-import editNames from "../helper/editNames";
-import { calcHeight, calcWidth, getFontSizeByWindowWidth } from "../helper/res";
-import { useAuth } from "../stores/auth";
+import ClockIcon from '../assets/icons/clock.png';
+import UserAvatar from '../components/UserAvatar';
+import COLOR from '../constants/Colors';
+import PAGES from '../constants/pages';
+import editNames from '../helper/editNames';
+import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
+import { useAuth } from '../stores/auth';
 
 function convertToCustomFormat(dateString) {
     const date = new Date(dateString);
-    const dateOptions = { day: "numeric", month: "long", year: "numeric" };
-    const timeOptions = { hour: "2-digit", minute: "2-digit" };
-    const formattedDate = date.toLocaleDateString("en-IN", dateOptions);
-    const formattedTime = date.toLocaleTimeString("en-IN", timeOptions);
-    return formattedDate + " " + formattedTime;
+    const dateOptions = { day: 'numeric', month: 'long', year: 'numeric' };
+    const timeOptions = { hour: '2-digit', minute: '2-digit' };
+    const formattedDate = date.toLocaleDateString('en-IN', dateOptions);
+    const formattedTime = date.toLocaleTimeString('en-IN', timeOptions);
+    return formattedDate + ' ' + formattedTime;
 }
 
 function getDateAndMonth(dateString) {
@@ -26,23 +26,23 @@ function getDateAndMonth(dateString) {
 
     // Array of month names
     const months = [
-        "January",
-        "February",
-        "March",
-        "April",
-        "May",
-        "June",
-        "July",
-        "August",
-        "September",
-        "October",
-        "November",
-        "December",
+        'January',
+        'February',
+        'March',
+        'April',
+        'May',
+        'June',
+        'July',
+        'August',
+        'September',
+        'October',
+        'November',
+        'December',
     ];
 
     const day = date.getDate();
     const month = months[date.getMonth()];
-    return day + " " + month;
+    return day + ' ' + month;
 }
 
 function ActivityHeader({ icon, iconName, size, text }) {
@@ -50,10 +50,10 @@ function ActivityHeader({ icon, iconName, size, text }) {
         <View style={styles.header}>
             <View
                 style={{
-                    flexDirection: "row",
-                    justifyContent: "center",
-                    alignContent: "center",
-                    alignItems: "center",
+                    flexDirection: 'row',
+                    justifyContent: 'center',
+                    alignContent: 'center',
+                    alignItems: 'center',
                     gap: calcWidth(2),
                 }}
             >
@@ -62,20 +62,16 @@ function ActivityHeader({ icon, iconName, size, text }) {
                         borderWidth: 1,
                         padding: calcWidth(1),
                         borderRadius: calcWidth(5),
-                        borderColor: "white",
+                        borderColor: 'white',
                     }}
                 >
-                    <MaterialIcons
-                        name="call-split"
-                        size={calcWidth(3)}
-                        color="white"
-                    />
+                    <MaterialIcons name="call-split" size={calcWidth(3)} color="white" />
                 </View>
                 <Text
                     style={{
                         fontSize: getFontSizeByWindowWidth(10),
-                        color: "white",
-                        fontWeight: "bold",
+                        color: 'white',
+                        fontWeight: 'bold',
                     }}
                 >
                     Split an expense
@@ -86,9 +82,9 @@ function ActivityHeader({ icon, iconName, size, text }) {
                     React.createElement(icon, {
                         name: iconName,
                         size,
-                        color: "white",
+                        color: 'white',
                     })}
-                {"    "}
+                {'    '}
                 {text}
             </Text>
         </View>
@@ -104,63 +100,42 @@ function TransactionActivity({ transaction, createdAt, contacts, synced, creator
             onPress={() => {
                 const editedTransaction = transaction;
                 for (const i in editedTransaction.splitAmong) {
-                    editedTransaction.splitAmong[i].user = editNames(
-                        [transaction.splitAmong[i].user],
-                        user._id,
-                        contacts
-                    )[0];
+                    editedTransaction.splitAmong[i].user = editNames([transaction.splitAmong[i].user], user._id, contacts)[0];
                 }
-                editedTransaction.paidBy = editNames(
-                    [transaction.paidBy],
-                    user._id,
-                    contacts
-                )[0];
+                editedTransaction.paidBy = editNames([transaction.paidBy], user._id, contacts)[0];
 
                 navigation.navigate(PAGES.TRANSACTION_DETAIL, {
-                   transaction: {
+                    transaction: {
                         ...editedTransaction,
                         creator,
-                   },
+                    },
                 });
             }}
         >
-            <ActivityHeader
-                icon={Octicons}
-                iconName="person"
-                size={calcHeight(1.8)}
-                text={`${transaction.splitAmong?.length}`}
-            />
+            <ActivityHeader icon={Octicons} iconName="person" size={calcHeight(1.8)} text={`${transaction.splitAmong?.length}`} />
             <View style={styles.flexContainer}>
                 <Text style={styles.amount}>₹</Text>
                 <View>
                     <Text style={styles.amount}>{transaction.amount}</Text>
-                    <Text style={styles.description}>
-                        {transaction.description}
-                    </Text>
+                    <Text style={styles.description}>{transaction.description}</Text>
                 </View>
             </View>
             <View
                 style={{
-                    flexDirection: "row",
-                    alignItems: "center",
-                    justifyContent: "space-between",
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
                     marginTop: calcHeight(3),
                 }}
             >
                 <View
                     style={{
-                        flexDirection: "row",
+                        flexDirection: 'row',
                         gap: calcWidth(2),
                     }}
                 >
-                    <EvilIcons
-                        name="calendar"
-                        size={calcWidth(5)}
-                        color="white"
-                    />
-                    <Text style={styles.description}>
-                        {getDateAndMonth(createdAt)}
-                    </Text>
+                    <EvilIcons name="calendar" size={calcWidth(5)} color="white" />
+                    <Text style={styles.description}>{getDateAndMonth(createdAt)}</Text>
                 </View>
                 {synced === false && (
                     <Image
@@ -178,11 +153,7 @@ function TransactionActivity({ transaction, createdAt, contacts, synced, creator
 
 function PaymentActivity({ payment, contacts }) {
     const { user } = useAuth();
-    const [payer, receiver] = editNames(
-        [payment.payer, payment.receiver],
-        user._id,
-        contacts
-    );
+    const [payer, receiver] = editNames([payment.payer, payment.receiver], user._id, contacts);
     return (
         <View
             style={{
@@ -201,47 +172,42 @@ function ChatActivity({ chat, synced }) {
     function convertToCustomFormat(dateString) {
         const date = new Date(dateString);
         const timeOptions = {
-            hour: "numeric",
-            minute: "2-digit",
+            hour: 'numeric',
+            minute: '2-digit',
             hour12: true,
         };
-        const formattedTime = date.toLocaleTimeString("en-US", timeOptions);
+        const formattedTime = date.toLocaleTimeString('en-US', timeOptions);
         return formattedTime;
     }
     return (
         <View>
             <Text
                 style={{
-                    color: "white",
+                    color: 'white',
                 }}
             >
                 {chat.message}
             </Text>
             <View
                 style={{
-                    alignItems: "center",
-                    flexDirection: "row",
+                    alignItems: 'center',
+                    flexDirection: 'row',
                     flex: 1,
-                    alignContent: "center",
-                    justifyContent: "flex-end",
+                    alignContent: 'center',
+                    justifyContent: 'flex-end',
                     gap: calcWidth(1),
                 }}
             >
                 <Text
                     style={{
-                        color: "grey",
+                        color: 'grey',
                         fontSize: getFontSizeByWindowWidth(10),
                     }}
                 >
                     {convertToCustomFormat(chat.createdAt)}
                 </Text>
                 {/* incase sync is missing for the data comming from the backend it should have the right sync */}
-                {synced === false && (
-                    <Image
-                        source={ClockIcon}
-                        style={{ height: calcHeight(1), width: calcHeight(1) }}
-                    />
-                )}
+                {synced === false && <Image source={ClockIcon} style={{ height: calcHeight(1), width: calcHeight(1) }} />}
             </View>
         </View>
     );
@@ -264,8 +230,7 @@ function Feed(props) {
             style={[
                 styles.transactionContainer,
                 {
-                    justifyContent:
-                        user._id === creator?._id ? "flex-end" : "flex-start",
+                    justifyContent: user._id === creator?._id ? 'flex-end' : 'flex-start',
                 },
             ]}
         >
@@ -278,8 +243,8 @@ function Feed(props) {
                 {user._id !== creator?._id && (
                     <View
                         style={{
-                            alignItems: "center",
-                            flexDirection: "row",
+                            alignItems: 'center',
+                            flexDirection: 'row',
                         }}
                     >
                         <Text
@@ -287,15 +252,15 @@ function Feed(props) {
                                 color: COLOR.BUTTON,
                             }}
                         >
-                            {" "}
+                            {' '}
                             {creator.name}
                         </Text>
                         <Text
                             style={{
-                                color: "white",
+                                color: 'white',
                             }}
                         >
-                            {" "}
+                            {' '}
                             {convertToCustomFormat(createdAt)}
                         </Text>
                     </View>
@@ -304,10 +269,7 @@ function Feed(props) {
                     style={[
                         styles.transactionCard,
                         {
-                            backgroundColor:
-                                user._id === creator?._id
-                                    ? "#663CAB"
-                                    : "#342F4F",
+                            backgroundColor: user._id === creator?._id ? '#663CAB' : '#342F4F',
                             ...(user._id === creator?._id
                                 ? {
                                       borderBottomLeftRadius: calcHeight(1),
@@ -331,15 +293,9 @@ function Feed(props) {
 
 const ActivityStrategyFactory = (activityType) => {
     switch (activityType) {
-        case "transaction":
+        case 'transaction':
             return {
-                renderActivity: ({
-                    relatedId: transaction,
-                    createdAt,
-                    contacts,
-                    synced,
-                    creator,
-                }) => (
+                renderActivity: ({ relatedId: transaction, createdAt, contacts, synced, creator }) => (
                     <TransactionActivity
                         transaction={transaction}
                         createdAt={createdAt}
@@ -349,13 +305,11 @@ const ActivityStrategyFactory = (activityType) => {
                     />
                 ),
             };
-        case "payment":
+        case 'payment':
             return {
-                renderActivity: ({ relatedId: payment, contacts }) => (
-                    <PaymentActivity payment={payment} contacts={contacts} />
-                ),
+                renderActivity: ({ relatedId: payment, contacts }) => <PaymentActivity payment={payment} contacts={contacts} />,
             };
-        case "chat":
+        case 'chat':
             return {
                 renderActivity: ({ creator, relatedId, createdAt, synced }) => (
                     <ChatActivity
@@ -376,44 +330,44 @@ const ActivityStrategyFactory = (activityType) => {
 const styles = StyleSheet.create({
     transactionContainer: {
         flex: 1,
-        flexDirection: "row",
+        flexDirection: 'row',
         margin: calcWidth(3),
         marginVertical: calcHeight(4),
     },
     transactionCard: {
         padding: calcWidth(5),
         width: calcWidth(70),
-        backgroundColor: "#342F4F",
+        backgroundColor: '#342F4F',
         borderBottomLeftRadius: calcHeight(1),
         borderBottomRightRadius: calcHeight(1),
         marginTop: calcHeight(1),
     },
     description: {
         fontSize: getFontSizeByWindowWidth(10),
-        color: "white",
+        color: 'white',
     },
     header: {
-        flexDirection: "row",
-        justifyContent: "space-between",
-        alignItems: "center",
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
     },
     headerText: {
-        color: "white",
+        color: 'white',
     },
     amount: {
         fontSize: getFontSizeByWindowWidth(20),
         color: COLOR.TEXT,
-        fontWeight: "bold",
+        fontWeight: 'bold',
         marginRight: calcWidth(2),
     },
     flexContainer: {
-        flexDirection: "row",
+        flexDirection: 'row',
         marginTop: calcHeight(3),
         marginLeft: calcWidth(2),
     },
     createdAt: {
         fontSize: getFontSizeByWindowWidth(12),
-        color: "white",
+        color: 'white',
         marginTop: calcHeight(2),
     },
 });

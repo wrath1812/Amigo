@@ -1,14 +1,5 @@
 import React, { useEffect, useState, useRef, useLayoutEffect } from 'react';
-import {
-    View,
-    Text,
-    StyleSheet,
-    FlatList,
-    TouchableOpacity,
-    Image,
-    TextInput,
-    Pressable,
-} from 'react-native';
+import { View, Text, StyleSheet, FlatList, TouchableOpacity, Image, TextInput, Pressable } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useTransaction } from '../context/TransactionContext';
 import COLOR from '../constants/Colors';
@@ -40,9 +31,7 @@ const GroupSplitScreen = ({ navigation }) => {
         const parsedMembers = [];
 
         for (i of transactionData.group.members) {
-            const memberAmount = transactionData.splitAmong.find(
-                ({ user }) => user._id == i._id,
-            )?.amount;
+            const memberAmount = transactionData.splitAmong.find(({ user }) => user._id == i._id)?.amount;
             parsedMembers.push({
                 amount: memberAmount || 0,
                 user: i,
@@ -74,9 +63,7 @@ const GroupSplitScreen = ({ navigation }) => {
 
         // Compare with the total transaction amount
         if (totalSplitAmount != transactionData.amount) {
-            alert(
-                'The split amounts do not sum up to the total transaction amount.',
-            );
+            alert('The split amounts do not sum up to the total transaction amount.');
             return; // Stop the function execution
         }
 
@@ -90,9 +77,7 @@ const GroupSplitScreen = ({ navigation }) => {
 
     const splitEqually = () => {
         // Count the number of included members
-        const includedCount = members.filter(
-            (member) => member.included,
-        ).length;
+        const includedCount = members.filter((member) => member.included).length;
 
         if (includedCount === 0) {
             return; // Exit if no members are included
@@ -132,9 +117,7 @@ const GroupSplitScreen = ({ navigation }) => {
                     return {
                         ...member,
                         included: !member.included,
-                        isAmountManuallyEntered: member.included
-                            ? false
-                            : member.isAmountManuallyEntered,
+                        isAmountManuallyEntered: member.included ? false : member.isAmountManuallyEntered,
                         amount: member.included ? 0 : member.amount,
                     };
                 }
@@ -150,22 +133,15 @@ const GroupSplitScreen = ({ navigation }) => {
 
         // Calculate total amount already manually entered by included members
         let manuallyEnteredTotal = updatedMembers.reduce((acc, member) => {
-            return member.isAmountManuallyEntered && member.included
-                ? acc + member.amount
-                : acc;
+            return member.isAmountManuallyEntered && member.included ? acc + member.amount : acc;
         }, 0);
 
         // Calculate remaining amount to distribute
         let amountToDistribute = totalAmount - manuallyEnteredTotal;
 
         // Distribute the remaining amount among the members who haven't manually entered their amounts and are included
-        let membersNotEntered = updatedMembers.filter(
-            (m) => !m.isAmountManuallyEntered && m.included,
-        );
-        const perUserPayment = Math.max(
-            Math.floor(amountToDistribute / membersNotEntered.length),
-            0,
-        );
+        let membersNotEntered = updatedMembers.filter((m) => !m.isAmountManuallyEntered && m.included);
+        const perUserPayment = Math.max(Math.floor(amountToDistribute / membersNotEntered.length), 0);
         const remainder = amountToDistribute % membersNotEntered.length;
 
         let distributedRemainder = 0;
@@ -187,11 +163,7 @@ const GroupSplitScreen = ({ navigation }) => {
 
         let manuallyEnteredTotal = newAmount;
         members.forEach((member) => {
-            if (
-                member.isAmountManuallyEntered &&
-                member.user._id !== id &&
-                member.included
-            ) {
+            if (member.isAmountManuallyEntered && member.user._id !== id && member.included) {
                 manuallyEnteredTotal += member.amount;
             }
         });
@@ -204,16 +176,8 @@ const GroupSplitScreen = ({ navigation }) => {
 
         setMembers((prevMembers) => {
             let amountToDistribute = totalAmount - manuallyEnteredTotal;
-            let membersNotEntered = prevMembers.filter(
-                (m) =>
-                    !m.isAmountManuallyEntered &&
-                    m.user._id !== id &&
-                    m.included,
-            );
-            const perUserPayment = Math.max(
-                Math.floor(amountToDistribute / membersNotEntered.length),
-                0,
-            );
+            let membersNotEntered = prevMembers.filter((m) => !m.isAmountManuallyEntered && m.user._id !== id && m.included);
+            const perUserPayment = Math.max(Math.floor(amountToDistribute / membersNotEntered.length), 0);
             const remainder = amountToDistribute % membersNotEntered.length;
 
             let distributedRemainder = 0;
@@ -258,15 +222,9 @@ const GroupSplitScreen = ({ navigation }) => {
                         gap: calcWidth(10),
                     }}
                 >
-                    <TouchableOpacity
-                        onPress={() => toggleMemberIncluded(item.user._id)}
-                    >
+                    <TouchableOpacity onPress={() => toggleMemberIncluded(item.user._id)}>
                         <MaterialCommunityIcons
-                            name={
-                                item.included
-                                    ? 'checkbox-marked'
-                                    : 'checkbox-blank-outline'
-                            }
+                            name={item.included ? 'checkbox-marked' : 'checkbox-blank-outline'}
                             size={calcWidth(7)}
                             color={item.included ? COLOR.BUTTON : COLOR.TEXT}
                         />
@@ -287,9 +245,7 @@ const GroupSplitScreen = ({ navigation }) => {
                     <TextInput
                         style={styles.amount}
                         value={String(item.amount)}
-                        onChangeText={(newAmount) =>
-                            handleAmountChange(newAmount, item.user._id)
-                        }
+                        onChangeText={(newAmount) => handleAmountChange(newAmount, item.user._id)}
                     />
                 </View>
             </View>
@@ -299,9 +255,7 @@ const GroupSplitScreen = ({ navigation }) => {
     return (
         <View style={styles.container}>
             <View style={styles.header}>
-                <Text style={styles.headerText}>
-                    ₹{transactionData.amount || 0} Paid by
-                </Text>
+                <Text style={styles.headerText}>₹{transactionData.amount || 0} Paid by</Text>
                 <Pressable
                     onPress={() => navigation.navigate(PAGES.SELECT_PAID_BY)}
                     style={{
@@ -355,18 +309,13 @@ const GroupSplitScreen = ({ navigation }) => {
                             });
                         } else {
                             members.map((member) => {
-                                if (!member.included)
-                                    toggleMemberIncluded(member.user._id);
+                                if (!member.included) toggleMemberIncluded(member.user._id);
                             });
                         }
                     }}
                 >
                     <MaterialCommunityIcons
-                        name={
-                            allSelected()
-                                ? 'checkbox-marked'
-                                : 'checkbox-blank-outline'
-                        }
+                        name={allSelected() ? 'checkbox-marked' : 'checkbox-blank-outline'}
                         size={calcWidth(7)}
                         color={allSelected() ? COLOR.BUTTON : COLOR.TEXT}
                     />
@@ -386,11 +335,7 @@ const GroupSplitScreen = ({ navigation }) => {
                         gap: calcWidth(1),
                     }}
                 >
-                    <FontAwesome5
-                        name="redo"
-                        size={calcWidth(3)}
-                        color={COLOR.BUTTON}
-                    />
+                    <FontAwesome5 name="redo" size={calcWidth(3)} color={COLOR.BUTTON} />
                     <Text
                         style={{
                             color: COLOR.BUTTON,
@@ -400,11 +345,7 @@ const GroupSplitScreen = ({ navigation }) => {
                     </Text>
                 </TouchableOpacity>
             </View>
-            <FlatList
-                data={members}
-                renderItem={renderItem}
-                keyExtractor={(item) => item.id}
-            />
+            <FlatList data={members} renderItem={renderItem} keyExtractor={(item) => item.id} />
         </View>
     );
 };

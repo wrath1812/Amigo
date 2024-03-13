@@ -15,12 +15,7 @@ function GroupListScreen({ navigation }) {
     const { setTransactionData } = useTransaction();
     const { groups, fetchData } = useGroupList();
 
-    const filterGroups = () =>
-        search === ''
-            ? groups
-            : groups.filter((group) =>
-                  group.name.toLowerCase().includes(search.toLowerCase()),
-              );
+    const filterGroups = () => (search === '' ? groups : groups.filter((group) => group.name.toLowerCase().includes(search.toLowerCase())));
 
     useFocusEffect(
         useCallback(() => {
@@ -53,11 +48,7 @@ function GroupListScreen({ navigation }) {
                                     justifyContent: 'center',
                                 }}
                             >
-                                <Octicons
-                                    name="people"
-                                    size={calcHeight(3)}
-                                    color="black"
-                                />
+                                <Octicons name="people" size={calcHeight(3)} color="black" />
                             </View>
                         }
                         onPress={() => {

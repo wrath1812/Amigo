@@ -19,7 +19,7 @@ const useAuthStore = create(
                 clearAllLocalStoreData();
             },
             verifyOTP: async (otpPayload) => {
-                const { data } = await apiHelper.post(`/auth/verifyOTP`,otpPayload);
+                const { data } = await apiHelper.post(`/auth/verifyOTP`, otpPayload);
                 if (data.status) return;
                 const { userData, token } = data;
                 set({ user: userData });

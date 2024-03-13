@@ -91,14 +91,8 @@ async function groupBalancesAndCalculateTotal(balances, userId) {
     // Use for...of loop for async/await
     for (const group of groupedBalances) {
         const groupBalanceDetails = calculateUserBalanceInGroup(group, userId);
-        groupBalanceDetails.lenders = await editNamesAsync(
-            groupBalanceDetails.lenders,
-            userId,
-        );
-        groupBalanceDetails.borrowers = await editNamesAsync(
-            groupBalanceDetails.borrowers,
-            userId,
-        );
+        groupBalanceDetails.lenders = await editNamesAsync(groupBalanceDetails.lenders, userId);
+        groupBalanceDetails.borrowers = await editNamesAsync(groupBalanceDetails.borrowers, userId);
         userGroups.push(groupBalanceDetails);
         userTotalBalance += groupBalanceDetails.totalBalance;
     }

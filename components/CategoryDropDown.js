@@ -17,11 +17,7 @@ function CategoryDropDown({ selectedCategory, setSelectedCategory }) {
                     // You can include an icon as part of the text by returning a component
                     return (
                         <View style={styles.dropdownItem}>
-                            <Icon
-                                name="check-circle"
-                                size={18}
-                                color="#6e6e6e"
-                            />
+                            <Icon name="check-circle" size={18} color="#6e6e6e" />
                             <Text>{selectedItem}</Text>
                         </View>
                     );
@@ -29,11 +25,7 @@ function CategoryDropDown({ selectedCategory, setSelectedCategory }) {
                 rowTextForSelection={(item, index) => {
                     return (
                         <View style={styles.dropdownItem}>
-                            <Icon
-                                name="check-circle"
-                                size={18}
-                                color="#6e6e6e"
-                            />
+                            <Icon name="check-circle" size={18} color="#6e6e6e" />
                             <Text>{item}</Text>
                         </View>
                     );
@@ -43,9 +35,7 @@ function CategoryDropDown({ selectedCategory, setSelectedCategory }) {
                 defaultValue={selectedCategory}
                 // Add more props and styling as needed
                 renderDropdownIcon={() => {
-                    return (
-                        <Icon name="chevron-down" size={18} color="#6e6e6e" />
-                    );
+                    return <Icon name="chevron-down" size={18} color="#6e6e6e" />;
                 }}
                 dropdownIconPosition="right"
             />

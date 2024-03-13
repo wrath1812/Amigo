@@ -63,9 +63,7 @@ function GroupBalanceCard({ group, loading }) {
             >
                 <GroupIcon groupId={group._id} />
                 <View style={styles.textContainer}>
-                    <Text style={styles.nameText}>
-                        {sliceText(group.name, 20)}
-                    </Text>
+                    <Text style={styles.nameText}>{sliceText(group.name, 20)}</Text>
                     <Text style={styles.memberText}>
                         {group.totalBalance < 0
                             ? `${group.lenderCount} participants owe you money`

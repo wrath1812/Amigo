@@ -25,11 +25,7 @@ function Settings({ navigation }) {
 
     return (
         <View>
-            <FlatList
-                data={settingsOptions}
-                renderItem={renderItem}
-                keyExtractor={(item) => item.title}
-            />
+            <FlatList data={settingsOptions} renderItem={renderItem} keyExtractor={(item) => item.title} />
         </View>
     );
 }

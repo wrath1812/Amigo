@@ -1,12 +1,5 @@
 import React, { useState, useRef } from 'react';
-import {
-    View,
-    Text,
-    SafeAreaView,
-    TextInput,
-    Pressable,
-    StyleSheet,
-} from 'react-native';
+import { View, Text, SafeAreaView, TextInput, Pressable, StyleSheet } from 'react-native';
 import Toast from 'react-native-root-toast';
 
 import Button from '../components/Button';
@@ -69,10 +62,7 @@ const CreateGroup = ({ navigation }) => {
                 <SafeAreaView style={styles.container}>
                     <View style={{ marginHorizontal: calcWidth(5) }}>
                         <Text style={styles.heading}>New group</Text>
-                        <Pressable
-                            style={styles.inputContainer}
-                            onPress={() => nameRef.current.focus()}
-                        >
+                        <Pressable style={styles.inputContainer} onPress={() => nameRef.current.focus()}>
                             <TextInput
                                 style={styles.input}
                                 onChangeText={setGroupName}
@@ -93,21 +83,14 @@ const CreateGroup = ({ navigation }) => {
                             <Button
                                 title="Create Group"
                                 onPress={
-                                    selectedContacts.length === 0 ||
-                                    groupName === ''
+                                    selectedContacts.length === 0 || groupName === ''
                                         ? () =>
                                               Toast.show('Select a contact', {
-                                                  duration:
-                                                      Toast.durations.LONG,
+                                                  duration: Toast.durations.LONG,
                                               })
                                         : createGroupAsync
                                 }
-                                styleOverwrite={
-                                    selectedContacts.length === 0 ||
-                                    groupName === ''
-                                        ? { opacity: 0.57 }
-                                        : {}
-                                }
+                                styleOverwrite={selectedContacts.length === 0 || groupName === '' ? { opacity: 0.57 } : {}}
                             />
                         </View>
                     </View>

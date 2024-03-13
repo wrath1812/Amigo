@@ -1,11 +1,5 @@
 import React, { useLayoutEffect, useState } from 'react';
-import {
-    View,
-    StyleSheet,
-    SafeAreaView,
-    TouchableOpacity,
-    Text,
-} from 'react-native';
+import { View, StyleSheet, SafeAreaView, TouchableOpacity, Text } from 'react-native';
 import COLOR from '../constants/Colors';
 import { calcHeight, getFontSizeByWindowWidth } from '../helper/res';
 import ContactList from '../components/ContactList';

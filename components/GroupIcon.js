@@ -10,11 +10,7 @@ const defaultSize = 5;
 function GroupIcon({ groupId, size = defaultSize }) {
     return groupId ? (
         <Image
-            source={
-                groupIcons[
-                    generateRandomNumberBasedOnUUIDAndRange(groupId, 0, 39)
-                ]
-            }
+            source={groupIcons[generateRandomNumberBasedOnUUIDAndRange(groupId, 0, 39)]}
             style={{
                 height: calcHeight(size),
                 width: calcHeight(size),

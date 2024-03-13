@@ -6,17 +6,8 @@ import { useRef } from 'react';
 function TextInput(propsOverwrite) {
     const textRef = useRef();
     return (
-        <Pressable
-            style={styles.container}
-            onPress={() => textRef.current.focus()}
-        >
-            <DefaultInput
-                style={styles.input}
-                placeholderTextColor="#ccc"
-                ref={textRef}
-                textAlign="center"
-                {...propsOverwrite}
-            />
+        <Pressable style={styles.container} onPress={() => textRef.current.focus()}>
+            <DefaultInput style={styles.input} placeholderTextColor="#ccc" ref={textRef} textAlign="center" {...propsOverwrite} />
         </Pressable>
     );
 }

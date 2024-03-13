@@ -35,32 +35,27 @@ const generateDeeplink = (baseURL, params) => {
 export default [
     {
         name: 'Google Pay',
-        generateDeeplink: (params) =>
-            generateDeeplink('tez://upi/pay?', params),
+        generateDeeplink: (params) => generateDeeplink('tez://upi/pay?', params),
         icon: createIcon(GPayLogo),
     },
     {
         name: 'PhonePe',
-        generateDeeplink: (params) =>
-            generateDeeplink('phonepe://pay?', params),
+        generateDeeplink: (params) => generateDeeplink('phonepe://pay?', params),
         icon: createIcon(PhonePeLogo),
     },
     {
         name: 'Paytm',
-        generateDeeplink: (params) =>
-            generateDeeplink('paytmmp://pay?', params),
+        generateDeeplink: (params) => generateDeeplink('paytmmp://pay?', params),
         icon: createIcon(PaytmLogo),
     },
     {
         name: 'Amazon Pay',
-        generateDeeplink: (params) =>
-            generateDeeplink('amazonpay://pay?', params),
+        generateDeeplink: (params) => generateDeeplink('amazonpay://pay?', params),
         icon: createIcon(AmazonPayLogo),
     },
     {
         name: 'BHIM UPI',
-        generateDeeplink: (params) =>
-            generateDeeplink('bhim://upi/pay?', params),
+        generateDeeplink: (params) => generateDeeplink('bhim://upi/pay?', params),
         icon: createIcon(BhimLogo),
     },
     {

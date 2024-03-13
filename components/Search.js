@@ -6,12 +6,7 @@ import { useRef } from 'react';
 function Search({ search, setSearch, loading }) {
     if (loading)
         return (
-            <View
-                style={[
-                    styles.inputContainer,
-                    { borderColor: COLOR.SKELETON_MASK_COLOR },
-                ]}
-            >
+            <View style={[styles.inputContainer, { borderColor: COLOR.SKELETON_MASK_COLOR }]}>
                 <TextInput
                     style={[styles.input, { opacity: 0 }]}
                     onChangeText={setSearch}
@@ -24,10 +19,7 @@ function Search({ search, setSearch, loading }) {
         );
     const searchRef = useRef();
     return (
-        <Pressable
-            style={styles.inputContainer}
-            onPress={() => searchRef.current.focus()}
-        >
+        <Pressable style={styles.inputContainer} onPress={() => searchRef.current.focus()}>
             <FontAwesome name="search" size={calcWidth(4)} color="gray" />
             <TextInput
                 style={styles.input}

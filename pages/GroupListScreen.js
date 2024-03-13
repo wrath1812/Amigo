@@ -1,13 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import {
-    Text,
-    StyleSheet,
-    SafeAreaView,
-    FlatList,
-    View,
-    TextInput,
-    Keyboard,
-} from 'react-native';
+import { Text, StyleSheet, SafeAreaView, FlatList, View, TextInput, Keyboard } from 'react-native';
 import Loader from '../components/Loader';
 import apiHelper from '../helper/apiHelper';
 import PAGES from '../constants/pages';
@@ -35,12 +27,7 @@ function GroupListScreen({ navigation }) {
         fetchData(user);
     }, []);
 
-    const filterGroups = () =>
-        search === ''
-            ? groups
-            : groups.filter((group) =>
-                  group.name.toLowerCase().includes(search.toLowerCase()),
-              );
+    const filterGroups = () => (search === '' ? groups : groups.filter((group) => group.name.toLowerCase().includes(search.toLowerCase())));
     if (loading)
         return (
             <SafeAreaView style={styles.container}>
@@ -57,9 +44,7 @@ function GroupListScreen({ navigation }) {
                     </View>
                     <FlatList
                         data={[{}, {}, {}]}
-                        renderItem={({ item }) => (
-                            <GroupCard group={item} loading />
-                        )}
+                        renderItem={({ item }) => <GroupCard group={item} loading />}
                         onScroll={() => {
                             Keyboard.dismiss();
                         }}

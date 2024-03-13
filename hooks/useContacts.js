@@ -8,11 +8,7 @@ const filterUniqueContacts = (contactsData) => {
     const seenPhoneNumbers = new Set();
     return contactsData.filter((contact) => {
         const phoneNumber = contact.phoneNumbers?.[0].number.replace(/\D/g, '');
-        return (
-            phoneNumber &&
-            !seenPhoneNumbers.has(phoneNumber) &&
-            seenPhoneNumbers.add(phoneNumber)
-        );
+        return phoneNumber && !seenPhoneNumbers.has(phoneNumber) && seenPhoneNumbers.add(phoneNumber);
     });
 };
 
@@ -20,9 +16,7 @@ const mapToSimplifiedContacts = (uniqueContacts) => {
     return uniqueContacts.map((contact) => ({
         id: contact.id,
         name: contact.name || '',
-        phoneNumber: contact.phoneNumbers[0].number
-            .replace(/\D/g, '')
-            .slice(-10),
+        phoneNumber: contact.phoneNumbers[0].number.replace(/\D/g, '').slice(-10),
         imageURI: contact.imageAvailable ? contact.image.uri : '',
         color: generateRandomColor(),
     }));
@@ -35,11 +29,7 @@ const handleLoadContactsError = (error) => {
 const fetchContactsData = async () => {
     try {
         const { data } = await Contacts.getContactsAsync({
-            fields: [
-                Contacts.Fields.Name,
-                Contacts.Fields.PhoneNumbers,
-                Contacts.Fields.Image,
-            ],
+            fields: [Contacts.Fields.Name, Contacts.Fields.PhoneNumbers, Contacts.Fields.Image],
         });
 
         if (!data) {
@@ -93,10 +83,8 @@ export const ContactsProvider = ({ children }) => {
                     const contactsData = await fetchContactsData();
 
                     if (contactsData.length > 0) {
-                        const uniqueContacts =
-                            filterUniqueContacts(contactsData);
-                        const simplifiedContacts =
-                            mapToSimplifiedContacts(uniqueContacts);
+                        const uniqueContacts = filterUniqueContacts(contactsData);
+                        const simplifiedContacts = mapToSimplifiedContacts(uniqueContacts);
 
                         setAllContacts(simplifiedContacts);
                         setFilteredContacts(simplifiedContacts);
@@ -128,23 +116,16 @@ export const ContactsProvider = ({ children }) => {
     useEffect(() => {
         // Update filtered contacts whenever search changes
         const filtered = allContacts.filter(
-            (contact) =>
-                contact.name.toLowerCase().includes(search.toLowerCase()) ||
-                contact.phoneNumber.includes(search),
+            (contact) => contact.name.toLowerCase().includes(search.toLowerCase()) || contact.phoneNumber.includes(search),
         );
         setFilteredContacts(filtered);
     }, [search, allContacts]);
 
     const handleSelectContact = (contact) => {
-        const isSelected = selectedContacts.some(
-            (selected) => selected.phoneNumber === contact.phoneNumber,
-        );
+        const isSelected = selectedContacts.some((selected) => selected.phoneNumber === contact.phoneNumber);
         setSelectedContacts(
             isSelected
-                ? selectedContacts.filter(
-                      (selected) =>
-                          selected.phoneNumber !== contact.phoneNumber,
-                  )
+                ? selectedContacts.filter((selected) => selected.phoneNumber !== contact.phoneNumber)
                 : [...selectedContacts, contact],
         );
     };

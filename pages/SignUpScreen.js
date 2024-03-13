@@ -1,14 +1,5 @@
 import React, { useState } from 'react';
-import {
-    View,
-    Text,
-    TextInput,
-    StyleSheet,
-    SafeAreaView,
-    KeyboardAvoidingView,
-    Image,
-    Platform
-} from 'react-native';
+import { View, Text, TextInput, StyleSheet, SafeAreaView, KeyboardAvoidingView, Image, Platform } from 'react-native';
 import SignUpImage from '../assets/SignUp.png'; // Make sure you have an image for the sign-up
 import COLOR from '../constants/Colors'; // Replace with your actual colors
 import PAGES from '../constants/pages'; // Replace with your actual page constants
@@ -21,28 +12,17 @@ const SignUpScreen = ({ navigation }) => {
     const { addName } = useAuth();
     const getTextInputStyle = (isFocused) => ({
         ...styles.nameInput,
-        borderBottomColor: isFocused
-            ? 'rgba(255, 255, 255, 1)'
-            : 'rgba(255, 255, 255, 0.5)',
+        borderBottomColor: isFocused ? 'rgba(255, 255, 255, 1)' : 'rgba(255, 255, 255, 0.5)',
     });
 
     return (
-        <KeyboardAvoidingView
-            style={styles.container}
-            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        >
+        <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
             <View style={styles.innerContainer}>
                 <View style={styles.header}>
-                    <Image
-                        source={SignUpImage}
-                        style={styles.image}
-                        resizeMode="contain"
-                    />
+                    <Image source={SignUpImage} style={styles.image} resizeMode="contain" />
                     <View style={styles.textContainer}>
                         <Text style={styles.headerText}>Your Name</Text>
-                        <Text style={styles.promptText}>
-                            What should we call you?
-                        </Text>
+                        <Text style={styles.promptText}>What should we call you?</Text>
                     </View>
                 </View>
                 <View style={styles.inputContainer}>

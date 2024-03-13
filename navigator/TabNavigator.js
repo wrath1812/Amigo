@@ -26,12 +26,7 @@ const TabNavigator = () => {
                     name={PAGES.BALANCE}
                     options={{
                         headerShown: false,
-                        tabBarIcon: (tabBarProps) => (
-                            <TabBarIcon
-                                tabBarProps={tabBarProps}
-                                screen={PAGES.BALANCE}
-                            />
-                        ),
+                        tabBarIcon: (tabBarProps) => <TabBarIcon tabBarProps={tabBarProps} screen={PAGES.BALANCE} />,
                     }}
                     component={BalanceScreen}
                 />
@@ -44,12 +39,7 @@ const TabNavigator = () => {
                             backgroundColor: COLOR.APP_BACKGROUND,
                         },
                         title: null,
-                        tabBarIcon: (tabBarProps) => (
-                            <TabBarIcon
-                                tabBarProps={tabBarProps}
-                                screen={PAGES.GROUP_LIST}
-                            />
-                        ),
+                        tabBarIcon: (tabBarProps) => <TabBarIcon tabBarProps={tabBarProps} screen={PAGES.GROUP_LIST} />,
                     }}
                 />
 
@@ -57,12 +47,7 @@ const TabNavigator = () => {
                     name={PAGES.EXPENSE}
                     component={ExpenseScreen}
                     options={{
-                        tabBarIcon: (tabBarProps) => (
-                            <TabBarIcon
-                                tabBarProps={tabBarProps}
-                                screen={PAGES.EXPENSE}
-                            />
-                        ),
+                        tabBarIcon: (tabBarProps) => <TabBarIcon tabBarProps={tabBarProps} screen={PAGES.EXPENSE} />,
                     }}
                 />
             </Tab.Group>

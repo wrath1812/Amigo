@@ -1,10 +1,4 @@
-import {
-    MaterialIcons,
-    FontAwesome5,
-    Ionicons,
-    Entypo,
-    AntDesign,
-} from '@expo/vector-icons';
+import { MaterialIcons, FontAwesome5, Ionicons, Entypo, AntDesign } from '@expo/vector-icons';
 import { Image } from 'react-native';
 import { calcWidth, getFontSizeByWindowWidth } from '../helper/res';
 import GeneralIcon from '../assets/icons/categoryIcon/general.png';

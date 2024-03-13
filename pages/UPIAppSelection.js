@@ -1,13 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {
-    View,
-    Text,
-    TouchableOpacity,
-    StyleSheet,
-    SafeAreaView,
-    Image,
-    Linking,
-} from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, SafeAreaView, Image, Linking } from 'react-native';
 import COLOR from '../constants/Colors';
 import UPIApps from '../constants/UpiApps';
 import { useTransaction } from '../context/TransactionContext';
@@ -36,13 +28,7 @@ const UPIAppSelection = ({ navigation }) => {
     return (
         <SafeAreaView style={styles.container}>
             {UPIApps.map((app, index) => (
-                <TouchableOpacity
-                    key={index}
-                    style={styles.button}
-                    onPress={() =>
-                        handleSelectApp(app.name, app.generateDeeplink)
-                    }
-                >
+                <TouchableOpacity key={index} style={styles.button} onPress={() => handleSelectApp(app.name, app.generateDeeplink)}>
                     {app.icon}
                     <Text style={styles.text}>{app.name}</Text>
                 </TouchableOpacity>

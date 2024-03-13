@@ -1,13 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import {
-    StyleSheet,
-    SafeAreaView,
-    View,
-    Text,
-    FlatList,
-    Pressable,
-    Image,
-} from 'react-native';
+import { StyleSheet, SafeAreaView, View, Text, FlatList, Pressable, Image } from 'react-native';
 import apiHelper from '../helper/apiHelper';
 import PAGES from '../constants/pages';
 import FabIcon from '../components/FabIcon';
@@ -46,9 +38,7 @@ function BalanceScreen({ navigation }) {
                         margin: calcWidth(headerIconSize),
                     }}
                 >
-                    <Pressable
-                        onPress={() => navigation.navigate(PAGES.SCANNER)}
-                    >
+                    <Pressable onPress={() => navigation.navigate(PAGES.SCANNER)}>
                         <Image
                             source={ScanIcon}
                             style={{
@@ -103,9 +93,7 @@ function BalanceScreen({ navigation }) {
                 </View>
                 <FlatList
                     data={[{}, {}, {}]}
-                    renderItem={({ item }) => (
-                        <GroupBalanceCard group={item} loading />
-                    )}
+                    renderItem={({ item }) => <GroupBalanceCard group={item} loading />}
                     style={{
                         marginTop: calcHeight(5),
                     }}

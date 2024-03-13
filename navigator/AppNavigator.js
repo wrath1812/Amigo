@@ -52,12 +52,7 @@ const AppNavigator = () => {
                             name={PAGES.TAB_NAVIGATOR}
                             options={{
                                 headerShown: false,
-                                tabBarIcon: (tabBarProps) => (
-                                    <TabBarIcon
-                                        tabBarProps={tabBarProps}
-                                        screen={PAGES.BALANCE}
-                                    />
-                                ),
+                                tabBarIcon: (tabBarProps) => <TabBarIcon tabBarProps={tabBarProps} screen={PAGES.BALANCE} />,
                             }}
                             component={TabNavigator}
                         />
@@ -260,7 +255,6 @@ const AppNavigator = () => {
                                 headerTintColor: '#fff',
                             }}
                         />
-
                     </Stack.Group>
                 ) : (
                     <Stack.Screen

@@ -1,20 +1,14 @@
-import React, { useState,useRef,useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { View, Text, TextInput, StyleSheet } from 'react-native';
 import COLOR from '../constants/Colors';
 import getFontSize from '../helper/getFontSize';
 import { getFontSizeByWindowWidth, calcHeight, calcWidth } from '../helper/res';
 
-const AmountInput = ({
-    amount = '',
-    handleInputChange,
-    isTextInput = false,
-}) => {
+const AmountInput = ({ amount = '', handleInputChange, isTextInput = false }) => {
     const baseFontSize = getFontSizeByWindowWidth(40);
-    const [fontSize, setFontSize] = useState(
-        getFontSize('₹' + amount, calcWidth(65), baseFontSize),
-    );
+    const [fontSize, setFontSize] = useState(getFontSize('₹' + amount, calcWidth(65), baseFontSize));
 
-    const amountInputRef=useRef();
+    const amountInputRef = useRef();
 
     useEffect(() => {
         const timeoutId = setTimeout(() => {
@@ -23,7 +17,7 @@ const AmountInput = ({
             }
         }, 500);
 
-        return () => clearTimeout(timeoutId); 
+        return () => clearTimeout(timeoutId);
     }, []);
 
     const commonStyles = {

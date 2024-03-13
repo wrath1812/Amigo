@@ -18,21 +18,12 @@
             "bundleIdentifier": "com.splitcash.splitcash",
             "buildNumber": "51",
             "infoPlist": {
-                "LSApplicationQueriesSchemes": [
-                    "tez",
-                    "phonepe",
-                    "paytmmp",
-                    "amazonpay",
-                    "bhim",
-                    "upi"
-                ],
+                "LSApplicationQueriesSchemes": ["tez", "phonepe", "paytmmp", "amazonpay", "bhim", "upi"],
                 "CFBundleURLTypes": [
                     {
-                      "CFBundleURLSchemes": [
-                        "app-1-797460943481-ios-23e904a5d21dcf1514faa8"
-                      ]
+                        "CFBundleURLSchemes": ["app-1-797460943481-ios-23e904a5d21dcf1514faa8"]
                     }
-                  ]
+                ]
             }
         },
         "android": {
@@ -57,13 +48,13 @@
             "@react-native-firebase/app",
             "@react-native-firebase/auth",
             [
-              "expo-build-properties",
-              {
-                "ios": {
-                  "useFrameworks": "static"
+                "expo-build-properties",
+                {
+                    "ios": {
+                        "useFrameworks": "static"
+                    }
                 }
-              }
             ]
-          ]
+        ]
     }
-  }
+}
