@@ -7,27 +7,27 @@ import OTPImage from '../assets/OTPImage.png';
 import Loader from '../components/Loader';
 import OTPFilled from '../assets/OTPFilled.png';
 import PAGES from '../constants/pages';
-import sendOtp from '../utility/sendOtp';
+import { verifyOtp, sendOtp } from '../helper/otp';
 import { useAuth } from '../stores/auth';
 
 const OTPScreen = ({
     navigation,
     route: {
-        params: { countryCode, phoneNumber },
+        params: { phoneNumber },
     },
 }) => {
     const [otp, setOtp] = useState('');
     const inputRef = useRef();
     const [error, setError] = useState(false);
     const [loading, setLoading] = useState(false);
-    const [verificationId, seVerificationId] = useState();
-    const { verifyOTP } = useAuth();
+    const [payload, setPayload] = useState();
+    const { login } = useAuth();
 
     useEffect(() => {
         inputRef.current.focus();
         (async () => {
-            const verificationCode = await sendOtp(countryCode + phoneNumber);
-            seVerificationId(verificationCode);
+            const code = await sendOtp(phoneNumber);
+            setPayload(code);
         })();
     }, []);
 
@@ -41,11 +41,18 @@ const OTPScreen = ({
             return;
         }
         setLoading(true);
-        await verifyOTP({ sessionInfo: verificationId, code: otp });
-        navigation.navigate(PAGES.BALANCE);
-        setLoading(false);
-        setOtp('');
-        setError(true);
+        const {user, token} = await verifyOtp({ payload, otp }); // payload can be the verificationId or phonenumber with country code
+        if (user) {
+            login(user, token);
+            navigation.navigate(PAGES.BALANCE);
+            setLoading(false);
+            setOtp('');
+            return;
+        } else {
+            setLoading(false);
+            setOtp('');
+            setError(true);
+        }
     }
     const otpBoxes = Array.from({ length: 6 }).map((_, index) => {
         const digit = otp[index] || '';
@@ -98,8 +105,8 @@ const OTPScreen = ({
                         <Text style={styles.resendText}>Didn't receive the code? </Text>
                         <TouchableOpacity
                             onPress={async () => {
-                                const verificationCode = await sendOtp(countryCode + phoneNumber);
-                                seVerificationId(verificationCode);
+                                const code = await sendOtp(phoneNumber);
+                                setPayload(code);
                             }}
                         >
                             <Text

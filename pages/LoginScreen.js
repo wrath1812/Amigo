@@ -6,6 +6,7 @@ import PAGES from '../constants/pages';
 import Button from '../components/Button';
 import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
 import { useAuth } from '../stores/auth';
+
 const CountryCodeInput = ({ countryCode }) => (
     <View style={styles.countryCodeContainer}>
         <Text style={styles.countryCodeText}>{countryCode}</Text>
@@ -14,8 +15,7 @@ const CountryCodeInput = ({ countryCode }) => (
 
 const LoginScreen = ({ navigation }) => {
     const [phoneNumber, setPhoneNumber] = useState('');
-    const [countryCode, setCountryCode] = useState('+91');
-    const { user } = useAuth();
+    const [countryCode] = useState('+91');
     const [isPhoneFocused, setIsPhoneFocused] = useState(false);
     const [error, setError] = useState(false);
     const getTextInputStyle = (isFocused) => ({
@@ -28,14 +28,7 @@ const LoginScreen = ({ navigation }) => {
             setError(true);
             return;
         }
-        // const confirmation = await auth().signInWithPhoneNumber('+91' + phoneNumber);
-
-        //  const re=await confirmation.confirm("123456");
-        //  console.log(re);
-
-        //     console.log(e);
-        // sendOTP('+91' + phoneNumber);
-        navigation.navigate(PAGES.OTP, { countryCode, phoneNumber });
+        navigation.navigate(PAGES.OTP, { phoneNumber: countryCode + phoneNumber });
     };
 
     return (
