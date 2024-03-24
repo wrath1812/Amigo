@@ -43,7 +43,7 @@ const OTPScreen = ({
         setLoading(true);
         const {user, token} = await verifyOtp({ payload, otp }); // payload can be the verificationId or phonenumber with country code
         if (user) {
-            login(user, token);
+            login({user, token});
             navigation.navigate(PAGES.BALANCE);
             setLoading(false);
             setOtp('');
@@ -82,7 +82,7 @@ const OTPScreen = ({
                     <Image source={otp.length != 6 ? OTPImage : OTPFilled} style={styles.image} resizeMode="contain" />
                     <View style={styles.textContainer}>
                         <Text style={styles.headerText}>OTP Verification</Text>
-                        <Text style={styles.promptText}>Enter the code sent to {countryCode + phoneNumber}</Text>
+                        <Text style={styles.promptText}>Enter the code sent to {phoneNumber}</Text>
                     </View>
                 </View>
                 <View
