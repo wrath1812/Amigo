@@ -7,7 +7,12 @@
         "development": {
             "developmentClient": true,
             "distribution": "internal",
-            "channel": "development"
+            "channel": "development",
+            "env": {
+                "ENV": "development",
+                "API_URL": "https://dev-splitcash-backend.vercel.app/",
+                "DEEP_LINK_URL": "https://bhaumik-tandan.github.io/Split-IT-Home/#/"
+            },
         },
         "preview": {
             "distribution": "internal",
