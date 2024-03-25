@@ -6,7 +6,7 @@ const sendOtpDev = async (phoneNumber: string) => {
 };
 
 const sendOtpProd = async (phoneNumber: string) => {
-    const auth = require('@react-native-firebase/auth');
+    const { default: auth } = await import('@react-native-firebase/auth');
     const { _verificationId } = await auth().signInWithPhoneNumber(phoneNumber);
     return _verificationId;
 };
