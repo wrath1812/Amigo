@@ -6,6 +6,9 @@ import PAGES from '../constants/pages';
 import Button from '../components/Button';
 import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
 import { useAuth } from '../stores/auth';
+import { useOtp } from '../context/OtpContext';
+import { sendOtp } from '../helper/otp';
+
 const CountryCodeInput = ({ countryCode }) => (
     <View style={styles.countryCodeContainer}>
         <Text style={styles.countryCodeText}>{countryCode}</Text>
@@ -14,10 +17,12 @@ const CountryCodeInput = ({ countryCode }) => (
 
 const LoginScreen = ({ navigation }) => {
     const [phoneNumber, setPhoneNumber] = useState('');
-    const [countryCode, setCountryCode] = useState('+91');
-    const { user } = useAuth();
+    const [countryCode] = useState('+91');
     const [isPhoneFocused, setIsPhoneFocused] = useState(false);
     const [error, setError] = useState(false);
+
+    const { setPayload } = useOtp();
+
     const getTextInputStyle = (isFocused) => ({
         ...styles.phoneNumberInput,
         borderBottomColor: isFocused ? 'rgba(255, 255, 255, 1)' : 'rgba(255, 255, 255, 0.5)',
@@ -28,14 +33,12 @@ const LoginScreen = ({ navigation }) => {
             setError(true);
             return;
         }
-        // const confirmation = await auth().signInWithPhoneNumber('+91' + phoneNumber);
+        
+        sendOtp(countryCode + phoneNumber).then((payload) => {
+            setPayload(payload);
+        });
 
-        //  const re=await confirmation.confirm("123456");
-        //  console.log(re);
-
-        //     console.log(e);
-        // sendOTP('+91' + phoneNumber);
-        navigation.navigate(PAGES.OTP, { countryCode, phoneNumber });
+        navigation.navigate(PAGES.OTP, { phoneNumber: countryCode + phoneNumber });
     };
 
     return (
