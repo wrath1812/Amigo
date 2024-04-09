@@ -37,7 +37,7 @@
         "production": {
             "env": {
                 "ENV": "production",
-                "API_URL": "https://splitcash.up.railway.app/",
+                "API_URL": "https://amigo-backend.vercel.app/",
                 "DEEP_LINK_URL": "https://bhaumik-tandan.github.io/Split-IT-Home/#/"
             },
             "channel": "production"

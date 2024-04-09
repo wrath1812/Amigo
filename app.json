@@ -1,8 +1,8 @@
 {
     "expo": {
-        "name": "Split Cash",
-        "slug": "splitcash",
-        "scheme": "split-cash",
+        "name": "Amigo",
+        "slug": "amigo",
+        "scheme": "amigo",
         "version": "1.2.0",
         "orientation": "portrait",
         "icon": "./assets/icon.png",
@@ -15,7 +15,7 @@
         "assetBundlePatterns": ["**/*"],
         "ios": {
             "googleServicesFile": "./GoogleService-Info.plist",
-            "bundleIdentifier": "com.splitcash.splitcash",
+            "bundleIdentifier": "com.amigo.app",
             "buildNumber": "53",
             "infoPlist": {
                 "LSApplicationQueriesSchemes": ["tez", "phonepe", "paytmmp", "amazonpay", "bhim", "upi"],
@@ -33,7 +33,7 @@
                 "backgroundColor": "#000"
             },
             "versionCode": 4,
-            "package": "com.splitcash.splitcash"
+            "package": "com.amigo.app"
         },
         "web": {
             "favicon": "./assets/favicon.png"
@@ -43,7 +43,7 @@
                 "projectId": "866ec882-73d4-4851-9990-d3414d2903d4"
             }
         },
-        "owner": "split-cash",
+        "owner": "amigo",
         "plugins": [
             "@react-native-firebase/app",
             "@react-native-firebase/auth",
