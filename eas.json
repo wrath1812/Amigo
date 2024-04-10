@@ -29,7 +29,7 @@
                 "enterpriseProvisioning": "adhoc"
             },
             "env": {
-                "ENV": "production",
+                "ENV": "staging",
                 "API_URL": "https://splitcash.up.railway.app/",
                 "DEEP_LINK_URL": "https://bhaumik-tandan.github.io/Split-IT-Home/#/"
             }
