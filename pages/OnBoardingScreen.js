@@ -11,7 +11,7 @@ const OnboardingScreen = ({ navigation }) => {
     return (
         <SafeAreaView style={styles.container}>
             <View style={styles.innerContainer}>
-                <Image source={OnboardingImage} style={styles.image} resizeMode="contain" />
+                {/* <Image source={OnboardingImage} style={styles.image} resizeMode="contain" /> */}
                 <Text style={styles.title}>Group payments made easy</Text>
                 <Text style={styles.subtitle}>Keep track of your shared expenses and balances</Text>
                 <Button title="Continue with Phone number" onPress={() => navigation.navigate(PAGES.LOGIN)} />
