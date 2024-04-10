@@ -24,7 +24,12 @@ const sendOtpFunctions: { [key: string]: (phoneNumber: string) => Promise<string
 export const sendOtp = sendOtpFunctions[ENV || 'development'] || sendOtpDev;
 
 export const verifyOtp = async ({ payload, otp }: { payload: string, otp: string }) => {
+    try {
     const { data } = await apiHelper.post(`/auth/verifyOTP`, { payload, otp });
     const { user, token } = data;
     return { user, token };
+    }
+    catch (error) {
+        return {};
+    }
 };
