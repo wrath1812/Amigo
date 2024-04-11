@@ -35,6 +35,11 @@ const useAuthStore = create(
                 }
                 await SplashScreen.hideAsync();
             },
+            deleteAccount: async () => {
+                const {logout}=get();
+                await apiHelper.delete('/user');
+                logout();
+            },
         }),
         {
             name: 'auth',

@@ -11,7 +11,7 @@ import PAGES from '../constants/pages';
 import { useBalance } from '../stores/balance';
 
 function ProfileScreen({ navigation }) {
-    const { user, logout, editUser } = useAuth();
+    const { user, logout, editUser,deleteAccount } = useAuth();
     const [editMode, setEditMode] = useState(false);
     const [name, setName] = useState(user.name);
     const [phoneNumber, setPhoneNumber] = useState(user.phoneNumber);
@@ -40,7 +40,7 @@ function ProfileScreen({ navigation }) {
                     { text: 'Cancel', style: 'cancel' },
                     { text: 'Delete', onPress: (text) => {
                             if (text.toUpperCase() === 'DELETE') {
-                                console.log('Proceed with delete action');
+                                deleteAccount();
                             } else {
                                 deleteHandler();
                             }
@@ -60,7 +60,7 @@ function ProfileScreen({ navigation }) {
                 },
                 {
                     text: 'Delete',
-                    onPress: () => console.log('Delete action here'), 
+                    onPress: deleteAccount, 
                 }
             ]);
         }
