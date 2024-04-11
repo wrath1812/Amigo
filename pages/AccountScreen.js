@@ -8,18 +8,64 @@ import UserAvatar from '../components/UserAvatar';
 import { Feather, Octicons, AntDesign, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
 import MenuOption from '../components/AccountPageOption';
 import PAGES from '../constants/pages';
+import { useBalance } from '../stores/balance';
 
 function ProfileScreen({ navigation }) {
     const { user, logout, editUser } = useAuth();
     const [editMode, setEditMode] = useState(false);
     const [name, setName] = useState(user.name);
     const [phoneNumber, setPhoneNumber] = useState(user.phoneNumber);
+    const {totalBalances}=useBalance();
 
     const [isSubmitting, setIsSubmitting] = useState(false);
 
     function submitUserData() {
         setIsSubmitting(true);
     }
+
+
+    function deleteHandler() {
+        if(totalBalances){
+            if(totalBalances<0)
+            alert(`You have a balance of ₹${totalBalances} to settle before deleting your account`);
+            else
+            alert(`You have a balance of ₹${totalBalances} to collect before deleting your account`)
+           return;
+        }
+        if (Platform.OS === 'ios') {
+            Alert.prompt(
+                'Delete Confirmation',
+                'Do you really want to delete your account? Please enter "DELETE" to confirm.',
+                [
+                    { text: 'Cancel', style: 'cancel' },
+                    { text: 'Delete', onPress: (text) => {
+                            if (text.toUpperCase() === 'DELETE') {
+                                console.log('Proceed with delete action');
+                            } else {
+                                deleteHandler();
+                            }
+                        },
+                        style: 'destructive',
+                    },
+                ],
+                'plain-text',
+                '' 
+            );
+            
+        } else {
+            Alert.alert('Delete Confirmation', 'Do you really want to delete your account?', [
+                {
+                    text: 'Cancel',
+                    style: 'cancel',
+                },
+                {
+                    text: 'Delete',
+                    onPress: () => console.log('Delete action here'), 
+                }
+            ]);
+        }
+    }
+    
 
     function logoutHandler() {
         Alert.alert('Logout Confirmation', 'Do you really want to logout?', [
@@ -142,7 +188,7 @@ function ProfileScreen({ navigation }) {
                 iconName="delete-forever"
                 IconComponent={MaterialIcons}
                 additionalStyle={{color: COLOR.DELETION_COLOR}}
-                onPress={logout}
+                onPress={deleteHandler}
                 color={COLOR.DELETION_COLOR}
             />
         </SafeAreaView>
