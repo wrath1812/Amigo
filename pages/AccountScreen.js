@@ -61,6 +61,7 @@ function ProfileScreen({ navigation }) {
                 {
                     text: 'Delete',
                     onPress: deleteAccount, 
+                    style: 'destructive',
                 }
             ]);
         }
@@ -75,7 +76,8 @@ function ProfileScreen({ navigation }) {
             },
             {
                 text: 'Logout',
-                onPress: logout
+                onPress: logout,
+                style:"destructive"
             }]
         );
     }
