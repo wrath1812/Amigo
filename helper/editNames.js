@@ -1,4 +1,3 @@
-import * as Contacts from 'expo-contacts';
 import sliceText from './sliceText';
 
 function editNames(usersArray, currentUserId, contacts) {

@@ -56,6 +56,18 @@
     },
     "owner": "amigo-app",
     "plugins": [
+      [
+        "expo-contacts",
+        {
+          "contactsPermission": "Allow $(PRODUCT_NAME) to access your contacts to display names as they appear in your phonebook and easily create groups"
+        }
+      ],
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Allow $(PRODUCT_NAME) to access your camera to scan UPI QR codes for easy payments"
+        }
+      ],
       "@react-native-firebase/app",
       "@react-native-firebase/auth",
       [
