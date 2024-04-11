@@ -1,5 +1,5 @@
-import React, { useLayoutEffect, useEffect, useRef, useState } from 'react';
-import { StyleSheet, SafeAreaView, View, Text, Image, Pressable, TextInput, TouchableOpacity, Platform, Share } from 'react-native';
+import React, { useLayoutEffect, useEffect, useRef, useState} from 'react';
+import { StyleSheet, SafeAreaView, View, Text, Image, Pressable, TextInput, TouchableOpacity, Platform, Share,Alert } from 'react-native';
 import { useAuth } from '../stores/auth';
 import COLOR from '../constants/Colors';
 import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
@@ -20,6 +20,21 @@ function ProfileScreen({ navigation }) {
     function submitUserData() {
         setIsSubmitting(true);
     }
+
+    function logoutHandler() {
+        Alert.alert('Logout Confirmation', 'Do you really want to logout?', [
+            {
+                text: 'Cancel',
+                style: 'cancel',
+            },
+            {
+                text: 'Logout',
+                onPress: logout
+            }]
+        );
+    }
+
+    
 
     useEffect(() => {
         if (isSubmitting) {
@@ -120,7 +135,7 @@ function ProfileScreen({ navigation }) {
                 iconName="logout"
                 IconComponent={MaterialIcons}
                 additionalStyle={styles.logoutStyle}
-                onPress={logout}
+                onPress={logoutHandler}
             />
             <MenuOption
                 label="Delete"
