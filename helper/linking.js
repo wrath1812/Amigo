@@ -2,7 +2,7 @@ import * as Linking from 'expo-linking';
 import PAGES from '../constants/pages';
 const prefix = Linking.createURL('/');
 const linking = {
-    prefixes: [prefix, 'split-cash://'],
+    prefixes: [prefix, 'amigo://'],
     async getInitialURL() {
         const url = await Linking.getInitialURL();
         if (url != null) {

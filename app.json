@@ -63,9 +63,15 @@
         }
       ],
       [
-        "expo-camera",
+        "expo-barcode-scanner",
         {
           "cameraPermission": "Allow $(PRODUCT_NAME) to access your camera to scan UPI QR codes for easy payments"
+        }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "$(PRODUCT_NAME) need permission to access your photos to get the QR code."
         }
       ],
       "@react-native-firebase/app",
