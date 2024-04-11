@@ -5,7 +5,7 @@ import COLOR from '../constants/Colors';
 import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
 import SignUpImage from '../assets/SignUp.png';
 import UserAvatar from '../components/UserAvatar';
-import { Feather, Octicons, Ionicons, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
+import { Feather, Octicons, AntDesign, MaterialCommunityIcons, MaterialIcons } from '@expo/vector-icons';
 import MenuOption from '../components/AccountPageOption';
 import PAGES from '../constants/pages';
 
@@ -121,6 +121,14 @@ function ProfileScreen({ navigation }) {
                 IconComponent={MaterialIcons}
                 additionalStyle={styles.logoutStyle}
                 onPress={logout}
+            />
+            <MenuOption
+                label="Delete"
+                iconName="delete-forever"
+                IconComponent={MaterialIcons}
+                additionalStyle={{color: COLOR.DELETION_COLOR}}
+                onPress={logout}
+                color={COLOR.DELETION_COLOR}
             />
         </SafeAreaView>
     );

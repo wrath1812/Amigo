@@ -2,11 +2,11 @@ import React from 'react';
 import { StyleSheet, Text, Pressable } from 'react-native';
 import { calcHeight, calcWidth, getFontSizeByWindowWidth } from '../helper/res';
 
-function AccountPageOption({ iconName, label, IconComponent, additionalStyle, onPress }) {
+function AccountPageOption({ iconName, label, IconComponent, additionalStyle, onPress,color='white' }) {
     return (
         <Pressable style={[styles.menuOption, additionalStyle]} onPress={onPress}>
-            <IconComponent name={iconName} size={calcHeight(3)} color="white" />
-            <Text style={styles.menuText}>{label}</Text>
+            <IconComponent name={iconName} size={calcHeight(3)} color={color} />
+            <Text style={{...styles.menuText,color}}>{label}</Text>
         </Pressable>
     );
 }
@@ -19,7 +19,6 @@ const styles = StyleSheet.create({
         gap: calcWidth(10),
     },
     menuText: {
-        color: 'white',
         fontWeight: 'bold',
     },
 });
