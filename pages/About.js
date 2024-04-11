@@ -1,14 +1,15 @@
 import React from 'react';
-import { View, Text, StyleSheet, SafeAreaView, ScrollView, Image, Pressable } from 'react-native';
+import { View, Text, StyleSheet, SafeAreaView, ScrollView, Image, Pressable, Linking } from 'react-native';
 import { MaterialIcons, Foundation } from '@expo/vector-icons';
+import * as WebBrowser from 'expo-web-browser';
 import COLOR from '../constants/Colors';
 import about from '../constants/about';
 import { calcHeight, calcWidth } from '../helper/res';
 import icon from '../assets/icon.png';
 
 const About = () => {
-    const renderLink = (iconName, text) => (
-        <Pressable style={styles.link}>
+    const renderLink = (iconName, text,onPress=()=>{}) => (
+        <Pressable style={styles.link} onPress={onPress}>
             <Foundation name={iconName} size={calcHeight(3)} color="white" />
             <Text style={styles.linkText}>{text}</Text>
         </Pressable>
@@ -24,7 +25,7 @@ const About = () => {
                 <Text style={styles.text}>{about}</Text>
                 <View style={styles.linksContainer}>
                     {renderLink('info', 'Terms and conditions')}
-                    {renderLink('lock', 'Privacy Policy')}
+                    {renderLink('lock', 'Privacy Policy',()=>WebBrowser.openBrowserAsync('https://bhaumik-tandan.github.io/Amigo-Privacy-Policy/'))}
                 </View>
             </ScrollView>
         </SafeAreaView>

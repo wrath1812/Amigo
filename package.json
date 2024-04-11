@@ -52,6 +52,7 @@
         "expo-splash-screen": "~0.26.4",
         "expo-status-bar": "~1.11.1",
         "expo-updates": "~0.24.11",
+        "expo-web-browser": "~12.8.2",
         "i": "^0.3.7",
         "npm": "^10.2.5",
         "prettier": "^3.0.3",
