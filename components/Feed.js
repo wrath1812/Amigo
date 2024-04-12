@@ -91,6 +91,18 @@ function ActivityHeader({ icon, iconName, size, text }) {
     );
 }
 
+function Amount({ amount,description }) {
+    return(
+        <View style={styles.flexContainer}>
+                <Text style={styles.amount}>₹</Text>
+                <View>
+                    <Text style={styles.amount}>{amount}</Text>
+                   {description  && <Text style={styles.description}>{description}</Text>}
+                </View>
+            </View>
+    )
+}
+
 function TransactionActivity({ transaction, createdAt, contacts, synced, creator }) {
     const { user } = useAuth();
     const navigation = useNavigation();
@@ -113,12 +125,8 @@ function TransactionActivity({ transaction, createdAt, contacts, synced, creator
             }}
         >
             <ActivityHeader icon={Octicons} iconName="person" size={calcHeight(1.8)} text={`${transaction.splitAmong?.length}`} />
-            <View style={styles.flexContainer}>
-                <Text style={styles.amount}>₹</Text>
-                <View>
-                    <Text style={styles.amount}>{transaction.amount}</Text>
-                    <Text style={styles.description}>{transaction.description}</Text>
-                </View>
+           <View style={{marginTop: calcHeight(3)}}>
+            <Amount amount={transaction.amount} description={transaction.description}/>
             </View>
             <View
                 style={{
@@ -163,7 +171,7 @@ function PaymentActivity({ payment, contacts }) {
             <Text style={styles.description}>
                 {payer.name} paid {receiver.name}
             </Text>
-            <Text style={styles.amount}>₹ {payment.amount}</Text>
+           <Amount amount={payment.amount} description={payment.description}/>
         </View>
     );
 }
@@ -362,7 +370,6 @@ const styles = StyleSheet.create({
     },
     flexContainer: {
         flexDirection: 'row',
-        marginTop: calcHeight(3),
         marginLeft: calcWidth(2),
     },
     createdAt: {
