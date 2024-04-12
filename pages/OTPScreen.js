@@ -83,11 +83,11 @@ const OTPScreen = ({
         <SafeAreaView style={styles.container}>
             <View style={styles.innerContainer}>
                 <View style={styles.header}>
-                    {/* <Image
+                    <Image
                         source={otp.length != 6 ? OTPImage : OTPFilled}
                         style={styles.image}
                         resizeMode="contain"
-                    /> */}
+                    />
                     <View style={styles.textContainer}>
                         <Text style={styles.headerText}>OTP Verification</Text>
                         <Text style={styles.promptText}>
