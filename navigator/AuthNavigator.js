@@ -11,7 +11,13 @@ const Stack = createNativeStackNavigator();
 
 const AuthNavigator = (
     <OtpProvider>
-        <Stack.Navigator>
+        <Stack.Navigator  screenOptions={{ 
+            headerTintColor: '#fff',
+            headerStyle: {
+                backgroundColor: COLOR.APP_BACKGROUND,
+            },
+            title: null
+             }}>
             <Stack.Group>
                 <Stack.Screen
                     name={PAGES.ONBOARDING}
@@ -23,22 +29,10 @@ const AuthNavigator = (
                 <Stack.Screen
                     name={PAGES.LOGIN}
                     component={LoginScreen}
-                    options={{
-                        headerStyle: {
-                            backgroundColor: COLOR.APP_BACKGROUND,
-                        },
-                        title: null,
-                    }}
                 />
 
                 <Stack.Screen
                     name={PAGES.OTP}
-                    options={{
-                        headerStyle: {
-                            backgroundColor: COLOR.APP_BACKGROUND,
-                        },
-                        title: null,
-                    }}
                     component={OTPScreen}
                 />
             </Stack.Group>
