@@ -18,7 +18,7 @@
     "ios": {
       "googleServicesFile": "./GoogleService-Info.plist",
       "bundleIdentifier": "app.amigo.app",
-      "buildNumber": "58",
+      "buildNumber": "59",
       "infoPlist": {
         "LSApplicationQueriesSchemes": [
           "tez",
@@ -35,7 +35,7 @@
             ]
           }
         ],
-        "UIBackgroundModes": ["fetch", "remote-notification"]
+        "UIBackgroundModes": [ "remote-notification"]
       }
     },
     "android": {
