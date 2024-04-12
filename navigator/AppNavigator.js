@@ -45,7 +45,7 @@ const AppNavigator = () => {
     }, []);
     return (
         <ContactsProvider>
-            <Stack.Navigator>
+            <Stack.Navigator screenOptions={{ headerBackTitleVisible: false }}>
                 {user.name ? (
                     <Stack.Group>
                         <Stack.Screen
@@ -167,6 +167,7 @@ const AppNavigator = () => {
                                 },
                                 headerTitleAlign: 'left', // Aligns the title to the left
                                 headerTintColor: '#fff', // Sets the title color to white
+                               
                             }}
                         />
 
