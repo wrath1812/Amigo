@@ -45,7 +45,7 @@ const LoginScreen = ({ navigation }) => {
         <SafeAreaView style={styles.container}>
             <View style={styles.innerContainer}>
                 <View style={styles.header}>
-                    {/* <Image source={LoginImage} style={styles.image} resizeMode="contain" /> */}
+                    <Image source={LoginImage} style={styles.image} resizeMode="contain" />
                     <View style={styles.textContainer}>
                         <Text style={styles.headerText}>Hi there!</Text>
                         <Text style={styles.promptText}>Please enter your phone number</Text>
