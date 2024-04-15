@@ -28,13 +28,6 @@
           "bhim",
           "upi"
         ],
-        "CFBundleURLTypes": [
-          {
-            "CFBundleURLSchemes": [
-              "app-1-797460943481-ios-23e904a5d21dcf1514faa8"
-            ]
-          }
-        ],
         "UIBackgroundModes": [ "remote-notification"]
       }
     },
