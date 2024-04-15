@@ -19,7 +19,7 @@ const SignUpScreen = ({ navigation }) => {
         <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
             <View style={styles.innerContainer}>
                 <View style={styles.header}>
-                    {/* <Image source={SignUpImage} style={styles.image} resizeMode="contain" /> */}
+                    <Image source={SignUpImage} style={styles.image} resizeMode="contain" />
                     <View style={styles.textContainer}>
                         <Text style={styles.headerText}>Your Name</Text>
                         <Text style={styles.promptText}>What should we call you?</Text>
