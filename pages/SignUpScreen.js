@@ -16,8 +16,7 @@ const SignUpScreen = ({ navigation }) => {
     });
 
     return (
-        <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-            <View style={styles.innerContainer}>
+            <View style={styles.container}>
                 <View style={styles.header}>
                     <Image source={SignUpImage} style={styles.image} resizeMode="contain" />
                     <View style={styles.textContainer}>
@@ -50,7 +49,6 @@ const SignUpScreen = ({ navigation }) => {
                     />
                 </View>
             </View>
-        </KeyboardAvoidingView>
     );
 };
 
@@ -59,8 +57,6 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: COLOR.APP_BACKGROUND,
         justifyContent: 'center',
-    },
-    innerContainer: {
         width: '100%',
         paddingHorizontal: calcWidth(5),
     },
