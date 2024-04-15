@@ -43,9 +43,8 @@ const CreateGroup = ({ navigation }) => {
         Toast.show(`${groupName} created`, {
             duration: Toast.durations.LONG,
         });
-        if (getPreviousPageName(navigation) == PAGES.SELECT_GROUP) 
-            navigation.navigate(PAGES.ADD_TRANSACTION);
-         else navigation.goBack();
+        if (getPreviousPageName(navigation) == PAGES.SELECT_GROUP) navigation.navigate(PAGES.ADD_TRANSACTION);
+        else navigation.goBack();
     };
 
     return (

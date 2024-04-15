@@ -14,7 +14,6 @@ async function getNamesFromContacts() {
         fields: [Contacts.Fields.FirstName, Contacts.Fields.LastName, Contacts.Fields.PhoneNumbers],
     });
 
-
     // Create an object to store the formatted contact names
     let contactNames = {};
 
@@ -33,7 +32,6 @@ async function getNamesFromContacts() {
             });
         }
     });
-    
 
     return contactNames;
 }

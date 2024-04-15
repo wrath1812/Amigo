@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
     },
     button: {
         display: 'flex',
-        justifyContent: 'center', // Centers child horizontally in the container
+        justifyContent: 'center',
         alignItems: 'center',
         width: calcWidth(80),
         paddingVertical: calcHeight(2),
