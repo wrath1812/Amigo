@@ -18,20 +18,20 @@ const OnboardingScreen = ({ navigation }) => {
                 <Text
                     style={{
                         marginVertical: calcHeight(2),
-                        color: '#716e7d',
+                        color: '#8c89a1',
                         fontSize: getFontSizeByWindowWidth(8),
                     }}
                 >
                     By Pressing on "Continue with Phone Number" you agree to our{' '}
                     <Text
-                        style={{ color:"white" }}
+                        style={{ color: 'white' }}
                         onPress={() => WebBrowser.openBrowserAsync('https://bhaumik-tandan.github.io/Amigo-Privacy-Policy/')}
                     >
                         Privacy Policy
                     </Text>{' '}
                     and{' '}
                     <Text
-                        style={{ color:"white"}}
+                        style={{ color: 'white' }}
                         onPress={() =>
                             WebBrowser.openBrowserAsync('https://bhaumik-tandan.github.io/Amigo-Privacy-Policy/terms-and-conditions')
                         }
