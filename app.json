@@ -16,7 +16,7 @@
         "ios": {
             "googleServicesFile": "./GoogleService-Info.plist",
             "bundleIdentifier": "app.amigo.app",
-            "buildNumber": "62",
+            "buildNumber": "63",
             "infoPlist": {
                 "LSApplicationQueriesSchemes": ["tez", "phonepe", "paytmmp", "amazonpay", "bhim", "upi"],
                 "UIBackgroundModes": ["remote-notification"]
