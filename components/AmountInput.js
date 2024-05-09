@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { View, Text, TextInput, StyleSheet } from 'react-native';
+import { View,Platform , Text, TextInput, StyleSheet } from 'react-native';
 import COLOR from '../constants/Colors';
 import getFontSize from '../helper/getFontSize';
 import { getFontSizeByWindowWidth, calcHeight, calcWidth } from '../helper/res';
@@ -22,8 +22,10 @@ const AmountInput = ({ amount = '', handleInputChange, isTextInput = false }) =>
 
     const commonStyles = {
         fontSize: fontSize,
-        lineHeight: fontSize * 1.2,
+        lineHeight: fontSize *(Platform.OS === 'ios' ? 1.2 : 1.5),
         paddingVertical: (baseFontSize * 1.2 - fontSize * 1.2) / 2,
+
+        
     };
 
     const handleChange = (newAmount) => {
@@ -41,7 +43,7 @@ const AmountInput = ({ amount = '', handleInputChange, isTextInput = false }) =>
                 marginHorizontal: calcWidth(20),
             }}
         >
-            <Text style={[styles.RupeeAmount, commonStyles,]}>₹</Text>
+            <Text style={[styles.amount, commonStyles]}>₹</Text>
             {isTextInput ? (
                 <TextInput
                     style={[styles.amount, commonStyles]}
@@ -49,7 +51,7 @@ const AmountInput = ({ amount = '', handleInputChange, isTextInput = false }) =>
                     value={amount}
                     keyboardType="numeric"
                     placeholderTextColor={COLOR.TEXT}
-                    placeholder=""
+                    placeholder="0"
                     ref={amountInputRef}
                 />
             ) : (
@@ -65,26 +67,11 @@ const styles = StyleSheet.create({
     rowCentered: {
         flexDirection: 'row',
         justifyContent: 'center',
+
     },
     amount: {
         color: COLOR.TEXT,
         fontWeight: 'bold',
-  },
-    RupeeAmount: {
-
-        color: COLOR.TEXT,
-        fontWeight: 'bold',
-        marginTop: 7,
 
     },
-    });
-
-
-  
-
-
-
-
-
-
-
+});
