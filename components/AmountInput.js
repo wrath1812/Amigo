@@ -41,7 +41,7 @@ const AmountInput = ({ amount = '', handleInputChange, isTextInput = false }) =>
                 marginHorizontal: calcWidth(20),
             }}
         >
-            <Text style={[styles.amount, commonStyles]}>₹</Text>
+            <Text style={[styles.RupeeAmount, commonStyles,]}>₹</Text>
             {isTextInput ? (
                 <TextInput
                     style={[styles.amount, commonStyles]}
@@ -49,7 +49,7 @@ const AmountInput = ({ amount = '', handleInputChange, isTextInput = false }) =>
                     value={amount}
                     keyboardType="numeric"
                     placeholderTextColor={COLOR.TEXT}
-                    placeholder="0"
+                    placeholder="230"
                     ref={amountInputRef}
                 />
             ) : (
@@ -65,9 +65,26 @@ const styles = StyleSheet.create({
     rowCentered: {
         flexDirection: 'row',
         justifyContent: 'center',
+
     },
     amount: {
         color: COLOR.TEXT,
         fontWeight: 'bold',
+
+
     },
+    RupeeAmount: {
+
+        color: COLOR.TEXT,
+        fontWeight: 'bold',
+        marginTop: 7,
+
+    },
+
+
+
+
+
+
+
 });
