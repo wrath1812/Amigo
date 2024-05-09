@@ -49,7 +49,7 @@ const AmountInput = ({ amount = '', handleInputChange, isTextInput = false }) =>
                     value={amount}
                     keyboardType="numeric"
                     placeholderTextColor={COLOR.TEXT}
-                    placeholder="230"
+                    placeholder=""
                     ref={amountInputRef}
                 />
             ) : (
@@ -65,14 +65,11 @@ const styles = StyleSheet.create({
     rowCentered: {
         flexDirection: 'row',
         justifyContent: 'center',
-
     },
     amount: {
         color: COLOR.TEXT,
         fontWeight: 'bold',
-
-
-    },
+  },
     RupeeAmount: {
 
         color: COLOR.TEXT,
@@ -80,6 +77,10 @@ const styles = StyleSheet.create({
         marginTop: 7,
 
     },
+    });
+
+
+  
 
 
 
@@ -87,4 +88,3 @@ const styles = StyleSheet.create({
 
 
 
-});
