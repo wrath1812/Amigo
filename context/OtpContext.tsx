@@ -1,72 +1,82 @@
 import { FirebaseAuthTypes } from '@react-native-firebase/auth';
 import { useNavigation } from '@react-navigation/native';
-import React, { createContext, Dispatch, SetStateAction, useState, useEffect } from 'react';
+import React, { createContext, useState, useContext, ReactNode } from 'react';
 import PAGES from '../constants/pages';
 import { useAuth } from '../stores/auth';
-import apiHelper from '../helper/apiHelper';
+import { sendOtp, verifyOtp, sendOtpDev, verifyOtpDev } from '../helper/otp';
+import { ENV } from '@env';
 
-const OtpContext = createContext<{
+type OtpContextType = {
   loginWithPhoneNumber: (phoneNumber: string) => void;
   verifyOtp: (otp: string) => void;
-}>({
+};
+
+const OtpContext = createContext<OtpContextType>({
   loginWithPhoneNumber: () => {},
   verifyOtp: () => {},
 });
 
-export const OtpProvider = ({ children }: { children: React.ReactNode }) => {
+const OtpProviderProd = ({ children }: { children: ReactNode }) => {
   const navigation = useNavigation();
-
   const { login } = useAuth();
-
   const [confirm, setConfirm] = useState<FirebaseAuthTypes.ConfirmationResult | null>(null);
 
-  useEffect(() => {
-    let subscriber;
-
-    (async () => {
-      // @ts-ignore
-      const { default: auth } = await import('@react-native-firebase/auth');
-
-      subscriber = auth().onAuthStateChanged(async (firebaseUser) => {
-        if (firebaseUser) {
-          try {
-
-            const firebaseIdToken = await firebaseUser.getIdToken();
-            
-            const { data: { user, token } } = await apiHelper.post(`/auth/verifyOTP`, { payload: firebaseIdToken });
-            
-            login({ user, token })
-            navigation.navigate(PAGES.BALANCE);
-          } catch (error) {
-            console.log('Error verifying OTP', error);
-          }
-        }
-      });
-    })();
-
-    return subscriber;
-  }, []);
-
   const loginWithPhoneNumber = async (phoneNumber: string) => {
-    // @ts-ignore
-    const { default: auth } = await import('@react-native-firebase/auth');
-    const confirmation = await auth().signInWithPhoneNumber(phoneNumber);
-    setConfirm(confirmation);
-  }
+    const res = await sendOtp(phoneNumber);
+    setConfirm(res);
+  };
 
-  const verifyOtp = async (otp: string) => {
-    try {
-      await confirm?.confirm(otp);
-    } catch (error) {
-      console.log('Invalid code.');
+  const verifyPhoneNumber = async (otp: string) => {
+    if (!confirm) return;
+
+    const res = await verifyOtp({ otp, confirm });
+
+    if (res) {
+      login(res);
+      navigation.navigate(PAGES.BALANCE);
     }
-  }
+  };
 
   return (
-    <OtpContext.Provider value={{ loginWithPhoneNumber, verifyOtp }}>
+    <OtpContext.Provider value={{ loginWithPhoneNumber, verifyOtp: verifyPhoneNumber }}>
       {children}
     </OtpContext.Provider>
   );
 };
 
-export const useOtp = () => React.useContext(OtpContext);
+const OtpProviderDev = ({ children }: { children: ReactNode }) => {
+  const navigation = useNavigation();
+  const { login } = useAuth();
+  const [phoneNumber, setPhoneNumber] = useState<string>('');
+
+  const loginWithPhoneNumber = async (phoneNumber: string) => {
+    setPhoneNumber(phoneNumber);
+    await sendOtpDev(phoneNumber);
+  };
+
+  const verifyPhoneNumber = async () => {
+    const res = await verifyOtpDev({ phoneNumber });
+
+    if (res) {
+      login(res);
+      navigation.navigate(PAGES.BALANCE);
+    }
+  };
+
+  return (
+    <OtpContext.Provider value={{ loginWithPhoneNumber, verifyOtp: verifyPhoneNumber }}>
+      {children}
+    </OtpContext.Provider>
+  );
+};
+
+const otpProviders: Record<string, React.FC<{ children: ReactNode }>> = {
+  dev: OtpProviderDev,
+  development: OtpProviderDev,
+  staging: OtpProviderProd,
+  production: OtpProviderProd,
+};
+
+export const OtpProvider = otpProviders[ENV] || OtpProviderProd;
+
+export const useOtp = () => useContext(OtpContext);
